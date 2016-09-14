@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="Part" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="Part" type="DataMapper.Part, DataMapper" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult2" class="Part">
+      <result property="ID" column="ID" />
+      <result property="PART_CODE" column="PART_CODE" />
+      <result property="PART_NAME" column="PART_NAME" />
+      <result property="PART_TYPE" column="PART_TYPE" />
+      <result property="LENGTH" column="LENGTH" />
+      <result property="WIDTH" column="WIDTH" />
+      <result property="HEIGHT" column="HEIGHT" />
+      <result property="OUTERPACKAGE_ID" column="OUTERPACKAGE_ID" />
+      <result property="PIECESPER_OUTPACKAGE" column="PIECESPER_OUTPACKAGE" />
+      <result property="SUPPLIER_ID" column="SUPPLIER_ID" />
+      <result property="ORIGINALPACKAGE_ID" column="ORIGINALPACKAGE_ID" />
+      <result property="PIECESPER_ORIGINALPACKAGE" column="PIECESPER_ORIGINALPACKAGE" />
+      <result property="WAREHOUSE_ID" column="WAREHOUSE_ID" />
+      <result property="IS_FURNACE" column="IS_FURNACE" />
+      <result property="IS_REPACKAGING" column="IS_REPACKAGING" />
+      <result property="REPACKAGING_QTY" column="REPACKAGING_QTY" />
+      <result property="IS_INSPECTION" column="IS_INSPECTION" />
+      <result property="IS_MUTIL" column="IS_MUTIL" />
+      <result property="IS_PROCESSING" column="IS_PROCESSING" />
+      <result property="REMARK" column="REMARK" />
+      <result property="IS_DISABLE" column="IS_DISABLE" />
+      <result property="CREATE_TIME" column="CREATE_TIME" />
+      <result property="CREATE_USER_ID" column="CREATE_USER_ID" />
+      <result property="LAST_UPDATE" column="LAST_UPDATE" />
+      <result property="UPDATE_USER_ID" column="UPDATE_USER_ID" />
+      <result property="SALE_TYPE" column="SALE_TYPE" />
+      <result property="SAP_SUPPLIER_ID" column="SAP_SUPPLIER_ID" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectAll" resultMap="SelectResult2" >
+      <![CDATA[
+			          SELECT ID
+                ,PART_CODE
+                ,PART_NAME
+                ,PART_TYPE
+                ,LENGTH
+                ,WIDTH
+                ,HEIGHT
+                ,OUTERPACKAGE_ID
+                ,PIECESPER_OUTPACKAGE
+                ,SUPPLIER_ID
+                ,ORIGINALPACKAGE_ID
+                ,PIECESPER_ORIGINALPACKAGE
+                ,WAREHOUSE_ID
+                ,IS_FURNACE
+                ,IS_REPACKAGING
+                ,REPACKAGING_QTY
+                ,IS_INSPECTION
+                ,IS_MUTIL
+                ,IS_PROCESSING
+                ,REMARK
+                ,IS_DISABLE
+                ,CREATE_TIME
+                ,CREATE_USER_ID
+                ,LAST_UPDATE
+                ,UPDATE_USER_ID
+                ,SALE_TYPE
+                ,SAP_SUPPLIER_ID
+           FROM PART
+			]]>
+    </select>
+
+    <select id="SelectByParam" extends="SelectAll" resultMap="SelectResult2" parameterClass="Part">
+      <dynamic prepend="WHERE">
+        <isNotNull property="ID">
+          <isNotEqual prepend="AND" property="ID" compareValue="0">
+            <![CDATA[ ID = #ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull property="SUPPLIER_ID">
+          <isNotEqual prepend="AND" property="SUPPLIER_ID" compareValue="0">
+            <![CDATA[ SUPPLIER_ID = #SUPPLIER_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull property="WAREHOUSE_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+            <![CDATA[ WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="PART_NAME">
+          <![CDATA[ PART_NAME LIKE '%'+ #PART_NAME# +'%' ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="PART_CODE">
+          <![CDATA[ PART_CODE = #PART_CODE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="PART_TYPE">
+          <![CDATA[ PART_TYPE = #PART_TYPE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="IS_DISABLE">
+          <![CDATA[ IS_DISABLE = #IS_DISABLE# ]]>
+        </isNotEmpty>
+      </dynamic>
+    </select>
+
+
+    <update id="UpdatePartInfo" parameterClass="Part">
+      <![CDATA[
+           UPDATE PART
+           SET 
+               SUPPLIER_ID=#SUPPLIER_ID#
+              ,PART_CODE=#PART_CODE#
+              ,PART_NAME=#PART_NAME#
+              ,LENGTH = #LENGTH#
+              ,WIDTH = #WIDTH#
+              ,HEIGHT = #HEIGHT#
+              ,OUTERPACKAGE_ID = #OUTERPACKAGE_ID#
+              ,PIECESPER_OUTPACKAGE = #PIECESPER_OUTPACKAGE#
+              ,ORIGINALPACKAGE_ID = #ORIGINALPACKAGE_ID# 
+              ,PIECESPER_ORIGINALPACKAGE = #PIECESPER_ORIGINALPACKAGE#
+              ,WAREHOUSE_ID = #WAREHOUSE_ID#
+              ,IS_FURNACE = #IS_FURNACE#
+              ,IS_REPACKAGING = #IS_REPACKAGING#
+              ,REPACKAGING_QTY = #REPACKAGING_QTY#
+              ,IS_INSPECTION = #IS_INSPECTION#
+              ,IS_MUTIL = #IS_MUTIL#
+              ,IS_PROCESSING=#IS_PROCESSING#
+              ,REMARK = #REMARK#
+              ,IS_DISABLE = #IS_DISABLE#
+              ,LAST_UPDATE = #LAST_UPDATE#
+              ,UPDATE_USER_ID = #UPDATE_USER_ID#
+              ,SALE_TYPE = #SALE_TYPE#
+              ,SAP_SUPPLIER_ID = #SAP_SUPPLIER_ID#
+         WHERE ID=#ID#
+      ]]>
+    </update>
+
+    <insert id="Insert" parameterClass="Part">
+      <![CDATA[
+		        INSERT INTO PART
+                 (PART_CODE
+                  ,PART_NAME
+                  ,PART_TYPE
+                  ,LENGTH
+                  ,WIDTH
+                  ,HEIGHT
+                  ,OUTERPACKAGE_ID
+                  ,PIECESPER_OUTPACKAGE
+                  ,SUPPLIER_ID
+                  ,ORIGINALPACKAGE_ID
+                  ,PIECESPER_ORIGINALPACKAGE
+                  ,WAREHOUSE_ID
+                  ,IS_FURNACE
+                  ,IS_REPACKAGING
+                  ,REPACKAGING_QTY
+                  ,IS_INSPECTION
+                  ,IS_MUTIL
+                  ,IS_PROCESSING
+                  ,REMARK
+                  ,IS_DISABLE
+                  ,CREATE_TIME
+                  ,CREATE_USER_ID
+                  ,LAST_UPDATE
+                  ,UPDATE_USER_ID
+                  ,SALE_TYPE
+                  ,SAP_SUPPLIER_ID)
+           VALUES
+               (#PART_CODE#
+               ,#PART_NAME#
+               ,#PART_TYPE#
+               ,#LENGTH#
+               ,#WIDTH#
+               ,#HEIGHT#
+               ,#OUTERPACKAGE_ID#
+               ,#PIECESPER_OUTPACKAGE#
+               ,#SUPPLIER_ID#
+               ,#ORIGINALPACKAGE_ID#
+               ,#PIECESPER_ORIGINALPACKAGE#
+               ,#WAREHOUSE_ID#
+               ,#IS_FURNACE#
+               ,#IS_REPACKAGING#
+               ,#REPACKAGING_QTY#
+               ,#IS_INSPECTION#
+               ,#IS_MUTIL#
+               ,#IS_PROCESSING#
+               ,#REMARK#
+               ,#IS_DISABLE#
+               ,#CREATE_TIME#
+               ,#CREATE_USER_ID#
+               ,#LAST_UPDATE#
+               ,#UPDATE_USER_ID#
+               ,#SALE_TYPE#
+               ,#SAP_SUPPLIER_ID#)
+			]]>
+      <selectKey resultClass="int" type="post" property="ID" >
+        <![CDATA[ select @@IDENTITY ; ]]>
+      </selectKey>
+    </insert>
+
+    <!--逻辑删除-->
+    <update id="DeleteInfo" parameterClass="Part">
+      <![CDATA[
+    	  UPDATE PART 
+		      SET 
+			      IS_DISABLE= #IS_DISABLE#
+			      ,LAST_UPDATE= #LAST_UPDATE#
+			      ,UPDATE_USER_ID = #UPDATE_USER_ID#
+		      WHERE ID=#ID#
+      ]]>
+    </update>
+
+  </statements>
+</sqlMap>

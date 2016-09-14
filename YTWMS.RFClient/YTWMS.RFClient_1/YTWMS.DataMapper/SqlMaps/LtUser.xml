@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="LtUser" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="LtUser" type="DataMapper.LtUser, DataMapper" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="LtUser">
+      <result property="ID" column="ID" />
+      <result property="USER_NAME" column="USER_NAME" />
+      <result property="USER_ACCOUNT" column="USER_ACCOUNT" />
+      <result property="USER_PWD" column="USER_PWD" />
+      <result property="USER_EMAIL" column="USER_EMAIL" />
+      <result property="USER_TEL" column="USER_TEL" />
+      <result property="USER_MOBILE" column="USER_MOBILE" />
+      <result property="USER_ADDR" column="USER_ADDR" />
+      <result property="IS_DELETE" column="IS_DELETE" />
+      <result property="WAREHOUSE_ID" column="WAREHOUSE_ID" />
+      <result property="CREATE_TIME" column="CREATE_TIME" />
+      <result property="CREATE_USER" column="CREATE_USER" />
+      <result property="LAST_UPDATE" column="LAST_UPDATE" />
+      <result property="LAST_UPDATOR" column="LAST_UPDATOR" />
+      <result property="IS_LOCK" column="IS_LOCK" />
+    </resultMap>
+    <resultMap id="SelectResult2" class="LtUser">
+      <result property="ID" column="ID" />
+      <result property="USER_NAME" column="USER_NAME" />
+      <result property="USER_ACCOUNT" column="USER_ACCOUNT" />
+      <result property="USER_PWD" column="USER_PWD" />
+      <result property="USER_EMAIL" column="USER_EMAIL" />
+      <result property="USER_TEL" column="USER_TEL" />
+      <result property="USER_MOBILE" column="USER_MOBILE" />
+      <result property="USER_ADDR" column="USER_ADDR" />
+      <result property="IS_DELETE" column="IS_DELETE" />
+      <result property="WAREHOUSE_ID" column="WAREHOUSE_ID" />
+      <result property="CREATE_TIME" column="CREATE_TIME" />
+      <result property="CREATE_USER" column="CREATE_USER" />
+      <result property="IS_LOCK" column="IS_LOCK" />
+      <result property="WAREHOUSE_CODE" column="WAREHOUSE_CODE" />
+      <result property="WAREHOUSE_NAME" column="WAREHOUSE_NAME" />
+    </resultMap>
+  </resultMaps>
+
+  <statements>
+    <select id="SelectAll" resultMap="SelectResult" >
+      <![CDATA[
+		SELECT ID
+              ,USER_NAME
+              ,USER_ACCOUNT
+              ,USER_PWD
+              ,USER_EMAIL
+              ,USER_TEL
+              ,USER_MOBILE
+              ,USER_ADDR
+              ,IS_DELETE
+              ,IS_LOCK
+              ,WAREHOUSE_ID
+              ,CREATE_TIME
+              ,CREATE_USER
+              ,LAST_UPDATE
+              ,LAST_UPDATOR
+          FROM LT_USER
+			]]>
+    </select>
+
+    <select id="SelectByParam" extends="SelectAll" resultMap="SelectResult" parameterClass="System.Collections.IDictionary">
+      <dynamic prepend="WHERE">
+        <isNotNull property="ID">
+          <isNotEqual prepend="AND" property="ID" compareValue="0">
+            <![CDATA[ ID = #ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull prepend="AND" property="USER_NAME">
+          <![CDATA[ USER_NAME LIKE '%'+ #USER_NAME# +'%' ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="USER_ACCOUNT">
+          <![CDATA[ USER_ACCOUNT =  #USER_ACCOUNT#  ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="USER_PWD">
+          <![CDATA[ USER_PWD = #USER_PWD# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_DELETE">
+          <![CDATA[ IS_DELETE = #IS_DELETE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_LOCK">
+          <![CDATA[ IS_LOCK = #IS_LOCK# ]]>
+        </isNotNull>
+        <isNotNull property="WAREHOUSE_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+            <![CDATA[ WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <!--查询用户仓库-->
+    <select id="SelectUserHouseByParam" resultMap="SelectResult2" parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+		        SELECT LU.ID
+                      ,LU.USER_NAME
+                      ,LU.USER_ACCOUNT
+                      ,LU.USER_PWD
+                      ,LU.USER_EMAIL
+                      ,LU.USER_TEL
+                      ,LU.USER_MOBILE
+                      ,LU.USER_ADDR
+                      ,LU.IS_DELETE
+                      ,LU.IS_LOCK
+                      ,LU.WAREHOUSE_ID
+                      ,LU.CREATE_TIME
+                      ,LU.CREATE_USER
+			                ,W.WAREHOUSE_CODE
+			                ,W.WAREHOUSE_NAME
+                  FROM LT_USER	LU
+		              INNER JOIN WAREHOUSE W ON(LU.WAREHOUSE_ID=W.ID)
+			]]>
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="USER_ACCOUNT">
+          <![CDATA[ LU.USER_ACCOUNT =  #USER_ACCOUNT#  ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="USER_PWD">
+          <![CDATA[ LU.USER_PWD = #USER_PWD# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_DELETE">
+          <![CDATA[ LU.IS_DELETE = #IS_DELETE# ]]>
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <insert id="Insert" parameterClass="LtUser">
+      <![CDATA[
+		       INSERT INTO LT_USER
+                       (USER_NAME
+                       ,USER_ACCOUNT
+                       ,USER_PWD
+                       ,USER_EMAIL
+                       ,USER_TEL
+                       ,USER_MOBILE
+                       ,USER_ADDR
+                       ,IS_DELETE
+                       ,IS_LOCK
+                       ,CREATE_TIME
+                       ,CREATE_USER
+                       ,WAREHOUSE_ID)
+                 VALUES
+                       (#USER_NAME#
+                       ,#USER_ACCOUNT#
+                       ,#USER_PWD#
+                       ,#USER_EMAIL#
+                       ,#USER_TEL#
+                       ,#USER_MOBILE#
+                       ,#USER_ADDR#
+                       ,#IS_DELETE#
+                       ,#IS_LOCK#
+                       ,#CREATE_TIME#
+                       ,#CREATE_USER#
+                       ,#WAREHOUSE_ID#)
+			]]>
+      <selectKey resultClass="int" type="post" property="ID" >
+        <![CDATA[ select @@IDENTITY ; ]]>
+      </selectKey>
+    </insert>
+
+    <update id="UpdateInfo" parameterClass="LtUser">
+      <![CDATA[
+       UPDATE LT_USER
+           SET USER_NAME = #USER_NAME#
+              ,USER_ACCOUNT = #USER_ACCOUNT#
+              ,USER_PWD = #USER_PWD#
+              ,USER_EMAIL = #USER_EMAIL#
+              ,USER_TEL = #USER_TEL#
+              ,USER_MOBILE = #USER_MOBILE#
+              ,USER_ADDR = #USER_ADDR#
+              ,IS_DELETE = #IS_DELETE# 
+              ,IS_LOCK = #IS_LOCK#
+              ,LAST_UPDATE = #LAST_UPDATE#
+              ,LAST_UPDATOR = #LAST_UPDATOR#
+      WHERE ID=#ID#
+      ]]>
+    </update>
+
+    <!--逻辑删除-->
+    <update id="DeleteInfo" parameterClass="LtUser">
+      <![CDATA[
+     UPDATE LT_USER
+       SET 
+          IS_DELETE = #IS_DELETE#
+          ,LAST_UPDATE = #LAST_UPDATE#
+          ,LAST_UPDATOR = #LAST_UPDATOR#
+      WHERE ID=#ID#
+      ]]>
+    </update>
+
+    <!--逻辑删除-->
+    <delete id="Delete" parameterClass="LtUser" >
+      <![CDATA[
+		      	DELETE LT_USER WHERE ID=#ID#
+			]]>
+    </delete>
+  </statements>
+</sqlMap>

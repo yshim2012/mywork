@@ -1,0 +1,361 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="VWmsInvUid" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="VWmsInvUid" type="LDV.WMS.RF.DataMapper.VWmsInvUid, LDV.WMS.RF.DataMapper" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="VWmsInvUid">
+      <result property="ID" column="ID" />
+      <result property="WHSE_ID" column="WHSE_ID" />
+      <result property="ITEM_ID" column="ITEM_ID" />
+      <result property="LOT" column="LOT" />
+      <result property="XDATE" column="XDATE" />
+      <result property="SERIAL" column="SERIAL" />
+      <result property="EXTEND_COLUMN_0" column="EXTEND_COLUMN_0" />
+      <result property="EXTEND_COLUMN_1" column="EXTEND_COLUMN_1" />
+      <result property="EXTEND_COLUMN_2" column="EXTEND_COLUMN_2" />
+      <result property="EXTEND_COLUMN_3" column="EXTEND_COLUMN_3" />
+      <result property="EXTEND_COLUMN_4" column="EXTEND_COLUMN_4" />
+      <result property="EXTEND_DATE_0" column="EXTEND_DATE_0" />
+      <result property="EXTEND_DATE_1" column="EXTEND_DATE_1" />
+      <result property="GOODSTYPE" column="GOODSTYPE" />
+      <result property="TRACKNO" column="TRACKNO" />
+      <result property="SUPPLIER_ID" column="SUPPLIER_ID" />
+      <result property="VERSION" column="VERSION" />
+      <result property="JISHOU" column="JISHOU" />
+    </resultMap>
+  </resultMaps>
+
+  <statements>
+
+    <select id="SelectAll" resultMap="SelectResult">
+      <![CDATA[
+			select
+				ID,
+				WHSE_ID,
+				ITEM_ID,
+				LOT,
+				XDATE,
+				SERIAL,
+				EXTEND_COLUMN_0,
+				EXTEND_COLUMN_1,
+				EXTEND_COLUMN_2,
+				EXTEND_COLUMN_3,
+				EXTEND_COLUMN_4,
+				EXTEND_DATE_0,
+				EXTEND_DATE_1,
+				GOODSTYPE,
+				TRACKNO,
+				SUPPLIER_ID,
+				VERSION,
+				JISHOU
+			from V_WMS_INV_UID
+			]]>
+    </select>
+
+    <select id="SelectById" extends="SelectAll" parameterClass="double" resultMap="SelectResult">
+      <![CDATA[
+			where
+				ID = #value#
+			]]>
+    </select>
+
+    <select id="SelectIsItemById"  parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+      <![CDATA[
+			  SELECT   
+         D.ID as INV_ID,
+         U.ID AS U_ID,
+         D.ID AS D_ID,
+         D.MU_ID,
+         U.LOT,
+         U.ITEM_ID,
+         D.STATUS,
+         D.LOC_ID,
+         D.QTY
+         FROM V_WMS_INV_UID U
+         INNER JOIN V_WMS_INV_DETAIL D ON(D.UID_ID=U.ID)
+			]]>
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ITEM_ID">
+          <![CDATA[ U.ITEM_ID=#ITEM_ID#  ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LOT">
+          <![CDATA[ U.LOT=#LOT#  ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LOC_ID">
+          <![CDATA[ D.LOC_ID=#LOC_ID#  ]]>
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectByItemID"  parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+      <![CDATA[	
+      
+       select ID,ITEM_ID,INPUT_DATE,QTY,LAST_MODIFIED from INPUTAGE
+       WHERE QTY>0 AND ITEM_ID=#ITEM_ID# 
+       ORDER BY INPUT_DATE ASC
+      
+      
+      ]]>
+    </select>
+
+
+
+    <select id="SelectByParam" extends="SelectAll" parameterClass="VWmsInvUid" resultMap="SelectResult">
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ID">
+          <![CDATA[ ID = #ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="WHSE_ID">
+          <![CDATA[ WHSE_ID = #WHSE_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="ITEM_ID">
+          <![CDATA[ ITEM_ID = #ITEM_ID# ]]>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="LOT">
+          <![CDATA[ LOT = #LOT# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="SERIAL">
+          <![CDATA[ SERIAL = #SERIAL# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="EXTEND_COLUMN_0">
+          <![CDATA[ EXTEND_COLUMN_0 = #EXTEND_COLUMN_0# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="EXTEND_COLUMN_1">
+          <![CDATA[ EXTEND_COLUMN_1 = #EXTEND_COLUMN_1# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="EXTEND_COLUMN_2">
+          <![CDATA[ EXTEND_COLUMN_2 = #EXTEND_COLUMN_2# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="EXTEND_COLUMN_3">
+          <![CDATA[ EXTEND_COLUMN_3 = #EXTEND_COLUMN_3# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="EXTEND_COLUMN_4">
+          <![CDATA[ EXTEND_COLUMN_4 = #EXTEND_COLUMN_4# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="GOODSTYPE">
+          <![CDATA[ GOODSTYPE = #GOODSTYPE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="TRACKNO">
+          <![CDATA[ TRACKNO = #TRACKNO# ]]>
+        </isNotEmpty>
+        <isNotNull prepend="AND" property="SUPPLIER_ID">
+          <![CDATA[ SUPPLIER_ID = #SUPPLIER_ID# ]]>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="VERSION">
+          <![CDATA[ VERSION = #VERSION# ]]>
+        </isNotEmpty>
+        <isNotNull prepend="AND" property="JISHOU">
+          <![CDATA[ JISHOU = #JISHOU# ]]>
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectForPageing" extends="SelectAll" parameterClass="System.Collections.IDictionary">
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ID">
+          <![CDATA[ ID = #ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="WHSE_ID">
+          <![CDATA[ WHSE_ID = #WHSE_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="ITEM_ID">
+          <![CDATA[ ITEM_ID = #ITEM_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LOT">
+          <![CDATA[ LOT = #LOT# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="XDATE">
+          <![CDATA[ XDATE = #XDATE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="SERIAL">
+          <![CDATA[ SERIAL = #SERIAL# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="EXTEND_COLUMN_0">
+          <![CDATA[ EXTEND_COLUMN_0 = #EXTEND_COLUMN_0# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="EXTEND_COLUMN_1">
+          <![CDATA[ EXTEND_COLUMN_1 = #EXTEND_COLUMN_1# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="EXTEND_COLUMN_2">
+          <![CDATA[ EXTEND_COLUMN_2 = #EXTEND_COLUMN_2# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="EXTEND_COLUMN_3">
+          <![CDATA[ EXTEND_COLUMN_3 = #EXTEND_COLUMN_3# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="EXTEND_COLUMN_4">
+          <![CDATA[ EXTEND_COLUMN_4 = #EXTEND_COLUMN_4# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="EXTEND_DATE_0">
+          <![CDATA[ EXTEND_DATE_0 = #EXTEND_DATE_0# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="EXTEND_DATE_1">
+          <![CDATA[ EXTEND_DATE_1 = #EXTEND_DATE_1# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="GOODSTYPE">
+          <![CDATA[ GOODSTYPE = #GOODSTYPE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="TRACKNO">
+          <![CDATA[ TRACKNO = #TRACKNO# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="SUPPLIER_ID">
+          <![CDATA[ SUPPLIER_ID = #SUPPLIER_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="VERSION">
+          <![CDATA[ VERSION = #VERSION# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="JISHOU">
+          <![CDATA[ JISHOU = #JISHOU# ]]>
+        </isNotNull>
+      </dynamic>
+    </select>
+    <insert id="Insert" parameterClass="VWmsInvUid">
+      <selectKey resultClass="double" type="pre" property="ID" >
+        <![CDATA[ select v_wms_inv_uid_seq.NEXTVAL as value from dual ]]>
+      </selectKey>
+      <![CDATA[
+			insert into V_WMS_INV_UID
+			(
+			    ID,
+			    WHSE_ID,
+			    ITEM_ID,
+			    LOT,
+			    XDATE,
+			    SERIAL,
+			    EXTEND_COLUMN_0,
+			    EXTEND_COLUMN_1,
+			    EXTEND_COLUMN_2,
+			    EXTEND_COLUMN_3,
+			    EXTEND_COLUMN_4,
+			    EXTEND_DATE_0,
+			    EXTEND_DATE_1,
+			    GOODSTYPE,
+			    TRACKNO,
+			    SUPPLIER_ID,
+			    VERSION,
+			    JISHOU
+			)
+			values 
+			(
+				#ID#,
+				#WHSE_ID#,
+				#ITEM_ID#,
+				#LOT#,
+				#XDATE#,
+				#SERIAL#,
+				#EXTEND_COLUMN_0#,
+				#EXTEND_COLUMN_1#,
+				#EXTEND_COLUMN_2#,
+				#EXTEND_COLUMN_3#,
+				#EXTEND_COLUMN_4#,
+				#EXTEND_DATE_0#,
+				#EXTEND_DATE_1#,
+				#GOODSTYPE#,
+				#TRACKNO#,
+				#SUPPLIER_ID#,
+				#VERSION#,
+				#JISHOU#
+			)
+			]]>
+    </insert>
+    <update id="Update" parameterClass="VWmsInvUid" >
+      <![CDATA[
+			update V_WMS_INV_UID set
+				WHSE_ID = #WHSE_ID#,
+				ITEM_ID = #ITEM_ID#,
+				LOT = #LOT#,
+				XDATE = #XDATE#,
+				SERIAL = #SERIAL#,
+				EXTEND_COLUMN_0 = #EXTEND_COLUMN_0#,
+				EXTEND_COLUMN_1 = #EXTEND_COLUMN_1#,
+				EXTEND_COLUMN_2 = #EXTEND_COLUMN_2#,
+				EXTEND_COLUMN_3 = #EXTEND_COLUMN_3#,
+				EXTEND_COLUMN_4 = #EXTEND_COLUMN_4#,
+				EXTEND_DATE_0 = #EXTEND_DATE_0#,
+				EXTEND_DATE_1 = #EXTEND_DATE_1#,
+				GOODSTYPE = #GOODSTYPE#,
+				TRACKNO = #TRACKNO#,
+				SUPPLIER_ID = #SUPPLIER_ID#,
+				VERSION = #VERSION#,
+				JISHOU = #JISHOU#
+			where
+				ID = #ID#
+			]]>
+    </update>
+
+    <update id="UpdateSection" parameterClass="VWmsInvUid" >
+      <![CDATA[
+			update V_WMS_INV_UID set 
+			]]>
+      <dynamic prepend=" ">
+        <isNotNull prepend="," property="WHSE_ID">
+          <![CDATA[ WHSE_ID=#WHSE_ID#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="ITEM_ID">
+          <![CDATA[ ITEM_ID=#ITEM_ID#]]>
+        </isNotNull>
+        <isNotEmpty prepend="," property="LOT">
+          <![CDATA[ LOT=#LOT#]]>
+        </isNotEmpty>
+        <isNotNull prepend="," property="XDATE">
+          <![CDATA[ XDATE=#XDATE#]]>
+        </isNotNull>
+        <isNotEmpty prepend="," property="SERIAL">
+          <![CDATA[ SERIAL=#SERIAL#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="EXTEND_COLUMN_0">
+          <![CDATA[ EXTEND_COLUMN_0=#EXTEND_COLUMN_0#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="EXTEND_COLUMN_1">
+          <![CDATA[ EXTEND_COLUMN_1=#EXTEND_COLUMN_1#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="EXTEND_COLUMN_2">
+          <![CDATA[ EXTEND_COLUMN_2=#EXTEND_COLUMN_2#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="EXTEND_COLUMN_3">
+          <![CDATA[ EXTEND_COLUMN_3=#EXTEND_COLUMN_3#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="EXTEND_COLUMN_4">
+          <![CDATA[ EXTEND_COLUMN_4=#EXTEND_COLUMN_4#]]>
+        </isNotEmpty>
+        <isNotNull prepend="," property="EXTEND_DATE_0">
+          <![CDATA[ EXTEND_DATE_0=#EXTEND_DATE_0#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="EXTEND_DATE_1">
+          <![CDATA[ EXTEND_DATE_1=#EXTEND_DATE_1#]]>
+        </isNotNull>
+        <isNotEmpty prepend="," property="GOODSTYPE">
+          <![CDATA[ GOODSTYPE=#GOODSTYPE#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="TRACKNO">
+          <![CDATA[ TRACKNO=#TRACKNO#]]>
+        </isNotEmpty>
+        <isNotNull prepend="," property="SUPPLIER_ID">
+          <![CDATA[ SUPPLIER_ID=#SUPPLIER_ID#]]>
+        </isNotNull>
+        <isNotEmpty prepend="," property="VERSION">
+          <![CDATA[ VERSION=#VERSION#]]>
+        </isNotEmpty>
+        <isNotNull prepend="," property="JISHOU">
+          <![CDATA[ JISHOU=#JISHOU#]]>
+        </isNotNull>
+      </dynamic>
+      <![CDATA[
+			where
+				ID = #ID#
+			]]>
+    </update>
+    <delete id="Delete" parameterClass="VWmsInvUid" >
+      <![CDATA[
+			delete from V_WMS_INV_UID
+			where 
+				ID = #ID#
+			]]>
+    </delete>
+  </statements>
+
+</sqlMap>

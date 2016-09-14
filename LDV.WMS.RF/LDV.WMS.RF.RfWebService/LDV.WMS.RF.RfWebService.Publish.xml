@@ -1,0 +1,28 @@
+<publishData>
+  <publishTarget publishUrl="E:\IIS\WXLDVRFSERVICES\">
+    <file relUrl="bin/log4net.dll" publishTime="09/02/2016 10:11:15" />
+    <file relUrl="LDV.WMS.RF.RfWebService.csproj" publishTime="09/02/2016 10:11:29" />
+    <file relUrl="LdvRfWebService.asmx.cs" publishTime="09/02/2016 10:11:29" />
+    <file relUrl="bin/LDV.WMS.RF.Utility.dll" publishTime="09/02/2016 13:27:17" />
+    <file relUrl="bin/Castle.DynamicProxy.dll" publishTime="09/02/2016 10:11:15" />
+    <file relUrl="bin/Newtonsoft.Json.dll" publishTime="09/02/2016 10:10:57" />
+    <file relUrl="bin/LDV.WMS.RF.DataMapper.pdb" publishTime="09/02/2016 13:27:30" />
+    <file relUrl="Web.config" publishTime="09/02/2016 11:39:01" />
+    <file relUrl="LDV.WMS.RF.RfWebService.Publish.xml" publishTime="09/02/2016 11:41:49" />
+    <file relUrl="bin/IBatisNet.Common.dll" publishTime="09/02/2016 10:11:15" />
+    <file relUrl="bin/ICSharpCode.SharpZipLib.dll" publishTime="09/02/2016 10:11:15" />
+    <file relUrl="bin/LDV.WMS.RF.Business.dll" publishTime="09/02/2016 13:27:35" />
+    <file relUrl="bin/LDV.WMS.RF.DataMapper.dll" publishTime="09/02/2016 13:27:30" />
+    <file relUrl="Properties/AssemblyInfo.cs" publishTime="09/02/2016 10:11:29" />
+    <file relUrl="bin/LDV.WMS.RF.Business.pdb" publishTime="09/02/2016 13:27:35" />
+    <file relUrl="Service1.asmx.cs" publishTime="09/02/2016 10:11:29" />
+    <file relUrl="bin/LDV.WMS.RF.Utility.pdb" publishTime="09/02/2016 13:27:17" />
+    <file relUrl="bin/LDV.WMS.RF.RfWebService.pdb" publishTime="09/02/2016 13:27:37" />
+    <file relUrl="bin/LDV.WMS.RF.RfWebService.dll" publishTime="09/02/2016 13:27:37" />
+    <file relUrl="LDV.WMS.RF.RfWebService.csproj.user" publishTime="09/02/2016 11:25:38" />
+    <file relUrl="LDVDB.config" publishTime="09/02/2016 10:11:29" />
+    <file relUrl="bin/IBatisNet.DataMapper.dll" publishTime="09/02/2016 10:10:57" />
+    <file relUrl="LdvRfWebService.asmx" publishTime="09/02/2016 10:11:29" />
+    <file relUrl="bin/IBatisNet.Common.Logging.Log4Net.dll" publishTime="09/02/2016 10:11:15" />
+  </publishTarget>
+</publishData>

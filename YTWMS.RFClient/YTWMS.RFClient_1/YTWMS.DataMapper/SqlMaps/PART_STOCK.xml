@@ -1,0 +1,1247 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="PartStock" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="PartStock" type="DataMapper.PartStock, DataMapper" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="PartStock">
+      <result property="ID" column="ID" />
+      <result property="BATCH_PART_ID" column="BATCH_PART_ID" />
+      <result property="WAREHOUSE_LOCATION_ID" column="WAREHOUSE_LOCATION_ID" />
+      <result property="QUALITY_STATE" column="QUALITY_STATE" />
+      <result property="STOCK_QTY" column="STOCK_QTY" />
+      <result property="PICKING_QTY" column="PICKING_QTY" />
+      <result property="PACKAGE_QTY" column="PACKAGE_QTY" />
+      <result property="PART_OWNER" column="PART_OWNER" />
+      <result property="FROZEN_STATE" column="FROZEN_STATE" />
+      <result property="WAREHOUSE_ID" column="WAREHOUSE_ID" />
+      <result property="CREATE_TIME" column="CREATE_TIME" />
+      <result property="CREATE_USER_ID" column="CREATE_USER_ID" />
+      <result property="LAST_UPDATE" column="LAST_UPDATE" />
+      <result property="UPDATE_USER_ID" column="UPDATE_USER_ID" />
+    </resultMap>
+    <resultMap id="SelectResult2" class="PartStock">
+      <result property="SUPPLIER_NAME" column="SUPPLIER_NAME" />
+      <result property="PART_CODE" column="PART_CODE" />
+      <result property="PART_NAME" column="PART_NAME" />
+      <result property="PROJECT_NAME" column="PROJECT_NAME" />
+      <result property="PROJECT_ITEM_NAME" column="PROJECT_ITEM_NAME" />
+      <result property="REPACKAGING_QTY" column="REPACKAGING_QTY" />
+      <result property="BATCH_NO" column="BATCH_NO" />
+      <result property="FURNACE_NO" column="FURNACE_NO" />
+      <result property="STOCK_QTY" column="STOCK_QTY" />
+      <result property="LOC_CODE" column="LOC_CODE" />
+      <result property="LOC_TYPE" column="LOC_TYPE" />
+      <result property="IS_QUALIFIED" column="IS_QUALIFIED" />
+      <result property="IS_FURNACE" column="IS_FURNACE" />
+    </resultMap>
+  </resultMaps>
+
+  <statements>
+    <select id="SelectAll" resultMap="SelectResult" >
+      <![CDATA[
+			    SELECT 
+                ID
+                ,BATCH_PART_ID
+                ,WAREHOUSE_LOCATION_ID
+                ,QUALITY_STATE
+                ,STOCK_QTY
+                ,PICKING_QTY
+                ,PACKAGE_QTY
+                ,PART_OWNER
+                ,FROZEN_STATE
+                ,WAREHOUSE_ID
+                ,CREATE_TIME
+                ,CREATE_USER_ID
+                ,LAST_UPDATE
+                ,UPDATE_USER_ID
+            FROM PART_STOCK
+			]]>
+    </select>
+
+
+    <select id="SelectPartStock"  parameterClass="PartStock" resultMap="SelectResult" >
+      <![CDATA[
+			    SELECT 
+                ID
+                ,BATCH_PART_ID
+                ,WAREHOUSE_LOCATION_ID
+                ,QUALITY_STATE
+                ,STOCK_QTY
+                ,PICKING_QTY
+                ,PACKAGE_QTY
+                ,PART_OWNER
+                ,FROZEN_STATE
+                ,WAREHOUSE_ID
+                ,CREATE_TIME
+                ,CREATE_USER_ID
+                ,LAST_UPDATE
+                ,UPDATE_USER_ID
+            FROM PART_STOCK
+			]]>
+      <dynamic prepend="WHERE">
+        <isNotEqual prepend="AND" property="BATCH_PART_ID" compareValue="0">
+          <![CDATA[ BATCH_PART_ID = #BATCH_PART_ID# ]]>
+        </isNotEqual>
+        <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+          <![CDATA[ WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+        </isNotEqual>
+      </dynamic>
+    </select>
+
+    <!--物料库存明细查询-->
+    <select id="SelectPartStockDetail"  parameterClass="PartStock" resultMap="SelectResult2" >
+      <![CDATA[
+          select  w.WAREHOUSE_NAME,p.PART_CODE,p.PART_NAME,pj.PROJECT_NAME,
+          pjl.PROJECT_NAME PROJECT_ITEM_NAME, p.PIECESPER_ORIGINALPACKAGE,p.PIECESPER_OUTPACKAGE,
+          ps.STOCK_QTY,bp.BATCH_NO,bp.FURNACE_NO,
+          case LOC_TYPE WHEN 'Nomal' THEN '合格' WHEN 'UnNomal' THEN '不合格' WHEN 'Hold' 
+          THEN '筛选' WHEN 'UnInspection' THEN '待报验' WHEN 'Handle' THEN '合格' WHEN 'Package' THEN '合格' 
+		       WHEN 'Aftermarket' THEN '合格' WHEN 'Shipped' THEN '合格' WHEN 'ServicesHandle' THEN '合格' ELSE '' END AS QUALITY_STATE,wl.LOC_CODE,
+          CASE WHEN  LOC_TYPE='Nomal' THEN '正常库位' WHEN LOC_TYPE='UnNomal' THEN '不良品库位' 
+          when LOC_TYPE='Hold' THEN 'HOLD区库位' WHEN LOC_TYPE='UnInspection' THEN '待报验' 
+          when LOC_TYPE='Handle' THEN '包装处理'
+		       when LOC_TYPE='Package' THEN '超市库位' WHEN LOC_TYPE='Aftermarket' THEN '售后件'
+		      when LOC_TYPE='Shipped' THEN '待发区' when LOC_TYPE='ServicesHandle' then '售后包装'  else '' end  as LOC_TYPE
+		       ,ps.PART_OWNER,w.ID,pj.ID pjid,pjl.ID pjlid ,dbo.PcsMax(p.ID) PCS
+          from PART_STOCK ps
+          INNER JOIN BATCH_PART bp ON (bp.id=ps.BATCH_PART_ID)
+          INNER JOIN PART p ON (p.ID =bp.PART_ID )
+          INNER JOIN WAREHOUSE_LOCATION wl ON (wl.id =ps.WAREHOUSE_LOCATION_ID )
+          INNER JOIN WAREHOUSE_AREA wa ON (wa.area_id=wl.AREA_ID )
+          INNER JOIN WAREHOUSE w ON ( w.ID=bp.SUPPLIER_ID  )
+          LEFT JOIN PART_TRUCK_TYPE_MAP pttm ON (pttm.PART_ID=p.ID)
+          LEFT JOIN PROJECT pj ON (pj.ID =bp.PROJECT_ID )
+          LEFT JOIN PROJECT pjl on (pjl.ID =bp.PROJECT_ITEM_ID ) 
+			    ]]>
+      <dynamic prepend="WHERE">
+        <isNotNull  property="BATCH_PART_ID">
+          <isNotEqual prepend="AND" property="BATCH_PART_ID" compareValue="0">
+            <![CDATA[ BATCH_PART_ID = #BATCH_PART_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull  property="PART_CODE">
+          <isNotEmpty prepend="AND" property="PART_CODE">
+            <![CDATA[ P.PART_CODE = #PART_CODE# ]]>
+          </isNotEmpty>
+        </isNotNull>
+        <isNotNull property="WAREHOUSE_ID">
+          <isNotEqual  prepend="AND"  property="WAREHOUSE_ID" compareValue="0" >
+            <![CDATA[ PS.WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull  property="SUPPLIER_ID">
+          <isNotEqual prepend="AND" property="SUPPLIER_ID" compareValue="0" >
+            <![CDATA[ w.ID = #SUPPLIER_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="BATCH_NO">
+          <![CDATA[ bp.BATCH_NO like '%'+ #BATCH_NO#+'%' ]]>
+        </isNotEmpty>
+        <isNotNull  property="PROJECT_ID">
+          <isNotEqual  prepend="AND" property="PROJECT_ID"  compareValue="0" >
+            <![CDATA[ pj.id = #PROJECT_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull property="PROJECT_ITEM_ID">
+          <isNotEqual prepend="AND" property="PROJECT_ITEM_ID"  compareValue="0" >
+            <![CDATA[ pjl.id = #PROJECT_ITEM_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="LOC_TYPE">
+          <![CDATA[ WL.LOC_TYPE = #LOC_TYPE# ]]>
+        </isNotEmpty>
+        <isNotNull  property="PART_OWNER">
+          <isNotEmpty prepend="AND" property="PART_OWNER">
+            <![CDATA[ PS.PART_OWNER =#PART_OWNER# ]]>
+          </isNotEmpty>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="QUALITY_STATE">
+          <![CDATA[ ps.QUALITY_STATE =#QUALITY_STATE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="PART_TYPE">
+          <![CDATA[ P.PART_TYPE = #PART_TYPE# ]]>
+        </isNotEmpty>
+        <![CDATA[
+        group by w.WAREHOUSE_NAME,p.PART_CODE,p.PART_NAME,pj.PROJECT_NAME,
+        pjl.PROJECT_NAME , p.PIECESPER_ORIGINALPACKAGE,p.PIECESPER_OUTPACKAGE,
+        ps.STOCK_QTY,bp.BATCH_NO,bp.FURNACE_NO,
+        ps.QUALITY_STATE ,wl.LOC_CODE,ps.PART_OWNER,  LOC_TYPE,dbo.PcsMax(p.ID),w.ID,pj.ID ,pjl.ID 
+        order by w.WAREHOUSE_NAME desc,P.PART_CODE desc,P.PART_NAME desc
+        ]]>
+      </dynamic>
+    </select>
+
+
+    <!--查询零件库存-->
+    <select id="SelectBatchPartStock"  resultMap="SelectResult"  parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+  		    SELECT PS.ID
+                ,PS.BATCH_PART_ID
+                ,PS.WAREHOUSE_LOCATION_ID
+                ,PS.QUALITY_STATE
+                ,PS.STOCK_QTY
+                ,PS.PICKING_QTY
+                ,PS.PACKAGE_QTY
+                ,PS.PART_OWNER
+                ,PS.FROZEN_STATE
+                ,PS.WAREHOUSE_ID
+                ,PS.CREATE_TIME
+                ,PS.CREATE_USER_ID
+                ,PS.LAST_UPDATE
+                ,PS.UPDATE_USER_ID
+           FROM PART_STOCK PS
+           INNER JOIN BATCH_PART BP ON(BP.ID=PS.BATCH_PART_ID)
+           INNER JOIN WAREHOUSE_LOCATION WL ON(WL.ID=PS.WAREHOUSE_LOCATION_ID)
+           WHERE 
+             WL.LOC_TYPE='Nomal'
+			    ]]>
+      <dynamic>
+        <isNotNull  property="WAREHOUSE_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+            <![CDATA[ PS.WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull  property="PART_ID">
+          <isNotEqual prepend="AND" property="PART_ID" compareValue="0">
+            <![CDATA[ BP.PART_ID = #PART_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull  property="SUPPLIER_ID">
+          <isNotEqual prepend="AND" property="SUPPLIER_ID" compareValue="0">
+            <![CDATA[ BP.SUPPLIER_ID = #SUPPLIER_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull  property="PROJECT_ID">
+          <isNotEqual prepend="AND" property="PROJECT_ID" compareValue="0">
+            <![CDATA[ BP.PROJECT_ID = #PROJECT_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull  property="PROJECT_ITEM_ID">
+          <isNotEqual prepend="AND" property="PROJECT_ITEM_ID" compareValue="0">
+            <![CDATA[ BP.PROJECT_ITEM_ID = #PROJECT_ITEM_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="UNIT">
+          <![CDATA[ BP.UNIT = #UNIT# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="BOX_NUMBER">
+          <![CDATA[ BP.BOX_NUMBER = #BOX_NUMBER# ]]>
+        </isNotEmpty>
+      </dynamic>
+      <![CDATA[
+          ORDER BY BP.PART_ID DESC,BP.BATCH_NO DESC
+      ]]>
+    </select>
+
+    <!--查询零件库存-->
+    <select id="SelectBoxPartStock"  resultMap="SelectResult"  parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+  		    SELECT PS.ID
+                ,PS.BATCH_PART_ID
+                ,PS.WAREHOUSE_LOCATION_ID
+                ,PS.QUALITY_STATE
+                ,PS.STOCK_QTY
+                ,PS.PICKING_QTY
+                ,PS.PACKAGE_QTY
+                ,PS.PART_OWNER
+                ,PS.FROZEN_STATE
+                ,PS.WAREHOUSE_ID
+                ,PS.CREATE_TIME
+                ,PS.CREATE_USER_ID
+                ,PS.LAST_UPDATE
+                ,PS.UPDATE_USER_ID
+           FROM PART_STOCK PS
+           INNER JOIN BATCH_PART BP ON(BP.ID=PS.BATCH_PART_ID)
+           INNER JOIN WAREHOUSE_LOCATION WL ON(WL.ID=PS.WAREHOUSE_LOCATION_ID)
+           WHERE 
+             WL.LOC_TYPE='Nomal'
+			    ]]>
+      <dynamic>
+        <isNotNull  property="WAREHOUSE_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+            <![CDATA[ PS.WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull  property="PART_ID">
+          <isNotEqual prepend="AND" property="PART_ID" compareValue="0">
+            <![CDATA[ BP.PART_ID = #PART_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull  property="SUPPLIER_ID">
+          <isNotEqual prepend="AND" property="SUPPLIER_ID" compareValue="0">
+            <![CDATA[ BP.SUPPLIER_ID = #SUPPLIER_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull  property="PROJECT_ID">
+          <isNotEqual prepend="AND" property="PROJECT_ID" compareValue="0">
+            <![CDATA[ BP.PROJECT_ID = #PROJECT_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull  property="PROJECT_ITEM_ID">
+          <isNotEqual prepend="AND" property="PROJECT_ITEM_ID" compareValue="0">
+            <![CDATA[ BP.PROJECT_ITEM_ID = #PROJECT_ITEM_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="UNIT">
+          <![CDATA[ BP.UNIT = #UNIT# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="BOX_NUMBER">
+          <![CDATA[ BP.BOX_NUMBER = #BOX_NUMBER# ]]>
+        </isNotEmpty>
+      </dynamic>
+      <![CDATA[
+          ORDER BY BP.PART_ID DESC,BP.BATCH_NO DESC
+      ]]>
+    </select>
+
+    <!--物料库存明细导出查询-->
+    <select id="SelectPartStockDetailOutPut"  parameterClass="PartStock" resultMap="SelectResult2" >
+      <![CDATA[
+          select  w.WAREHOUSE_NAME,p.PART_CODE,p.PART_NAME,pj.PROJECT_NAME,
+            pjl.PROJECT_NAME PROJECT_ITEM_NAME, p.PIECESPER_ORIGINALPACKAGE,p.PIECESPER_OUTPACKAGE,
+            ps.STOCK_QTY,bp.BATCH_NO,bp.FURNACE_NO,ps.QUALITY_STATE ,wl.LOC_CODE,
+            CASE WHEN  LOC_TYPE='Nomal' THEN '正常库位' WHEN LOC_TYPE='UnNomal' THEN '不良品库位' 
+            when LOC_TYPE='Hold' THEN 'HOLD区库位' WHEN LOC_TYPE='UnInspection' THEN '待报验' 
+            else '包装' end  as LOC_TYPE
+           ,  dbo.PcsMax(p.ID) PCS
+            from PART_STOCK ps
+	        INNER JOIN BATCH_PART bp ON (bp.id=ps.BATCH_PART_ID)
+          INNER JOIN PART p ON (p.ID =bp.PART_ID AND P.IS_DISABLE=0)
+          LEFT JOIN PART_TRUCK_TYPE_MAP pttm ON (pttm.PART_ID=p.ID)
+          INNER JOIN PROJECT pj ON (pj.ID =bp.PROJECT_ID AND pj.PROJECT_TYPE ='bigproject'AND pj.IS_DISABLE=0)
+          INNER JOIN PROJECT pjl on (pjl.ID =bp.PROJECT_ITEM_ID and pjl.PROJECT_TYPE ='littleproject'AND pjl.IS_DISABLE=0)
+          INNER JOIN WAREHOUSE_LOCATION wl ON (wl.id =ps.WAREHOUSE_LOCATION_ID AND wl.IS_DISABLE=0)
+          INNER JOIN WAREHOUSE_AREA wa ON (wa.id=wl.AREA_ID AND wa.IS_DISABLE=0)
+          INNER JOIN WAREHOUSE w ON (w.ID=wa.WAREHOUSE_ID AND W.TYPE='supplier' AND w.IS_DISABLE=0) 
+          where 1=1
+			    ]]>
+      <dynamic>
+        <isNotNull  property="BATCH_PART_ID">
+          <isNotEqual prepend="AND" property="BATCH_PART_ID" compareValue="0">
+            <![CDATA[ PS.BATCH_PART_ID = #BATCH_PART_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="PART_CODE">
+          <![CDATA[ P.PART_CODE like = #PART_CODE# ]]>
+        </isNotEmpty>
+        <isNotNull property="WAREHOUSE_ID">
+          <isNotEqual  prepend="AND"  property="WAREHOUSE_ID" compareValue="0" >
+            <![CDATA[ PS.WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull  property="SUPPLIER_ID">
+          <isNotEqual prepend="AND" property="SUPPLIER_ID" compareValue="0" >
+            <![CDATA[ w.ID = #SUPPLIER_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="BATCH_NO">
+          <![CDATA[ bp.BATCH_NO = #BATCH_NO# ]]>
+        </isNotEmpty>
+        <isNotNull  property="PROJECT_ID">
+          <isNotEqual  prepend="AND" property="PROJECT_ID"  compareValue="0" >
+            <![CDATA[ pj.id = #PROJECT_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull property="PROJECT_ITEM_ID">
+          <isNotEqual prepend="AND" property="PROJECT_ITEM_ID"  compareValue="0" >
+            <![CDATA[ pjl.id = #PROJECT_ITEM_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="LOC_TYPE">
+          <![CDATA[ WL.LOC_TYPE = #LOC_TYPE# ]]>
+        </isNotEmpty>
+        <isNotNull  property="PART_OWNER">
+          <isNotEmpty prepend="AND" property="PART_OWNER">
+            <![CDATA[ PS.PART_OWNER =#PART_OWNER# ]]>
+          </isNotEmpty>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="QUALITY_STATE">
+          <![CDATA[ ps.QUALITY_STATE =#QUALITY_STATE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="PART_TYPE">
+          <![CDATA[ P.PART_TYPE = #PART_TYPE# ]]>
+        </isNotEmpty>
+        <![CDATA[
+      group by w.WAREHOUSE_NAME,p.PART_CODE,p.PART_NAME,pj.PROJECT_NAME,
+            pjl.PROJECT_NAME , p.PIECESPER_ORIGINALPACKAGE,p.PIECESPER_OUTPACKAGE,
+            ps.STOCK_QTY,bp.BATCH_NO,bp.FURNACE_NO,
+            ps.QUALITY_STATE ,wl.LOC_CODE,  LOC_TYPE,dbo.PcsMax(p.ID)
+            order by w.WAREHOUSE_NAME desc,P.PART_CODE desc,P.PART_NAME desc
+        ]]>
+      </dynamic>
+    </select>
+
+    <!--总成物料库存查询-->
+    <select id="SelectPartStockAssmbly"  parameterClass="PartStock" resultMap="SelectResult2" >
+      <![CDATA[
+         SELECT  w.WAREHOUSE_NAME,p.PART_CODE,p.PART_NAME,pj.PROJECT_NAME,
+                pjl.PROJECT_NAME PROJECT_ITEM_NAME, p.PIECESPER_ORIGINALPACKAGE,p.PIECESPER_OUTPACKAGE,
+                ps.STOCK_QTY,bp.BATCH_NO,bp.FURNACE_NO,
+                case ps.QUALITY_STATE WHEN 'Scan' THEN '筛选' WHEN 'Inspection' THEN '待报验' WHEN 'Qualified' 
+                THEN '合格' WHEN 'UnQualified' THEN '不合格' ELSE '' END AS QUALITY_STATE_NAME, wl.LOC_CODE, 
+                CASE LOC_TYPE WHEN 'Nomal' THEN '正常库位' WHEN 'UnNomal' THEN '不良品库位' WHEN 'Hold' THEN 'HOLD区库位' WHEN 'UnInspection' THEN '待报验'
+                WHEN 'Package' THEN '包装' WHEN 'Aftermarket' THEN '售后件' WHEN 'Shipped' THEN '待发区' ELSE '' END AS LOC_TYPE_NAME ,p.PART_TYPE
+                from PART_STOCK ps
+                INNER JOIN BATCH_PART bp ON (bp.id=ps.BATCH_PART_ID)
+                INNER JOIN PART p ON (p.ID =bp.PART_ID)
+                INNER JOIN WAREHOUSE_LOCATION wl ON wl.id =ps.WAREHOUSE_LOCATION_ID 
+                INNER JOIN WAREHOUSE_AREA wa ON wa.AREA_ID=wl.AREA_ID
+                INNER JOIN WAREHOUSE w ON w.ID=bp.SUPPLIER_ID
+                 LEFT JOIN PROJECT pj ON pj.ID =bp.PROJECT_ID 
+                LEFT JOIN PROJECT pjl on pjl.ID =bp.PROJECT_ITEM_ID  
+      ]]>
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="PART_CODE">
+          <![CDATA[ P.PART_CODE LIKE '%'+ #PART_CODE# +'%' ]]>
+        </isNotEmpty>
+        <isNotNull  property="WAREHOUSE_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0" >
+            <![CDATA[ PS.WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull  property="SUPPLIER_ID">
+          <isNotEqual prepend="AND" property="SUPPLIER_ID" compareValue="0" >
+            <![CDATA[ W.id = #SUPPLIER_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="BATCH_NO">
+          <![CDATA[  BP.BATCH_NO = #BATCH_NO# ]]>
+        </isNotEmpty>
+        <isNotNull property="PROJECT_ID">
+          <isNotEqual prepend="AND" property="PROJECT_ID" compareValue="0">
+            <![CDATA[ PJ.ID = #PROJECT_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull property="PROJECT_ITEM_ID">
+          <isNotEqual prepend="AND" property="PROJECT_ITEM_ID" compareValue="0">
+            <![CDATA[ pjl.ID = #PROJECT_ITEM_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="LOC_TYPE">
+          <![CDATA[ wl.LOC_TYPE =#LOC_TYPE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="QUALITY_STATE">
+          <![CDATA[ ps.QUALITY_STATE =#QUALITY_STATE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="PART_TYPE">
+          <![CDATA[ P.PART_TYPE = #PART_TYPE# ]]>
+        </isNotEmpty>
+      </dynamic>
+      <![CDATA[ order by w.WAREHOUSE_NAME desc,P.PART_CODE desc,P.PART_NAME desc   ]]>
+    </select>
+
+    <!--物料库存汇总查询-->
+    <select id="SelectPartStockLocNum"  parameterClass="PartStock" resultMap="SelectResult2" >
+      <![CDATA[
+            SELECT BP.PART_ID, SUPPLIER.WAREHOUSE_NAME ,P.PART_CODE ,P.PART_NAME, PRO.PROJECT_NAME ,
+                  SUM(CASE WHEN WL.LOC_TYPE='Nomal' THEN PS.STOCK_QTY WHEN WL.LOC_TYPE='Package' THEN PS.STOCK_QTY  ELSE 0 END ) AS Nomal_Num,
+                  SUM(CASE WHEN WL.LOC_TYPE='UnNomal' THEN PS.STOCK_QTY ELSE 0 END ) AS UnNomal_Num,
+                  SUM(CASE WHEN WL.LOC_TYPE='UnInspection' THEN PS.STOCK_QTY ELSE 0 END ) AS UnInspection_Num,
+                  SUM(CASE WHEN WL.LOC_TYPE='Hold' THEN PS.STOCK_QTY ELSE 0 END ) AS HOLD_Num,
+                  SUM(CASE WHEN WL.LOC_TYPE='Package' THEN PS.STOCK_QTY ELSE 0 END ) AS Package_Num,
+                  SUM(CASE WHEN WL.LOC_TYPE='Aftermarket' THEN PS.STOCK_QTY ELSE 0 END ) AS Aftermarket_Num,
+                  SUM(PS.STOCK_QTY) AS Total,dbo.PcsMax(BP.PART_ID ) PCS,dbo.TruckTypeString(BP.PART_ID )  typename
+             FROM PART_STOCK PS
+                  INNER JOIN BATCH_PART BP ON(PS.BATCH_PART_ID=BP.ID)
+                  INNER JOIN PART P ON(P.ID=BP.PART_ID)
+                  INNER JOIN WAREHOUSE SUPPLIER ON(SUPPLIER.ID=BP.SUPPLIER_ID)
+                  INNER JOIN PROJECT PRO ON(PRO.ID=BP.PROJECT_ID)
+                  INNER JOIN WAREHOUSE_LOCATION WL ON(WL.ID=PS.WAREHOUSE_LOCATION_ID)
+            Where 1=1
+			]]>
+      <dynamic>
+        <isNotEmpty prepend="AND" property="PART_CODE">
+          <![CDATA[ P.PART_CODE like '%'+ #PART_CODE# +'%']]>
+        </isNotEmpty>
+        <isNotNull  property="PROJECT_ID">
+          <isNotEqual  prepend="AND" property="PROJECT_ID" compareValue="0" >
+            <![CDATA[ PRO.id = #PROJECT_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull  property="WAREHOUSE_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0" >
+            <![CDATA[ PS.WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull  property="SUPPLIER_ID">
+          <isNotEqual prepend="AND" property="SUPPLIER_ID" compareValue="0" >
+            <![CDATA[ SUPPLIER.ID = #SUPPLIER_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="PART_OWNER">
+          <![CDATA[ PS.PART_OWNER =#PART_OWNER# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="PART_TYPE">
+          <![CDATA[ P.PART_TYPE = #PART_TYPE# ]]>
+        </isNotEmpty>
+        <![CDATA[
+        group by SUPPLIER.WAREHOUSE_NAME,p.PART_CODE,p.PART_NAME,PRO.PROJECT_NAME,BP.PART_ID
+        order by SUPPLIER.WAREHOUSE_NAME desc,P.PART_CODE desc,P.PART_NAME desc 
+        ]]>
+      </dynamic>
+    </select>
+
+    <!--物料库存汇总导出查询-->
+    <select id="SelectPartStockLocNumOutPut"  parameterClass="PartStock" resultMap="SelectResult2" >
+      <![CDATA[
+          SELECT BP.PART_ID, SUPPLIER.WAREHOUSE_NAME ,P.PART_CODE ,P.PART_NAME, PRO.PROJECT_NAME ,
+                  SUM(CASE WHEN WL.LOC_TYPE='Nomal' THEN PS.STOCK_QTY WHEN WL.LOC_TYPE='Package' THEN PS.STOCK_QTY ELSE 0 END ) AS Nomal_Num,
+                  SUM(CASE WHEN WL.LOC_TYPE='UnNomal' THEN PS.STOCK_QTY ELSE 0 END ) AS UnNomal_Num,
+                  SUM(CASE WHEN WL.LOC_TYPE='UnInspection' THEN PS.STOCK_QTY ELSE 0 END ) AS UnInspection_Num,
+                  SUM(CASE WHEN WL.LOC_TYPE='Hold' THEN PS.STOCK_QTY ELSE 0 END ) AS HOLD_Num,
+                  SUM(CASE WHEN WL.LOC_TYPE='Aftermarket' THEN PS.STOCK_QTY ELSE 0 END ) AS Aftermarket_Num,
+                  SUM(PS.STOCK_QTY) AS Total,dbo.PcsMax(BP.PART_ID ) PCS,dbo.TruckTypeString(BP.PART_ID )  typename
+             FROM PART_STOCK PS
+                  INNER JOIN BATCH_PART BP ON(PS.BATCH_PART_ID=BP.ID)
+                  INNER JOIN PART P ON(P.ID=BP.PART_ID)
+                  INNER JOIN WAREHOUSE SUPPLIER ON(SUPPLIER.ID=BP.SUPPLIER_ID)
+                  INNER JOIN PROJECT PRO ON(PRO.ID=BP.PROJECT_ID)
+                  INNER JOIN WAREHOUSE_LOCATION WL ON(WL.ID=PS.WAREHOUSE_LOCATION_ID)
+            Where 1=1
+			]]>
+      <dynamic>
+        <isNotEmpty prepend="AND" property="PART_CODE">
+          <![CDATA[ p.PART_CODE like '%'+ #PART_CODE# +'%']]>
+        </isNotEmpty>
+        <isNotNull  property="PROJECT_ID">
+          <isNotEqual  prepend="AND" property="PROJECT_ID" compareValue="0" >
+            <![CDATA[ pj.id = #PROJECT_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull  property="WAREHOUSE_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0" >
+            <![CDATA[ PS.WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull  property="SUPPLIER_ID">
+          <isNotEqual prepend="AND" property="SUPPLIER_ID" compareValue="0" >
+            <![CDATA[ w.ID = #SUPPLIER_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull  property="PART_OWNER">
+          <isNotEmpty prepend="AND" property="PART_OWNER">
+            <![CDATA[ ps.PART_OWNER =#PART_OWNER# ]]>
+          </isNotEmpty>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="PART_TYPE">
+          <![CDATA[ P.PART_TYPE = #PART_TYPE# ]]>
+        </isNotEmpty>
+        <![CDATA[
+            group by SUPPLIER.WAREHOUSE_NAME,p.PART_CODE,p.PART_NAME,PRO.PROJECT_NAME,BP.PART_ID
+            order by SUPPLIER.WAREHOUSE_NAME desc,P.PART_CODE desc,P.PART_NAME desc 
+        ]]>
+      </dynamic>
+    </select>
+    <select id="SelectByParam" extends="SelectAll"  parameterClass="PartStock"  resultMap="SelectResult">
+      <dynamic prepend="WHERE">
+        <isNotNull property="ID">
+          <isNotEqual prepend="AND" property="ID" compareValue="0">
+            <![CDATA[ ID = #ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull property="BATCH_PART_ID">
+          <isNotEqual prepend="AND" property="BATCH_PART_ID"  compareValue="0">
+            <![CDATA[ BATCH_PART_ID = #BATCH_PART_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull property="WAREHOUSE_LOCATION_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_LOCATION_ID" compareValue="0">
+            <![CDATA[ WAREHOUSE_LOCATION_ID = #WAREHOUSE_LOCATION_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="QUALITY_STATE">
+          <![CDATA[ QUALITY_STATE =#QUALITY_STATE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="PART_OWNER">
+          <![CDATA[ PART_OWNER = #PART_OWNER# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="FROZEN_STATE">
+          <![CDATA[ FROZEN_STATE = #FROZEN_STATE# ]]>
+        </isNotEmpty>
+        <isNotNull property="WAREHOUSE_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+            <![CDATA[ WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <!--总成物料库存汇总查询-->
+    <select id="SelectAssemblyPartStock"   parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+        select  w.WAREHOUSE_NAME,p.PART_CODE,p.PART_NAME,pj.PROJECT_NAME,
+         sum(case when wl.LOC_TYPE='Nomal'  then ps.STOCK_QTY  else 0 end) as Nomal_Num,
+          sum(case when wl.LOC_TYPE='UnNomal'  then ps.STOCK_QTY  else 0 end) as UnNomal_Num,
+           sum(case when wl.LOC_TYPE='UnInspection'  then ps.STOCK_QTY  else 0 end) as UnInspection_Num,
+           sum(case when wl.LOC_TYPE='Hold'  then ps.STOCK_QTY  else 0 end) as HOLD_Num,
+           sum(case when wl.LOC_TYPE='Package'  then ps.STOCK_QTY  else 0 end) as Package_Num,
+           sum(case when wl.LOC_TYPE='Aftermarket'  then ps.STOCK_QTY  else 0 end) as Aftermarket_Num,
+           sum(ps.STOCK_QTY) as Total,pttm.PCS,dbo.TruckTypeString(p.ID)  typename
+	        from PART_STOCK ps
+		          LEFT JOIN BATCH_PART bp ON (bp.id=ps.BATCH_PART_ID )
+		        LEFT JOIN PART p ON (p.ID =bp.PART_ID AND P.IS_DISABLE=0)
+		        LEFT JOIN PART_TRUCK_TYPE_MAP pttm ON pttm.PART_ID=p.id
+		        LEFT JOIN PROJECT pj ON pj.ID =bp.PROJECT_ID
+		        LEFT JOIN WAREHOUSE_LOCATION wl ON wl.id =ps.WAREHOUSE_LOCATION_ID
+		        LEFT JOIN WAREHOUSE_AREA wa ON wa.id=wl.AREA_ID
+		        LEFT JOIN WAREHOUSE w ON w.ID=bp.SUPPLIER_ID 
+            Where 1=1
+			]]>
+      <dynamic>
+        <isNotEmpty prepend="AND" property="PART_CODE">
+          <![CDATA[ P.PART_CODE like '%'+ #PART_CODE# +'%']]>
+        </isNotEmpty>
+        <isNotNull  property="PROJECT_ID">
+          <isNotEqual  prepend="AND" property="PROJECT_ID" compareValue="0" >
+            <![CDATA[ pj.id = #PROJECT_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull  property="WAREHOUSE_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0" >
+            <![CDATA[ PS.WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull  property="SUPPLIER_ID">
+          <isNotEqual prepend="AND" property="SUPPLIER_ID" compareValue="0" >
+            <![CDATA[ w.ID = #SUPPLIER_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="PART_OWNER">
+          <![CDATA[ PS.PART_OWNER =#PART_OWNER# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="PART_TYPE">
+          <![CDATA[ P.PART_TYPE = #PART_TYPE# ]]>
+        </isNotEmpty>
+        <![CDATA[
+        group by w.WAREHOUSE_NAME,p.PART_CODE,p.PART_NAME,pj.PROJECT_NAME,pttm.PCS,dbo.TruckTypeString(p.ID)
+        ]]>
+      </dynamic>
+    </select>
+
+
+
+    <!--不合格零件库存查询-->
+    <select id="SelectUnNormalByParam"  parameterClass="PartStock"  resultMap="SelectResult">
+      <![CDATA[
+        SELECT 
+                PS.ID
+                ,PS.BATCH_PART_ID
+                ,PS.WAREHOUSE_LOCATION_ID
+                ,PS.QUALITY_STATE
+                ,PS.STOCK_QTY
+                ,PS.PICKING_QTY
+                ,PS.PACKAGE_QTY
+                ,PS.PART_OWNER
+                ,PS.FROZEN_STATE
+                ,PS.WAREHOUSE_ID
+                ,PS.CREATE_TIME
+                ,PS.CREATE_USER_ID
+                ,PS.LAST_UPDATE
+                ,PS.UPDATE_USER_ID
+            FROM PART_STOCK PS
+            LEFT JOIN WAREHOUSE_LOCATION WL ON(WL.ID=PS.WAREHOUSE_LOCATION_ID)
+            WHERE WL.LOC_TYPE='UnNomal'
+      ]]>
+      <dynamic>
+        <isNotNull property="ID">
+          <isNotEqual prepend="AND" property="ID" compareValue="0">
+            <![CDATA[ PS.ID = #ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull property="BATCH_PART_ID">
+          <isNotEqual prepend="AND" property="BATCH_PART_ID"  compareValue="0">
+            <![CDATA[ PS.BATCH_PART_ID = #BATCH_PART_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull property="WAREHOUSE_LOCATION_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_LOCATION_ID" compareValue="0">
+            <![CDATA[ PS.WAREHOUSE_LOCATION_ID = #WAREHOUSE_LOCATION_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="QUALITY_STATE">
+          <![CDATA[ PS.QUALITY_STATE =#QUALITY_STATE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="PART_OWNER">
+          <![CDATA[ PS.PART_OWNER = #PART_OWNER# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="FROZEN_STATE">
+          <![CDATA[ PS.FROZEN_STATE = #FROZEN_STATE# ]]>
+        </isNotEmpty>
+        <isNotNull property="WAREHOUSE_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+            <![CDATA[ PS.WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <!--生成报验单查询-->
+    <select id="SelectByParamWithDictionary"   parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+               SELECT   
+                  W.WAREHOUSE_NAME AS SUPPLIER_NAME
+                  ,P.PART_CODE
+                  ,P.PART_NAME
+                  ,PJ.PROJECT_NAME 
+                  ,ITEM.PROJECT_NAME PROJECT_ITEM_NAME
+                  ,P.REPACKAGING_QTY
+                  ,BP.BATCH_NO
+                  ,BP.FURNACE_NO
+                  ,PS.STOCK_QTY
+                  ,WL.LOC_CODE
+                  ,BI.IS_QUALIFIED BIIS_QUALIFIED 
+                  ,BF.IS_QUALIFIED
+                  ,p.IS_FURNACE
+                  ,bp.ID BATCH_ID
+                  ,ps.ID STOCK_ID
+                  ,p.ID PART_ID
+                  ,P.SUPPLIER_ID
+                  ,PS.WAREHOUSE_LOCATION_ID
+                  FROM PART_STOCK PS
+                  LEFT JOIN BATCH_PART BP ON (PS.BATCH_PART_ID=BP.ID)
+                  LEFT JOIN WAREHOUSE W ON (W.ID =BP.SUPPLIER_ID)
+                  LEFT JOIN PART P ON (P.id =BP.PART_ID)
+                  LEFT JOIN PROJECT PJ ON(PJ.ID=BP.PROJECT_ID)
+                  LEFT JOIN PROJECT ITEM ON(ITEM.ID=BP.PROJECT_ITEM_ID)
+                  LEFT JOIN WAREHOUSE_LOCATION WL ON (WL.ID=PS.WAREHOUSE_LOCATION_ID)
+                  LEFT JOIN INSPECTION I  ON (I.BATCH_PART_ID= PS.BATCH_PART_ID AND I.INSPECTION_TYPE='Batch')
+                  LEFT JOIN INSPECTION FI  ON (FI.BATCH_PART_ID= PS.BATCH_PART_ID AND FI.INSPECTION_TYPE='Furnace')
+                  LEFT JOIN BATCH_PART_INSPECTION  BI ON(BI.WAREHOUSE_ID=PS.WAREHOUSE_ID AND BI.BATCH_NO=BP.BATCH_NO AND BI.INSPECTION_TYPE='Batch')
+                  LEFT JOIN BATCH_PART_INSPECTION  BF ON(BF.WAREHOUSE_ID=PS.WAREHOUSE_ID AND BF.FURNACE_NO=BP.FURNACE_NO AND BF.INSPECTION_TYPE='Furnace')
+                  LEFT JOIN ORDER_BUSINESS OB ON(I.ORDER_BUSINESS_ID=OB.id OR FI.ORDER_BUSINESS_ID=OB.ID)
+                  LEFT JOIN ORDER_NUM OM ON(OM.id=OB.ORDER_NUM_ID)
+                  WHERE ps.QUALITY_STATE IN('Inspection','UnQualified') AND  
+                  (( p.IS_FURNACE='1' AND( I.id IS NULL  OR BI.IS_QUALIFIED='1' )) 
+                  or ( p.IS_FURNACE='0' AND(FI.id IS NULL OR I.id IS NULL  OR BI.IS_QUALIFIED='1' OR BF.IS_QUALIFIED='1' )))
+			]]>
+      <isNotNull property="ID">
+        <isNotEqual prepend="AND" property="ID" compareValue="0">
+          <![CDATA[ PS.ID = #ID# ]]>
+        </isNotEqual>
+      </isNotNull>
+      <isNotNull property="PROJECT_NAME_ID">
+        <isNotEqual prepend="AND" property="PROJECT_NAME_ID" compareValue="0">
+          <![CDATA[ PJ.ID = #PROJECT_NAME_ID# ]]>
+        </isNotEqual>
+      </isNotNull>
+      <isNotNull property="PROJECT_ITEM_NAME_ID">
+        <isNotEqual prepend="AND" property="PROJECT_ITEM_NAME_ID" compareValue="0">
+          <![CDATA[ ITEM.ID = #PROJECT_ITEM_NAME_ID# ]]>
+        </isNotEqual>
+      </isNotNull>
+      <isNotEmpty prepend="AND" property="PART_CODE">
+        <![CDATA[ P.PART_CODE LIKE '%'+ #PART_CODE# +'%']]>
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="SUPPLIER_NAME">
+        <![CDATA[  W.WAREHOUSE_NAME LIKE  '%'+ #SUPPLIER_NAME# +'%']]>
+      </isNotEmpty>
+      <isNotNull property="WAREHOUSE_ID">
+        <isNotEqual  prepend="AND"  property="WAREHOUSE_ID" compareValue="0" >
+          <![CDATA[ W.id = #WAREHOUSE_ID# ]]>
+        </isNotEqual>
+      </isNotNull>
+      <isNotEmpty prepend="AND" property="ORDER_NO">
+        <![CDATA[OM.ORDER_NO = #ORDER_NO# ]]>
+      </isNotEmpty>
+
+    </select>
+
+    <!--查询待报验的零件-->
+    <select id="SelectInspectionParts"   parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+    SELECT ROI.REAL_IN_QTY, PDATA.* FROM (SELECT  MIN(ROI.ID) ROI_ID, PS.BATCH_PART_ID ,WL.ID,BP.SUPPLIER_ID,BP.PART_ID,
+               SUPPLIER.WAREHOUSE_NAME SUPPLIER_NAME,P.PART_CODE,P.PART_NAME,
+              PRO.PROJECT_NAME,PRO_ITEM.PROJECT_NAME PROJECT_ITEM_NAME,BP.BATCH_NO,BP.FURNACE_NO,PS.STOCK_QTY,WL.LOC_CODE,
+              PS.ID STOCK_ID,PS.WAREHOUSE_LOCATION_ID,bp.PROJECT_ID,bp.PROJECT_ITEM_ID,PL.LOC_ID SHIPPED_ID
+         FROM PART_STOCK PS
+              INNER JOIN BATCH_PART BP ON(BP.ID=PS.BATCH_PART_ID)
+              INNER JOIN PART P ON(P.ID=BP.PART_ID)
+              INNER JOIN RECEIVE_ORDER_ITEM ROI ON(ROI.BATCH_PART_ID=BP.ID)
+              INNER JOIN WAREHOUSE SUPPLIER ON(SUPPLIER.ID=BP.SUPPLIER_ID)
+              INNER JOIN WAREHOUSE_LOCATION WL ON(WL.ID=PS.WAREHOUSE_LOCATION_ID)
+              INNER JOIN PART_LOC PL ON(PL.PART_ID=BP.PART_ID AND PL.LOC_TYPE='Shipped')
+              LEFT JOIN PROJECT PRO ON(PRO.ID=BP.PROJECT_ID)
+              LEFT JOIN PROJECT PRO_ITEM ON(PRO_ITEM.ID=BP.PROJECT_ITEM_ID)
+              LEFT JOIN BATCH_PART_INSPECTION BPI ON(BPI.PART_ID=BP.PART_ID AND BPI.SUPPLIER_ID=BP.SUPPLIER_ID AND BP.PROJECT_ID=BPI.PROJECT_ID
+              AND BPI.PROJECT_ITEM_ID=BP.PROJECT_ITEM_ID  AND BPI.BATCH_NO=BP.BATCH_NO AND BPI.FURNACE_NO=BP.FURNACE_NO)
+              LEFT JOIN INSPECTION I ON(I.BATCH_PART_ID=BPI.ID)
+              WHERE 
+              (P.IS_FURNACE='0' OR P.IS_INSPECTION='0')
+              AND(I.ID IS NULL OR(I.INSPECTION_STATE='InspectionIn' AND BPI.IS_QUALIFIED='UnQualified' AND I.ID IS NOT NULL) OR
+              (I.INSPECTION_STATE<>'InspectionOut' AND BPI.IS_QUALIFIED='UnQualified' AND I.ID IS NOT NULL))
+              AND WL.LOC_TYPE IN('UnInspection')
+			]]>
+      <isNotNull property="ID">
+        <isNotEqual prepend="AND" property="ID" compareValue="0">
+          <![CDATA[ PS.ID = #ID# ]]>
+        </isNotEqual>
+      </isNotNull>
+      <isNotNull property="PROJECT_NAME_ID">
+        <isNotEqual prepend="AND" property="PROJECT_NAME_ID" compareValue="0">
+          <![CDATA[ PRO.ID = #PROJECT_NAME_ID# ]]>
+        </isNotEqual>
+      </isNotNull>
+      <isNotNull property="PROJECT_ITEM_NAME_ID">
+        <isNotEqual prepend="AND" property="PROJECT_ITEM_NAME_ID" compareValue="0">
+          <![CDATA[ PRO_ITEM.ID = #PROJECT_ITEM_NAME_ID# ]]>
+        </isNotEqual>
+      </isNotNull>
+      <isNotNull property="SUPPLIER_ID">
+        <isNotEqual prepend="AND" property="SUPPLIER_ID" compareValue="0">
+          <![CDATA[ BP.SUPPLIER_ID = #SUPPLIER_ID# ]]>
+        </isNotEqual>
+      </isNotNull>
+      <isNotEmpty prepend="AND" property="PART_CODE">
+        <![CDATA[ P.PART_CODE LIKE '%'+ #PART_CODE# +'%']]>
+      </isNotEmpty>
+      <isNotNull property="WAREHOUSE_ID">
+        <isNotEqual  prepend="AND"  property="WAREHOUSE_ID" compareValue="0" >
+          <![CDATA[ PS.WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+        </isNotEqual>
+      </isNotNull>
+      <![CDATA[
+       GROUP BY  SUPPLIER.WAREHOUSE_NAME,P.PART_CODE,P.PART_NAME,
+	            PRO.PROJECT_NAME,PRO_ITEM.PROJECT_NAME,BP.BATCH_NO,BP.FURNACE_NO,PS.STOCK_QTY,WL.LOC_CODE,
+	            PS.BATCH_PART_ID ,WL.ID,BP.SUPPLIER_ID,BP.PART_ID,PS.BATCH_PART_ID,
+              PS.ID,PS.WAREHOUSE_LOCATION_ID,bp.PROJECT_ID,bp.PROJECT_ITEM_ID,PL.LOC_ID
+                ) PDATA
+          INNER JOIN RECEIVE_ORDER_ITEM ROI ON(ROI.ID=PDATA.ROI_ID)
+        ]]>
+    </select>
+
+
+    <!--根据单据编号查询生成报验单打印-->
+    <select id="SelectPrintInspectionOrder" parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+         SELECT YEAR(OM.ORDER_CREATE_TIME) AS YEAR,MONTH(OM.ORDER_CREATE_TIME)AS MONTH,DAY(OM.ORDER_CREATE_TIME)AS DAY,PRO.PROJECT_CODE,     
+        SUPPLIER.WAREHOUSE_NAME SUPPLIER_NAME,P.PART_CODE,P.PART_NAME,''PROJECT_ITEM_NAME,CONVERT(INT,I.INSPECTION_QTY)INSPECTION_QTY,BPI.BATCH_NO,BPI.FURNACE_NO,WL.LOC_CODE
+        FROM ORDER_NUM OM
+        INNER JOIN ORDER_BUSINESS OB ON(OM.ID=OB.ORDER_NUM_ID)
+        INNER JOIN INSPECTION I ON(I.ORDER_BUSINESS_ID=OB.ID)
+        INNER JOIN BATCH_PART_INSPECTION BPI ON(BPI.ID=I.BATCH_PART_ID)
+        INNER JOIN PART P ON(P.ID=BPI.PART_ID)
+        INNER JOIN WAREHOUSE SUPPLIER ON(SUPPLIER.ID=BPI.SUPPLIER_ID)
+        INNER JOIN WAREHOUSE_LOCATION WL ON(WL.ID=I.PLANRECEIVE_LOCATION_ID)
+        INNER JOIN PROJECT PRO ON(PRO.ID=BPI.PROJECT_ID)
+    ]]>
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="ORDER_NO">
+          <![CDATA[ OM.ORDER_NO =  #ORDER_NO# ]]>
+        </isNotEmpty>
+      </dynamic>
+      <![CDATA[ order by SUPPLIER.WAREHOUSE_NAME desc,p.PART_CODE desc,p.PART_NAME desc]]>
+    </select>
+
+    <!--根据单据编号报验查询确认明细打印-->
+    <select id="SelectPrintInspectionConfirm" parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+          SELECT YEAR(OM.ORDER_CREATE_TIME) AS YEAR,MONTH(OM.ORDER_CREATE_TIME)AS MONTH,DAY(OM.ORDER_CREATE_TIME)AS DAY,I.INSPECTION_NO,        
+          SUPPLIER.WAREHOUSE_NAME SUPPLIER_NAME,P.PART_CODE,P.PART_NAME,''PROJECT_ITEM_NAME,
+          CONVERT(INT,I.INSPECTION_QTY)INSPECTION_QTY,BPI.BATCH_NO,BPI.FURNACE_NO,WL.LOC_CODE,PRO.PROJECT_NAME,OM.ORDER_NO
+          FROM ORDER_NUM OM
+          INNER JOIN ORDER_BUSINESS OB ON(OM.ID=OB.ORDER_NUM_ID)
+          INNER JOIN INSPECTION I ON(I.ORDER_BUSINESS_ID=OB.ID)
+          INNER JOIN BATCH_PART_INSPECTION BPI ON(BPI.ID=I.BATCH_PART_ID)
+          INNER JOIN PART P ON(P.ID=BPI.PART_ID)
+          INNER JOIN WAREHOUSE SUPPLIER ON(SUPPLIER.ID=BPI.SUPPLIER_ID)
+          INNER JOIN WAREHOUSE_LOCATION WL ON(WL.ID=I.PLANRECEIVE_LOCATION_ID)
+          LEFT JOIN PROJECT PRO ON(PRO.ID=BPI.PROJECT_ID)
+    ]]>
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="INSPECTION_NO">
+          <![CDATA[ OM.ORDER_NO =  #INSPECTION_NO# ]]>
+        </isNotEmpty>
+      </dynamic>
+      <![CDATA[ order by SUPPLIER.WAREHOUSE_NAME desc,p.PART_CODE desc,p.PART_NAME desc]]>
+    </select>
+
+
+    <!--查询借用零件-->
+    <select id="SelectBrrowParts"   parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+       SELECT PS.ID, PS.BATCH_PART_ID,PS.WAREHOUSE_LOCATION_ID,BP.PART_ID,BP.PROJECT_ID,BP.PROJECT_ITEM_ID,  P.PART_CODE,P.PART_NAME,SUPPLIER.WAREHOUSE_NAME SUPPLIER_NAME,
+              PRO.PROJECT_NAME,PRO_ITEM.PROJECT_NAME PRO_ITEM_NAME,WL.LOC_NAME,PS.STOCK_QTY,BP.BATCH_NO,BP.SUPPLIER_ID,BP.FURNACE_NO
+              FROM PART_STOCK PS
+              INNER JOIN BATCH_PART BP ON(BP.ID =PS.BATCH_PART_ID)
+              INNER JOIN PART P ON(P.ID=BP.PART_ID)
+              INNER JOIN WAREHOUSE_LOCATION WL ON(WL.ID=PS.WAREHOUSE_LOCATION_ID)
+              INNER JOIN PROJECT PRO ON(PRO.ID=BP.PROJECT_ID)
+              INNER JOIN WAREHOUSE SUPPLIER ON(SUPPLIER.ID=BP.SUPPLIER_ID)
+              LEFT JOIN PROJECT PRO_ITEM ON(PRO_ITEM.ID=BP.PROJECT_ITEM_ID)
+              WHERE
+	              WL.LOC_TYPE='Nomal'
+      ]]>
+      <dynamic>
+        <isNotNull property="SUPPLIER_ID">
+          <isNotEqual prepend="AND" property="SUPPLIER_ID" compareValue="0">
+            <![CDATA[ BP.SUPPLIER_ID = #SUPPLIER_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull property="LOC_ID">
+          <isNotEqual prepend="AND" property="LOC_ID" compareValue="0">
+            <![CDATA[ WL.ID = #LOC_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull property="WAREHOUSE_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+            <![CDATA[ PS.WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull property="PROJECT_ID">
+          <isNotEqual prepend="AND" property="PROJECT_ID" compareValue="0">
+            <![CDATA[ BP.PROJECT_ID = #PROJECT_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull property="PROJECT_ITEM_ID">
+          <isNotEqual prepend="AND" property="PROJECT_ITEM_ID" compareValue="0">
+            <![CDATA[ BP.PROJECT_ITEM_ID = #PROJECT_ITEM_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull property="PART_ID">
+          <isNotEqual prepend="AND" property="PART_ID" compareValue="0">
+            <![CDATA[ P.ID = #PART_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="PART_CODE">
+          <![CDATA[ P.PART_CODE =  #PART_CODE# ]]>
+        </isNotEmpty>
+      </dynamic>
+    </select>
+
+    <!--查询移库零件-->
+    <select id="SelectMoveParts"   parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+               SELECT PS.ID, SUPPLIER.WAREHOUSE_NAME SUPPLIER_NAME,P.PART_CODE,P.PART_NAME,
+                PRO.PROJECT_NAME,PROITEM.PROJECT_NAME PROJECT_ITEM_NAME, BP.BATCH_NO,WL.LOC_NAME,PS.STOCK_QTY,
+                bp.ID BATCH_ID,wl.ID LOCATION_ID
+                 FROM PART_STOCK PS
+                INNER JOIN BATCH_PART BP ON(PS.BATCH_PART_ID=BP.ID)
+                INNER JOIN WAREHOUSE SUPPLIER ON(SUPPLIER.ID=BP.SUPPLIER_ID)
+                INNER JOIN PART P ON(P.ID=BP.PART_ID)
+                LEFT JOIN PROJECT PRO ON(PRO.ID=BP.PROJECT_ID)
+                LEFT JOIN PROJECT PROITEM ON(PROITEM.ID=BP.PROJECT_ITEM_ID)
+                INNER JOIN WAREHOUSE_LOCATION WL ON(WL.ID=PS.WAREHOUSE_LOCATION_ID)
+      ]]>
+      <dynamic prepend="WHERE">
+        <isNotNull property="SUPPLIER_ID">
+          <isNotEqual prepend="AND" property="SUPPLIER_ID" compareValue="0">
+            <![CDATA[ BP.SUPPLIER_ID = #SUPPLIER_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull property="LOC_ID">
+          <isNotEqual prepend="AND" property="LOC_ID" compareValue="0">
+            <![CDATA[ WL.ID = #LOC_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull property="WAREHOUSE_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+            <![CDATA[ PS.WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull property="PROJECT_ID">
+          <isNotEqual prepend="AND" property="PROJECT_ID" compareValue="0">
+            <![CDATA[ BP.PROJECT_ID = #PROJECT_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull property="PROJECT_ITEM_ID">
+          <isNotEqual prepend="AND" property="PROJECT_ITEM_ID" compareValue="0">
+            <![CDATA[ BP.PROJECT_ITEM_ID = #PROJECT_ITEM_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull property="PART_ID">
+          <isNotEqual prepend="AND" property="PART_ID" compareValue="0">
+            <![CDATA[ P.ID = #PART_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="PART_CODE">
+          <![CDATA[ P.PART_CODE =  #PART_CODE# ]]>
+        </isNotEmpty>
+      </dynamic>
+      <![CDATA[ order by SUPPLIER.WAREHOUSE_NAME desc,p.PART_CODE desc,p.PART_NAME desc]]>
+    </select>
+
+    <!--报验推荐库位查询-->
+    <select id="SelectInspectionRecommandLoc"  parameterClass="System.Collections.IDictionary" >
+      <![CDATA[
+  		    SELECT DISTINCT P.ID,P.PART_CODE,P.PART_NAME,PL.LOC_ID,WL.LOC_CODE,WL.LOC_NAME,WL.LOC_TYPE,
+                SUM(PS.STOCK_QTY) STOCK_QTY,PL.LOC_MAX,pl.LOC_MIN, 100 AS RECMONNED_NUM
+                FROM PART P
+                INNER JOIN PART_LOC PL ON(P.ID=PL.PART_ID)
+                INNER JOIN WAREHOUSE_LOCATION WL ON(WL.ID=PL.LOC_ID)
+                LEFT JOIN BATCH_PART BP ON(BP.PART_ID=P.ID)
+                LEFT JOIN PART_STOCK PS ON(PS.BATCH_PART_ID=BP.ID)
+			    ]]>
+      <dynamic prepend="WHERE">
+        <isNotNull  property="WAREHOUSE_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+            <![CDATA[ PS.WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull  property="PART_ID">
+          <isNotEqual prepend="AND" property="PART_ID" compareValue="0">
+            <![CDATA[ PL.PART_ID = #PART_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+      </dynamic>
+      <![CDATA[
+        GROUP BY P.ID,P.PART_CODE,P.PART_NAME,PL.LOC_ID,WL.LOC_CODE,WL.LOC_NAME,WL.LOC_TYPE,
+               PL.LOC_MAX,pl.LOC_MIN
+      ]]>
+    </select>
+
+    <!--推荐库位查询-->
+    <select id="SelectRecommandLoc"  parameterClass="System.Collections.IDictionary" >
+      <![CDATA[
+  		   SELECT * FROM(SELECT P.ID,P.PART_CODE,P.PART_NAME,PL.LOC_ID,WL.LOC_CODE,WL.LOC_NAME,WL.LOC_TYPE,P.WAREHOUSE_ID,0 STOCK_QTY,0 LOC_MAX,0 LOC_MIN,0 RECMONNED_NUM
+			       FROM PART P
+			       INNER JOIN PART_LOC PL ON(P.ID=PL.PART_ID AND PL.LOC_TYPE='Nomal')
+			       INNER JOIN WAREHOUSE_LOCATION WL ON(WL.ID=PL.LOC_ID)
+UNION 
+  SELECT P.ID,P.PART_CODE,P.PART_NAME,PL.LOC_ID,WL.LOC_CODE,WL.LOC_NAME,WL.LOC_TYPE,P.WAREHOUSE_ID,0,0,0,0
+			       FROM PART P
+			       INNER JOIN PART_LOC PL ON(P.ID=PL.PART_ID AND PL.LOC_TYPE='UnInspection')
+			       INNER JOIN WAREHOUSE_LOCATION WL ON(WL.ID=PL.LOC_ID)
+UNION SELECT PP.ID,PP.PART_CODE,PP.PART_NAME,WLL.ID,WLL.LOC_CODE,WLL.LOC_NAME,WLL.LOC_TYPE,PP.WAREHOUSE_ID,0,0,0,0 FROM PART PP
+INNER JOIN WAREHOUSE_LOCATION WLL ON(WLL.LOC_TYPE='UnNomal')
+UNION SELECT PP.ID,PP.PART_CODE,PP.PART_NAME,WLL.ID,WLL.LOC_CODE,WLL.LOC_NAME,WLL.LOC_TYPE,PP.WAREHOUSE_ID,0,0,0,0 FROM PART PP
+INNER JOIN WAREHOUSE_LOCATION WLL ON(WLL.LOC_TYPE='Hold')
+UNION SELECT PP.ID,PP.PART_CODE,PP.PART_NAME,WLL.ID,WLL.LOC_CODE,WLL.LOC_NAME,WLL.LOC_TYPE,PP.WAREHOUSE_ID,0,0,0,0 FROM PART PP
+INNER JOIN WAREHOUSE_LOCATION WLL ON(WLL.LOC_TYPE='UnNomal')) PDATA
+			    ]]>
+      <dynamic prepend="WHERE">
+        <isNotNull  property="WAREHOUSE_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+            <![CDATA[ PDATA.WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull  property="PART_ID">
+          <isNotEqual prepend="AND" property="PART_ID" compareValue="0">
+            <![CDATA[ PDATA.ID = #PART_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <!--推荐库位查询-->
+    <select id="SelectRecommandLocInspection"  parameterClass="System.Collections.IDictionary" >
+      <![CDATA[
+      SELECT * FROM (
+  	        SELECT P.ID,P.PART_CODE,P.PART_NAME,PL.LOC_ID,WL.LOC_CODE,WL.LOC_NAME,WL.LOC_TYPE,P.WAREHOUSE_ID
+			       FROM PART P
+			       INNER JOIN PART_LOC PL ON(P.ID=PL.PART_ID AND PL.LOC_TYPE='Nomal')
+			       INNER JOIN WAREHOUSE_LOCATION WL ON(WL.ID=PL.LOC_ID)
+              UNION SELECT PP.ID,PP.PART_CODE,PP.PART_NAME,WLL.ID,WLL.LOC_CODE,WLL.LOC_NAME,WLL.LOC_TYPE,PP.WAREHOUSE_ID FROM PART PP
+              INNER JOIN WAREHOUSE_LOCATION WLL ON(WLL.LOC_TYPE='UnNomal')
+              UNION SELECT PP.ID,PP.PART_CODE,PP.PART_NAME,WLL.ID,WLL.LOC_CODE,WLL.LOC_NAME,WLL.LOC_TYPE,PP.WAREHOUSE_ID FROM PART PP
+              INNER JOIN WAREHOUSE_LOCATION WLL ON(WLL.LOC_TYPE='Hold')
+          ) PDATA
+			    ]]>
+      <dynamic prepend="WHERE">
+        <isNotNull  property="WAREHOUSE_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+            <![CDATA[ PDATA.WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull  property="PART_ID">
+          <isNotEqual prepend="AND" property="PART_ID" compareValue="0">
+            <![CDATA[ PDATA.ID = #PART_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <!--对账单-->
+    <select id="SelectAccountStatement"   parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+        SELECT SUPPLIER.WAREHOUSE_NAME SUPPLIER_NAME,P.PART_CODE,P.PART_NAME,SUM(DPS.WAREHOUSE_QTY) MONTH_QTY,
+              SUM(ROI.REAL_IN_QTY) RECEIVE_QTY,
+              SUM(CASE WHEN OBR.ORDER_TYPE='CustomerBack' THEN ROI.REAL_IN_QTY else 0 end )BACK_QTY,
+              SUM(D.REAL_OUT_QTY) DELIVER_QTY,
+              SUM(A.ADJUST_QTY) ADJUST_QTY,
+              SUM(SCRP.SCRAP_QTY) SCRAP_QTY,
+              SUM(CASE WHEN WL.LOC_TYPE='Hold' THEN PS.STOCK_QTY ELSE 0 END )AS HOLD_QTY,
+              SUM(CASE WHEN WL.LOC_TYPE='UnInspection' THEN PS.STOCK_QTY ELSE 0 END ) AS INSPECTION_QTY,
+              SUM(CASE WHEN WL.LOC_TYPE='Nomal' THEN PS.STOCK_QTY ELSE 0 END ) AS QUALITY_QTY
+         FROM PART P
+              INNER JOIN BATCH_PART BP ON(BP.PART_ID=P.ID)
+              INNER JOIN WAREHOUSE SUPPLIER ON(SUPPLIER.ID=BP.SUPPLIER_ID)
+              LEFT JOIN RECEIVE_ORDER_ITEM ROI ON(ROI.BATCH_PART_ID=BP.ID)
+              LEFT JOIN ORDER_BUSINESS OBR ON(OBR.ID=ROI.ORDER_BUSINESS_ID)
+              LEFT JOIN SCRAPPED SCRP ON(SCRP.BATCH_PART_ID=BP.ID)
+              LEFT JOIN DELIVER D ON(D.BATCH_PART_ID=BP.ID)
+              LEFT JOIN PART_STOCK PS ON(PS.BATCH_PART_ID=BP.ID) 
+              LEFT JOIN WAREHOUSE_LOCATION WL ON(WL.ID=PS.WAREHOUSE_LOCATION_ID)
+              LEFT JOIN ADJUST A ON(A.BATCH_PART_ID=BP.ID AND A.ADJUST_TYPE='OpenReduce')
+              LEFT JOIN DAY_PART_STORAGE DPS ON(DPS.BATCH_PART_ID=BP.ID 
+              AND CONVERT(VARCHAR(10),DPS.CREATE_TIME,120)=CONVERT(VARCHAR(10),dateadd(ms,-3,DATEADD(mm, DATEDIFF(mm,0,getdate()),0)),120))
+	                   ]]>
+      <dynamic prepend="WHERE">
+        <isNotNull property="WAREHOUSE_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+            <![CDATA[ PS.WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull property="SUPPLIER_ID">
+          <isNotEqual prepend="AND" property="SUPPLIER_ID" compareValue="0">
+            <![CDATA[ BP.SUPPLIER_ID = #SUPPLIER_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="PART_CODE">
+          <![CDATA[ P.PART_CODE = #PART_CODE#   ]]>
+        </isNotEmpty>
+        <isNotNull prepend="AND" property="START_TIME">
+          <![CDATA[ convert(varchar(10), OBR.CREATE_TIME ,120)>= #START_TIME# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="END_TIME">
+          <![CDATA[ convert(varchar(10), OBR.CREATE_TIME ,120) <= #END_TIME# ]]>
+        </isNotNull>
+        <![CDATA[
+            GROUP BY SUPPLIER.WAREHOUSE_NAME,P.PART_CODE,P.PART_NAME,OBR.ORDER_TYPE
+        ]]>
+      </dynamic>
+    </select>
+
+
+    <!--日库存报表-->
+    <select id="SelectStock"   parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+        SELECT SUPPLIER.WAREHOUSE_NAME SUPPLIER_NAME,
+                    P.PART_CODE,P.PART_NAME,SUM(PS.STOCK_QTY) STOCK_QTY,
+                    SUM(CASE WHEN WL.LOC_TYPE='NOmal' THEN PS.STOCK_QTY ELSE 0 END) NORMAL_QTY,
+                    SUM(CASE WHEN WL.LOC_TYPE='UnNOmal' THEN PS.STOCK_QTY ELSE 0 END) UNNORMAL_QTY,
+                    SUM(ROI.REAL_IN_QTY) RECEIVE_QTY,
+                    SUM(D.REAL_OUT_QTY) DELIVER_QTY,
+                    SUM(A.ADJUST_QTY) ADJUST_QTY,
+                    SUM(CASE WHEN WL.LOC_TYPE='UnNOmal' THEN PS.STOCK_QTY ELSE 0 END) BAD_QTY,
+                    SUM(CASE WHEN OBD.ORDER_TYPE='BackSupplier' THEN PS.STOCK_QTY ELSE 0 END) BACK_QTY
+              FROM PART_STOCK ps
+              INNER JOIN BATCH_PART BP ON (bp.PART_ID=ps.BATCH_PART_ID)
+              INNER JOIN PART P ON(P.ID=BP.PART_ID)
+              INNER JOIN WAREHOUSE SUPPLIER ON(SUPPLIER.ID=P.SUPPLIER_ID)
+              INNER JOIN WAREHOUSE_LOCATION WL ON(WL.ID=PS.WAREHOUSE_LOCATION_ID)
+              LEFT JOIN RECEIVE_ORDER_ITEM ROI ON(ROI.BATCH_PART_ID=BP.ID AND CONVERT(VARCHAR(10),ROI.CREATE_TIME,120)=GETDATE())
+              LEFT JOIN ORDER_BUSINESS OB ON(OB.ID=ROI.ORDER_BUSINESS_ID)
+              LEFT JOIN DELIVER D ON(D.BATCH_PART_ID=BP.ID)
+              LEFT JOIN ORDER_BUSINESS OBD ON(OBD.ID=D.ORDER_BUSINESS_ID)
+              LEFT JOIN ADJUST A ON(A.BATCH_PART_ID=BP.ID)
+	                   ]]>
+      <dynamic prepend="WHERE">
+        <isNotNull property="WAREHOUSE_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+            <![CDATA[ PS.WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull property="SUPPLIER_ID">
+          <isNotEqual prepend="AND" property="SUPPLIER_ID" compareValue="0">
+            <![CDATA[ BP.SUPPLIER_ID = #SUPPLIER_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="PART_CODE">
+          <![CDATA[ P.PART_CODE = #PART_CODE#   ]]>
+        </isNotEmpty>
+        <![CDATA[
+            GROUP BY SUPPLIER.WAREHOUSE_NAME,P.PART_CODE,P.PART_NAME,WL.LOC_TYPE
+        ]]>
+      </dynamic>
+    </select>
+
+    <insert id="Insert" parameterClass="PartStock">
+      <![CDATA[
+		       INSERT INTO PART_STOCK
+                 (BATCH_PART_ID
+                 ,WAREHOUSE_LOCATION_ID
+                 ,QUALITY_STATE
+                 ,STOCK_QTY
+                 ,PICKING_QTY
+                 ,PACKAGE_QTY
+                 ,PART_OWNER
+                 ,FROZEN_STATE
+                 ,WAREHOUSE_ID
+                 ,CREATE_TIME
+                 ,CREATE_USER_ID)
+           VALUES
+                 (#BATCH_PART_ID#
+                 ,#WAREHOUSE_LOCATION_ID#
+                 ,#QUALITY_STATE#
+                 ,#STOCK_QTY#
+                 ,#PICKING_QTY#
+                 ,#PACKAGE_QTY#
+                 ,#PART_OWNER#
+                 ,#FROZEN_STATE#
+                 ,#WAREHOUSE_ID#
+                 ,#CREATE_TIME#
+                 ,#CREATE_USER_ID#)
+			]]>
+      <selectKey resultClass="int" type="post" property="ID" >
+        <![CDATA[ select @@IDENTITY ; ]]>
+      </selectKey>
+    </insert>
+
+    <update id="Update" parameterClass="PartStock">
+      <![CDATA[
+          UPDATE PART_STOCK
+               SET BATCH_PART_ID = #BATCH_PART_ID#
+                  ,WAREHOUSE_LOCATION_ID = #WAREHOUSE_LOCATION_ID#
+                  ,QUALITY_STATE = #QUALITY_STATE#
+                  ,STOCK_QTY = #STOCK_QTY#
+                  ,PICKING_QTY = #PICKING_QTY#
+                  ,PACKAGE_QTY = #PACKAGE_QTY#
+                  ,PART_OWNER = #PART_OWNER#
+                  ,FROZEN_STATE = #FROZEN_STATE#
+                  ,WAREHOUSE_ID = #WAREHOUSE_ID#
+                  ,LAST_UPDATE = #LAST_UPDATE#
+                  ,UPDATE_USER_ID = #UPDATE_USER_ID#
+           WHERE ID=#ID#
+        ]]>
+    </update>
+
+    <!--更改库存数量-->
+    <update id="UpdateStorageQty" parameterClass="PartStock">
+      <![CDATA[
+          UPDATE PART_STOCK
+               SET 
+                  STOCK_QTY = #STOCK_QTY#
+                  ,LAST_UPDATE = #LAST_UPDATE#
+                  ,UPDATE_USER_ID = #UPDATE_USER_ID#
+           WHERE ID=#ID#
+        ]]>
+    </update>
+
+    <!--更改库存数量-拣货确认-->
+    <update id="UpdateStoragePickQty" parameterClass="PartStock">
+      <![CDATA[
+          UPDATE PART_STOCK
+               SET 
+                  PICKING_QTY=#PICKING_QTY#,
+                  STOCK_QTY = #STOCK_QTY#,
+                  LAST_UPDATE = #LAST_UPDATE#,
+                  UPDATE_USER_ID = #UPDATE_USER_ID#
+           WHERE ID=#ID#
+        ]]>
+    </update>
+    <!--更改库存数量-翻包装确认-->
+    <update id="UpdateStoragePackageQty" parameterClass="PartStock">
+      <![CDATA[
+          UPDATE PART_STOCK
+               SET 
+                  PACKAGE_QTY=#PACKAGE_QTY#,
+                  STOCK_QTY = #STOCK_QTY#,
+                  LAST_UPDATE = #LAST_UPDATE#,
+                  UPDATE_USER_ID = #UPDATE_USER_ID#
+           WHERE ID=#ID#
+        ]]>
+    </update>
+
+    <delete id="deleteStock" parameterClass="PartStock">
+      <![CDATA[
+          delete from PART_STOCK where ID=#ID#
+        ]]>
+    </delete>
+
+  </statements>
+</sqlMap>

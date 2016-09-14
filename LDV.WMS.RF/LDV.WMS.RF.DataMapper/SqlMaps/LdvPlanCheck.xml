@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<sqlMap 
+	namespace="LdvPlanCheck" xmlns="http://ibatis.apache.org/mapping" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	
+	<alias>
+		<typeAlias alias="LdvPlanCheck" type="LDV.WMS.RF.DataMapper.LdvPlanCheck, LDV.WMS.RF.DataMapper" />
+	</alias>
+	
+	<resultMaps>
+		<resultMap id="SelectResult" class="LdvPlanCheck">
+			<result property="ID" column="ID" />
+			<result property="CHECK_CREDENCE" column="CHECK_CREDENCE" />
+			<result property="PLAN_CHECK_DATE" column="PLAN_CHECK_DATE" />
+			<result property="STATE" column="STATE" />
+			<result property="CREATE_DATE" column="CREATE_DATE" />
+			<result property="CREATE_USER_ID" column="CREATE_USER_ID" />
+			<result property="LAST_MODIFY_DATE" column="LAST_MODIFY_DATE" />
+			<result property="LAST_MODIFY_USER_ID" column="LAST_MODIFY_USER_ID" />
+		</resultMap>
+	</resultMaps>
+	
+	<statements>
+	
+		<select id="SelectAll" resultMap="SelectResult">
+			<![CDATA[
+			select
+				ID,
+				CHECK_CREDENCE,
+				PLAN_CHECK_DATE,
+				STATE,
+				CREATE_DATE,
+				CREATE_USER_ID,
+				LAST_MODIFY_DATE,
+				LAST_MODIFY_USER_ID
+			from LDV_PLAN_CHECK
+			]]>
+		</select>
+		
+		<select id="SelectById" extends="SelectAll" parameterClass="double" resultMap="SelectResult">
+			<![CDATA[
+			where
+				ID = #value#
+			]]>
+		</select>
+		
+		<select id="SelectByParam" extends="SelectAll" parameterClass="LdvPlanCheck" resultMap="SelectResult">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="CHECK_CREDENCE">
+        			<![CDATA[ CHECK_CREDENCE = #CHECK_CREDENCE# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="STATE">
+        			<![CDATA[ STATE = #STATE# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="CREATE_USER_ID">
+        			<![CDATA[ CREATE_USER_ID = #CREATE_USER_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LAST_MODIFY_USER_ID">
+        			<![CDATA[ LAST_MODIFY_USER_ID = #LAST_MODIFY_USER_ID# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+		
+		<select id="SelectForPageing" extends="SelectAll" parameterClass="System.Collections.IDictionary">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CHECK_CREDENCE">
+        			<![CDATA[ CHECK_CREDENCE = #CHECK_CREDENCE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PLAN_CHECK_DATE">
+        			<![CDATA[ PLAN_CHECK_DATE = #PLAN_CHECK_DATE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="STATE">
+        			<![CDATA[ STATE = #STATE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CREATE_USER_ID">
+        			<![CDATA[ CREATE_USER_ID = #CREATE_USER_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LAST_MODIFY_DATE">
+        			<![CDATA[ LAST_MODIFY_DATE = #LAST_MODIFY_DATE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LAST_MODIFY_USER_ID">
+        			<![CDATA[ LAST_MODIFY_USER_ID = #LAST_MODIFY_USER_ID# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+		<insert id="Insert" parameterClass="LdvPlanCheck">
+			<selectKey resultClass="double" type="pre" property="ID" > 
+				<![CDATA[ select LDV_PLAN_CHECK_SEQ.NEXTVAL as value from dual ]]>
+			</selectKey>
+			<![CDATA[
+			insert into LDV_PLAN_CHECK
+			(
+			    ID,
+			    CHECK_CREDENCE,
+			    PLAN_CHECK_DATE,
+			    STATE,
+			    CREATE_USER_ID,
+			    LAST_MODIFY_DATE,
+			    LAST_MODIFY_USER_ID
+			)
+			values 
+			(
+				#ID#,
+				#CHECK_CREDENCE#,
+				#PLAN_CHECK_DATE#,
+				#STATE#,
+				#CREATE_USER_ID#,
+				#LAST_MODIFY_DATE#,
+				#LAST_MODIFY_USER_ID#
+			)
+			]]>
+		</insert>
+		<update id="Update" parameterClass="LdvPlanCheck" >
+			<![CDATA[
+			update LDV_PLAN_CHECK set
+				CHECK_CREDENCE = #CHECK_CREDENCE#,
+				PLAN_CHECK_DATE = #PLAN_CHECK_DATE#,
+				STATE = #STATE#,
+				LAST_MODIFY_DATE = #LAST_MODIFY_DATE#,
+				LAST_MODIFY_USER_ID = #LAST_MODIFY_USER_ID#
+			where
+				ID = #ID#
+			]]>
+		</update>
+		
+		<update id="UpdateSection" parameterClass="LdvPlanCheck" >
+			<![CDATA[
+			update LDV_PLAN_CHECK set 
+			]]>
+			<dynamic prepend=" ">
+				<isNotEmpty prepend="," property="CHECK_CREDENCE">
+					<![CDATA[ CHECK_CREDENCE=#CHECK_CREDENCE#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="PLAN_CHECK_DATE">
+					<![CDATA[ PLAN_CHECK_DATE=#PLAN_CHECK_DATE#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="STATE">
+					<![CDATA[ STATE=#STATE#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="LAST_MODIFY_DATE">
+					<![CDATA[ LAST_MODIFY_DATE=#LAST_MODIFY_DATE#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="LAST_MODIFY_USER_ID">
+					<![CDATA[ LAST_MODIFY_USER_ID=#LAST_MODIFY_USER_ID#]]>
+				</isNotNull>
+			</dynamic>
+			<![CDATA[
+			where
+				ID = #ID#
+			]]>
+		</update>
+		<delete id="Delete" parameterClass="LdvPlanCheck" >
+			<![CDATA[
+			delete from LDV_PLAN_CHECK
+			where 
+				ID = #ID#
+			]]>
+		</delete>
+	</statements>
+	
+</sqlMap>

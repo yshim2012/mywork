@@ -1,0 +1,15 @@
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.Business\bin\Debug\LDV.WMS.RF.Business.dll
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.Business\bin\Debug\LDV.WMS.RF.Business.pdb
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.Business\bin\Debug\IBatisNet.Common.dll
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.Business\bin\Debug\IBatisNet.DataMapper.dll
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.Business\bin\Debug\LDV.WMS.RF.DataMapper.dll
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.Business\bin\Debug\LDV.WMS.RF.Utility.dll
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.Business\bin\Debug\log4net.dll
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.Business\bin\Debug\Newtonsoft.Json.dll
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.Business\bin\Debug\Castle.DynamicProxy.dll
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.Business\bin\Debug\ICSharpCode.SharpZipLib.dll
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.Business\bin\Debug\LDV.WMS.RF.DataMapper.pdb
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.Business\bin\Debug\LDV.WMS.RF.Utility.pdb
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.Business\obj\Debug\ResolveAssemblyReference.cache
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.Business\obj\Debug\LDV.WMS.RF.Business.dll
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.Business\obj\Debug\LDV.WMS.RF.Business.pdb

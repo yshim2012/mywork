@@ -1,0 +1,952 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="VWmsItem" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="VWmsItem" type="LDV.WMS.RF.DataMapper.VWmsItem, LDV.WMS.RF.DataMapper" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="VWmsItem">
+      <result property="ID" column="ID" />
+      <result property="COMPANY_ID" column="COMPANY_ID" />
+      <result property="ITEM_CODE" column="ITEM_CODE" />
+      <result property="ITEM_NAME" column="ITEM_NAME" />
+      <result property="UPC" column="UPC" />
+      <result property="DESCRIPTION" column="DESCRIPTION" />
+      <result property="IS_TRACK_LOTS" column="IS_TRACK_LOTS" />
+      <result property="IS_TRACK_XDATES" column="IS_TRACK_XDATES" />
+      <result property="IS_TRACK_SERIALS" column="IS_TRACK_SERIALS" />
+      <result property="UOM_ID" column="UOM_ID" />
+      <result property="UNIT_WEIGHT" column="UNIT_WEIGHT" />
+      <result property="UNIT_VOLUME" column="UNIT_VOLUME" />
+      <result property="UNIT_TARE" column="UNIT_TARE" />
+      <result property="FULL_CASE_QTY" column="FULL_CASE_QTY" />
+      <result property="FULL_CASE_WEIGHT" column="FULL_CASE_WEIGHT" />
+      <result property="FULL_CASE_TARE" column="FULL_CASE_TARE" />
+      <result property="FULL_PALLET_QTY" column="FULL_PALLET_QTY" />
+      <result property="FULL_PALLET_WEIGHT" column="FULL_PALLET_WEIGHT" />
+      <result property="FULL_PALLET_TARE" column="FULL_PALLET_TARE" />
+      <result property="IS_DISABLED" column="IS_DISABLED" />
+      <result property="CREATED_TIME" column="CREATED_TIME" />
+      <result property="LAST_MODIFIED" column="LAST_MODIFIED" />
+      <result property="EXTEND_COLUMN_0" column="EXTEND_COLUMN_0" />
+      <result property="EXTEND_COLUMN_1" column="EXTEND_COLUMN_1" />
+      <result property="EXTEND_COLUMN_2" column="EXTEND_COLUMN_2" />
+      <result property="EXTEND_COLUMN_3" column="EXTEND_COLUMN_3" />
+      <result property="EXTEND_COLUMN_4" column="EXTEND_COLUMN_4" />
+      <result property="IS_PACK" column="IS_PACK" />
+      <result property="STD_PACK" column="STD_PACK" />
+      <result property="SUPPLIER_ID" column="SUPPLIER_ID" />
+      <result property="IN_PACK" column="IN_PACK" />
+      <result property="STD_OUT_PACK" column="STD_OUT_PACK" />
+      <result property="BWTAR" column="BWTAR" />
+      <result property="CHARG" column="CHARG" />
+      <result property="MIN_ERROR" column="MIN_ERROR" />
+      <result property="MAX_ERROR" column="MAX_ERROR" />
+      <result property="IS_AUTO_FILL" column="IS_AUTO_FILL" />
+      <result property="WHSE_ID" column="WHSE_ID" />
+      <result property="IS_INTERFACE" column="IS_INTERFACE" />
+      <result property="IS_REPACK" column="IS_REPACK" />
+      <result property="REMARK" column="REMARK" />
+      <result property="IS_CONTROL" column="IS_CONTROL" />
+      <result property="IS_STANDARD" column="IS_STANDARD" />
+      <result property="IS_SPECIAL" column="IS_SPECIAL" />
+      <result property="ASSEMBLE_PROPERTY" column="ASSEMBLE_PROPERTY" />
+      <result property="IS_IMPORTANT" column="IS_IMPORTANT" />
+      <result property="OTHER_NAME" column="OTHER_NAME" />
+    </resultMap>
+  </resultMaps>
+
+  <statements>
+
+    <select id="SelectAll" resultMap="SelectResult">
+      <![CDATA[
+			select
+				ID,
+				COMPANY_ID,
+				ITEM_CODE,
+				ITEM_NAME,
+				UPC,
+				DESCRIPTION,
+				IS_TRACK_LOTS,
+				IS_TRACK_XDATES,
+				IS_TRACK_SERIALS,
+				UOM_ID,
+				UNIT_WEIGHT,
+				UNIT_VOLUME,
+				UNIT_TARE,
+				FULL_CASE_QTY,
+				FULL_CASE_WEIGHT,
+				FULL_CASE_TARE,
+				FULL_PALLET_QTY,
+				FULL_PALLET_WEIGHT,
+				FULL_PALLET_TARE,
+				IS_DISABLED,
+				CREATED_TIME,
+				LAST_MODIFIED,
+				EXTEND_COLUMN_0,
+				EXTEND_COLUMN_1,
+				EXTEND_COLUMN_2,
+				EXTEND_COLUMN_3,
+				EXTEND_COLUMN_4,
+				IS_PACK,
+				STD_PACK,
+				SUPPLIER_ID,
+				IN_PACK,
+				STD_OUT_PACK,
+				BWTAR,
+				CHARG,
+				MIN_ERROR,
+				MAX_ERROR,
+				IS_AUTO_FILL,
+				WHSE_ID,
+				IS_INTERFACE,
+				IS_REPACK,
+				REMARK,
+				IS_CONTROL,
+				IS_STANDARD,
+				IS_SPECIAL,
+				ASSEMBLE_PROPERTY,
+				IS_IMPORTANT,
+				OTHER_NAME
+			from V_WMS_ITEM
+			]]>
+    </select>
+
+    <select id="SelectById" extends="SelectAll" parameterClass="double" resultMap="SelectResult">
+      <![CDATA[
+			where
+				ID = #value#
+			]]>
+    </select>
+
+    <select id="SelectByItemId"  parameterClass="VWmsItem" resultMap="SelectResult">
+      <![CDATA[select
+				ID,
+				COMPANY_ID,
+				ITEM_CODE,
+				ITEM_NAME,
+				UPC,
+				DESCRIPTION,
+				IS_TRACK_LOTS,
+				IS_TRACK_XDATES,
+				IS_TRACK_SERIALS,
+				UOM_ID,
+				UNIT_WEIGHT,
+				UNIT_VOLUME,
+				UNIT_TARE,
+				FULL_CASE_QTY,
+				FULL_CASE_WEIGHT,
+				FULL_CASE_TARE,
+				FULL_PALLET_QTY,
+				FULL_PALLET_WEIGHT,
+				FULL_PALLET_TARE,
+				IS_DISABLED,
+				CREATED_TIME,
+				LAST_MODIFIED,
+				EXTEND_COLUMN_0,
+				EXTEND_COLUMN_1,
+				EXTEND_COLUMN_2,
+				EXTEND_COLUMN_3,
+				EXTEND_COLUMN_4,
+				IS_PACK,
+				STD_PACK,
+				SUPPLIER_ID,
+				IN_PACK,
+				STD_OUT_PACK,
+				BWTAR,
+				CHARG,
+				MIN_ERROR,
+				MAX_ERROR,
+				IS_AUTO_FILL,
+				WHSE_ID,
+				IS_INTERFACE,
+				IS_REPACK,
+				REMARK,
+				IS_CONTROL,
+				IS_STANDARD,
+				IS_SPECIAL,
+				ASSEMBLE_PROPERTY,
+				IS_IMPORTANT,
+				OTHER_NAME
+			from V_WMS_ITEM]]>
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ID">
+          <![CDATA[ ID = #ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="COMPANY_ID">
+          <![CDATA[ COMPANY_ID = #COMPANY_ID# ]]>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="ITEM_CODE">
+          <![CDATA[ ITEM_CODE = #ITEM_CODE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="ITEM_NAME">
+          <![CDATA[ ITEM_NAME = #ITEM_NAME# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="UPC">
+          <![CDATA[ UPC = #UPC# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="DESCRIPTION">
+          <![CDATA[ DESCRIPTION = #DESCRIPTION# ]]>
+        </isNotEmpty>
+        <isNotNull prepend="AND" property="IS_TRACK_LOTS">
+          <![CDATA[ IS_TRACK_LOTS = #IS_TRACK_LOTS# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_TRACK_XDATES">
+          <![CDATA[ IS_TRACK_XDATES = #IS_TRACK_XDATES# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_TRACK_SERIALS">
+          <![CDATA[ IS_TRACK_SERIALS = #IS_TRACK_SERIALS# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="UOM_ID">
+          <![CDATA[ UOM_ID = #UOM_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="UNIT_WEIGHT">
+          <![CDATA[ UNIT_WEIGHT = #UNIT_WEIGHT# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="UNIT_VOLUME">
+          <![CDATA[ UNIT_VOLUME = #UNIT_VOLUME# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="UNIT_TARE">
+          <![CDATA[ UNIT_TARE = #UNIT_TARE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="FULL_CASE_QTY">
+          <![CDATA[ FULL_CASE_QTY = #FULL_CASE_QTY# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="FULL_CASE_WEIGHT">
+          <![CDATA[ FULL_CASE_WEIGHT = #FULL_CASE_WEIGHT# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="FULL_CASE_TARE">
+          <![CDATA[ FULL_CASE_TARE = #FULL_CASE_TARE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="FULL_PALLET_QTY">
+          <![CDATA[ FULL_PALLET_QTY = #FULL_PALLET_QTY# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="FULL_PALLET_WEIGHT">
+          <![CDATA[ FULL_PALLET_WEIGHT = #FULL_PALLET_WEIGHT# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="FULL_PALLET_TARE">
+          <![CDATA[ FULL_PALLET_TARE = #FULL_PALLET_TARE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_DISABLED">
+          <![CDATA[ IS_DISABLED = #IS_DISABLED# ]]>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="EXTEND_COLUMN_0">
+          <![CDATA[ EXTEND_COLUMN_0 = #EXTEND_COLUMN_0# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="EXTEND_COLUMN_1">
+          <![CDATA[ EXTEND_COLUMN_1 = #EXTEND_COLUMN_1# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="EXTEND_COLUMN_2">
+          <![CDATA[ EXTEND_COLUMN_2 = #EXTEND_COLUMN_2# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="EXTEND_COLUMN_3">
+          <![CDATA[ EXTEND_COLUMN_3 = #EXTEND_COLUMN_3# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="EXTEND_COLUMN_4">
+          <![CDATA[ EXTEND_COLUMN_4 = #EXTEND_COLUMN_4# ]]>
+        </isNotEmpty>
+        <isNotNull prepend="AND" property="IS_PACK">
+          <![CDATA[ IS_PACK = #IS_PACK# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="STD_PACK">
+          <![CDATA[ STD_PACK = #STD_PACK# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="SUPPLIER_ID">
+          <![CDATA[ SUPPLIER_ID = #SUPPLIER_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IN_PACK">
+          <![CDATA[ IN_PACK = #IN_PACK# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="STD_OUT_PACK">
+          <![CDATA[ STD_OUT_PACK = #STD_OUT_PACK# ]]>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="BWTAR">
+          <![CDATA[ BWTAR = #BWTAR# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="CHARG">
+          <![CDATA[ CHARG = #CHARG# ]]>
+        </isNotEmpty>
+        <isNotNull prepend="AND" property="MIN_ERROR">
+          <![CDATA[ MIN_ERROR = #MIN_ERROR# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="MAX_ERROR">
+          <![CDATA[ MAX_ERROR = #MAX_ERROR# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_AUTO_FILL">
+          <![CDATA[ IS_AUTO_FILL = #IS_AUTO_FILL# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="WHSE_ID">
+          <![CDATA[ WHSE_ID = #WHSE_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_INTERFACE">
+          <![CDATA[ IS_INTERFACE = #IS_INTERFACE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_REPACK">
+          <![CDATA[ IS_REPACK = #IS_REPACK# ]]>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="REMARK">
+          <![CDATA[ REMARK = #REMARK# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="IS_CONTROL">
+          <![CDATA[ IS_CONTROL = #IS_CONTROL# ]]>
+        </isNotEmpty>
+        <isNotNull prepend="AND" property="IS_STANDARD">
+          <![CDATA[ IS_STANDARD = #IS_STANDARD# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_SPECIAL">
+          <![CDATA[ IS_SPECIAL = #IS_SPECIAL# ]]>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="ASSEMBLE_PROPERTY">
+          <![CDATA[ ASSEMBLE_PROPERTY = #ASSEMBLE_PROPERTY# ]]>
+        </isNotEmpty>
+        <isNotNull prepend="AND" property="IS_IMPORTANT">
+          <![CDATA[ IS_IMPORTANT = #IS_IMPORTANT# ]]>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="OTHER_NAME">
+          <![CDATA[ OTHER_NAME = #OTHER_NAME# ]]>
+        </isNotEmpty>
+      </dynamic>
+    </select>
+
+    <!-- 获取零件主库位 -->
+    <select id="SelectPartInfoByCode"  parameterClass="System.Collections.IDictionary">
+      <![CDATA[ 
+        select l.loc_code, i.*
+        from v_wms_item i,
+          v_wms_item_location_map m, 
+          v_wms_base_location l
+        where i.id = m.item_id and m.loc_id = l.id 
+            ]]>
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="ITEM_CODE">
+          <![CDATA[ i.ITEM_CODE = #ITEM_CODE# ]]>
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectByParam" extends="SelectAll" parameterClass="VWmsItem" resultMap="SelectResult">
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ID">
+          <![CDATA[ ID = #ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="COMPANY_ID">
+          <![CDATA[ COMPANY_ID = #COMPANY_ID# ]]>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="ITEM_CODE">
+          <![CDATA[ ITEM_CODE = #ITEM_CODE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="ITEM_NAME">
+          <![CDATA[ ITEM_NAME = #ITEM_NAME# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="UPC">
+          <![CDATA[ UPC = #UPC# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="DESCRIPTION">
+          <![CDATA[ DESCRIPTION = #DESCRIPTION# ]]>
+        </isNotEmpty>
+        <isNotNull prepend="AND" property="IS_TRACK_LOTS">
+          <![CDATA[ IS_TRACK_LOTS = #IS_TRACK_LOTS# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_TRACK_XDATES">
+          <![CDATA[ IS_TRACK_XDATES = #IS_TRACK_XDATES# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_TRACK_SERIALS">
+          <![CDATA[ IS_TRACK_SERIALS = #IS_TRACK_SERIALS# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="UOM_ID">
+          <![CDATA[ UOM_ID = #UOM_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="UNIT_WEIGHT">
+          <![CDATA[ UNIT_WEIGHT = #UNIT_WEIGHT# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="UNIT_VOLUME">
+          <![CDATA[ UNIT_VOLUME = #UNIT_VOLUME# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="UNIT_TARE">
+          <![CDATA[ UNIT_TARE = #UNIT_TARE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="FULL_CASE_QTY">
+          <![CDATA[ FULL_CASE_QTY = #FULL_CASE_QTY# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="FULL_CASE_WEIGHT">
+          <![CDATA[ FULL_CASE_WEIGHT = #FULL_CASE_WEIGHT# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="FULL_CASE_TARE">
+          <![CDATA[ FULL_CASE_TARE = #FULL_CASE_TARE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="FULL_PALLET_QTY">
+          <![CDATA[ FULL_PALLET_QTY = #FULL_PALLET_QTY# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="FULL_PALLET_WEIGHT">
+          <![CDATA[ FULL_PALLET_WEIGHT = #FULL_PALLET_WEIGHT# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="FULL_PALLET_TARE">
+          <![CDATA[ FULL_PALLET_TARE = #FULL_PALLET_TARE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_DISABLED">
+          <![CDATA[ IS_DISABLED = #IS_DISABLED# ]]>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="EXTEND_COLUMN_0">
+          <![CDATA[ EXTEND_COLUMN_0 = #EXTEND_COLUMN_0# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="EXTEND_COLUMN_1">
+          <![CDATA[ EXTEND_COLUMN_1 = #EXTEND_COLUMN_1# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="EXTEND_COLUMN_2">
+          <![CDATA[ EXTEND_COLUMN_2 = #EXTEND_COLUMN_2# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="EXTEND_COLUMN_3">
+          <![CDATA[ EXTEND_COLUMN_3 = #EXTEND_COLUMN_3# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="EXTEND_COLUMN_4">
+          <![CDATA[ EXTEND_COLUMN_4 = #EXTEND_COLUMN_4# ]]>
+        </isNotEmpty>
+        <isNotNull prepend="AND" property="IS_PACK">
+          <![CDATA[ IS_PACK = #IS_PACK# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="STD_PACK">
+          <![CDATA[ STD_PACK = #STD_PACK# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="SUPPLIER_ID">
+          <![CDATA[ SUPPLIER_ID = #SUPPLIER_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IN_PACK">
+          <![CDATA[ IN_PACK = #IN_PACK# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="STD_OUT_PACK">
+          <![CDATA[ STD_OUT_PACK = #STD_OUT_PACK# ]]>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="BWTAR">
+          <![CDATA[ BWTAR = #BWTAR# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="CHARG">
+          <![CDATA[ CHARG = #CHARG# ]]>
+        </isNotEmpty>
+        <isNotNull prepend="AND" property="MIN_ERROR">
+          <![CDATA[ MIN_ERROR = #MIN_ERROR# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="MAX_ERROR">
+          <![CDATA[ MAX_ERROR = #MAX_ERROR# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_AUTO_FILL">
+          <![CDATA[ IS_AUTO_FILL = #IS_AUTO_FILL# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="WHSE_ID">
+          <![CDATA[ WHSE_ID = #WHSE_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_INTERFACE">
+          <![CDATA[ IS_INTERFACE = #IS_INTERFACE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_REPACK">
+          <![CDATA[ IS_REPACK = #IS_REPACK# ]]>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="REMARK">
+          <![CDATA[ REMARK = #REMARK# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="IS_CONTROL">
+          <![CDATA[ IS_CONTROL = #IS_CONTROL# ]]>
+        </isNotEmpty>
+        <isNotNull prepend="AND" property="IS_STANDARD">
+          <![CDATA[ IS_STANDARD = #IS_STANDARD# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_SPECIAL">
+          <![CDATA[ IS_SPECIAL = #IS_SPECIAL# ]]>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="ASSEMBLE_PROPERTY">
+          <![CDATA[ ASSEMBLE_PROPERTY = #ASSEMBLE_PROPERTY# ]]>
+        </isNotEmpty>
+        <isNotNull prepend="AND" property="IS_IMPORTANT">
+          <![CDATA[ IS_IMPORTANT = #IS_IMPORTANT# ]]>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="OTHER_NAME">
+          <![CDATA[ OTHER_NAME = #OTHER_NAME# ]]>
+        </isNotEmpty>
+      </dynamic>
+    </select>
+
+    <select id="SelectForPageing" extends="SelectAll" parameterClass="System.Collections.IDictionary">
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ID">
+          <![CDATA[ ID = #ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="COMPANY_ID">
+          <![CDATA[ COMPANY_ID = #COMPANY_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="ITEM_CODE">
+          <![CDATA[ ITEM_CODE = #ITEM_CODE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="ITEM_NAME">
+          <![CDATA[ ITEM_NAME = #ITEM_NAME# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="UPC">
+          <![CDATA[ UPC = #UPC# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="DESCRIPTION">
+          <![CDATA[ DESCRIPTION = #DESCRIPTION# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_TRACK_LOTS">
+          <![CDATA[ IS_TRACK_LOTS = #IS_TRACK_LOTS# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_TRACK_XDATES">
+          <![CDATA[ IS_TRACK_XDATES = #IS_TRACK_XDATES# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_TRACK_SERIALS">
+          <![CDATA[ IS_TRACK_SERIALS = #IS_TRACK_SERIALS# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="UOM_ID">
+          <![CDATA[ UOM_ID = #UOM_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="UNIT_WEIGHT">
+          <![CDATA[ UNIT_WEIGHT = #UNIT_WEIGHT# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="UNIT_VOLUME">
+          <![CDATA[ UNIT_VOLUME = #UNIT_VOLUME# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="UNIT_TARE">
+          <![CDATA[ UNIT_TARE = #UNIT_TARE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="FULL_CASE_QTY">
+          <![CDATA[ FULL_CASE_QTY = #FULL_CASE_QTY# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="FULL_CASE_WEIGHT">
+          <![CDATA[ FULL_CASE_WEIGHT = #FULL_CASE_WEIGHT# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="FULL_CASE_TARE">
+          <![CDATA[ FULL_CASE_TARE = #FULL_CASE_TARE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="FULL_PALLET_QTY">
+          <![CDATA[ FULL_PALLET_QTY = #FULL_PALLET_QTY# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="FULL_PALLET_WEIGHT">
+          <![CDATA[ FULL_PALLET_WEIGHT = #FULL_PALLET_WEIGHT# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="FULL_PALLET_TARE">
+          <![CDATA[ FULL_PALLET_TARE = #FULL_PALLET_TARE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_DISABLED">
+          <![CDATA[ IS_DISABLED = #IS_DISABLED# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="CREATED_TIME">
+          <![CDATA[ CREATED_TIME = #CREATED_TIME# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LAST_MODIFIED">
+          <![CDATA[ LAST_MODIFIED = #LAST_MODIFIED# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="EXTEND_COLUMN_0">
+          <![CDATA[ EXTEND_COLUMN_0 = #EXTEND_COLUMN_0# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="EXTEND_COLUMN_1">
+          <![CDATA[ EXTEND_COLUMN_1 = #EXTEND_COLUMN_1# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="EXTEND_COLUMN_2">
+          <![CDATA[ EXTEND_COLUMN_2 = #EXTEND_COLUMN_2# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="EXTEND_COLUMN_3">
+          <![CDATA[ EXTEND_COLUMN_3 = #EXTEND_COLUMN_3# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="EXTEND_COLUMN_4">
+          <![CDATA[ EXTEND_COLUMN_4 = #EXTEND_COLUMN_4# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_PACK">
+          <![CDATA[ IS_PACK = #IS_PACK# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="STD_PACK">
+          <![CDATA[ STD_PACK = #STD_PACK# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="SUPPLIER_ID">
+          <![CDATA[ SUPPLIER_ID = #SUPPLIER_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IN_PACK">
+          <![CDATA[ IN_PACK = #IN_PACK# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="STD_OUT_PACK">
+          <![CDATA[ STD_OUT_PACK = #STD_OUT_PACK# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="BWTAR">
+          <![CDATA[ BWTAR = #BWTAR# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="CHARG">
+          <![CDATA[ CHARG = #CHARG# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="MIN_ERROR">
+          <![CDATA[ MIN_ERROR = #MIN_ERROR# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="MAX_ERROR">
+          <![CDATA[ MAX_ERROR = #MAX_ERROR# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_AUTO_FILL">
+          <![CDATA[ IS_AUTO_FILL = #IS_AUTO_FILL# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="WHSE_ID">
+          <![CDATA[ WHSE_ID = #WHSE_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_INTERFACE">
+          <![CDATA[ IS_INTERFACE = #IS_INTERFACE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_REPACK">
+          <![CDATA[ IS_REPACK = #IS_REPACK# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="REMARK">
+          <![CDATA[ REMARK = #REMARK# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_CONTROL">
+          <![CDATA[ IS_CONTROL = #IS_CONTROL# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_STANDARD">
+          <![CDATA[ IS_STANDARD = #IS_STANDARD# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_SPECIAL">
+          <![CDATA[ IS_SPECIAL = #IS_SPECIAL# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="ASSEMBLE_PROPERTY">
+          <![CDATA[ ASSEMBLE_PROPERTY = #ASSEMBLE_PROPERTY# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_IMPORTANT">
+          <![CDATA[ IS_IMPORTANT = #IS_IMPORTANT# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="OTHER_NAME">
+          <![CDATA[ OTHER_NAME = #OTHER_NAME# ]]>
+        </isNotNull>
+      </dynamic>
+    </select>
+    <insert id="Insert" parameterClass="VWmsItem">
+      <selectKey resultClass="double" type="pre" property="ID" >
+        <![CDATA[ select V_WMS_ITEMSEQ_SEQ.NEXTVAL as value from dual ]]>
+      </selectKey>
+      <![CDATA[
+			insert into V_WMS_ITEM
+			(
+			    ID,
+			    COMPANY_ID,
+			    ITEM_CODE,
+			    ITEM_NAME,
+			    UPC,
+			    DESCRIPTION,
+			    IS_TRACK_LOTS,
+			    IS_TRACK_XDATES,
+			    IS_TRACK_SERIALS,
+			    UOM_ID,
+			    UNIT_WEIGHT,
+			    UNIT_VOLUME,
+			    UNIT_TARE,
+			    FULL_CASE_QTY,
+			    FULL_CASE_WEIGHT,
+			    FULL_CASE_TARE,
+			    FULL_PALLET_QTY,
+			    FULL_PALLET_WEIGHT,
+			    FULL_PALLET_TARE,
+			    IS_DISABLED,
+			    CREATED_TIME,
+			    LAST_MODIFIED,
+			    EXTEND_COLUMN_0,
+			    EXTEND_COLUMN_1,
+			    EXTEND_COLUMN_2,
+			    EXTEND_COLUMN_3,
+			    EXTEND_COLUMN_4,
+			    IS_PACK,
+			    STD_PACK,
+			    SUPPLIER_ID,
+			    IN_PACK,
+			    STD_OUT_PACK,
+			    BWTAR,
+			    CHARG,
+			    MIN_ERROR,
+			    MAX_ERROR,
+			    IS_AUTO_FILL,
+			    WHSE_ID,
+			    IS_INTERFACE,
+			    IS_REPACK,
+			    REMARK,
+			    IS_CONTROL,
+			    IS_STANDARD,
+			    IS_SPECIAL,
+			    ASSEMBLE_PROPERTY,
+			    IS_IMPORTANT,
+			    OTHER_NAME
+			)
+			values 
+			(
+				#ID#,
+				#COMPANY_ID#,
+				#ITEM_CODE#,
+				#ITEM_NAME#,
+				#UPC#,
+				#DESCRIPTION#,
+				#IS_TRACK_LOTS#,
+				#IS_TRACK_XDATES#,
+				#IS_TRACK_SERIALS#,
+				#UOM_ID#,
+				#UNIT_WEIGHT#,
+				#UNIT_VOLUME#,
+				#UNIT_TARE#,
+				#FULL_CASE_QTY#,
+				#FULL_CASE_WEIGHT#,
+				#FULL_CASE_TARE#,
+				#FULL_PALLET_QTY#,
+				#FULL_PALLET_WEIGHT#,
+				#FULL_PALLET_TARE#,
+				#IS_DISABLED#,
+				#CREATED_TIME#,
+				#LAST_MODIFIED#,
+				#EXTEND_COLUMN_0#,
+				#EXTEND_COLUMN_1#,
+				#EXTEND_COLUMN_2#,
+				#EXTEND_COLUMN_3#,
+				#EXTEND_COLUMN_4#,
+				#IS_PACK#,
+				#STD_PACK#,
+				#SUPPLIER_ID#,
+				#IN_PACK#,
+				#STD_OUT_PACK#,
+				#BWTAR#,
+				#CHARG#,
+				#MIN_ERROR#,
+				#MAX_ERROR#,
+				#IS_AUTO_FILL#,
+				#WHSE_ID#,
+				#IS_INTERFACE#,
+				#IS_REPACK#,
+				#REMARK#,
+				#IS_CONTROL#,
+				#IS_STANDARD#,
+				#IS_SPECIAL#,
+				#ASSEMBLE_PROPERTY#,
+				#IS_IMPORTANT#,
+				#OTHER_NAME#
+			)
+			]]>
+    </insert>
+    <update id="Update" parameterClass="VWmsItem" >
+      <![CDATA[
+			update V_WMS_ITEM set
+				COMPANY_ID = #COMPANY_ID#,
+				ITEM_CODE = #ITEM_CODE#,
+				ITEM_NAME = #ITEM_NAME#,
+				UPC = #UPC#,
+				DESCRIPTION = #DESCRIPTION#,
+				IS_TRACK_LOTS = #IS_TRACK_LOTS#,
+				IS_TRACK_XDATES = #IS_TRACK_XDATES#,
+				IS_TRACK_SERIALS = #IS_TRACK_SERIALS#,
+				UOM_ID = #UOM_ID#,
+				UNIT_WEIGHT = #UNIT_WEIGHT#,
+				UNIT_VOLUME = #UNIT_VOLUME#,
+				UNIT_TARE = #UNIT_TARE#,
+				FULL_CASE_QTY = #FULL_CASE_QTY#,
+				FULL_CASE_WEIGHT = #FULL_CASE_WEIGHT#,
+				FULL_CASE_TARE = #FULL_CASE_TARE#,
+				FULL_PALLET_QTY = #FULL_PALLET_QTY#,
+				FULL_PALLET_WEIGHT = #FULL_PALLET_WEIGHT#,
+				FULL_PALLET_TARE = #FULL_PALLET_TARE#,
+				IS_DISABLED = #IS_DISABLED#,
+				CREATED_TIME = #CREATED_TIME#,
+				LAST_MODIFIED = #LAST_MODIFIED#,
+				EXTEND_COLUMN_0 = #EXTEND_COLUMN_0#,
+				EXTEND_COLUMN_1 = #EXTEND_COLUMN_1#,
+				EXTEND_COLUMN_2 = #EXTEND_COLUMN_2#,
+				EXTEND_COLUMN_3 = #EXTEND_COLUMN_3#,
+				EXTEND_COLUMN_4 = #EXTEND_COLUMN_4#,
+				IS_PACK = #IS_PACK#,
+				STD_PACK = #STD_PACK#,
+				SUPPLIER_ID = #SUPPLIER_ID#,
+				IN_PACK = #IN_PACK#,
+				STD_OUT_PACK = #STD_OUT_PACK#,
+				BWTAR = #BWTAR#,
+				CHARG = #CHARG#,
+				MIN_ERROR = #MIN_ERROR#,
+				MAX_ERROR = #MAX_ERROR#,
+				IS_AUTO_FILL = #IS_AUTO_FILL#,
+				WHSE_ID = #WHSE_ID#,
+				IS_INTERFACE = #IS_INTERFACE#,
+				IS_REPACK = #IS_REPACK#,
+				REMARK = #REMARK#,
+				IS_CONTROL = #IS_CONTROL#,
+				IS_STANDARD = #IS_STANDARD#,
+				IS_SPECIAL = #IS_SPECIAL#,
+				ASSEMBLE_PROPERTY = #ASSEMBLE_PROPERTY#,
+				IS_IMPORTANT = #IS_IMPORTANT#,
+				OTHER_NAME = #OTHER_NAME#
+			where
+				ID = #ID#
+			]]>
+    </update>
+
+    <update id="UpdateSection" parameterClass="VWmsItem" >
+      <![CDATA[
+			update V_WMS_ITEM set 
+			]]>
+      <dynamic prepend=" ">
+        <isNotNull prepend="," property="COMPANY_ID">
+          <![CDATA[ COMPANY_ID=#COMPANY_ID#]]>
+        </isNotNull>
+        <isNotEmpty prepend="," property="ITEM_CODE">
+          <![CDATA[ ITEM_CODE=#ITEM_CODE#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="ITEM_NAME">
+          <![CDATA[ ITEM_NAME=#ITEM_NAME#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="UPC">
+          <![CDATA[ UPC=#UPC#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="DESCRIPTION">
+          <![CDATA[ DESCRIPTION=#DESCRIPTION#]]>
+        </isNotEmpty>
+        <isNotNull prepend="," property="IS_TRACK_LOTS">
+          <![CDATA[ IS_TRACK_LOTS=#IS_TRACK_LOTS#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="IS_TRACK_XDATES">
+          <![CDATA[ IS_TRACK_XDATES=#IS_TRACK_XDATES#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="IS_TRACK_SERIALS">
+          <![CDATA[ IS_TRACK_SERIALS=#IS_TRACK_SERIALS#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="UOM_ID">
+          <![CDATA[ UOM_ID=#UOM_ID#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="UNIT_WEIGHT">
+          <![CDATA[ UNIT_WEIGHT=#UNIT_WEIGHT#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="UNIT_VOLUME">
+          <![CDATA[ UNIT_VOLUME=#UNIT_VOLUME#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="UNIT_TARE">
+          <![CDATA[ UNIT_TARE=#UNIT_TARE#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="FULL_CASE_QTY">
+          <![CDATA[ FULL_CASE_QTY=#FULL_CASE_QTY#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="FULL_CASE_WEIGHT">
+          <![CDATA[ FULL_CASE_WEIGHT=#FULL_CASE_WEIGHT#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="FULL_CASE_TARE">
+          <![CDATA[ FULL_CASE_TARE=#FULL_CASE_TARE#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="FULL_PALLET_QTY">
+          <![CDATA[ FULL_PALLET_QTY=#FULL_PALLET_QTY#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="FULL_PALLET_WEIGHT">
+          <![CDATA[ FULL_PALLET_WEIGHT=#FULL_PALLET_WEIGHT#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="FULL_PALLET_TARE">
+          <![CDATA[ FULL_PALLET_TARE=#FULL_PALLET_TARE#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="IS_DISABLED">
+          <![CDATA[ IS_DISABLED=#IS_DISABLED#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="CREATED_TIME">
+          <![CDATA[ CREATED_TIME=#CREATED_TIME#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="LAST_MODIFIED">
+          <![CDATA[ LAST_MODIFIED=#LAST_MODIFIED#]]>
+        </isNotNull>
+        <isNotEmpty prepend="," property="EXTEND_COLUMN_0">
+          <![CDATA[ EXTEND_COLUMN_0=#EXTEND_COLUMN_0#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="EXTEND_COLUMN_1">
+          <![CDATA[ EXTEND_COLUMN_1=#EXTEND_COLUMN_1#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="EXTEND_COLUMN_2">
+          <![CDATA[ EXTEND_COLUMN_2=#EXTEND_COLUMN_2#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="EXTEND_COLUMN_3">
+          <![CDATA[ EXTEND_COLUMN_3=#EXTEND_COLUMN_3#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="EXTEND_COLUMN_4">
+          <![CDATA[ EXTEND_COLUMN_4=#EXTEND_COLUMN_4#]]>
+        </isNotEmpty>
+        <isNotNull prepend="," property="IS_PACK">
+          <![CDATA[ IS_PACK=#IS_PACK#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="STD_PACK">
+          <![CDATA[ STD_PACK=#STD_PACK#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="SUPPLIER_ID">
+          <![CDATA[ SUPPLIER_ID=#SUPPLIER_ID#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="IN_PACK">
+          <![CDATA[ IN_PACK=#IN_PACK#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="STD_OUT_PACK">
+          <![CDATA[ STD_OUT_PACK=#STD_OUT_PACK#]]>
+        </isNotNull>
+        <isNotEmpty prepend="," property="BWTAR">
+          <![CDATA[ BWTAR=#BWTAR#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="CHARG">
+          <![CDATA[ CHARG=#CHARG#]]>
+        </isNotEmpty>
+        <isNotNull prepend="," property="MIN_ERROR">
+          <![CDATA[ MIN_ERROR=#MIN_ERROR#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="MAX_ERROR">
+          <![CDATA[ MAX_ERROR=#MAX_ERROR#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="IS_AUTO_FILL">
+          <![CDATA[ IS_AUTO_FILL=#IS_AUTO_FILL#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="WHSE_ID">
+          <![CDATA[ WHSE_ID=#WHSE_ID#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="IS_INTERFACE">
+          <![CDATA[ IS_INTERFACE=#IS_INTERFACE#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="IS_REPACK">
+          <![CDATA[ IS_REPACK=#IS_REPACK#]]>
+        </isNotNull>
+        <isNotEmpty prepend="," property="REMARK">
+          <![CDATA[ REMARK=#REMARK#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="IS_CONTROL">
+          <![CDATA[ IS_CONTROL=#IS_CONTROL#]]>
+        </isNotEmpty>
+        <isNotNull prepend="," property="IS_STANDARD">
+          <![CDATA[ IS_STANDARD=#IS_STANDARD#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="IS_SPECIAL">
+          <![CDATA[ IS_SPECIAL=#IS_SPECIAL#]]>
+        </isNotNull>
+        <isNotEmpty prepend="," property="ASSEMBLE_PROPERTY">
+          <![CDATA[ ASSEMBLE_PROPERTY=#ASSEMBLE_PROPERTY#]]>
+        </isNotEmpty>
+        <isNotNull prepend="," property="IS_IMPORTANT">
+          <![CDATA[ IS_IMPORTANT=#IS_IMPORTANT#]]>
+        </isNotNull>
+        <isNotEmpty prepend="," property="OTHER_NAME">
+          <![CDATA[ OTHER_NAME=#OTHER_NAME#]]>
+        </isNotEmpty>
+      </dynamic>
+      <![CDATA[
+			where
+				ID = #ID#
+			]]>
+    </update>
+    <delete id="Delete" parameterClass="VWmsItem" >
+      <![CDATA[
+			delete from V_WMS_ITEM
+			where 
+				ID = #ID#
+			]]>
+    </delete>
+
+    <!--根据零件编码查询零件主库位-add by mjy 2016-07-12-->
+    <select id="GetMainLocByPartCode" parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+      select item.item_code,item.item_name,lo.LOC_CODE
+      from v_wms_item item  
+      left join v_wms_item_location_map ma on (ma.item_id=item.id)
+      left join v_wms_base_location lo on (ma.loc_id=lo.id) 
+      left join v_wms_base_zone zon on (lo.zone_id=zon.id) 
+      where item.is_disabled=0
+      and zon.whse_id=(SELECT distinct(BZ.WHSE_ID) FROM V_WMS_BASE_USER_ZONE ZO INNER JOIN V_WMS_BASE_ZONE BZ ON(BZ.ID=ZO.ZONE_ID) 
+      WHERE ZO.USER_ID=#USER_ID#)
+      ]]>
+      <isNotNull prepend="AND" property="ITEM_CODE">
+        <![CDATA[UPPER(item.ITEM_CODE) LIKE '%' || UPPER(#ITEM_CODE#) || '%']]>
+      </isNotNull>
+      <![CDATA[order by item.item_code]]>
+    </select>
+  </statements>
+
+</sqlMap>

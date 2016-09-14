@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="ReceiveCheckOrderItem" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="ReceiveCheckOrderItem" type="DataMapper.ReceiveCheckOrderItem, DataMapper" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="ReceiveCheckOrderItem">
+      <result property="ID" column="ID" />
+      <result property="BATCH_PART_ID" column="BATCH_PART_ID" />
+      <result property="CHECK_QTY" column="CHECK_QTY" />
+      <result property="STATUS" column="STATUS" />
+      <result property="ORDER_SOURCE_ID" column="ORDER_SOURCE_ID" />
+      <result property="ORDER_BUSINESS_ID" column="ORDER_BUSINESS_ID" />
+      <result property="DETAIL_TYPE" column="DETAIL_TYPE" />
+      <result property="OUT_LOC" column="OUT_LOC" />
+      <result property="REMARK" column="REMARK" />
+      <result property="CREATE_TIME" column="CREATE_TIME" />
+      <result property="CREATE_USER_ID" column="CREATE_USER_ID" />
+      <result property="LAST_UPDATE" column="LAST_UPDATE" />
+      <result property="UPDATE_USER_ID" column="UPDATE_USER_ID" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectAll" resultMap="SelectResult" >
+      <![CDATA[
+           SELECT ID
+                ,BATCH_PART_ID
+                ,PLAN_QTY
+                ,OUT_QTY
+                ,CHECK_QTY
+                ,STATUS
+                ,ORDER_SOURCE_ID
+                ,ORDER_BUSINESS_ID
+                ,DETAIL_TYPE
+                ,OUT_LOC
+                ,REMARK
+                ,CREATE_TIME
+                ,CREATE_USER_ID
+                ,LAST_UPDATE
+                ,UPDATE_USER_ID
+            FROM RECEIVE_CHECK_ORDER_ITEM
+			]]>
+    </select>
+
+    <select id="SelectByParam" extends="SelectAll" resultMap="SelectResult"  parameterClass="ReceiveCheckOrderItem">
+      <dynamic prepend="WHERE">
+        <isNotEqual prepend="AND" property="ID" compareValue="0">
+          <![CDATA[ ID = #ID# ]]>
+        </isNotEqual>
+        <isNotEqual prepend="AND" property="BATCH_PART_ID" compareValue="0">
+          <![CDATA[ BATCH_PART_ID = #BATCH_PART_ID# ]]>
+        </isNotEqual>
+        <isNotEqual prepend="AND" property="ORDER_BUSINESS_ID" compareValue="0">
+          <![CDATA[ ORDER_BUSINESS_ID = #ORDER_BUSINESS_ID# ]]>
+        </isNotEqual>
+        <isNotEqual prepend="AND" property="ORDER_SOURCE_ID" compareValue="0">
+          <![CDATA[ ORDER_SOURCE_ID = #ORDER_SOURCE_ID# ]]>
+        </isNotEqual>
+        <isNotEmpty prepend="AND" property="STATUS">
+          <![CDATA[ STATUS =  #STATUS# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="DETAIL_TYPE">
+          <![CDATA[ DETAIL_TYPE = #DETAIL_TYPE# ]]>
+        </isNotEmpty>
+      </dynamic>
+    </select>
+    
+    <insert id="Insert" parameterClass="ReceiveCheckOrderItem">
+      <![CDATA[
+		     INSERT INTO RECEIVE_CHECK_ORDER_ITEM
+                     (BATCH_PART_ID
+                     ,PLAN_QTY
+                     ,OUT_QTY
+                     ,CHECK_QTY
+                     ,STATUS
+                     ,ORDER_SOURCE_ID
+                     ,ORDER_BUSINESS_ID
+                     ,DETAIL_TYPE
+                     ,OUT_LOC
+                     ,REMARK
+                     ,CREATE_TIME
+                     ,CREATE_USER_ID)
+               VALUES
+                     (#BATCH_PART_ID#
+                     ,#PLAN_QTY#
+                     ,#OUT_QTY#
+                     ,#CHECK_QTY#
+                     ,#STATUS#
+                     ,#ORDER_SOURCE_ID#
+                     ,#ORDER_BUSINESS_ID#
+                     ,#DETAIL_TYPE#
+                     ,#OUT_LOC#
+                     ,#REMARK#
+                     ,#CREATE_TIME#
+                     ,#CREATE_USER_ID#)
+			]]>
+      <selectKey resultClass="int" type="post" property="ID" >
+        <![CDATA[ select @@IDENTITY ; ]]>
+      </selectKey>
+    </insert>
+
+    <!--验收零件数量-->
+    <update id="CheckPart" parameterClass="ReceiveCheckOrderItem">
+      <![CDATA[
+         UPDATE RECEIVE_CHECK_ORDER_ITEM
+                 SET CHECK_QTY=#CHECK_QTY#,
+                 LAST_UPDATE=#LAST_UPDATE#,
+                 STATUS=#STATUS#,
+                 UPDATE_USER_ID=#UPDATE_USER_ID#,
+                 REMARK=#REMARK#
+                 WHERE ID=#ID#
+      ]]>
+    </update>
+  </statements>
+</sqlMap>

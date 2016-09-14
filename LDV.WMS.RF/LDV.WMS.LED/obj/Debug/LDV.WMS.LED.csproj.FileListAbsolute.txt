@@ -1,0 +1,7 @@
+D:\mywork\LDV.WMS.RF\LDV.WMS.LED\bin\Debug\LDV.WMS.LED.exe.config
+D:\mywork\LDV.WMS.RF\LDV.WMS.LED\bin\Debug\LDV.WMS.LED.exe
+D:\mywork\LDV.WMS.RF\LDV.WMS.LED\bin\Debug\LDV.WMS.LED.pdb
+D:\mywork\LDV.WMS.RF\LDV.WMS.LED\bin\Debug\log4net.dll
+D:\mywork\LDV.WMS.RF\LDV.WMS.LED\obj\Debug\ResolveAssemblyReference.cache
+D:\mywork\LDV.WMS.RF\LDV.WMS.LED\obj\Debug\LDV.WMS.LED.exe
+D:\mywork\LDV.WMS.RF\LDV.WMS.LED\obj\Debug\LDV.WMS.LED.pdb

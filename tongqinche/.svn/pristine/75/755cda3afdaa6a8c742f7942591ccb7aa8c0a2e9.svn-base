@@ -1,0 +1,234 @@
+﻿
+@{
+    ViewBag.Title = "CarrierEdit";
+}
+
+@section Head{
+    <link href="../media/css/jqvmap.css" media="screen" rel="stylesheet" type="text/css" />
+    }
+
+
+<div class="container-fluid">
+    <!-- BEGIN PAGE HEADER-->
+
+    <div class="row-fluid">
+
+        <div class="span12">
+
+            <ul class="breadcrumb">
+
+                <li>
+
+                    <i class="icon-home"></i>
+
+                    @Html.ActionLink("首页", "Index", "Home", routeValues: null, htmlAttributes: new { id = "IndexLink" })
+
+                    <span class="icon-angle-right"></span>
+
+                </li>
+
+                <li>
+
+                    <a href="#">基础数据管理</a>
+
+                    <span class="icon-angle-right"></span>
+
+                </li>
+
+                <li>
+                    @Html.ActionLink("承运商修改", "CarrierEdit", "Carrier", routeValues: null, htmlAttributes: new { id = "CarrierLink" })
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+    <!-- END PAGE HEADER-->
+    <!-- BEGIN PAGE CONTENT-->
+
+    <div class="row-fluid">
+
+        <div class="span12">
+
+            <!-- BEGIN SAMPLE FORM PORTLET-->
+
+            <div class="portlet-body form">
+
+                <div class="tabbable portlet-tabs">
+
+                    <div class="portlet-body">
+
+                        <div class="clearfix">
+
+                            <div class="btn-group">
+
+                                <button id="btnEdit" class="btn green">
+
+                                    修改 <i class="icon-save"></i>
+
+                                </button>
+                            </div>
+                            <div class="btn-group">
+                                <button id="btnBack" class="btn green">
+
+                                    返回 <i class="icon-retweet"></i>
+
+                                </button>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                    <br />
+                    <br />
+                    <br />
+                    <div class="tab-content">
+
+                        <div class="tab-pane active" id="portlet_tab1">
+
+                            <!-- BEGIN FORM-->
+
+                            <form action="#" class="form-horizontal">
+
+                                <div class="row-fluid">
+                                    <div class="span6 ">
+                                        <div class="control-group">
+
+                                            <label class="control-label">承运商名称:</label>
+
+                                            <div class="controls">
+
+                                                <input id="CarrierName" name="CarrierName" type="text" class="m-wrap Meduam" />
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="span6 ">
+                                        <div class="control-group">
+                                            <label class="control-label">联系人:</label>
+
+                                            <div class="controls">
+
+                                                <input id="Contact" name="Contact" type="text" class="m-wrap Meduam" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row-fluid">
+
+                                    <div class="span6 ">
+
+                                        <div class="control-group">
+
+                                            <label class="control-label">手机:</label>
+
+                                            <div class="controls">
+                                                <input id="Mobile" name="Mobile" type="text" class="m-wrap Meduam" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="span6 ">
+                                        <div class="control-group">
+
+                                            <label class="control-label">电话:</label>
+
+                                            <div class="controls">
+
+                                                <input id="Tel" name="Tel" type="text" class="m-wrap Meduam" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row-fluid">
+
+                                    <div class="span6 ">
+
+                                        <div class="control-group">
+
+                                            <label class="control-label">地址:</label>
+
+                                            <div class="controls">
+                                                <input id="Address" name="Address" type="text" class="m-wrap Meduam" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- END FORM-->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- END SAMPLE FORM PORTLET-->
+
+    </div>
+    <!-- END PAGE CONTENT-->
+</div>
+
+@section Body{
+    <script>
+        window.onload = function () {
+            //返回
+            $("#btnBack").click(function () {
+                window.history.back(-1);
+            });
+            //确认修改
+            $("#btnEdit").click(function () {
+                var d = {};
+                //判断文件框内容
+                d["ID"] = " @ViewBag.editCarrier.ID";
+
+                if ($("#CarrierName").val() != "") {
+                    d["CarrierName"] = $("#CarrierName").val();
+                }
+
+                if ($("#Contact").val() != "") {
+                    d["Contact"] = $("#Contact").val();
+                }
+                if ($("#Mobile").val() != "") {
+                    d["Mobile"] = $("#Mobile").val();
+                }
+
+                if ($("#Tel").val() != "") {
+                    d["Tel"] = $("#Tel").val();
+                }
+
+                if ($("#Address").val() != "") {
+                    d["Address"] = $("#Address").val();
+                }
+                if ((JSON.stringify(d) == "{}")) {
+                    d = null;
+                }
+                $.ajax({
+                    url: "../api/CarrierApi/EditCarrier",
+                    type: "post",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(d),
+                    success: function (data) {
+                        if (data == "1") {
+                            alert('更新成功!');
+                            window.history.back(-1);
+                        }
+                        else
+                            alert("更新失败");
+                    }
+                }).fail(
+                    function (err) {
+                        alert('更新失败!');
+                    });
+            });
+        }
+    </script>
+    }

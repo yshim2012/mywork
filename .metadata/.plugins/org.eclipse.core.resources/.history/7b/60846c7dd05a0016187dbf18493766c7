@@ -1,0 +1,20 @@
+package handlefile;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class Test_io {
+
+	public static void main(String[] args) throws IOException {
+		String path = "C:\\Users\\init\\Desktop\\test.txt";
+		writeTxtFile(path);
+	}
+	private static void writeTxtFile(String path) throws IOException{
+		FileOutputStream fos =new FileOutputStream(path);
+		fos.write('j');
+		fos.write('k');
+		fos.write('s');
+		fos.close();
+	}
+}

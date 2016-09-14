@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="Queue" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="Queue" type="DataMapper.Queue, DataMapper" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="Queue">
+      <result property="ID" column="ID" />
+      <result property="ORDER_BUSINESS_ID" column="ORDER_BUSINESS_ID" />
+      <result property="PART_ID" column="PART_ID" />
+      <result property="SUPPLIER_ID" column="SUPPLIER_ID" />
+      <result property="PROJECT_ID" column="PROJECT_ID" />
+      <result property="PROJECT_ITEM_ID" column="PROJECT_ITEM_ID" />
+      <result property="PLAN_QUEUE_QTY" column="PLAN_QUEUE_QTY" />
+      <result property="QUEUE_NO" column="QUEUE_NO" />
+      <result property="QUEUE_TIME" column="QUEUE_TIME" />
+      <result property="WAREHOUSE_ID" column="WAREHOUSE_ID" />
+      <result property="IS_DISABLE" column="IS_DISABLE" />
+      <result property="CREATE_TIME" column="CREATE_TIME" />
+      <result property="CREATE_USER_ID" column="CREATE_USER_ID" />
+      <result property="LAST_UPDATE" column="LAST_UPDATE" />
+      <result property="UPDATE_USER_ID" column="UPDATE_USER_ID" />
+      <result property="ORDER_SOURCE_ID" column="ORDER_SOURCE_ID" />
+      <result property="BATCH_PART_ID" column="BATCH_PART_ID" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectAll" resultMap="SelectResult" >
+      <![CDATA[
+           SELECT ID
+                  ,ORDER_BUSINESS_ID
+                  ,PART_ID
+                  ,SUPPLIER_ID
+                  ,PROJECT_ID
+                  ,PROJECT_ITEM_ID
+                  ,PLAN_QUEUE_QTY
+                  ,QUEUE_NO
+                  ,QUEUE_TIME
+                  ,WAREHOUSE_ID
+                  ,IS_DISABLE
+                  ,CREATE_TIME
+                  ,CREATE_USER_ID
+                  ,LAST_UPDATE
+                  ,UPDATE_USER_ID
+              FROM [QUEUE]
+			]]>
+    </select>
+
+    <select id="SelectByParam" extends="SelectAll" resultMap="SelectResult"  parameterClass="Queue">
+      <dynamic prepend="WHERE">
+        <isNotEqual prepend="AND" property="ID" compareValue="0">
+          <![CDATA[ ID = #ID# ]]>
+        </isNotEqual>
+        <isNotEqual prepend="AND" property="ORDER_BUSINESS_ID" compareValue="0">
+          <![CDATA[ ORDER_BUSINESS_ID = #ORDER_BUSINESS_ID# ]]>
+        </isNotEqual>
+        <isNotEqual prepend="AND" property="PART_ID" compareValue="0">
+          <![CDATA[ PART_ID = #PART_ID# ]]>
+        </isNotEqual>
+        <isNotEqual prepend="AND" property="SUPPLIER_ID" compareValue="0">
+          <![CDATA[ SUPPLIER_ID = #SUPPLIER_ID# ]]>
+        </isNotEqual>
+        <isNotEqual prepend="AND" property="PROJECT_ID" compareValue="0">
+          <![CDATA[ PROJECT_ID = #PROJECT_ID# ]]>
+        </isNotEqual>
+        <isNotEqual prepend="AND" property="PROJECT_ITEM_ID" compareValue="0">
+          <![CDATA[ PROJECT_ITEM_ID = #PROJECT_ITEM_ID# ]]>
+        </isNotEqual>
+        <isNotEmpty prepend="AND" property="QUEUE_NO">
+          <![CDATA[ QUEUE_NO =  #QUEUE_NO# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="IS_DISABLE">
+          <![CDATA[ IS_DISABLE = #IS_DISABLE# ]]>
+        </isNotEmpty>
+        <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+          <![CDATA[ WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+        </isNotEqual>
+      </dynamic>
+    </select>
+
+    <insert id="Insert" parameterClass="Queue">
+      <![CDATA[
+		      INSERT INTO [QUEUE]
+                   (ORDER_BUSINESS_ID
+                   ,PART_ID
+                   ,SUPPLIER_ID
+                   ,PROJECT_ID
+                   ,PROJECT_ITEM_ID
+                   ,PLAN_QUEUE_QTY
+                   ,QUEUE_NO
+                   ,QUEUE_TIME
+                   ,WAREHOUSE_ID
+                   ,IS_DISABLE
+                   ,CREATE_TIME
+                   ,CREATE_USER_ID
+                   ,ORDER_SOURCE_ID
+                   ,BATCH_PART_ID)
+             VALUES
+                   (#ORDER_BUSINESS_ID#
+                   ,#PART_ID#
+                   ,#SUPPLIER_ID#
+                   ,#PROJECT_ID#
+                   ,#PROJECT_ITEM_ID#
+                   ,#PLAN_QUEUE_QTY#
+                   ,#QUEUE_NO#
+                   ,#QUEUE_TIME#
+                   ,#WAREHOUSE_ID#
+                   ,#IS_DISABLE#
+                   ,#CREATE_TIME#
+                   ,#CREATE_USER_ID#
+                   ,#ORDER_SOURCE_ID#
+                   ,#BATCH_PART_ID#)
+			]]>
+      <selectKey resultClass="int" type="post" property="ID" >
+        <![CDATA[ select @@IDENTITY ; ]]>
+      </selectKey>
+    </insert>
+
+    <update id="UpdateInfo" parameterClass="Queue">
+      <![CDATA[
+        UPDATE [QUEUE]
+           SET ORDER_BUSINESS_ID = #ORDER_BUSINESS_ID#
+              ,PART_ID = #PART_ID#
+              ,SUPPLIER_ID = #SUPPLIER_ID#
+              ,PROJECT_ID = #PROJECT_ID#
+              ,PROJECT_ITEM_ID = #PROJECT_ITEM_ID#
+              ,PLAN_QUEUE_QTY = #PLAN_QUEUE_QTY#
+              ,QUEUE_NO = #QUEUE_NO#
+              ,QUEUE_TIME = #QUEUE_TIME#
+              ,WAREHOUSE_ID = #WAREHOUSE_ID#
+              ,IS_DISABLE = #IS_DISABLE#
+              ,LAST_UPDATE = #LAST_UPDATE#
+              ,UPDATE_USER_ID = #UPDATE_USER_ID#
+             WHERE ID=#ID#
+      ]]>
+    </update>
+
+    <!--逻辑删除-->
+    <delete id="Delete" parameterClass="Queue" >
+      <![CDATA[
+		      	DELETE [QUEUE] WHERE ID=#ID#
+			]]>
+    </delete>
+  </statements>
+</sqlMap>

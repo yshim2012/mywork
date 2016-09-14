@@ -1,0 +1,15 @@
+D:\WorkSpaceLt\YTWMS.RFClient\YTWMS.RFClient_1\CodeBetter.Json\bin\Debug\CodeBetter.Json.dll
+D:\WorkSpaceLt\YTWMS.RFClient\YTWMS.RFClient_1\CodeBetter.Json\bin\Debug\CodeBetter.Json.pdb
+D:\WorkSpaceLt\YTWMS.RFClient\YTWMS.RFClient_1\CodeBetter.Json\obj\Debug\ResolveAssemblyReference.cache
+D:\WorkSpaceLt\YTWMS.RFClient\YTWMS.RFClient_1\CodeBetter.Json\obj\Debug\CodeBetter.Json.dll
+D:\WorkSpaceLt\YTWMS.RFClient\YTWMS.RFClient_1\CodeBetter.Json\obj\Debug\CodeBetter.Json.pdb
+D:\Workspace\YTWMS.RFClient\YTWMS.RFClient_1\CodeBetter.Json\bin\Debug\CodeBetter.Json.dll
+D:\Workspace\YTWMS.RFClient\YTWMS.RFClient_1\CodeBetter.Json\bin\Debug\CodeBetter.Json.pdb
+D:\Workspace\YTWMS.RFClient\YTWMS.RFClient_1\CodeBetter.Json\obj\Debug\ResolveAssemblyReference.cache
+D:\Workspace\YTWMS.RFClient\YTWMS.RFClient_1\CodeBetter.Json\obj\Debug\CodeBetter.Json.dll
+D:\Workspace\YTWMS.RFClient\YTWMS.RFClient_1\CodeBetter.Json\obj\Debug\CodeBetter.Json.pdb
+D:\mywork\YTWMS.RFClient\YTWMS.RFClient_1\CodeBetter.Json\bin\Debug\CodeBetter.Json.dll
+D:\mywork\YTWMS.RFClient\YTWMS.RFClient_1\CodeBetter.Json\bin\Debug\CodeBetter.Json.pdb
+D:\mywork\YTWMS.RFClient\YTWMS.RFClient_1\CodeBetter.Json\obj\Debug\ResolveAssemblyReference.cache
+D:\mywork\YTWMS.RFClient\YTWMS.RFClient_1\CodeBetter.Json\obj\Debug\CodeBetter.Json.dll
+D:\mywork\YTWMS.RFClient\YTWMS.RFClient_1\CodeBetter.Json\obj\Debug\CodeBetter.Json.pdb

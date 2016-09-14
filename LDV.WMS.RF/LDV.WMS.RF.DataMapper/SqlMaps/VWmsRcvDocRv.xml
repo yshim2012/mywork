@@ -1,0 +1,392 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="VWmsRcvDocRv" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="VWmsRcvDocRv" type="LDV.WMS.RF.DataMapper.VWmsRcvDocRv, LDV.WMS.RF.DataMapper" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="VWmsRcvDocRv">
+      <result property="DOC_DETAIL_ID" column="DOC_DETAIL_ID" />
+      <result property="ID" column="ID" />
+      <result property="UID_ID" column="UID_ID" />
+      <result property="QTY_RECEIVED" column="QTY_RECEIVED" />
+      <result property="QTY_DAMAGED" column="QTY_DAMAGED" />
+      <result property="LP_ID" column="LP_ID" />
+      <result property="LOC_ID" column="LOC_ID" />
+      <result property="USER_ID" column="USER_ID" />
+      <result property="CREATED_TIME" column="CREATED_TIME" />
+      <result property="IS_DISABLED" column="IS_DISABLED" />
+      <result property="LAST_MODIFIED" column="LAST_MODIFIED" />
+      <result property="PRINT_TIME" column="PRINT_TIME" />
+      <result property="STATUS" column="STATUS" />
+      <result property="NORMAL_QTY" column="NORMAL_QTY" />
+      <result property="CONFIRM_TIME" column="CONFIRM_TIME" />
+      <result property="BILL_NO" column="BILL_NO" />
+      <result property="IS_PRINT" column="IS_PRINT" />
+    </resultMap>
+  </resultMaps>
+
+  <statements>
+    <select id="SelectAll" resultMap="SelectResult">
+      <![CDATA[
+			select
+				DOC_DETAIL_ID,
+				ID,
+				UID_ID,
+				QTY_RECEIVED,
+				QTY_DAMAGED,
+				LP_ID,
+				LOC_ID,
+				USER_ID,
+				CREATED_TIME,
+				IS_DISABLED,
+				LAST_MODIFIED,
+				PRINT_TIME,
+				STATUS,
+				NORMAL_QTY,
+				CONFIRM_TIME,
+				BILL_NO,
+				IS_PRINT
+			from V_WMS_RCV_DOC_RV
+			]]>
+    </select>
+
+    <select id="SelectById" extends="SelectAll" parameterClass="double" resultMap="SelectResult">
+      <![CDATA[
+			where
+				ID = #value#
+			]]>
+    </select>
+
+    <select id="SelectByParam" extends="SelectAll" parameterClass="VWmsRcvDocRv" resultMap="SelectResult">
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DOC_DETAIL_ID">
+          <![CDATA[ DOC_DETAIL_ID = #DOC_DETAIL_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="ID">
+          <![CDATA[ ID = #ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="UID_ID">
+          <![CDATA[ UID_ID = #UID_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="QTY_RECEIVED">
+          <![CDATA[ QTY_RECEIVED = #QTY_RECEIVED# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="QTY_DAMAGED">
+          <![CDATA[ QTY_DAMAGED = #QTY_DAMAGED# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LP_ID">
+          <![CDATA[ LP_ID = #LP_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LOC_ID">
+          <![CDATA[ LOC_ID = #LOC_ID# ]]>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="USER_ID">
+          <![CDATA[ USER_ID = #USER_ID# ]]>
+        </isNotEmpty>
+        <isNotNull prepend="AND" property="IS_DISABLED">
+          <![CDATA[ IS_DISABLED = #IS_DISABLED# ]]>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="STATUS">
+          <![CDATA[ STATUS = #STATUS# ]]>
+        </isNotEmpty>
+        <isNotNull prepend="AND" property="NORMAL_QTY">
+          <![CDATA[ NORMAL_QTY = #NORMAL_QTY# ]]>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="BILL_NO">
+          <![CDATA[ BILL_NO = #BILL_NO# ]]>
+        </isNotEmpty>
+        <isNotNull prepend="AND" property="IS_PRINT">
+          <![CDATA[ IS_PRINT = #IS_PRINT# ]]>
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectForPageing" extends="SelectAll" parameterClass="System.Collections.IDictionary">
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="DOC_DETAIL_ID">
+          <![CDATA[ DOC_DETAIL_ID = #DOC_DETAIL_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="ID">
+          <![CDATA[ ID = #ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="UID_ID">
+          <![CDATA[ UID_ID = #UID_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="QTY_RECEIVED">
+          <![CDATA[ QTY_RECEIVED = #QTY_RECEIVED# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="QTY_DAMAGED">
+          <![CDATA[ QTY_DAMAGED = #QTY_DAMAGED# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LP_ID">
+          <![CDATA[ LP_ID = #LP_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LOC_ID">
+          <![CDATA[ LOC_ID = #LOC_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="USER_ID">
+          <![CDATA[ USER_ID = #USER_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="CREATED_TIME">
+          <![CDATA[ CREATED_TIME = #CREATED_TIME# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_DISABLED">
+          <![CDATA[ IS_DISABLED = #IS_DISABLED# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LAST_MODIFIED">
+          <![CDATA[ LAST_MODIFIED = #LAST_MODIFIED# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="PRINT_TIME">
+          <![CDATA[ PRINT_TIME = #PRINT_TIME# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="STATUS">
+          <![CDATA[ STATUS = #STATUS# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="NORMAL_QTY">
+          <![CDATA[ NORMAL_QTY = #NORMAL_QTY# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="CONFIRM_TIME">
+          <![CDATA[ CONFIRM_TIME = #CONFIRM_TIME# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="BILL_NO">
+          <![CDATA[ BILL_NO = #BILL_NO# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_PRINT">
+          <![CDATA[ IS_PRINT = #IS_PRINT# ]]>
+        </isNotNull>
+      </dynamic>
+    </select>
+    <!--  huzhenfei  2014-07-11 11:35:32-->
+
+    <select id="SelectReceivingStatus"  parameterClass="System.Collections.IDictionary">
+      <![CDATA[ 
+select 
+rd.id as rdid,rd.doc_code as rdcode,rd.status as rdstatus,
+ NVL(rdd.pq_qty,0) as PQQTY,
+bs.supplier_name,wi.item_code,
+rdd.id as rddid,rdd.rcv_doc_id as rdddocid,rdd.expected_qty as rddjhqty,rdd.actual_qty as rddsjqty,rdd.EXTEND_COLUMN_2,
+rdr.qty_received as rdrsjqty,rdr.status as rdrstatus,
+rdp.qty_received as rdpsjqty,rdp.status as rdpstatus,
+rda.qty_received as rdasjqty,rda.status as rdastatus
+ from v_wms_rcv_doc rd 
+left join v_wms_rcv_doc_detail rdd on rdd.rcv_doc_id=rd.id
+left join v_wms_rcv_doc_rv rdr on rdr.doc_detail_id=rdd.id
+left join v_wms_rcv_doc_pq rdp on rdp.doc_detail_id=rdd.id
+left join v_wms_rcv_doc_act rda on rda.doc_detail_id=rdd.id
+left join v_wms_base_supplier bs on bs.id=rd.supplie_id
+left join v_wms_item wi on  wi.id=rdd.item_id
+where rd.doc_code=#Number_ID#
+            ]]>
+    </select>
+
+    <select id="SelectPartCount"  parameterClass="System.Collections.IDictionary">
+      <![CDATA[ 
+select Count(*) as countnum from v_wms_rcv_doc_detail where rcv_doc_ID in (select rcv_doc_ID from v_wms_rcv_doc_detail  where id=#ID#) 
+and item_id in (select item_id from v_wms_rcv_doc_detail  where id=#ID#)
+            ]]>
+    </select>
+
+
+    <select id="SelectPartSum"  parameterClass="System.Collections.IDictionary">
+      <![CDATA[ 
+           select rdd.ID from v_wms_rcv_doc_detail rdd where 
+rdd.rcv_doc_id in (select rcv_doc_id from v_wms_rcv_doc_detail where id=#ID#) 
+and nvl(rdd.expected_qty,0)<>nvl(rdd.pq_qty,0) and rdd.extend_column_2='OP'
+ and item_id in (select item_id from v_wms_rcv_doc_detail  where id=#ID#)
+            ]]>
+    </select>
+    <!-- add by quin 所有订单零件信息-->
+    <select id="SelectOrderPartInfo"  parameterClass="System.Collections.IDictionary">
+      <![CDATA[ 
+        SELECT bs.supplier_name,
+       RD.ID AS RID,
+       RDD.ID AS DID,
+       RDD.ITEM_ID,
+       NVL(RDD.PQ_QTY,0) as PQQTY,
+       NVL(SU.ID,0) AS USER_ID,
+       RD.WHSE_ID,
+       RDD.RECEIVEDATE,
+       SU.FIRST_NAME,SU.LAST_NAME,
+       RD.DOC_CODE,
+       IT.ITEM_CODE,
+       IT.ITEM_NAME,
+       RDD.EXPECTED_QTY,
+       RDD.ACTUAL_QTY,     
+       RD.STATUS,
+       RDD.EXTEND_COLUMN_2,
+       RDD.SUPPLIER_ID,
+       LM.LOC_ID,
+       BL.LOC_CODE,BL.LOC_TYPE,
+       NVL(SU.EXTEND_COLUMN_1,0),
+       NVL(SU.EXTEND_COLUMN_2,0) AS USER_ORDER
+      
+            FROM v_wms_rcv_doc_detail RDD 
+       INNER JOIN v_wms_rcv_doc RD   
+        ON(RDD.RCV_DOC_ID=RD.ID)
+       INNER JOIN V_WMS_ITEM IT ON(RDD.ITEM_ID=IT.ID)
+       LEFT JOIN V_WMS_ITEM_LOCATION_MAP LM ON(LM.ITEM_ID=IT.ID) 
+       LEFT JOIN V_WMS_BASE_LOCATION BL ON(BL.ID=LM.LOC_ID)
+       LEFT JOIN v_wms_base_zone bz on (bl.zone_id=bz.id AND bz.is_disabled=0 )
+       LEFT JOIN V_PHR_SEC_USRS SU ON(SU.EXTEND_COLUMN_1=RD.DOC_CODE)
+       left join (select * from  v_wms_base_supplier bs  where bs.is_disabled=0)  bs on rd.supplie_id=bs.id
+        WHERE 
+       rd.status='OP' and rdd.pq_qty is not null  and rdd.pq_qty<>0  and rdd.pq_qty<>RDD.ACTUAL_QTY  and rdd.extend_column_2<>'AP'
+        and  bz.WHSE_ID= 
+       (SELECT DISTINCT BZ.WHSE_ID FROM V_WMS_BASE_USER_ZONE ZO INNER JOIN V_WMS_BASE_ZONE BZ ON(BZ.ID=ZO.ZONE_ID) WHERE ZO.USER_ID=#ID#) 
+            ]]>
+      <dynamic prepend="">
+        <isNotNull prepend="AND" property="ITEM_CODE">
+          <![CDATA[ IT.ITEM_CODE=#ITEM_CODE# ]]>
+        </isNotNull>
+      </dynamic>
+      <![CDATA[
+          order by rdd.line_no
+      ]]>
+    </select>
+
+    <!--////////////////////////////////-->
+    <insert id="Insert" parameterClass="VWmsRcvDocRv">
+      <selectKey resultClass="double" type="pre" property="ID" >
+        <![CDATA[ select V_WMS_RCV_DOC_RV_SEQ.NEXTVAL as value from dual ]]>
+      </selectKey>
+      <![CDATA[
+			insert into V_WMS_RCV_DOC_RV
+			(
+			    DOC_DETAIL_ID,
+			    ID,
+			    UID_ID,
+			    QTY_RECEIVED,
+			    QTY_DAMAGED,
+			    LP_ID,
+			    LOC_ID,
+			    USER_ID,
+			    CREATED_TIME,
+			    IS_DISABLED,
+			    LAST_MODIFIED,
+			    PRINT_TIME,
+			    STATUS,
+			    NORMAL_QTY,
+			    CONFIRM_TIME,
+			    BILL_NO,
+			    IS_PRINT
+			)
+			values 
+			(
+				#DOC_DETAIL_ID#,
+				#ID#,
+				#UID_ID#,
+				#QTY_RECEIVED#,
+				#QTY_DAMAGED#,
+				#LP_ID#,
+				#LOC_ID#,
+				#USER_ID#,
+				#CREATED_TIME#,
+				#IS_DISABLED#,
+				#LAST_MODIFIED#,
+				#PRINT_TIME#,
+				#STATUS#,
+				#NORMAL_QTY#,
+				#CONFIRM_TIME#,
+				#BILL_NO#,
+				#IS_PRINT#
+			)
+			]]>
+
+    </insert>
+    <update id="Update" parameterClass="VWmsRcvDocRv" >
+      <![CDATA[
+			update V_WMS_RCV_DOC_RV set
+				DOC_DETAIL_ID = #DOC_DETAIL_ID#,
+				UID_ID = #UID_ID#,
+				QTY_RECEIVED = #QTY_RECEIVED#,
+				QTY_DAMAGED = #QTY_DAMAGED#,
+				LP_ID = #LP_ID#,
+				LOC_ID = #LOC_ID#,
+				USER_ID = #USER_ID#,
+				CREATED_TIME = #CREATED_TIME#,
+				IS_DISABLED = #IS_DISABLED#,
+				LAST_MODIFIED = #LAST_MODIFIED#,
+				PRINT_TIME = #PRINT_TIME#,
+				STATUS = #STATUS#,
+				NORMAL_QTY = #NORMAL_QTY#,
+				CONFIRM_TIME = #CONFIRM_TIME#,
+				BILL_NO = #BILL_NO#,
+				IS_PRINT = #IS_PRINT#
+			where
+				ID = #ID#
+			]]>
+    </update>
+
+    <update id="UpdateSection" parameterClass="VWmsRcvDocRv" >
+      <![CDATA[
+			update V_WMS_RCV_DOC_RV set 
+			]]>
+      <dynamic prepend=" ">
+        <isNotNull prepend="," property="DOC_DETAIL_ID">
+          <![CDATA[ DOC_DETAIL_ID=#DOC_DETAIL_ID#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="UID_ID">
+          <![CDATA[ UID_ID=#UID_ID#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="QTY_RECEIVED">
+          <![CDATA[ QTY_RECEIVED=#QTY_RECEIVED#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="QTY_DAMAGED">
+          <![CDATA[ QTY_DAMAGED=#QTY_DAMAGED#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="LP_ID">
+          <![CDATA[ LP_ID=#LP_ID#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="LOC_ID">
+          <![CDATA[ LOC_ID=#LOC_ID#]]>
+        </isNotNull>
+        <isNotEmpty prepend="," property="USER_ID">
+          <![CDATA[ USER_ID=#USER_ID#]]>
+        </isNotEmpty>
+        <isNotNull prepend="," property="CREATED_TIME">
+          <![CDATA[ CREATED_TIME=#CREATED_TIME#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="IS_DISABLED">
+          <![CDATA[ IS_DISABLED=#IS_DISABLED#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="LAST_MODIFIED">
+          <![CDATA[ LAST_MODIFIED=#LAST_MODIFIED#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="PRINT_TIME">
+          <![CDATA[ PRINT_TIME=#PRINT_TIME#]]>
+        </isNotNull>
+        <isNotEmpty prepend="," property="STATUS">
+          <![CDATA[ STATUS=#STATUS#]]>
+        </isNotEmpty>
+        <isNotNull prepend="," property="NORMAL_QTY">
+          <![CDATA[ NORMAL_QTY=#NORMAL_QTY#]]>
+        </isNotNull>
+        <isNotNull prepend="," property="CONFIRM_TIME">
+          <![CDATA[ CONFIRM_TIME=#CONFIRM_TIME#]]>
+        </isNotNull>
+        <isNotEmpty prepend="," property="BILL_NO">
+          <![CDATA[ BILL_NO=#BILL_NO#]]>
+        </isNotEmpty>
+        <isNotNull prepend="," property="IS_PRINT">
+          <![CDATA[ IS_PRINT=#IS_PRINT#]]>
+        </isNotNull>
+      </dynamic>
+      <![CDATA[
+			where
+				ID = #ID#
+			]]>
+    </update>
+    <delete id="Delete" parameterClass="VWmsRcvDocRv" >
+      <![CDATA[
+			delete from V_WMS_RCV_DOC_RV
+			where 
+				ID = #ID#
+			]]>
+    </delete>
+  </statements>
+
+</sqlMap>

@@ -1,0 +1,582 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<sqlMap 
+	namespace="AutoSupplyInterface" xmlns="http://ibatis.apache.org/mapping" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	
+	<alias>
+		<typeAlias alias="AutoSupplyInterface" type="LDV.WMS.RF.DataMapper.AutoSupplyInterface, LDV.WMS.RF.DataMapper" />
+	</alias>
+	
+	<resultMaps>
+		<resultMap id="SelectResult" class="AutoSupplyInterface">
+			<result property="ID" column="ID" />
+			<result property="ITEM_ID" column="ITEM_ID" />
+			<result property="MU_ID" column="MU_ID" />
+			<result property="QTY" column="QTY" />
+			<result property="VERSION" column="VERSION" />
+			<result property="WH_ID" column="WH_ID" />
+			<result property="ZONE_ID" column="ZONE_ID" />
+			<result property="DEST_WH_ID" column="DEST_WH_ID" />
+			<result property="ONLINE_TIME" column="ONLINE_TIME" />
+			<result property="ARRIVE_TIME" column="ARRIVE_TIME" />
+			<result property="LSA" column="LSA" />
+			<result property="STATUS" column="STATUS" />
+			<result property="SUPPLY_TIME" column="SUPPLY_TIME" />
+			<result property="WAVE_TIME" column="WAVE_TIME" />
+			<result property="CREATED_TIME" column="CREATED_TIME" />
+			<result property="LAST_MODIFIED" column="LAST_MODIFIED" />
+			<result property="LAST_OPERATOR" column="LAST_OPERATOR" />
+			<result property="IS_DISABLED" column="IS_DISABLED" />
+			<result property="PICK_ID" column="PICK_ID" />
+			<result property="BILL_NO" column="BILL_NO" />
+			<result property="SHIP_TIME" column="SHIP_TIME" />
+			<result property="RECEIVE_TIME" column="RECEIVE_TIME" />
+			<result property="SHIP_MU_ID" column="SHIP_MU_ID" />
+			<result property="TYPE" column="TYPE" />
+			<result property="SHIP_QTY" column="SHIP_QTY" />
+			<result property="RECEIVE_QTY" column="RECEIVE_QTY" />
+			<result property="IS_LINE" column="IS_LINE" />
+			<result property="ROUTE_CODE" column="ROUTE_CODE" />
+			<result property="IS_CLASSIFY" column="IS_CLASSIFY" />
+			<result property="IS_URGENCY" column="IS_URGENCY" />
+			<result property="CLASS_CODE" column="CLASS_CODE" />
+			<result property="FINAL_ONLINE_TIME" column="FINAL_ONLINE_TIME" />
+			<result property="UNIT_NAME" column="UNIT_NAME" />
+			<result property="IS_INTERFACE" column="IS_INTERFACE" />
+			<result property="SRC_CROSSING" column="SRC_CROSSING" />
+			<result property="DEST_CROSSING" column="DEST_CROSSING" />
+			<result property="OPERATE_IP" column="OPERATE_IP" />
+			<result property="KBNUMBER" column="KBNUMBER" />
+		</resultMap>
+	</resultMaps>
+	
+	<statements>
+	
+		<select id="SelectAll" resultMap="SelectResult">
+			<![CDATA[
+			select
+				ID,
+				ITEM_ID,
+				MU_ID,
+				QTY,
+				VERSION,
+				WH_ID,
+				ZONE_ID,
+				DEST_WH_ID,
+				ONLINE_TIME,
+				ARRIVE_TIME,
+				LSA,
+				STATUS,
+				SUPPLY_TIME,
+				WAVE_TIME,
+				CREATED_TIME,
+				LAST_MODIFIED,
+				LAST_OPERATOR,
+				IS_DISABLED,
+				PICK_ID,
+				BILL_NO,
+				SHIP_TIME,
+				RECEIVE_TIME,
+				SHIP_MU_ID,
+				TYPE,
+				SHIP_QTY,
+				RECEIVE_QTY,
+				IS_LINE,
+				ROUTE_CODE,
+				IS_CLASSIFY,
+				IS_URGENCY,
+				CLASS_CODE,
+				FINAL_ONLINE_TIME,
+				UNIT_NAME,
+				IS_INTERFACE,
+				SRC_CROSSING,
+				DEST_CROSSING,
+				OPERATE_IP,
+				KBNUMBER
+			from AUTO_SUPPLY_INTERFACE
+			]]>
+		</select>
+		
+		<select id="SelectById" extends="SelectAll" parameterClass="double" resultMap="SelectResult">
+			<![CDATA[
+			where
+				ID = #value#
+			]]>
+		</select>
+		
+		<select id="SelectByParam" extends="SelectAll" parameterClass="AutoSupplyInterface" resultMap="SelectResult">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ITEM_ID">
+        			<![CDATA[ ITEM_ID = #ITEM_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="MU_ID">
+        			<![CDATA[ MU_ID = #MU_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="QTY">
+        			<![CDATA[ QTY = #QTY# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="VERSION">
+        			<![CDATA[ VERSION = #VERSION# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="WH_ID">
+        			<![CDATA[ WH_ID = #WH_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ZONE_ID">
+        			<![CDATA[ ZONE_ID = #ZONE_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="DEST_WH_ID">
+        			<![CDATA[ DEST_WH_ID = #DEST_WH_ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="LSA">
+        			<![CDATA[ LSA = #LSA# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="STATUS">
+        			<![CDATA[ STATUS = #STATUS# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="LAST_OPERATOR">
+        			<![CDATA[ LAST_OPERATOR = #LAST_OPERATOR# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="IS_DISABLED">
+        			<![CDATA[ IS_DISABLED = #IS_DISABLED# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="PICK_ID">
+        			<![CDATA[ PICK_ID = #PICK_ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="BILL_NO">
+        			<![CDATA[ BILL_NO = #BILL_NO# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="SHIP_MU_ID">
+        			<![CDATA[ SHIP_MU_ID = #SHIP_MU_ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="TYPE">
+        			<![CDATA[ TYPE = #TYPE# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="SHIP_QTY">
+        			<![CDATA[ SHIP_QTY = #SHIP_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="RECEIVE_QTY">
+        			<![CDATA[ RECEIVE_QTY = #RECEIVE_QTY# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="IS_LINE">
+        			<![CDATA[ IS_LINE = #IS_LINE# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="ROUTE_CODE">
+        			<![CDATA[ ROUTE_CODE = #ROUTE_CODE# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="IS_CLASSIFY">
+        			<![CDATA[ IS_CLASSIFY = #IS_CLASSIFY# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="IS_URGENCY">
+        			<![CDATA[ IS_URGENCY = #IS_URGENCY# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="CLASS_CODE">
+        			<![CDATA[ CLASS_CODE = #CLASS_CODE# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="UNIT_NAME">
+        			<![CDATA[ UNIT_NAME = #UNIT_NAME# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="IS_INTERFACE">
+        			<![CDATA[ IS_INTERFACE = #IS_INTERFACE# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="SRC_CROSSING">
+        			<![CDATA[ SRC_CROSSING = #SRC_CROSSING# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="DEST_CROSSING">
+        			<![CDATA[ DEST_CROSSING = #DEST_CROSSING# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="OPERATE_IP">
+        			<![CDATA[ OPERATE_IP = #OPERATE_IP# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="KBNUMBER">
+        			<![CDATA[ KBNUMBER = #KBNUMBER# ]]>
+				</isNotEmpty>
+			</dynamic>
+		</select>
+		
+		<select id="SelectForPageing" extends="SelectAll" parameterClass="System.Collections.IDictionary">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ITEM_ID">
+        			<![CDATA[ ITEM_ID = #ITEM_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="MU_ID">
+        			<![CDATA[ MU_ID = #MU_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="QTY">
+        			<![CDATA[ QTY = #QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="VERSION">
+        			<![CDATA[ VERSION = #VERSION# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="WH_ID">
+        			<![CDATA[ WH_ID = #WH_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ZONE_ID">
+        			<![CDATA[ ZONE_ID = #ZONE_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="DEST_WH_ID">
+        			<![CDATA[ DEST_WH_ID = #DEST_WH_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ONLINE_TIME">
+        			<![CDATA[ ONLINE_TIME = #ONLINE_TIME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ARRIVE_TIME">
+        			<![CDATA[ ARRIVE_TIME = #ARRIVE_TIME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LSA">
+        			<![CDATA[ LSA = #LSA# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="STATUS">
+        			<![CDATA[ STATUS = #STATUS# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SUPPLY_TIME">
+        			<![CDATA[ SUPPLY_TIME = #SUPPLY_TIME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="WAVE_TIME">
+        			<![CDATA[ WAVE_TIME = #WAVE_TIME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CREATED_TIME">
+        			<![CDATA[ CREATED_TIME = #CREATED_TIME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LAST_MODIFIED">
+        			<![CDATA[ LAST_MODIFIED = #LAST_MODIFIED# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LAST_OPERATOR">
+        			<![CDATA[ LAST_OPERATOR = #LAST_OPERATOR# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_DISABLED">
+        			<![CDATA[ IS_DISABLED = #IS_DISABLED# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PICK_ID">
+        			<![CDATA[ PICK_ID = #PICK_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="BILL_NO">
+        			<![CDATA[ BILL_NO = #BILL_NO# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SHIP_TIME">
+        			<![CDATA[ SHIP_TIME = #SHIP_TIME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="RECEIVE_TIME">
+        			<![CDATA[ RECEIVE_TIME = #RECEIVE_TIME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SHIP_MU_ID">
+        			<![CDATA[ SHIP_MU_ID = #SHIP_MU_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="TYPE">
+        			<![CDATA[ TYPE = #TYPE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SHIP_QTY">
+        			<![CDATA[ SHIP_QTY = #SHIP_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="RECEIVE_QTY">
+        			<![CDATA[ RECEIVE_QTY = #RECEIVE_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_LINE">
+        			<![CDATA[ IS_LINE = #IS_LINE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ROUTE_CODE">
+        			<![CDATA[ ROUTE_CODE = #ROUTE_CODE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_CLASSIFY">
+        			<![CDATA[ IS_CLASSIFY = #IS_CLASSIFY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_URGENCY">
+        			<![CDATA[ IS_URGENCY = #IS_URGENCY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CLASS_CODE">
+        			<![CDATA[ CLASS_CODE = #CLASS_CODE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="FINAL_ONLINE_TIME">
+        			<![CDATA[ FINAL_ONLINE_TIME = #FINAL_ONLINE_TIME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="UNIT_NAME">
+        			<![CDATA[ UNIT_NAME = #UNIT_NAME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_INTERFACE">
+        			<![CDATA[ IS_INTERFACE = #IS_INTERFACE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SRC_CROSSING">
+        			<![CDATA[ SRC_CROSSING = #SRC_CROSSING# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="DEST_CROSSING">
+        			<![CDATA[ DEST_CROSSING = #DEST_CROSSING# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="OPERATE_IP">
+        			<![CDATA[ OPERATE_IP = #OPERATE_IP# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="KBNUMBER">
+        			<![CDATA[ KBNUMBER = #KBNUMBER# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+		<insert id="Insert" parameterClass="AutoSupplyInterface">
+			<selectKey resultClass="double" type="pre" property="ID" > 
+				<![CDATA[ select AUTO_SUPPLY_INTERFACE_SEQ.NEXTVAL as value from dual ]]>
+			</selectKey>
+			<![CDATA[
+			insert into AUTO_SUPPLY_INTERFACE
+			(
+			    ID,
+			    ITEM_ID,
+			    MU_ID,
+			    QTY,
+			    VERSION,
+			    WH_ID,
+			    ZONE_ID,
+			    DEST_WH_ID,
+			    ONLINE_TIME,
+			    ARRIVE_TIME,
+			    LSA,
+			    STATUS,
+			    SUPPLY_TIME,
+			    WAVE_TIME,
+			    CREATED_TIME,
+			    LAST_MODIFIED,
+			    LAST_OPERATOR,
+			    IS_DISABLED,
+			    PICK_ID,
+			    BILL_NO,
+			    SHIP_TIME,
+			    RECEIVE_TIME,
+			    SHIP_MU_ID,
+			    TYPE,
+			    SHIP_QTY,
+			    RECEIVE_QTY,
+			    IS_LINE,
+			    ROUTE_CODE,
+			    IS_CLASSIFY,
+			    IS_URGENCY,
+			    CLASS_CODE,
+			    FINAL_ONLINE_TIME,
+			    UNIT_NAME,
+			    IS_INTERFACE,
+			    SRC_CROSSING,
+			    DEST_CROSSING,
+			    OPERATE_IP,
+			    KBNUMBER
+			)
+			values 
+			(
+				#ID#,
+				#ITEM_ID#,
+				#MU_ID#,
+				#QTY#,
+				#VERSION#,
+				#WH_ID#,
+				#ZONE_ID#,
+				#DEST_WH_ID#,
+				#ONLINE_TIME#,
+				#ARRIVE_TIME#,
+				#LSA#,
+				#STATUS#,
+				#SUPPLY_TIME#,
+				#WAVE_TIME#,
+				#CREATED_TIME#,
+				#LAST_MODIFIED#,
+				#LAST_OPERATOR#,
+				#IS_DISABLED#,
+				#PICK_ID#,
+				#BILL_NO#,
+				#SHIP_TIME#,
+				#RECEIVE_TIME#,
+				#SHIP_MU_ID#,
+				#TYPE#,
+				#SHIP_QTY#,
+				#RECEIVE_QTY#,
+				#IS_LINE#,
+				#ROUTE_CODE#,
+				#IS_CLASSIFY#,
+				#IS_URGENCY#,
+				#CLASS_CODE#,
+				#FINAL_ONLINE_TIME#,
+				#UNIT_NAME#,
+				#IS_INTERFACE#,
+				#SRC_CROSSING#,
+				#DEST_CROSSING#,
+				#OPERATE_IP#,
+				#KBNUMBER#
+			)
+			]]>
+		</insert>
+		<update id="Update" parameterClass="AutoSupplyInterface" >
+			<![CDATA[
+			update AUTO_SUPPLY_INTERFACE set
+				ITEM_ID = #ITEM_ID#,
+				MU_ID = #MU_ID#,
+				QTY = #QTY#,
+				VERSION = #VERSION#,
+				WH_ID = #WH_ID#,
+				ZONE_ID = #ZONE_ID#,
+				DEST_WH_ID = #DEST_WH_ID#,
+				ONLINE_TIME = #ONLINE_TIME#,
+				ARRIVE_TIME = #ARRIVE_TIME#,
+				LSA = #LSA#,
+				STATUS = #STATUS#,
+				SUPPLY_TIME = #SUPPLY_TIME#,
+				WAVE_TIME = #WAVE_TIME#,
+				CREATED_TIME = #CREATED_TIME#,
+				LAST_MODIFIED = #LAST_MODIFIED#,
+				LAST_OPERATOR = #LAST_OPERATOR#,
+				IS_DISABLED = #IS_DISABLED#,
+				PICK_ID = #PICK_ID#,
+				BILL_NO = #BILL_NO#,
+				SHIP_TIME = #SHIP_TIME#,
+				RECEIVE_TIME = #RECEIVE_TIME#,
+				SHIP_MU_ID = #SHIP_MU_ID#,
+				TYPE = #TYPE#,
+				SHIP_QTY = #SHIP_QTY#,
+				RECEIVE_QTY = #RECEIVE_QTY#,
+				IS_LINE = #IS_LINE#,
+				ROUTE_CODE = #ROUTE_CODE#,
+				IS_CLASSIFY = #IS_CLASSIFY#,
+				IS_URGENCY = #IS_URGENCY#,
+				CLASS_CODE = #CLASS_CODE#,
+				FINAL_ONLINE_TIME = #FINAL_ONLINE_TIME#,
+				UNIT_NAME = #UNIT_NAME#,
+				IS_INTERFACE = #IS_INTERFACE#,
+				SRC_CROSSING = #SRC_CROSSING#,
+				DEST_CROSSING = #DEST_CROSSING#,
+				OPERATE_IP = #OPERATE_IP#,
+				KBNUMBER = #KBNUMBER#
+			where
+				ID = #ID#
+			]]>
+		</update>
+		
+		<update id="UpdateSection" parameterClass="AutoSupplyInterface" >
+			<![CDATA[
+			update AUTO_SUPPLY_INTERFACE set 
+			]]>
+			<dynamic prepend=" ">
+				<isNotNull prepend="," property="ITEM_ID">
+					<![CDATA[ ITEM_ID=#ITEM_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="MU_ID">
+					<![CDATA[ MU_ID=#MU_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="QTY">
+					<![CDATA[ QTY=#QTY#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="VERSION">
+					<![CDATA[ VERSION=#VERSION#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="WH_ID">
+					<![CDATA[ WH_ID=#WH_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="ZONE_ID">
+					<![CDATA[ ZONE_ID=#ZONE_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="DEST_WH_ID">
+					<![CDATA[ DEST_WH_ID=#DEST_WH_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="ONLINE_TIME">
+					<![CDATA[ ONLINE_TIME=#ONLINE_TIME#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="ARRIVE_TIME">
+					<![CDATA[ ARRIVE_TIME=#ARRIVE_TIME#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="LSA">
+					<![CDATA[ LSA=#LSA#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="STATUS">
+					<![CDATA[ STATUS=#STATUS#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="SUPPLY_TIME">
+					<![CDATA[ SUPPLY_TIME=#SUPPLY_TIME#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="WAVE_TIME">
+					<![CDATA[ WAVE_TIME=#WAVE_TIME#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="CREATED_TIME">
+					<![CDATA[ CREATED_TIME=#CREATED_TIME#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="LAST_MODIFIED">
+					<![CDATA[ LAST_MODIFIED=#LAST_MODIFIED#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="LAST_OPERATOR">
+					<![CDATA[ LAST_OPERATOR=#LAST_OPERATOR#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="IS_DISABLED">
+					<![CDATA[ IS_DISABLED=#IS_DISABLED#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="PICK_ID">
+					<![CDATA[ PICK_ID=#PICK_ID#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="BILL_NO">
+					<![CDATA[ BILL_NO=#BILL_NO#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="SHIP_TIME">
+					<![CDATA[ SHIP_TIME=#SHIP_TIME#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="RECEIVE_TIME">
+					<![CDATA[ RECEIVE_TIME=#RECEIVE_TIME#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="SHIP_MU_ID">
+					<![CDATA[ SHIP_MU_ID=#SHIP_MU_ID#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="TYPE">
+					<![CDATA[ TYPE=#TYPE#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="SHIP_QTY">
+					<![CDATA[ SHIP_QTY=#SHIP_QTY#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="RECEIVE_QTY">
+					<![CDATA[ RECEIVE_QTY=#RECEIVE_QTY#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="IS_LINE">
+					<![CDATA[ IS_LINE=#IS_LINE#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="ROUTE_CODE">
+					<![CDATA[ ROUTE_CODE=#ROUTE_CODE#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="IS_CLASSIFY">
+					<![CDATA[ IS_CLASSIFY=#IS_CLASSIFY#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="IS_URGENCY">
+					<![CDATA[ IS_URGENCY=#IS_URGENCY#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="CLASS_CODE">
+					<![CDATA[ CLASS_CODE=#CLASS_CODE#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="FINAL_ONLINE_TIME">
+					<![CDATA[ FINAL_ONLINE_TIME=#FINAL_ONLINE_TIME#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="UNIT_NAME">
+					<![CDATA[ UNIT_NAME=#UNIT_NAME#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="IS_INTERFACE">
+					<![CDATA[ IS_INTERFACE=#IS_INTERFACE#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="SRC_CROSSING">
+					<![CDATA[ SRC_CROSSING=#SRC_CROSSING#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="DEST_CROSSING">
+					<![CDATA[ DEST_CROSSING=#DEST_CROSSING#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="OPERATE_IP">
+					<![CDATA[ OPERATE_IP=#OPERATE_IP#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="KBNUMBER">
+					<![CDATA[ KBNUMBER=#KBNUMBER#]]>
+				</isNotEmpty>
+			</dynamic>
+			<![CDATA[
+			where
+				ID = #ID#
+			]]>
+		</update>
+		<delete id="Delete" parameterClass="AutoSupplyInterface" >
+			<![CDATA[
+			delete from AUTO_SUPPLY_INTERFACE
+			where 
+				ID = #ID#
+			]]>
+		</delete>
+	</statements>
+	
+</sqlMap>

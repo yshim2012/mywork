@@ -1,0 +1,57 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using DataMapper;
+using Common;
+
+namespace tongqinche.Controllers
+{
+    public class CarrierApiController : ApiController
+    {
+        public string GetCarrierList() {
+            Carrier Car = new Carrier();
+            var CarList = Car.QueryList("SelectAll");
+            var jsonStr = JsonSerializationHandler.Serialize<IList<Carrier>>(CarList);
+            return jsonStr;
+        }
+
+        [HttpPost]
+        public string PostCarrier(dynamic Car) 
+        {
+            Carrier parmCar = new Carrier();
+            if (Car != null) 
+            {
+                if (Car["CarrierName"] != null)
+                {
+                    parmCar.CarrierName = Car["CarrierName"].ToString().Trim();
+                }
+                if (Car["Contact"] != null)
+                {
+                    parmCar.Contact = Car["Contact"].ToString().Trim();
+                }
+                if (Car["Mobile"] != null)
+                {
+                    parmCar.Mobile = Car["Mobile"].ToString().Trim();
+                }
+                if (Car["Tel"] != null)
+                {
+                    parmCar.Tel = Car["Tel"].ToString().Trim();
+                }
+                if (Car["Address"] != null)
+                {
+                    parmCar.Address = Car["Address"].ToString().Trim();
+                }
+                if (Car["Status"] != null)
+                {
+                    parmCar.Status = Car["Status"].ToString().Trim();
+                }
+            }
+            var CarList = parmCar.QueryList("SelectByParam");
+            var jsonStr = JsonSerializationHandler.Serialize<IList<Carrier>>(CarList);
+            return jsonStr;
+        }
+    }
+}

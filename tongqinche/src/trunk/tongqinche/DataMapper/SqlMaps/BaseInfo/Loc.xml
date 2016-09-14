@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="Loc" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="Loc" type="DataMapper.Loc, DataMapper" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="Loc">
+      <result property="Id" column="ID" />
+      <result property="LocCode" column="Loc_Code" />
+      <result property="LocName" column="Loc_Name" />
+      <result property="LocType" column="Loc_Type" />
+      <result property="ProvinceCode" column="Province_Code" />
+      <result property="DistrictCode" column="District_Code" />
+      <result property="Remark" column="Remark" />
+      <result property="Longitude" column="Longitude" />
+      <result property="Latitude" column="Latitude" />
+      <result property="Status" column="Status" />
+      <result property="CreateTime" column="Create_Time" />
+      <result property="CreateUserid" column="Create_Userid" />
+      <result property="UpdateTime" column="Update_Time" />
+      <result property="UpdateUserid" column="Update_Userid" />
+      <result property="CityCode" column="City_Code" />
+    </resultMap>
+  </resultMaps>
+
+  <statements>
+    <select id="SelectAll" resultMap="SelectResult">
+      <![CDATA[
+			select
+				* 
+			from TB_Loc
+			]]>
+    </select>
+
+    <!--站点修改-根据ID查询站点-->
+    <select id="SelectById"  parameterClass="Loc" resultMap="SelectResult">
+      <![CDATA[
+      select l.* from tb_loc l
+      where
+				l.ID = #Id#
+			]]>
+    </select>
+
+    <!--站点查询-->
+    <select id="SelectLoc" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+      <![CDATA[
+     select l.ID,l.Loc_Code,l.Loc_Name,l.Status,dp.Name Province_Code,dc.Name City_Code,dd.Name District_Code,dl.Name Loc_Type
+      from TB_Loc l 
+      left join TB_Dict dp on (l.Province_Code=dp.Code and dp.Status='0')
+      left join TB_Dict dc on (l.City_Code=dc.Code and dc.Status='0')
+      left join TB_Dict dd on (l.District_Code=dd.Code and dd.Status='0')
+      left join TB_Dict dl on (l.Loc_Type=dl.Code and dl.Status='0')
+      
+      ]]>
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="LocCode">
+          <![CDATA[  l.Loc_Code = #LocCode# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="LocName">
+          <![CDATA[ l.Loc_Name Like '%' +#LocName#+ '%' ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="LocType">
+          <![CDATA[ l.Loc_Type = #LocType# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="Status">
+          <![CDATA[ l.Status = #Status# ]]>
+        </isNotEmpty>
+      </dynamic>
+    </select>
+
+    <!--站点查询-导出-->
+    <select id="SelectExportLoc" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+      <![CDATA[
+     select l.ID,l.Loc_Code,l.Loc_Name,l.Status,dp.Name Province_Code,dc.Name City_Code,dd.Name District_Code,dl.Name Loc_Type
+      from TB_Loc l 
+      left join TB_Dict dp on (l.Province_Code=dp.Code and dp.Status='0')
+      left join TB_Dict dc on (l.City_Code=dc.Code and dc.Status='0')
+      left join TB_Dict dd on (l.District_Code=dd.Code and dd.Status='0')
+      left join TB_Dict dl on (l.Loc_Type=dl.Code and dl.Status='0')
+     ]]>
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="LocCode">
+          <![CDATA[  l.Loc_Code = #LocCode# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="LocName">
+          <![CDATA[ l.Loc_Name Like '%' +#LocName#+ '%' ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="LocType">
+          <![CDATA[ l.Loc_Type = #LocType# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="Status">
+          <![CDATA[ l.Status = #Status# ]]>
+        </isNotEmpty>
+      </dynamic>
+    </select>
+
+
+    <delete id="Delete" parameterClass="Loc" >
+      <![CDATA[
+			delete from tb_loc
+			where 
+				ID = #Id#
+			]]>
+    </delete>
+
+    <!--站点修改-->
+    <update id="UpdateLoc" parameterClass="Loc" >
+      <![CDATA[
+			update tb_loc 
+      set
+       Loc_Code= #LocCode#
+      ,Loc_Name = #LocName#
+      ,Loc_Type = #LocType#
+      ,Province_Code= #ProvinceCode#
+      ,District_Code = #DistrictCode#
+      ,City_Code= #CityCode#
+      ,Update_Time =getdate()
+      ,Update_Userid = #UpdateUserid#
+     where
+					ID = #Id#
+  			]]>
+    </update>
+
+    <!--站点新增-->
+    <insert id="InsertLoc" parameterClass="Loc">
+      <![CDATA[
+		INSERT INTO tb_loc
+           (
+            Loc_Code
+           ,Loc_Name
+           ,Loc_Type
+           ,Province_Code
+           ,District_Code
+           ,City_Code
+           ,Status
+           ,Longitude
+           ,Latitude
+           ,Create_Time
+           ,Create_Userid
+          )
+     VALUES
+           (
+            #LocCode#
+           ,#LocName#
+           ,#LocType#
+           ,#ProvinceCode#
+           ,#DistrictCode#
+           ,#CityCode#
+           ,#Status#
+           ,#Longitude#
+           ,#Latitude#
+           ,getdate()
+           ,#CreateUserid#
+           )
+          ]]>
+    </insert>
+
+    <!--站点删除-->
+    <delete id="DeleteLoc" parameterClass="Loc" >
+      <![CDATA[
+			update tb_loc 
+      set
+       Status= #Status#
+      ,Update_Time =getdate()
+      ,Update_Userid = #UpdateUserid#
+     where
+					ID = #Id#
+			]]>
+    </delete>
+
+  </statements>
+
+</sqlMap>

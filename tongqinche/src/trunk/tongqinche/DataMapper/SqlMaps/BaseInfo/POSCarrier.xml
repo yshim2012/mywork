@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="POSCarrier" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="POSCarrier" type="DataMapper.POSCarrier, DataMapper" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="POSCarrier">
+      <result property="Id" column="ID" />
+      <result property="POSId" column="POSId" />
+      <result property="CarrierId" column="CarrierId" />
+      <result property="Status" column="Status" />
+      <result property="CreateTime" column="CreateTime" />
+      <result property="CreateUserId" column="CreateUserId" />
+      <result property="UpdateTime" column="UpdateTime" />
+      <result property="UpdateUserId" column="UpdateUserId" />
+    </resultMap>
+  </resultMaps>
+
+  <statements>
+    <select id="SelectAll" resultMap="SelectResult">
+      <![CDATA[
+			select
+				* 
+			from TB_POSCarrier
+			]]>
+    </select>
+
+    <!--POS机与承运商关系修改-根据ID查询对应关系-->
+    <select id="SelectById"  parameterClass="POSCarrier" resultMap="SelectResult">
+      <![CDATA[
+      select l.* from TB_POSCarrier l
+      where
+				l.ID = #Id#
+			]]>
+    </select>
+
+    <!--POS机与承运商关系查询-->
+    <select id="SelectPOSCarrier" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+      <![CDATA[
+    select c.CarrierName,l.POSId,c.Contact,c.Mobile,l.Status from TB_Rel_POS_Carrier l
+    left join TB_Carrier c on (l.CarrierId = c.ID and l.Status =0)
+    left join TB_POS p on (l.POSId = p.ID and l.Status =0)
+      ]]>
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="CarrierName">
+          <![CDATA[ c.CarrierName Like '%' +#CarrierName#+ '%']]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="POSCarrierName">
+          <![CDATA[ l.POSId  = #POSId# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="Status">
+          <![CDATA[ l.Status = #Status# ]]>
+        </isNotEmpty>
+      </dynamic>
+    </select>
+
+    <!--POS机与承运商关系查询-导出-->
+    <select id="SelectExportPOSCarrier" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+      <![CDATA[
+       select c.CarrierName,l.POSId,c.Contact,c.Mobile,l.Status from TB_Rel_POS_Carrier l
+        left join TB_Carrier c on (l.CarrierId = c.ID and l.Status =0)
+        left join TB_POS p on (l.POSId = p.ID and l.Status =0)
+     ]]>
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="CarrierName">
+          <![CDATA[ c.CarrierName Like '%' +#CarrierName#+ '%']]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="POSCarrierName">
+          <![CDATA[ l.POSId  = #POSId# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="Status">
+          <![CDATA[ l.Status = #Status# ]]>
+        </isNotEmpty>
+      </dynamic>
+    </select>
+
+
+    <delete id="Delete" parameterClass="POSCarrier" >
+      <![CDATA[
+			delete from TB_Rel_POS_Carrier
+			where 
+				ID = #Id#
+			]]>
+    </delete>
+
+    <!--POS机与承运商关系修改-->
+    <update id="UpdatePOSCarrier" parameterClass="POSCarrier" >
+      <![CDATA[
+			update TB_Rel_POS_Carrier 
+      set
+       CarrierId =  = #CarrierId#
+      ,POSId =  #POSId#
+      ,UpdateTime =getdate()
+      ,UpdateUserid = #UpdateUserid#
+     where
+					ID = #Id#
+  			]]>
+    </update>
+
+    <!--POS机与承运商关系新增-->
+    <insert id="InsertPOSCarrier" parameterClass="POSCarrier">
+      <![CDATA[
+		INSERT INTO TB_Rel_POS_Carrier
+           (
+            CarrierId, 
+            Status, 
+            CreateTime, 
+            CreateUserId, 
+            UpdateTime, 
+            UpdateUserId, 
+            POSId
+          )
+          values
+           (
+            #CarrierId#
+            ,#Status#
+            ,getdate()
+            ,#CreateUserid#
+            ,getdate()
+           ,#UpdateUserId#
+           ,#POSId#
+           )
+          ]]>
+    </insert>
+  </statements>
+</sqlMap>

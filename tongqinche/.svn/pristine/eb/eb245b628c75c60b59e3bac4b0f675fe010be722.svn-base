@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="RouteShift" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="RouteShift" type="DataMapper.RouteShift, DataMapper" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="RouteShift">
+      <result property="Id" column="ID" />
+      <result property="Route_Id" column="Route_Id" />
+      <result property="Table_Name" column="Table_Name" />
+      <result property="Shift_Code" column="Shift_Code" />
+      <result property="Shift_Type_Code" column="Shift_Type_Code" />
+      <result property="Car_Type" column="Car_Type" />
+      <result property="Company_Name" column="Company_Name" />
+      <result property="Plan_Number" column="Plan_Number" />
+      <result property="Departure_Time" column="Departure_Time" />
+      <result property="Space_Time" column="Space_Time" />
+      <result property="End_Time" column="End_Time" />
+      <result property="Status" column="Status" />
+      <result property="CreateTime" column="Create_Time" />
+      <result property="CreateUserid" column="Create_Userid" />
+      <result property="UpdateTime" column="Update_Time" />
+      <result property="UpdateUserid" column="Update_Userid" />
+    </resultMap>
+  </resultMaps>
+
+  <statements>
+    <select id="SelectAll" resultMap="SelectResult">
+      <![CDATA[
+			select
+				* 
+			from TB_Route_Shift
+			]]>
+    </select>
+
+    <select id="SelectById" parameterClass="RouteShift" resultMap="SelectResult">
+      <![CDATA[
+       select distinct TRS.id, d.name SHIFT_NAME,TRS.Table_Name,r.Route_Name,trs.departure_time,td.name shift_type ,trs.status
+      from TB_Route_Shift TRS 
+      left join TB_Dict d on (trs.Shift_Code=d.code)
+      left join TB_Dict td on (trs.Shift_Type_Code=td.code)
+      left join TB_Route r on (trs.route_id=r.id and r.status='0') 
+      left join TB_Route_Loc rl on (rl.Route_Id=r.id and rl.Status='0')
+      left join TB_Loc l on (rl.Loc_Id=l.id and l.Status='0')
+			where
+				ID = #Id#
+			]]>
+    </select>
+
+    <select id="SelectByParam" extends="SelectAll" parameterClass="RouteShift" resultMap="SelectResult">
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="Shift_Type_Code">
+          <![CDATA[ Shift_Type_Code = #Shift_Type_Code# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="Table_Name">
+          <![CDATA[ Table_Name Like '%' +#Table_Name#+ '%' ]]>
+        </isNotEmpty>
+      </dynamic>
+    </select>
+
+    <select id="SelectRouteShift" parameterClass="System.Collections.IDictionary">
+      <![CDATA[ 
+      select distinct TRS.id, d.name SHIFT_NAME,TRS.Table_Name,r.Route_Name,trs.departure_time,td.name shift_type ,trs.status
+      from TB_Route_Shift TRS 
+      left join TB_Dict d on (trs.Shift_Code=d.code)
+      left join TB_Dict td on (trs.Shift_Type_Code=td.code)
+      left join TB_Route r on (trs.route_id=r.id and r.status='0') 
+      left join TB_Route_Loc rl on (rl.Route_Id=r.id and rl.Status='0')
+      left join TB_Loc l on (rl.Loc_Id=l.id and l.Status='0')
+      ]]>
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="SHIFT_NAME">
+          <![CDATA[ d.name = #SHIFT_NAME# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="Route_Name">
+          <![CDATA[ r.Route_Name Like '%' +#Route_Name#+ '%' ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="Loc_Name">
+          <![CDATA[ l.Loc_Name Like '%' +#Loc_Name#+ '%' ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="Table_Name">
+          <![CDATA[ TRS.Table_Name Like '%' +#Table_Name#+ '%' ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="status">
+          <![CDATA[ trs.status = #status# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="departure_time_start">
+          <![CDATA[ trs.departure_time >=#departure_time_start#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="departure_time_end">
+          <![CDATA[ trs.departure_time <=#departure_time_end# ]]>
+        </isNotEmpty>
+      </dynamic>
+    </select>
+
+
+    <delete id="Delete" parameterClass="RouteShift" >
+      <![CDATA[
+			delete from TB_Route_Shift
+			where 
+				ID = #Id#
+			]]>
+    </delete>
+
+
+  </statements>
+
+</sqlMap>

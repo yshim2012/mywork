@@ -1,0 +1,469 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<sqlMap 
+	namespace="VWmsPickTicketDetail" xmlns="http://ibatis.apache.org/mapping" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	
+	<alias>
+		<typeAlias alias="VWmsPickTicketDetail" type="LDV.WMS.RF.DataMapper.VWmsPickTicketDetail, LDV.WMS.RF.DataMapper" />
+	</alias>
+	
+	<resultMaps>
+		<resultMap id="SelectResult" class="VWmsPickTicketDetail">
+			<result property="ID" column="ID" />
+			<result property="PICK_TICKET_ID" column="PICK_TICKET_ID" />
+			<result property="LINE_NO" column="LINE_NO" />
+			<result property="STATUS" column="STATUS" />
+			<result property="ITEM_ID" column="ITEM_ID" />
+			<result property="ORDER_QTY" column="ORDER_QTY" />
+			<result property="ORDER_PLAN_QTY" column="ORDER_PLAN_QTY" />
+			<result property="ALLOCATED_QTY" column="ALLOCATED_QTY" />
+			<result property="PICKED_QTY" column="PICKED_QTY" />
+			<result property="SHIP_QTY" column="SHIP_QTY" />
+			<result property="LOT" column="LOT" />
+			<result property="SERIAL" column="SERIAL" />
+			<result property="XDATE" column="XDATE" />
+			<result property="SALE_ORDER" column="SALE_ORDER" />
+			<result property="SALE_ORDER_LINE_NO" column="SALE_ORDER_LINE_NO" />
+			<result property="CREATED_TIME" column="CREATED_TIME" />
+			<result property="CANCEL_DATE" column="CANCEL_DATE" />
+			<result property="LAST_MODIFIED" column="LAST_MODIFIED" />
+			<result property="KBNUMBER" column="KBNUMBER" />
+		</resultMap>
+	</resultMaps>
+	
+	<statements>
+	
+		<select id="SelectAll" resultMap="SelectResult">
+			<![CDATA[
+			select
+				ID,
+				PICK_TICKET_ID,
+				LINE_NO,
+				STATUS,
+				ITEM_ID,
+				ORDER_QTY,
+				ORDER_PLAN_QTY,
+				ALLOCATED_QTY,
+				PICKED_QTY,
+				SHIP_QTY,
+				LOT,
+				SERIAL,
+				XDATE,
+				SALE_ORDER,
+				SALE_ORDER_LINE_NO,
+				CREATED_TIME,
+				CANCEL_DATE,
+				LAST_MODIFIED,
+				KBNUMBER
+			from V_WMS_PICK_TICKET_DETAIL
+			]]>
+		</select>
+		
+		<select id="SelectById" extends="SelectAll" parameterClass="double" resultMap="SelectResult">
+			<![CDATA[
+			where
+				ID = #value#
+			]]>
+		</select>
+
+    <select id="SelectDetailByOrderCodeItemId" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+      <![CDATA[
+        SELECT PTD.ID AS DETAIL_ID,
+         PT.ID AS TICK_ID,
+         PTD.ITEM_ID,         
+         PTD.ORDER_QTY,
+         PTD.PICKED_QTY,
+         PTD.SHIP_QTY,
+         PQ.ID AS PQID,
+         PTD.LINE_NO,
+         PQ.BATCH_ID,
+         BW.WHSE_NAME
+  FROM V_WMS_PICK_TICKET PT
+         INNER JOIN V_WMS_PICK_TICKET_DETAIL PTD ON(PTD.PICK_TICKET_ID=PT.ID)
+         INNER JOIN V_WMS_PICK_QUEUE PQ ON(PQ.PICK_TICKET_ID=PT.ID AND PQ.LINE_NO=PTD.LINE_NO)
+         INNER JOIN V_WMS_ITEM IT ON(PTD.ITEM_ID=IT.ID)
+         INNER JOIN V_WMS_BASE_WAREHOUSE BW ON(PT.WHSE_ID=BW.ID)
+         WHERE PT.PICK_TICKET_CODE='$PICK_TICKET_CODE$' and it.id=$ITEM_ID$  and  PTD.SHIP_QTY< PTD.PICKED_QTY
+         ORDER BY  PTD.LINE_NO
+      ]]>
+    </select>
+    <select id="SelectDetailByID" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+      <![CDATA[
+     select
+				ID,
+				PICK_TICKET_ID,
+				LINE_NO,
+				STATUS,
+				ITEM_ID,
+				ORDER_QTY,
+				ORDER_PLAN_QTY,
+				ALLOCATED_QTY,
+				PICKED_QTY,
+				SHIP_QTY,
+				LOT,
+				SERIAL,
+				XDATE,
+				SALE_ORDER,
+				SALE_ORDER_LINE_NO,
+				CREATED_TIME,
+				CANCEL_DATE,
+				LAST_MODIFIED,
+				KBNUMBER
+			from V_WMS_PICK_TICKET_DETAIL
+			]]>
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ID">
+          <![CDATA[ ID=#ID#]]>
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectLoadShipOrderById" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+      <![CDATA[
+      SELECT DISTINCT PT.PICK_TICKET_CODE,
+       BW.ADDRESS_ID,
+       BW.WHSE_NAME,
+       BW.EXTEND_COLUMN_3
+       FROM V_WMS_PICK_TICKET PT
+       INNER JOIN V_WMS_PICK_TICKET_DETAIL PTD ON(PTD.PICK_TICKET_ID=PT.ID)
+       INNER JOIN V_WMS_BASE_WAREHOUSE BW ON(PT.SHIP_TO_ID=BW.ID)
+			]]>
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ID">
+          <![CDATA[ PT.WHSE_ID=(SELECT DISTINCT BZ.WHSE_ID FROM 
+          V_WMS_BASE_USER_ZONE ZO INNER JOIN V_WMS_BASE_ZONE BZ ON(BZ.ID=ZO.ZONE_ID) WHERE ZO.USER_ID=#ID#)]]>
+        </isNotNull>
+      </dynamic>
+      <![CDATA[ AND (PTD.STATUS='BL' OR PTD.STATUS='PI') AND PTD.SHIP_QTY<=PTD.ORDER_QTY AND PTD.PICKED_QTY>0 AND PT.STATUS<>'PI' AND PT.STATUS<>'CA' ORDER BY PICK_TICKET_CODE ]]>
+    </select>
+
+    <select id="SelectLoadShipOrderByPickCode" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+      <![CDATA[
+      SELECT PT.PICK_TICKET_CODE,
+       PT.WHSE_ID,
+       BW.ADDRESS_ID,
+       BW.WHSE_NAME,
+       BW.EXTEND_COLUMN_3,
+       PTD.ITEM_ID,       
+       IT.ITEM_CODE,
+       IT.ITEM_NAME,
+       SUM(PTD.ORDER_QTY) AS ORDER_QTY,
+       SUM(PTD.PICKED_QTY) AS PICKED_QTY,
+       SUM(PTD.SHIP_QTY) AS SHIP_QTY,
+       SU.ID,
+       SU.FIRST_NAME,
+       SU.LAST_NAME
+       FROM V_WMS_PICK_TICKET PT
+       INNER JOIN V_WMS_PICK_TICKET_DETAIL PTD ON(PTD.PICK_TICKET_ID=PT.ID)
+       INNER JOIN V_WMS_PICK_QUEUE PQ ON(PQ.PICK_TICKET_ID=PT.ID  AND PTD.ITEM_ID=PQ.ITEM_ID AND PTD.LINE_NO=PQ.LINE_NO)       
+       INNER JOIN V_WMS_BASE_WAREHOUSE BW ON(PT.SHIP_TO_ID=BW.ID)
+       INNER JOIN V_WMS_ITEM IT ON(PTD.ITEM_ID=IT.ID)
+       LEFT JOIN V_PHR_SEC_USRS SU ON(SU.EXTEND_COLUMN_1=PT.PICK_TICKET_CODE)
+			]]>
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PICK_TICKET_CODE">
+          <![CDATA[ PT.PICK_TICKET_CODE = #PICK_TICKET_CODE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="ID">
+          <![CDATA[ PT.WHSE_ID=(SELECT DISTINCT BZ.WHSE_ID FROM 
+          V_WMS_BASE_USER_ZONE ZO INNER JOIN V_WMS_BASE_ZONE BZ ON(BZ.ID=ZO.ZONE_ID) WHERE ZO.USER_ID=#ID# )]]>
+        </isNotNull>
+      </dynamic>
+      <![CDATA[  AND PTD.SHIP_QTY<=PTD.ORDER_QTY AND PTD.PICKED_QTY>0 AND PT.STATUS<>'CA'
+      GROUP BY PT.PICK_TICKET_CODE,PT.WHSE_ID,ADDRESS_ID,WHSE_NAME,BW.EXTEND_COLUMN_3,
+      PTD.ITEM_ID,ITEM_CODE,ITEM_NAME,SU.ID, SU.FIRST_NAME,
+       SU.LAST_NAME ]]>
+      <!--<![CDATA[ AND (PTD.STATUS='BL' OR PTD.STATUS='PI') 
+      AND PTD.SHIP_QTY<=PTD.ORDER_QTY AND PTD.PICKED_QTY>0 AND PT.STATUS<>'PI' AND PT.STATUS<>'CA' ORDER BY PTD.ID ]]>-->
+    </select>
+
+    <select id="SelectLoadShipOrderByPickCode_Back" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+      <![CDATA[
+      SELECT DISTINCT PTD.ID AS DETAIL_ID,
+       PT.ID AS TICK_ID,
+       PT.PICK_TICKET_CODE,
+       PT.WHSE_ID,
+       BW.ADDRESS_ID,
+       BW.WHSE_NAME,
+       BW.EXTEND_COLUMN_3,
+       PTD.ITEM_ID,
+       IT.ITEM_CODE,
+       IT.ITEM_NAME,
+       PTD.ORDER_QTY,
+       PTD.PICKED_QTY,
+       PTD.SHIP_QTY,
+       PTD.STATUS,
+       TA.UID_ID,
+       TA.MU_ID,
+       SU.ID,
+       SU.FIRST_NAME,
+       SU.LAST_NAME
+       FROM V_WMS_PICK_TICKET PT
+       INNER JOIN V_WMS_PICK_TICKET_DETAIL PTD ON(PTD.PICK_TICKET_ID=PT.ID)
+       INNER JOIN V_WMS_PICK_QUEUE PQ ON(PQ.PICK_TICKET_ID=PT.ID AND PQ.LINE_NO=PTD.LINE_NO)
+       INNER JOIN V_WMS_PICK_QUEUE_ACT TA ON(TA.PICK_QUEUE_ID=PQ.ID)
+       INNER JOIN V_WMS_BASE_WAREHOUSE BW ON(PT.WHSE_ID=BW.ID)
+       INNER JOIN V_WMS_ITEM IT ON(PTD.ITEM_ID=IT.ID)
+       LEFT JOIN V_PHR_SEC_USRS SU ON(SU.EXTEND_COLUMN_1=PT.PICK_TICKET_CODE)
+			]]>
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PICK_TICKET_CODE">
+          <![CDATA[ PT.PICK_TICKET_CODE = #PICK_TICKET_CODE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="ID">
+          <![CDATA[ PT.WHSE_ID=(SELECT DISTINCT BZ.WHSE_ID FROM 
+          V_WMS_BASE_USER_ZONE ZO INNER JOIN V_WMS_BASE_ZONE BZ ON(BZ.ID=ZO.ZONE_ID) WHERE ZO.USER_ID=#ID# )]]>
+        </isNotNull>
+      </dynamic>
+      <![CDATA[ AND (PTD.STATUS='BL' OR PTD.STATUS='PI') AND PTD.SHIP_QTY<PTD.ORDER_QTY AND PTD.PICKED_QTY>0 AND PT.STATUS<>'PI' AND PT.STATUS<>'CA' ORDER BY PTD.ID ]]>
+    </select>
+    
+		<select id="SelectByParam" extends="SelectAll" parameterClass="VWmsPickTicketDetail" resultMap="SelectResult">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PICK_TICKET_ID">
+        			<![CDATA[ PICK_TICKET_ID = #PICK_TICKET_ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="LINE_NO">
+        			<![CDATA[ LINE_NO = #LINE_NO# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="STATUS">
+        			<![CDATA[ STATUS = #STATUS# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="ITEM_ID">
+        			<![CDATA[ ITEM_ID = #ITEM_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ORDER_QTY">
+        			<![CDATA[ ORDER_QTY = #ORDER_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ORDER_PLAN_QTY">
+        			<![CDATA[ ORDER_PLAN_QTY = #ORDER_PLAN_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ALLOCATED_QTY">
+        			<![CDATA[ ALLOCATED_QTY = #ALLOCATED_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PICKED_QTY">
+        			<![CDATA[ PICKED_QTY = #PICKED_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SHIP_QTY">
+        			<![CDATA[ SHIP_QTY = #SHIP_QTY# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="LOT">
+        			<![CDATA[ LOT = #LOT# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="SERIAL">
+        			<![CDATA[ SERIAL = #SERIAL# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="SALE_ORDER">
+        			<![CDATA[ SALE_ORDER = #SALE_ORDER# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="SALE_ORDER_LINE_NO">
+        			<![CDATA[ SALE_ORDER_LINE_NO = #SALE_ORDER_LINE_NO# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="KBNUMBER">
+        			<![CDATA[ KBNUMBER = #KBNUMBER# ]]>
+				</isNotEmpty>
+			</dynamic>
+		</select>
+		
+		<select id="SelectForPageing" extends="SelectAll" parameterClass="System.Collections.IDictionary">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PICK_TICKET_ID">
+        			<![CDATA[ PICK_TICKET_ID = #PICK_TICKET_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LINE_NO">
+        			<![CDATA[ LINE_NO = #LINE_NO# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="STATUS">
+        			<![CDATA[ STATUS = #STATUS# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ITEM_ID">
+        			<![CDATA[ ITEM_ID = #ITEM_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ORDER_QTY">
+        			<![CDATA[ ORDER_QTY = #ORDER_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ORDER_PLAN_QTY">
+        			<![CDATA[ ORDER_PLAN_QTY = #ORDER_PLAN_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ALLOCATED_QTY">
+        			<![CDATA[ ALLOCATED_QTY = #ALLOCATED_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PICKED_QTY">
+        			<![CDATA[ PICKED_QTY = #PICKED_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SHIP_QTY">
+        			<![CDATA[ SHIP_QTY = #SHIP_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LOT">
+        			<![CDATA[ LOT = #LOT# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SERIAL">
+        			<![CDATA[ SERIAL = #SERIAL# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="XDATE">
+        			<![CDATA[ XDATE = #XDATE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SALE_ORDER">
+        			<![CDATA[ SALE_ORDER = #SALE_ORDER# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SALE_ORDER_LINE_NO">
+        			<![CDATA[ SALE_ORDER_LINE_NO = #SALE_ORDER_LINE_NO# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CREATED_TIME">
+        			<![CDATA[ CREATED_TIME = #CREATED_TIME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CANCEL_DATE">
+        			<![CDATA[ CANCEL_DATE = #CANCEL_DATE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LAST_MODIFIED">
+        			<![CDATA[ LAST_MODIFIED = #LAST_MODIFIED# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="KBNUMBER">
+        			<![CDATA[ KBNUMBER = #KBNUMBER# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+		<insert id="Insert" parameterClass="VWmsPickTicketDetail">
+			<selectKey resultClass="double" type="pre" property="ID" > 
+				<![CDATA[ select V_WMS_PICK_TICKET_DETAIL_SEQ.NEXTVAL as value from dual ]]>
+			</selectKey>
+			<![CDATA[
+			insert into V_WMS_PICK_TICKET_DETAIL
+			(
+			    ID,
+			    PICK_TICKET_ID,
+			    LINE_NO,
+			    STATUS,
+			    ITEM_ID,
+			    ORDER_QTY,
+			    ORDER_PLAN_QTY,
+			    ALLOCATED_QTY,
+			    PICKED_QTY,
+			    SHIP_QTY,
+			    LOT,
+			    SERIAL,
+			    XDATE,
+			    SALE_ORDER,
+			    SALE_ORDER_LINE_NO,
+			    CREATED_TIME,
+			    CANCEL_DATE,
+			    LAST_MODIFIED,
+			    KBNUMBER
+			)
+			values 
+			(
+				#ID#,
+				#PICK_TICKET_ID#,
+				#LINE_NO#,
+				#STATUS#,
+				#ITEM_ID#,
+				#ORDER_QTY#,
+				#ORDER_PLAN_QTY#,
+				#ALLOCATED_QTY#,
+				#PICKED_QTY#,
+				#SHIP_QTY#,
+				#LOT#,
+				#SERIAL#,
+				#XDATE#,
+				#SALE_ORDER#,
+				#SALE_ORDER_LINE_NO#,
+				#CREATED_TIME#,
+				#CANCEL_DATE#,
+				#LAST_MODIFIED#,
+				#KBNUMBER#
+			)
+			]]>
+		</insert>
+		<update id="Update" parameterClass="VWmsPickTicketDetail" >
+			<![CDATA[
+			update V_WMS_PICK_TICKET_DETAIL set
+				STATUS = #STATUS#,
+        ALLOCATED_QTY=#ALLOCATED_QTY#,
+        PICKED_QTY=#PICKED_QTY#,
+				LAST_MODIFIED = sysdate
+			where
+				ID = #ID#
+			]]>
+		</update>
+		
+		<update id="UpdateSection" parameterClass="VWmsPickTicketDetail" >
+			<![CDATA[
+			update V_WMS_PICK_TICKET_DETAIL set 
+			]]>
+			<dynamic prepend=" ">
+				<isNotNull prepend="," property="PICK_TICKET_ID">
+					<![CDATA[ PICK_TICKET_ID=#PICK_TICKET_ID#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="LINE_NO">
+					<![CDATA[ LINE_NO=#LINE_NO#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="STATUS">
+					<![CDATA[ STATUS=#STATUS#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="ITEM_ID">
+					<![CDATA[ ITEM_ID=#ITEM_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="ORDER_QTY">
+					<![CDATA[ ORDER_QTY=#ORDER_QTY#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="ORDER_PLAN_QTY">
+					<![CDATA[ ORDER_PLAN_QTY=#ORDER_PLAN_QTY#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="ALLOCATED_QTY">
+					<![CDATA[ ALLOCATED_QTY=#ALLOCATED_QTY#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="PICKED_QTY">
+					<![CDATA[ PICKED_QTY=#PICKED_QTY#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="SHIP_QTY">
+					<![CDATA[ SHIP_QTY=#SHIP_QTY#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="LOT">
+					<![CDATA[ LOT=#LOT#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="SERIAL">
+					<![CDATA[ SERIAL=#SERIAL#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="XDATE">
+					<![CDATA[ XDATE=#XDATE#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="SALE_ORDER">
+					<![CDATA[ SALE_ORDER=#SALE_ORDER#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="SALE_ORDER_LINE_NO">
+					<![CDATA[ SALE_ORDER_LINE_NO=#SALE_ORDER_LINE_NO#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="CREATED_TIME">
+					<![CDATA[ CREATED_TIME=#CREATED_TIME#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="CANCEL_DATE">
+					<![CDATA[ CANCEL_DATE=#CANCEL_DATE#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="LAST_MODIFIED">
+					<![CDATA[ LAST_MODIFIED=#LAST_MODIFIED#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="KBNUMBER">
+					<![CDATA[ KBNUMBER=#KBNUMBER#]]>
+				</isNotEmpty>
+			</dynamic>
+			<![CDATA[
+			where
+				ID = #ID#
+			]]>
+		</update>
+		<delete id="Delete" parameterClass="VWmsPickTicketDetail" >
+			<![CDATA[
+			delete from V_WMS_PICK_TICKET_DETAIL
+			where 
+				ID = #ID#
+			]]>
+		</delete>
+	</statements>
+	
+</sqlMap>

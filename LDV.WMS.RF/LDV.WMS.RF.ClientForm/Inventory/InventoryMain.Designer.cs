@@ -1,0 +1,124 @@
+﻿namespace LDV.WMS.RF.ClientForm
+{
+    partial class InventoryMain
+    {
+        /// <summary>
+        /// 必需的设计器变量。
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// 清理所有正在使用的资源。
+        /// </summary>
+        /// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows 窗体设计器生成的代码
+
+        /// <summary>
+        /// 设计器支持所需的方法 - 不要
+        /// 使用代码编辑器修改此方法的内容。
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.button2 = new System.Windows.Forms.Button();
+            this.btn = new System.Windows.Forms.Button();
+            this.btnBack = new System.Windows.Forms.Button();
+            this.btnBankShift = new System.Windows.Forms.Button();
+            this.btnPlanMove = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.Green;
+            this.button2.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.button2.ForeColor = System.Drawing.Color.White;
+            this.button2.Location = new System.Drawing.Point(8, 79);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(226, 45);
+            this.button2.TabIndex = 3;
+            this.button2.Text = "计划盘点";
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // btn
+            // 
+            this.btn.BackColor = System.Drawing.Color.Green;
+            this.btn.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.btn.ForeColor = System.Drawing.Color.White;
+            this.btn.Location = new System.Drawing.Point(8, 22);
+            this.btn.Name = "btn";
+            this.btn.Size = new System.Drawing.Size(226, 45);
+            this.btn.TabIndex = 2;
+            this.btn.Text = "循环盘点";
+            this.btn.Click += new System.EventHandler(this.btn_Click);
+            // 
+            // btnBack
+            // 
+            this.btnBack.BackColor = System.Drawing.Color.Green;
+            this.btnBack.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.btnBack.ForeColor = System.Drawing.Color.White;
+            this.btnBack.Location = new System.Drawing.Point(8, 252);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(226, 45);
+            this.btnBack.TabIndex = 4;
+            this.btnBack.Text = "返回";
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
+            // btnBankShift
+            // 
+            this.btnBankShift.BackColor = System.Drawing.Color.Green;
+            this.btnBankShift.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.btnBankShift.ForeColor = System.Drawing.Color.White;
+            this.btnBankShift.Location = new System.Drawing.Point(8, 195);
+            this.btnBankShift.Name = "btnBankShift";
+            this.btnBankShift.Size = new System.Drawing.Size(226, 45);
+            this.btnBankShift.TabIndex = 6;
+            this.btnBankShift.Text = "库内移位";
+            this.btnBankShift.Click += new System.EventHandler(this.btnBankShift_Click);
+            // 
+            // btnPlanMove
+            // 
+            this.btnPlanMove.BackColor = System.Drawing.Color.Green;
+            this.btnPlanMove.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.btnPlanMove.ForeColor = System.Drawing.Color.White;
+            this.btnPlanMove.Location = new System.Drawing.Point(8, 137);
+            this.btnPlanMove.Name = "btnPlanMove";
+            this.btnPlanMove.Size = new System.Drawing.Size(226, 45);
+            this.btnPlanMove.TabIndex = 5;
+            this.btnPlanMove.Text = "计划移库";
+            this.btnPlanMove.Click += new System.EventHandler(this.btnPlanMove_Click);
+            // 
+            // InventoryMain
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(243, 352);
+            this.ControlBox = false;
+            this.Controls.Add(this.btnBankShift);
+            this.Controls.Add(this.btnPlanMove);
+            this.Controls.Add(this.btnBack);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btn);
+            this.Name = "InventoryMain";
+            this.Text = "盘点管理";
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btn;
+        private System.Windows.Forms.Button btnBack;
+        private System.Windows.Forms.Button btnBankShift;
+        private System.Windows.Forms.Button btnPlanMove;
+    }
+}

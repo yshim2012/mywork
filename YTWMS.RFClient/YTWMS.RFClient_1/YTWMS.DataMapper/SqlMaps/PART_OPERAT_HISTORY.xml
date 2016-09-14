@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="PartOprateHistory" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="PartOprateHistory" type="DataMapper.PartOprateHistory, DataMapper" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="PartOprateHistory">
+      <result property="ID" column="ID" />
+      <result property="BATCH_PART_ID" column="BATCH_PART_ID" />
+      <result property="OPERATE_TYPE" column="OPERATE_TYPE" />
+      <result property="PART_OWNER" column="PART_OWNER" />
+      <result property="ORIGINAL_LOCATION_ID" column="ORIGINAL_LOCATION_ID" />
+      <result property="TARGET_LOCATION_ID" column="TARGET_LOCATION_ID" />
+      <result property="FORMER_STORAGE_QTY" column="FORMER_STORAGE_QTY" />
+      <result property="AFTER_STORAGE_QTY" column="AFTER_STORAGE_QTY" />
+      <result property="OPERATE_QTY" column="OPERATE_QTY" />
+      <result property="OPERATE_USER_ID" column="OPERATE_USER_ID" />
+      <result property="OPERATE_TIME" column="OPERATE_TIME" />
+      <result property="ORDER_SOURCE_ID" column="ORDER_SOURCE_ID" />
+      <result property="WAREHOUSE_ID" column="WAREHOUSE_ID" />
+      <result property="CREATE_TIME" column="CREATE_TIME" />
+    </resultMap>
+  </resultMaps>
+
+  <statements>
+    <select id="SelectAll" resultMap="SelectResult" >
+      <![CDATA[
+			SELECT ID
+              ,BATCH_PART_ID
+              ,OPERATE_TYPE
+              ,PART_OWNER
+              ,ORIGINAL_LOCATION_ID
+              ,TARGET_LOCATION_ID
+              ,FORMER_STORAGE_QTY
+              ,AFTER_STORAGE_QTY
+              ,OPERATE_QTY
+              ,OPERATE_USER_ID
+              ,OPERATE_TIME
+              ,ORDER_SOURCE_ID
+              ,WAREHOUSE_ID
+              ,CREATE_TIME
+          FROM PART_OPERAT_HISTORY
+			]]>
+    </select>
+
+    <select id="SelectByParam" extends="SelectAll"  parameterClass="PartOprateHistory" resultMap="SelectResult">
+      <dynamic prepend="WHERE">
+        <isNotEqual prepend="AND" property="ID" compareValue="0">
+          <![CDATA[ ID = #ID# ]]>
+        </isNotEqual>
+        <isNotEqual prepend="AND" property="BATCH_PART_ID" compareValue="0">
+          <![CDATA[ BATCH_PART_ID = #BATCH_PART_ID# ]]>
+        </isNotEqual>
+        <isNotEmpty prepend="AND" property="OPERATE_TYPE">
+          <![CDATA[ OPERATE_TYPE =#OPERATE_TYPE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="PART_OWNER">
+          <![CDATA[ PART_OWNER = #PART_OWNER# ]]>
+        </isNotEmpty>
+        <isNotEqual prepend="AND" property="ORIGINAL_LOCATION_ID" compareValue="0">
+          <![CDATA[ ORIGINAL_LOCATION_ID = #ORIGINAL_LOCATION_ID# ]]>
+        </isNotEqual>
+        <isNotEqual prepend="AND" property="TARGET_LOCATION_ID" compareValue="0">
+          <![CDATA[ TARGET_LOCATION_ID = #TARGET_LOCATION_ID# ]]>
+        </isNotEqual>
+        <isNotEqual prepend="AND" property="OPERATE_USER_ID" compareValue="0">
+          <![CDATA[ OPERATE_USER_ID = #OPERATE_USER_ID# ]]>
+        </isNotEqual>
+        <isNotNull prepend="AND" property="OPERATE_TIME">
+          <![CDATA[ OPERATE_TIME >= #OPERATE_TIME# ]]>
+        </isNotNull>
+        <isNotEqual prepend="AND" property="ORDER_SOURCE_ID" compareValue="0">
+          <![CDATA[ ORDER_SOURCE_ID = #ORDER_SOURCE_ID# ]]>
+        </isNotEqual>
+        <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+          <![CDATA[ WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+        </isNotEqual>
+        <isNotNull prepend="AND" property="CREATE_TIME">
+          <![CDATA[ CREATE_TIME >= #CREATE_TIME# ]]>
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <insert id="Insert" parameterClass="PartOprateHistory">
+      <![CDATA[
+		       INSERT INTO PART_OPERAT_HISTORY
+                 (BATCH_PART_ID
+                 ,OPERATE_TYPE
+                 ,PART_OWNER
+                 ,ORIGINAL_LOCATION_ID
+                 ,TARGET_LOCATION_ID
+                 ,FORMER_STORAGE_QTY
+                 ,AFTER_STORAGE_QTY
+                 ,OPERATE_QTY
+                 ,OPERATE_USER_ID
+                 ,OPERATE_TIME
+                 ,ORDER_SOURCE_ID
+                 ,WAREHOUSE_ID
+                 ,CREATE_TIME)
+           VALUES
+                 (#BATCH_PART_ID#
+                 ,#OPERATE_TYPE#
+                 ,#PART_OWNER#
+                 ,#ORIGINAL_LOCATION_ID#
+                 ,#TARGET_LOCATION_ID#
+                 ,#FORMER_STORAGE_QTY#
+                 ,#AFTER_STORAGE_QTY#
+                 ,#OPERATE_QTY#
+                 ,#OPERATE_USER_ID#
+                 ,#OPERATE_TIME#
+                 ,#ORDER_SOURCE_ID#
+                 ,#WAREHOUSE_ID#
+                 ,#CREATE_TIME#)
+			]]>
+      <selectKey resultClass="int" type="post" property="ID" >
+        <![CDATA[ select @@IDENTITY ; ]]>
+      </selectKey>
+    </insert>
+
+  </statements>
+</sqlMap>

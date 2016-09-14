@@ -1,0 +1,356 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="OrderBusiness" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="OrderBusiness" type="DataMapper.OrderBusiness, DataMapper" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="OrderBusiness">
+      <result property="ID" column="ID" />
+      <result property="ORDER_NUM_ID" column="ORDER_NUM_ID" />
+      <result property="SEND_LOC_ID" column="SEND_LOC_ID" />
+      <result property="RECEIVE_LOC_ID" column="RECEIVE_LOC_ID" />
+      <result property="DOCK" column="DOCK" />
+      <result property="DRIVER_NAME" column="DRIVER_NAME" />
+      <result property="TRUCK_NO" column="TRUCK_NO" />
+      <result property="ORDER_STATE" column="ORDER_STATE" />
+      <result property="ORDER_TYPE" column="ORDER_TYPE" />
+      <result property="PART_OWNER" column="PART_OWNER" />
+      <result property="PRODUCTION_STEP" column="PRODUCTION_STEP" />
+      <result property="ORDER_DELIVER_TIME" column="ORDER_DELIVER_TIME" />
+      <result property="ORDER_END_TIME" column="ORDER_END_TIME" />
+      <result property="ORDER_REMARK" column="ORDER_REMARK" />
+      <result property="USER_ID" column="USER_ID" />
+      <result property="CREATE_TIME" column="CREATE_TIME" />
+      <result property="CREATE_USER_ID" column="CREATE_USER_ID" />
+      <result property="LAST_UPDATE" column="LAST_UPDATE" />
+      <result property="UPDATE_USER_ID" column="UPDATE_USER_ID" />
+    </resultMap>
+    <resultMap id="SelectResult2" class="OrderBusiness">
+      <result property="ORDER_NO" column="ORDER_NO" />
+      <result property="USER_NAME" column="USER_NAME" />
+      <result property="WAREHOUSE_NAME" column="WAREHOUSE_NAME" />
+      <result property="PART_CODE" column="PART_CODE" />
+      <result property="PART_NAME" column="PART_NAME" />
+      <result property="BATCH_NO" column="BATCH_NO" />
+      <result property="FURNACE_NO" column="FURNACE_NO" />
+      <result property="ORDER_STATE" column="ORDER_STATE" />
+      <result property="ORDER_TYPE" column="ORDER_TYPE" />
+      <result property="TOTAL_TIME" column="TOTAL_TIME" />
+      <result property="PACKAGE_TYPE" column="PACKAGE_TYPE" />
+      <result property="ORDER_STATE" column="ORDER_STATE" />
+      <result property="ORDER_DELIVER_TIME" column="ORDER_DELIVER_TIME" />
+      <result property="ORDER_END_TIME" column="ORDER_REMARK" />
+      <result property="ORDER_NUM_ID" column="ORDER_NUM_ID" />
+      <result property="USER_NAME" column="USER_NAME" />
+      <result property="ORDER_REMARK" column="ORDER_REMARK" />
+      <result property="USER_NAME" column="USER_NAME" />
+
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectAll" resultMap="SelectResult" >
+      <![CDATA[
+           SELECT ID
+                  ,ORDER_NUM_ID
+                  ,SEND_LOC_ID
+                  ,RECEIVE_LOC_ID
+                  ,DOCK
+                  ,DRIVER_NAME
+                  ,TRUCK_NO
+                  ,ORDER_STATE
+                  ,ORDER_TYPE
+                  ,PART_OWNER
+                  ,PRODUCTION_STEP
+                  ,ORDER_DELIVER_TIME
+                  ,ORDER_END_TIME
+                  ,ORDER_REMARK
+                  ,USER_ID
+                  ,CREATE_TIME
+                  ,CREATE_USER_ID
+                  ,LAST_UPDATE
+                  ,UPDATE_USER_ID
+              FROM ORDER_BUSINESS
+			]]>
+    </select>
+
+    <select id="SelectByParam" extends="SelectAll" resultMap="SelectResult"  parameterClass="OrderBusiness">
+      <dynamic prepend="WHERE">
+        <isNotEqual prepend="AND" property="ID" compareValue="0">
+          <![CDATA[ ID = #ID# ]]>
+        </isNotEqual>
+        <isNotEqual prepend="AND" property="ORDER_NUM_ID" compareValue="0">
+          <![CDATA[ ORDER_NUM_ID = #ORDER_NUM_ID# ]]>
+        </isNotEqual>
+        <isNotEqual prepend="AND" property="RECEIVE_LOC_ID" compareValue="0">
+          <![CDATA[ RECEIVE_LOC_ID = #RECEIVE_LOC_ID# ]]>
+        </isNotEqual>
+        <isNotEmpty prepend="AND" property="ORDER_STATE">
+          <![CDATA[ ORDER_STATE =  #ORDER_STATE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="ORDER_TYPE">
+          <![CDATA[ ORDER_TYPE = #ORDER_TYPE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="PART_OWNER">
+          <![CDATA[ PART_OWNER = #PART_OWNER# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="PRODUCTION_STEP">
+          <![CDATA[ PRODUCTION_STEP = #PRODUCTION_STEP# ]]>
+        </isNotEmpty>
+      </dynamic>
+    </select>
+
+
+    <select id="SelectOrder"  parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+           select
+		 obs.ORDER_NUM_ID
+		 ,obs.ORDER_STATE
+		 ,obs.ORDER_TYPE
+		 ,obs.ORDER_END_TIME		
+		 ,lu.USER_NAME 
+		 ,obs.ORDER_REMARK 
+
+		from PACKAGE_PLAN pp 
+		left join DAILY_PLAN dp on pp.PART_ID=dp.PART_ID 
+		left join ORDER_BUSINESS obs on obs.id= pp.ORDER_BUSINESS_ID
+		left join LT_USER lu on lu.id = obs.USER_ID
+		left join ORDER_NUM onum on (onum.id = obs.ORDER_NUM_ID )
+
+      ]]>
+      <dynamic prepend="WHERE">
+
+        <isNotNull property="ORDER_NUM_ID" >
+          <isNotEqual prepend="AND" property="ORDER_NUM_ID" compareValue="0">
+            <![CDATA[ obs.ORDER_NUM_ID =  #ORDER_NUM_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <!--获取收货单据信息-->
+    <select id="SelectReceiveOrder"  parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+           SELECT ORDER_NUM.ORDER_NO,ORDER_NUM.DOCUMENT_NO,ORDER_NUM.CREATE_TIME,OB.ORDER_END_TIME,LU.USER_NAME,rcoi.REMARK ,ob.ORDER_REMARK,
+           ob.ORDER_STATE,OB.SEND_LOC_ID,OB.ORDER_TYPE
+                 FROM ORDER_NUM
+                 INNER JOIN ORDER_BUSINESS OB ON(ORDER_NUM.ID=OB.ORDER_NUM_ID)
+                  INNER JOIN  RECEIVE_CHECK_ORDER_ITEM rcoi ON rcoi.ORDER_BUSINESS_ID=ob.ID
+                 LEFT JOIN LT_USER LU ON(LU.ID=OB.USER_ID)
+      ]]>
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="ORDER_NO">
+          <![CDATA[ ORDER_NUM.ORDER_NO =  #ORDER_NO# ]]>
+        </isNotEmpty>
+        <isNotNull prepend="AND" property="ORDER_TYPE">
+          <iterate property="ORDER_TYPE" open="(" close=")" conjunction="or">
+            <![CDATA[OB.ORDER_TYPE = #ORDER_TYPE[]# ]]>
+          </iterate>
+        </isNotNull>
+        <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+          <![CDATA[ ORDER_NUM.WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+        </isNotEqual>
+      </dynamic>
+    </select>
+
+    <!--获取客户退货入库单-->
+    <select id="SelectCustomerBackOrder"  parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+            SELECT ORDER_NUM.ORDER_NO,ORDER_NUM.DOCUMENT_NO,ORDER_NUM.CREATE_TIME,ob.ORDER_TYPE,ob.ORDER_REMARK
+                  FROM ORDER_NUM
+            INNER JOIN ORDER_BUSINESS OB ON(ORDER_NUM.ID=OB.ORDER_NUM_ID)
+      ]]>
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="ORDER_NO">
+          <![CDATA[ ORDER_NUM.ORDER_NO =  #ORDER_NO# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="ORDER_TYPE">
+          <![CDATA[ OB.ORDER_TYPE =  #ORDER_TYPE# ]]>
+        </isNotEmpty>
+        <isNotNull property="WAREHOUSE_ID" >
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+            <![CDATA[ ORDER_NUM.WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <!--获取报验入库单-->
+    <select id="SelectInspectionOrder"  parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+            SELECT ORDER_NUM.ORDER_NO,ORDER_NUM.DOCUMENT_NO,ORDER_NUM.CREATE_TIME,ob.ORDER_TYPE,ob.ORDER_REMARK,CUSTOMER.WAREHOUSE_NAME CUSTOMER_NAME
+                  FROM ORDER_NUM
+            INNER JOIN ORDER_BUSINESS OB ON(ORDER_NUM.ID=OB.ORDER_NUM_ID)
+            INNER JOIN WAREHOUSE CUSTOMER ON(CUSTOMER.ID=OB.SEND_LOC_ID)
+      ]]>
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="ORDER_NO">
+          <![CDATA[ ORDER_NUM.ORDER_NO =  #ORDER_NO# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="ORDER_TYPE">
+          <![CDATA[ OB.ORDER_TYPE =  #ORDER_TYPE# ]]>
+        </isNotEmpty>
+        <isNotNull property="WAREHOUSE_ID" >
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+            <![CDATA[ ORDER_NUM.WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <!--获取入库单据信息       SELECT ORDER_NUM.ORDER_NO,ORDER_NUM.DOCUMENT_NO,ORDER_NUM.ORDER_CREATE_TIME,OB.ORDER_END_TIME,LU.USER_NAME,OB.ORDER_REMARK,OB.ORDER_TYPE,ob.ORDER_STATE
+                 FROM ORDER_NUM
+                 INNER JOIN ORDER_BUSINESS OB ON(ORDER_NUM.ID=OB.ORDER_NUM_ID)
+                 LEFT JOIN LT_USER LU ON(LU.ID=OB.USER_ID)-->
+    <select id="SelectInStorageOrder"  parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+    
+        SELECT  OBIN.ORDER_TYPE,  ORDER_NUM.WAREHOUSE_ID,  ORDER_NUM.ORDER_CREATE_TIME,         
+              OBIN.ORDER_DELIVER_TIME,ONIN.ORDER_NO IN_NO, ORDER_NUM.ORDER_NO,ORDER_NUM.DOCUMENT_NO,
+              SUPPLIER.WAREHOUSE_NAME,P.PART_CODE,P.PART_NAME,         
+              RCOI.CHECK_QTY, ROI.REAL_IN_QTY,BP.BATCH_NO,BP.FURNACE_NO,OBIN.ORDER_STATE,
+              LU.USER_NAME,OBIN.ORDER_END_TIME ,obin.ORDER_REMARK
+				FROM ORDER_NUM ONIN 
+				      INNER JOIN ORDER_BUSINESS OBIN ON(OBIN.ORDER_NUM_ID=ONIN.ID)
+				      INNER JOIN RECEIVE_ORDER_ITEM ROI ON(ROI.ORDER_BUSINESS_ID=OBIN.ID)
+				      INNER JOIN BATCH_PART BP ON(BP.ID=ROI.BATCH_PART_ID)
+				      INNER JOIN WAREHOUSE SUPPLIER ON(SUPPLIER.ID=BP.SUPPLIER_ID)
+				      INNER JOIN PART P ON(P.ID=BP.PART_ID)
+				      LEFT JOIN RECEIVE_CHECK_ORDER_ITEM RCOI ON(RCOI.ID=ROI.ORDER_SOURCE_ID)
+				      LEFT JOIN ORDER_BUSINESS OB ON(OB.ID=RCOI.ORDER_BUSINESS_ID)
+				      LEFT JOIN LT_USER LU ON(LU.ID=OB.USER_ID)
+				      LEFT JOIN ORDER_NUM ON(ORDER_NUM.ID=OB.ORDER_NUM_ID)
+      ]]>
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="ORDER_NO">
+          <![CDATA[ ONIN.ORDER_NO =  #ORDER_NO# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="DOCUMENT_NO">
+          <![CDATA[ ORDER_NUM.DOCUMENT_NO =  #DOCUMENT_NO# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="ORDER_TYPE">
+          <![CDATA[ OB.ORDER_TYPE =  #ORDER_TYPE# ]]>
+        </isNotEmpty>
+        <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+          <![CDATA[ ONIN.WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+        </isNotEqual>
+      </dynamic>
+    </select>
+
+    <!--获取订单信息-->
+    <select id="SelectOrderInfo"  parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+           SELECT ORDER_NUM.ORDER_NO,ORDER_NUM.DOCUMENT_NO,ORDER_NUM.ORDER_CREATE_TIME,OB.ORDER_END_TIME,LU.USER_NAME,OB.ORDER_REMARK,OB.ORDER_TYPE,ob.ORDER_STATE,
+                  ob.SEND_LOC_ID,ob.RECEIVE_LOC_ID,ob.DOCK,ob.DRIVER_NAME,ob.TRUCK_NO,ob.PRODUCTION_STEP,ob.ORDER_DELIVER_TIME
+                  FROM ORDER_NUM
+                  INNER JOIN ORDER_BUSINESS OB ON(ORDER_NUM.ID=OB.ORDER_NUM_ID)
+                  LEFT JOIN LT_USER LU ON(LU.ID=OB.USER_ID)
+      ]]>
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="ORDER_NO">
+          <![CDATA[ ORDER_NUM.ORDER_NO =  #ORDER_NO# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="ORDER_TYPE">
+          <![CDATA[ OB.ORDER_TYPE =  #ORDER_TYPE# ]]>
+        </isNotEmpty>
+        <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+          <![CDATA[ ORDER_NUM.WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+        </isNotEqual>
+      </dynamic>
+    </select>
+
+
+    <insert id="Insert" parameterClass="OrderBusiness">
+      <![CDATA[
+		       INSERT INTO ORDER_BUSINESS
+                   (ORDER_NUM_ID
+                   ,SEND_LOC_ID
+                   ,RECEIVE_LOC_ID
+                   ,DOCK
+                   ,DRIVER_NAME
+                   ,TRUCK_NO
+                   ,ORDER_STATE
+                   ,ORDER_TYPE
+                   ,PART_OWNER
+                   ,PRODUCTION_STEP
+                   ,ORDER_DELIVER_TIME
+                   ,ORDER_END_TIME
+                   ,ORDER_REMARK
+                   ,USER_ID
+                   ,CREATE_TIME
+                   ,CREATE_USER_ID
+                   ,PLAN_TIME)
+             VALUES
+                   (#ORDER_NUM_ID#
+                   ,#SEND_LOC_ID#
+                   ,#RECEIVE_LOC_ID#
+                   ,#DOCK#
+                   ,#DRIVER_NAME#
+                   ,#TRUCK_NO#
+                   ,#ORDER_STATE#
+                   ,#ORDER_TYPE#
+                   ,#PART_OWNER#
+                   ,#PRODUCTION_STEP#
+                   ,#ORDER_DELIVER_TIME#
+                   ,#ORDER_END_TIME#
+                   ,#ORDER_REMARK#
+                   ,#USER_ID#
+                   ,#CREATE_TIME#
+                   ,#CREATE_USER_ID#
+                   ,#PLAN_TIME#)
+			]]>
+      <selectKey resultClass="int" type="post" property="ID" >
+        <![CDATA[ select @@IDENTITY ; ]]>
+      </selectKey>
+    </insert>
+
+    <update id="UpdateInfo" parameterClass="OrderBusiness">
+      <![CDATA[
+         UPDATE ORDER_BUSINESS
+             SET ORDER_NUM_ID=#ORDER_NUM_ID#
+                ,SEND_LOC_ID = #SEND_LOC_ID#
+                ,RECEIVE_LOC_ID = #RECEIVE_LOC_ID#
+                ,DOCK = #DOCK#
+                ,DRIVER_NAME = #DRIVER_NAME#
+                ,TRUCK_NO = #TRUCK_NO#
+                ,ORDER_STATE = #ORDER_STATE#
+                ,ORDER_TYPE = #ORDER_TYPE#
+                ,PART_OWNER = #PART_OWNER#
+                ,PRODUCTION_STEP = #PRODUCTION_STEP#
+                ,ORDER_DELIVER_TIME = #ORDER_DELIVER_TIME#
+                ,ORDER_END_TIME = #ORDER_END_TIME#
+                ,ORDER_REMARK = #ORDER_REMARK#
+                ,USER_ID = #USER_ID#
+                ,LAST_UPDATE = #LAST_UPDATE#
+                ,UPDATE_USER_ID = #UPDATE_USER_ID#
+           WHERE ID=#ID#
+      ]]>
+    </update>
+
+    <update id="UpdateState" parameterClass="OrderBusiness">
+      <![CDATA[
+         UPDATE ORDER_BUSINESS
+             SET 
+                 ORDER_STATE = #ORDER_STATE#
+                ,USER_ID = #USER_ID#
+                ,LAST_UPDATE = #LAST_UPDATE#
+                ,UPDATE_USER_ID = #UPDATE_USER_ID#
+                ,ORDER_REMARK = #ORDER_REMARK#
+                ,ORDER_END_TIME = #ORDER_END_TIME#
+                ,ORDER_DELIVER_TIME=#ORDER_DELIVER_TIME#
+           WHERE ID=#ID#
+      ]]>
+    </update>
+
+    <!--逻辑删除-->
+    <delete id="Delete" parameterClass="OrderBusiness" >
+      <![CDATA[
+		      	DELETE ORDER_BUSINESS WHERE ID=#ID#
+			]]>
+    </delete>
+  </statements>
+</sqlMap>

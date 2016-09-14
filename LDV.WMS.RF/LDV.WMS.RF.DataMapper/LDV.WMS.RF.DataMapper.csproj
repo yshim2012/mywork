@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{89084D4C-5F41-4BD9-A36D-74F178DBF585}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LDV.WMS.RF.DataMapper</RootNamespace>
+    <AssemblyName>LDV.WMS.RF.DataMapper</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="IBatisNet.Common, Version=1.6.1.0, Culture=neutral, PublicKeyToken=ed781d9fc396c6ca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalBin\IBatisNet.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="IBatisNet.DataMapper, Version=1.6.1.0, Culture=neutral, PublicKeyToken=ed781d9fc396c6ca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalBin\IBatisNet.DataMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseEntity.cs" />
+    <Compile Include="Entities\AutoSupplyInterface.cs" />
+    <Compile Include="Entities\LdvFreedomCheck.cs" />
+    <Compile Include="Entities\LdvOrderAutoPrint.cs" />
+    <Compile Include="Entities\LdvPackageBarcode.cs" />
+    <Compile Include="Entities\LdvPackageItemRel.cs" />
+    <Compile Include="Entities\LdvPlanCheck.cs" />
+    <Compile Include="Entities\LdvPlanCheckDetail.cs" />
+    <Compile Include="Entities\LdvPlanMoveLoc.cs" />
+    <Compile Include="Entities\LdvPlanMoveLocDetail.cs" />
+    <Compile Include="Entities\LdvQrCode.cs" />
+    <Compile Include="Entities\LocItem.cs" />
+    <Compile Include="Entities\OrderJson.cs" />
+    <Compile Include="Entities\OrderItemJson.cs" />
+    <Compile Include="Entities\PackOrderItemJson.cs" />
+    <Compile Include="Entities\PackOrderJson.cs" />
+    <Compile Include="Entities\PickTicketJson.cs" />
+    <Compile Include="Entities\QrCodeJson.cs" />
+    <Compile Include="Entities\QrOrderJson.cs" />
+    <Compile Include="Entities\RcvDocJson.cs" />
+    <Compile Include="Entities\VPhrSecUsr.cs" />
+    <Compile Include="Entities\VWmsBaseCustomer.cs" />
+    <Compile Include="Entities\VWmsBaseLocation.cs" />
+    <Compile Include="Entities\VWmsBaseWarehouse.cs" />
+    <Compile Include="Entities\VWmsInvDetail.cs" />
+    <Compile Include="Entities\VWmsInvMu.cs" />
+    <Compile Include="Entities\VWmsInvTransaction.cs" />
+    <Compile Include="Entities\VWmsInvUid.cs" />
+    <Compile Include="Entities\VWmsItem.cs" />
+    <Compile Include="Entities\VWmsItemLocationMap.cs" />
+    <Compile Include="Entities\VWmsItemPartPackage.cs" />
+    <Compile Include="Entities\VWmsPickBatch.cs" />
+    <Compile Include="Entities\VWmsPickQueue.cs" />
+    <Compile Include="Entities\VWmsPickQueueAct.cs" />
+    <Compile Include="Entities\VWmsPickQueuePlanact.cs" />
+    <Compile Include="Entities\VWmsPickTicket.cs" />
+    <Compile Include="Entities\VWmsPickTicketAct.cs" />
+    <Compile Include="Entities\VWmsPickTicketDetail.cs" />
+    <Compile Include="Entities\VWmsRcvDoc.cs" />
+    <Compile Include="Entities\VWmsRcvDocAct.cs" />
+    <Compile Include="Entities\VWmsRcvDocDetail.cs" />
+    <Compile Include="Entities\VWmsRcvDocPQ.cs" />
+    <Compile Include="Entities\VWmsRcvDocRv.cs" />
+    <Compile Include="Entities\VWmsSvwsapIdocinfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sql_Mapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SqlMaps\AutoSupplyInterface.xml" />
+    <EmbeddedResource Include="SqlMaps\VPhrSecUsr.xml" />
+    <EmbeddedResource Include="SqlMaps\VWmsBaseCustomer.xml" />
+    <EmbeddedResource Include="SqlMaps\VWmsBaseLocation.xml" />
+    <EmbeddedResource Include="SqlMaps\VWmsBaseWarehouse.xml" />
+    <EmbeddedResource Include="SqlMaps\VWmsInvDetail.xml" />
+    <EmbeddedResource Include="SqlMaps\VWmsInvMu.xml" />
+    <EmbeddedResource Include="SqlMaps\VWmsInvTransaction.xml" />
+    <EmbeddedResource Include="SqlMaps\VWmsInvUid.xml" />
+    <EmbeddedResource Include="SqlMaps\VWmsItem.xml" />
+    <EmbeddedResource Include="SqlMaps\VWmsPickBatch.xml" />
+    <EmbeddedResource Include="SqlMaps\VWmsPickQueue.xml" />
+    <EmbeddedResource Include="SqlMaps\VWmsPickTicket.xml" />
+    <EmbeddedResource Include="SqlMaps\VWmsPickTicketAct.xml" />
+    <EmbeddedResource Include="SqlMaps\VWmsPickTicketDetail.xml" />
+    <EmbeddedResource Include="SqlMaps\VWmsRcvDoc.xml" />
+    <EmbeddedResource Include="SqlMaps\VWmsRcvDocDetail.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Providers.config" />
+    <EmbeddedResource Include="SqlMap.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SqlMaps\VWmsItemLocationMap.xml" />
+    <EmbeddedResource Include="SqlMaps\VWmsPickQueueAct.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SqlMaps\LdvPackageBarcode.xml" />
+    <EmbeddedResource Include="SqlMaps\LdvPackageItemRel.xml" />
+    <EmbeddedResource Include="SqlMaps\LdvPlanCheck.xml" />
+    <EmbeddedResource Include="SqlMaps\LdvPlanCheckDetail.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SqlMaps\VWmsPickQueuePlanact.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SqlMaps\VWmsRcvDocAct.xml" />
+    <EmbeddedResource Include="SqlMaps\VWmsSvwsapIdocinfo.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SqlMaps\VWmsRcvDocRv.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SqlMaps\VWmsRcvDocPQ.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SqlMaps\LdvPlanMoveLoc.xml" />
+    <EmbeddedResource Include="SqlMaps\LdvPlanMoveLocDetail.xml" />
+    <EmbeddedResource Include="SqlMaps\LdvOrderAutoPrint.xml" />
+    <EmbeddedResource Include="SqlMaps\LdvQrCode.xml" />
+    <Content Include="SqlMaps\VWmsItemPartPackage.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SqlMaps\LdvFreedomCheck.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

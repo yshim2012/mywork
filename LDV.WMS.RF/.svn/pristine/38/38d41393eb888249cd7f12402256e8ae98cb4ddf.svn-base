@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<sqlMap 
+	namespace="VWmsPickQueuePlanact" xmlns="http://ibatis.apache.org/mapping" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	
+	<alias>
+		<typeAlias alias="VWmsPickQueuePlanact" type="LDV.WMS.RF.DataMapper.VWmsPickQueuePlanact, LDV.WMS.RF.DataMapper" />
+	</alias>
+	
+	<resultMaps>
+		<resultMap id="SelectResult" class="VWmsPickQueuePlanact">
+			<result property="ID" column="ID" />
+			<result property="BATCH_ID" column="BATCH_ID" />
+			<result property="PICK_QUEUE_ID" column="PICK_QUEUE_ID" />
+			<result property="LOC_CODE" column="LOC_CODE" />
+			<result property="MU_CODE" column="MU_CODE" />
+			<result property="MU_ID" column="MU_ID" />
+			<result property="ALLOCATED_QTY" column="ALLOCATED_QTY" />
+			<result property="LOT" column="LOT" />
+			<result property="PARENT_ID" column="PARENT_ID" />
+			<result property="CREATED_TIME" column="CREATED_TIME" />
+			<result property="ITEM_ID" column="ITEM_ID" />
+			<result property="LAST_MODIFIED" column="LAST_MODIFIED" />
+			<result property="UID_ID" column="UID_ID" />
+      <result property="ACT_QTY" column="ACT_QTY" />
+		</resultMap>
+	</resultMaps>
+	
+	<statements>
+		<select id="SelectAll" resultMap="SelectResult">
+			<![CDATA[
+			select
+				ID,
+				BATCH_ID,
+				PICK_QUEUE_ID,
+				LOC_CODE,
+				MU_CODE,
+				MU_ID,
+				ALLOCATED_QTY,
+				LOT,
+				PARENT_ID,
+				CREATED_TIME,
+				ITEM_ID,
+				LAST_MODIFIED,
+				UID_ID
+			from V_WMS_PICK_QUEUE_PLANACT
+			]]>
+		</select>
+		
+		<select id="SelectById" extends="SelectAll" parameterClass="double" resultMap="SelectResult">
+			<![CDATA[
+			where
+				ID = #value#
+			]]>
+		</select>
+		
+		<select id="SelectByParam" extends="SelectAll" parameterClass="VWmsPickQueuePlanact" resultMap="SelectResult">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="BATCH_ID">
+        			<![CDATA[ BATCH_ID = #BATCH_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PICK_QUEUE_ID">
+        			<![CDATA[ PICK_QUEUE_ID = #PICK_QUEUE_ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="LOC_CODE">
+        			<![CDATA[ LOC_CODE = #LOC_CODE# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="MU_CODE">
+        			<![CDATA[ MU_CODE = #MU_CODE# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="MU_ID">
+        			<![CDATA[ MU_ID = #MU_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ALLOCATED_QTY">
+        			<![CDATA[ ALLOCATED_QTY = #ALLOCATED_QTY# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="LOT">
+        			<![CDATA[ LOT = #LOT# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="PARENT_ID">
+        			<![CDATA[ PARENT_ID = #PARENT_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ITEM_ID">
+        			<![CDATA[ ITEM_ID = #ITEM_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="UID_ID">
+        			<![CDATA[ UID_ID = #UID_ID# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+		
+		<select id="SelectForPageing" extends="SelectAll" parameterClass="System.Collections.IDictionary">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="BATCH_ID">
+        			<![CDATA[ BATCH_ID = #BATCH_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PICK_QUEUE_ID">
+        			<![CDATA[ PICK_QUEUE_ID = #PICK_QUEUE_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LOC_CODE">
+        			<![CDATA[ LOC_CODE = #LOC_CODE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="MU_CODE">
+        			<![CDATA[ MU_CODE = #MU_CODE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="MU_ID">
+        			<![CDATA[ MU_ID = #MU_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ALLOCATED_QTY">
+        			<![CDATA[ ALLOCATED_QTY = #ALLOCATED_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LOT">
+        			<![CDATA[ LOT = #LOT# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PARENT_ID">
+        			<![CDATA[ PARENT_ID = #PARENT_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CREATED_TIME">
+        			<![CDATA[ CREATED_TIME = #CREATED_TIME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ITEM_ID">
+        			<![CDATA[ ITEM_ID = #ITEM_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LAST_MODIFIED">
+        			<![CDATA[ LAST_MODIFIED = #LAST_MODIFIED# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="UID_ID">
+        			<![CDATA[ UID_ID = #UID_ID# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+		<insert id="Insert" parameterClass="VWmsPickQueuePlanact">
+			<selectKey resultClass="double" type="pre" property="ID" > 
+				<![CDATA[ select .NEXTVAL as value from dual ]]>
+			</selectKey>
+			<![CDATA[
+			insert into V_WMS_PICK_QUEUE_PLANACT
+			(
+			    ID,
+			    BATCH_ID,
+			    PICK_QUEUE_ID,
+			    LOC_CODE,
+			    MU_CODE,
+			    MU_ID,
+			    ALLOCATED_QTY,
+			    LOT,
+			    PARENT_ID,
+			    CREATED_TIME,
+			    ITEM_ID,
+			    LAST_MODIFIED,
+			    UID_ID
+			)
+			values 
+			(
+				#ID#,
+				#BATCH_ID#,
+				#PICK_QUEUE_ID#,
+				#LOC_CODE#,
+				#MU_CODE#,
+				#MU_ID#,
+				#ALLOCATED_QTY#,
+				#LOT#,
+				#PARENT_ID#,
+				#CREATED_TIME#,
+				#ITEM_ID#,
+				#LAST_MODIFIED#,
+				#UID_ID#
+			)
+			]]>
+		</insert>
+
+    <update id="UpdateActQty" parameterClass="VWmsPickQueuePlanact" >
+      <![CDATA[
+			update V_WMS_PICK_QUEUE_PLANACT set
+				ACT_QTY = #ACT_QTY#,
+				LAST_MODIFIED = SYSDATE
+			where
+				ID = #ID#
+			]]>
+    </update>
+
+    <update id="UpdateQty" parameterClass="VWmsPickQueuePlanact" >
+      <![CDATA[
+			update V_WMS_PICK_QUEUE_PLANACT set
+				ALLOCATED_QTY = #ALLOCATED_QTY#,
+				LAST_MODIFIED = SYSDATE
+			where
+				ID = #ID#
+			]]>
+    </update>
+    
+		<update id="Update" parameterClass="VWmsPickQueuePlanact" >
+			<![CDATA[
+			update V_WMS_PICK_QUEUE_PLANACT set
+				BATCH_ID = #BATCH_ID#,
+				PICK_QUEUE_ID = #PICK_QUEUE_ID#,
+				LOC_CODE = #LOC_CODE#,
+				MU_CODE = #MU_CODE#,
+				MU_ID = #MU_ID#,
+				ALLOCATED_QTY = #ALLOCATED_QTY#,
+				LOT = #LOT#,
+				PARENT_ID = #PARENT_ID#,
+				CREATED_TIME = #CREATED_TIME#,
+				ITEM_ID = #ITEM_ID#,
+				LAST_MODIFIED = #LAST_MODIFIED#,
+				UID_ID = #UID_ID#
+			where
+				ID = #ID#
+			]]>
+		</update>
+		<delete id="Delete" parameterClass="VWmsPickQueuePlanact" >
+			<![CDATA[
+			delete from V_WMS_PICK_QUEUE_PLANACT
+			where 
+				ID = #ID#
+			]]>
+		</delete>
+	</statements>
+	
+</sqlMap>

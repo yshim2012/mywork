@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="User" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="User" type="DataMapper.User, DataMapper" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="User">
+      <result property="Id" column="ID" />
+      <result property="User_Name" column="User_Name" />
+      <result property="Real_Name" column="Real_Name" />
+      <result property="Icon_Url" column="Icon_Url" />
+      <result property="Employee_No" column="Employee_No" />
+      <result property="Password" column="Password" />
+      <result property="Department_Name" column="Department_Name" />
+      <result property="Company_Name" column="Company_Name" />
+      <result property="Tel" column="Tel" />
+      <result property="Email" column="Email" />
+    
+      <result property="Last_Login_Time" column="Last_Login_Time" />
+      <result property="CreateTime" column="Create_Time" />
+      <result property="CreateUserId" column="Create_Userid" />
+      <result property="UpdateTime" column="Update_Time" />
+      <result property="UpdateUserId" column="Update_Userid" />
+    </resultMap>
+  </resultMaps>
+
+  <statements>
+    <select id="SelectAll" resultMap="SelectResult">
+      <![CDATA[
+			select
+				* 
+			from TB_User
+			]]>
+    </select>
+
+    <select id="SelectById" extends="SelectAll" parameterClass="User" resultMap="SelectResult">
+      <![CDATA[
+			where
+				ID = #Id#
+			]]>
+    </select>
+
+    <select id="SelectByParam" extends="SelectAll" parameterClass="User" resultMap="SelectResult">
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="User_Name">
+          <![CDATA[ User_Name =  #User_Name# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="Password">
+          <![CDATA[ Password =  #Password# ]]>
+        </isNotEmpty> 
+      </dynamic>
+    </select>
+
+    <!--用户登录-->
+    <select id="SelectUser" parameterClass="User" resultMap="SelectResult">
+      <![CDATA[ 
+      SELECT * FROM TB_User u
+      where u.Is_Delete=0
+      ]]>
+      <isNotEmpty prepend="AND" property="User_Name">
+        <![CDATA[ User_Name =  #User_Name# ]]>
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="Password">
+        <![CDATA[ Password =  #Password# ]]>
+      </isNotEmpty>
+    </select>
+
+
+    <delete id="Delete" parameterClass="User" >
+      <![CDATA[
+			delete from TB_User
+			where 
+				ID = #Id#
+			]]>
+    </delete>
+
+
+  </statements>
+
+</sqlMap>

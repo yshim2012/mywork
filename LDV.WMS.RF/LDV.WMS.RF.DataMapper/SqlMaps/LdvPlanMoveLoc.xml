@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="LdvPlanMoveLoc" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="LdvPlanMoveLoc" type="LDV.WMS.RF.DataMapper.LdvPlanMoveLoc, LDV.WMS.RF.DataMapper" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="LdvPlanMoveLoc">
+      <result property="ID" column="ID" />
+      <result property="MOVE_LOC_NUM" column="MOVE_LOC_NUM" />
+      <result property="PLAN_MOVE_DATE" column="PLAN_MOVE_DATE" />
+      <result property="STATE" column="STATE" />
+      <result property="CREATE_DATE" column="CREATE_DATE" />
+      <result property="CREATE_USER_ID" column="CREATE_USER_ID" />
+      <result property="LAST_MODIFY_DATE" column="LAST_MODIFY_DATE" />
+      <result property="LAST_MODIFY_USER_ID" column="LAST_MODIFY_USER_ID" />
+    </resultMap>
+  </resultMaps>
+
+  <statements>
+
+    <select id="SelectAll" resultMap="SelectResult">
+      <![CDATA[
+		      SELECT ID,
+             MOVE_LOC_NUM,
+             PLAN_MOVE_DATE,
+             STATE,
+             CREATE_DATE,
+             CREATE_USER_ID,
+             LAST_MODIFY_DATE,
+             LAST_MODIFY_USER_ID
+        FROM LDV_PLAN_MOVE_LOC
+			]]>
+    </select>
+
+    <select id="SelectByParam" extends="SelectAll" parameterClass="LdvPlanMoveLoc" resultMap="SelectResult">
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ID">
+          <![CDATA[ ID = #ID# ]]>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="MOVE_LOC_NUM">
+          <![CDATA[ MOVE_LOC_NUM = #MOVE_LOC_NUM# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="STATE">
+          <![CDATA[ STATE = #STATE# ]]>
+        </isNotEmpty>
+        <isNotNull prepend="AND" property="CREATE_USER_ID">
+          <![CDATA[ CREATE_USER_ID = #CREATE_USER_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LAST_MODIFY_USER_ID">
+          <![CDATA[ LAST_MODIFY_USER_ID = #LAST_MODIFY_USER_ID# ]]>
+        </isNotNull>
+      </dynamic>
+	
+    </select>
+
+    <!--查询待移库的计划-->
+    <select id="SelectMovePlan" parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+		select m.move_loc_num,z.description,m.create_date,count(md.id) DETAIL_COUNT from LDV_PLAN_MOVE_LOC m
+                INNER join ldv_plan_move_loc_detail  md on(m.id=md.plan_move_loc_id)
+                INNER join v_wms_base_location l on(md.loc_id=l.id)
+                INNER join v_wms_base_location ml on(md.move_loc_id=ml.id)
+                INNER join v_wms_base_zone z on(z.id=ml.zone_id)
+                WHERE M.STATE in('OP')
+                AND MD.STATE ='OP'                
+              
+      ]]>
+      <dynamic>
+        <isNotNull prepend="AND" property="ID">
+          <![CDATA[ m.ID = #ID# ]]>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="MOVE_LOC_NUM">
+          <![CDATA[ m.MOVE_LOC_NUM = #MOVE_LOC_NUM# ]]>
+        </isNotEmpty>
+        <isNotNull prepend="AND" property="CREATE_USER_ID">
+          <![CDATA[ m.CREATE_USER_ID = #CREATE_USER_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LAST_MODIFY_USER_ID">
+          <![CDATA[ m.LAST_MODIFY_USER_ID = #LAST_MODIFY_USER_ID# ]]>
+        </isNotNull>
+      </dynamic>
+      <![CDATA[
+            GROUP BY m.move_loc_num,z.description ,m.create_date
+                order by m.create_date desc
+      ]]>
+    </select>
+    
+    <update id="UpdateState" parameterClass="LdvPlanMoveLoc" >
+      <![CDATA[
+			UPDATE LDV_PLAN_MOVE_LOC SET
+				     STATE = #STATE#,
+             LAST_MODIFY_DATE=SYSDATE,
+             LAST_MODIFY_USER_ID=#LAST_MODIFY_USER_ID#
+			WHERE
+        ID=#ID#
+			]]>
+    </update>
+  </statements>
+
+</sqlMap>

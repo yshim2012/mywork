@@ -1,0 +1,963 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<sqlMap 
+	namespace="VWmsPickTicket" xmlns="http://ibatis.apache.org/mapping" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	
+	<alias>
+		<typeAlias alias="VWmsPickTicket" type="LDV.WMS.RF.DataMapper.VWmsPickTicket, LDV.WMS.RF.DataMapper" />
+	</alias>
+	
+	<resultMaps>
+		<resultMap id="SelectResult" class="VWmsPickTicket">
+			<result property="ID" column="ID" />
+			<result property="PICK_TICKET_CODE" column="PICK_TICKET_CODE" />
+			<result property="WHSE_ID" column="WHSE_ID" />
+			<result property="COMPANY_ID" column="COMPANY_ID" />
+			<result property="STATUS" column="STATUS" />
+			<result property="USER_ID" column="USER_ID" />
+			<result property="ORD_DATE" column="ORD_DATE" />
+			<result property="SHIP_DATE" column="SHIP_DATE" />
+			<result property="DUE_DATE" column="DUE_DATE" />
+			<result property="SHIP_VIA" column="SHIP_VIA" />
+			<result property="SHIPPING_TERMS" column="SHIPPING_TERMS" />
+			<result property="SHIP_TO_ID" column="SHIP_TO_ID" />
+			<result property="SHIP_TO_NAME" column="SHIP_TO_NAME" />
+			<result property="SHIP_TO_ADDR1" column="SHIP_TO_ADDR1" />
+			<result property="SHIP_TO_ADDR2" column="SHIP_TO_ADDR2" />
+			<result property="SHIP_TO_ADDR3" column="SHIP_TO_ADDR3" />
+			<result property="SHIP_TO_CITY" column="SHIP_TO_CITY" />
+			<result property="SHIP_TO_STATE" column="SHIP_TO_STATE" />
+			<result property="SHIP_TO_ZIP" column="SHIP_TO_ZIP" />
+			<result property="SHIP_TO_COUNTRY" column="SHIP_TO_COUNTRY" />
+			<result property="SHIP_TO_COUNTRY_CODE" column="SHIP_TO_COUNTRY_CODE" />
+			<result property="BILL_TO_ID" column="BILL_TO_ID" />
+			<result property="BILL_TO_NAME" column="BILL_TO_NAME" />
+			<result property="BILL_TO_ADDR1" column="BILL_TO_ADDR1" />
+			<result property="BILL_TO_ADDR2" column="BILL_TO_ADDR2" />
+			<result property="BILL_TO_ADDR3" column="BILL_TO_ADDR3" />
+			<result property="BILL_TO_CITY" column="BILL_TO_CITY" />
+			<result property="BILL_TO_STATE" column="BILL_TO_STATE" />
+			<result property="BILL_TO_ZIP" column="BILL_TO_ZIP" />
+			<result property="BILL_TO_COUNTRY" column="BILL_TO_COUNTRY" />
+			<result property="BILL_TO_COUNTRY_CODE" column="BILL_TO_COUNTRY_CODE" />
+			<result property="COMMENTS" column="COMMENTS" />
+			<result property="PICK_BATCH_ID" column="PICK_BATCH_ID" />
+			<result property="CREATED_TIME" column="CREATED_TIME" />
+			<result property="CANCEL_DATE" column="CANCEL_DATE" />
+			<result property="EXTEND_COLUMN_0" column="EXTEND_COLUMN_0" />
+			<result property="EXTEND_COLUMN_1" column="EXTEND_COLUMN_1" />
+			<result property="EXTEND_COLUMN_2" column="EXTEND_COLUMN_2" />
+			<result property="EXTEND_COLUMN_3" column="EXTEND_COLUMN_3" />
+			<result property="EXTEND_COLUMN_4" column="EXTEND_COLUMN_4" />
+			<result property="EXTEND_COLUMN_5" column="EXTEND_COLUMN_5" />
+			<result property="EXTEND_COLUMN_6" column="EXTEND_COLUMN_6" />
+			<result property="EXTEND_COLUMN_7" column="EXTEND_COLUMN_7" />
+			<result property="EXTEND_COLUMN_8" column="EXTEND_COLUMN_8" />
+			<result property="EXTEND_COLUMN_9" column="EXTEND_COLUMN_9" />
+			<result property="IS_LINE" column="IS_LINE" />
+			<result property="ROUTE_CODE" column="ROUTE_CODE" />
+			<result property="IS_CLASSIFY" column="IS_CLASSIFY" />
+			<result property="CLASS_CODE" column="CLASS_CODE" />
+			<result property="LAST_MODIFIED" column="LAST_MODIFIED" />
+			<result property="IS_URGENCY" column="IS_URGENCY" />
+		</resultMap>
+	</resultMaps>
+	
+	<statements>
+	
+		<select id="SelectAll" resultMap="SelectResult">
+			<![CDATA[
+			select
+				ID,
+				PICK_TICKET_CODE,
+				WHSE_ID,
+				COMPANY_ID,
+				STATUS,
+				USER_ID,
+				ORD_DATE,
+				SHIP_DATE,
+				DUE_DATE,
+				SHIP_VIA,
+				SHIPPING_TERMS,
+				SHIP_TO_ID,
+				SHIP_TO_NAME,
+				SHIP_TO_ADDR1,
+				SHIP_TO_ADDR2,
+				SHIP_TO_ADDR3,
+				SHIP_TO_CITY,
+				SHIP_TO_STATE,
+				SHIP_TO_ZIP,
+				SHIP_TO_COUNTRY,
+				SHIP_TO_COUNTRY_CODE,
+				BILL_TO_ID,
+				BILL_TO_NAME,
+				BILL_TO_ADDR1,
+				BILL_TO_ADDR2,
+				BILL_TO_ADDR3,
+				BILL_TO_CITY,
+				BILL_TO_STATE,
+				BILL_TO_ZIP,
+				BILL_TO_COUNTRY,
+				BILL_TO_COUNTRY_CODE,
+				COMMENTS,
+				PICK_BATCH_ID,
+				CREATED_TIME,
+				CANCEL_DATE,
+				EXTEND_COLUMN_0,
+				EXTEND_COLUMN_1,
+				EXTEND_COLUMN_2,
+				EXTEND_COLUMN_3,
+				EXTEND_COLUMN_4,
+				EXTEND_COLUMN_5,
+				EXTEND_COLUMN_6,
+				EXTEND_COLUMN_7,
+				EXTEND_COLUMN_8,
+				EXTEND_COLUMN_9,
+				IS_LINE,
+				ROUTE_CODE,
+				IS_CLASSIFY,
+				CLASS_CODE,
+				LAST_MODIFIED,
+				IS_URGENCY
+			from V_WMS_PICK_TICKET
+			]]>
+		</select>
+		
+		<select id="SelectById" extends="SelectAll" parameterClass="double" resultMap="SelectResult">
+			<![CDATA[
+			where
+				ID = #value#
+			]]>
+		</select>
+		
+		<select id="SelectByParam" extends="SelectAll" parameterClass="VWmsPickTicket" resultMap="SelectResult">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="PICK_TICKET_CODE">
+        			<![CDATA[ PICK_TICKET_CODE = #PICK_TICKET_CODE# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="WHSE_ID">
+        			<![CDATA[ WHSE_ID = #WHSE_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="COMPANY_ID">
+        			<![CDATA[ COMPANY_ID = #COMPANY_ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="STATUS">
+        			<![CDATA[ STATUS = #STATUS# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="USER_ID">
+        			<![CDATA[ USER_ID = #USER_ID# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="SHIP_VIA">
+        			<![CDATA[ SHIP_VIA = #SHIP_VIA# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SHIPPING_TERMS">
+        			<![CDATA[ SHIPPING_TERMS = #SHIPPING_TERMS# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SHIP_TO_ID">
+        			<![CDATA[ SHIP_TO_ID = #SHIP_TO_ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="SHIP_TO_NAME">
+        			<![CDATA[ SHIP_TO_NAME = #SHIP_TO_NAME# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="SHIP_TO_ADDR1">
+        			<![CDATA[ SHIP_TO_ADDR1 = #SHIP_TO_ADDR1# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="SHIP_TO_ADDR2">
+        			<![CDATA[ SHIP_TO_ADDR2 = #SHIP_TO_ADDR2# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="SHIP_TO_ADDR3">
+        			<![CDATA[ SHIP_TO_ADDR3 = #SHIP_TO_ADDR3# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="SHIP_TO_CITY">
+        			<![CDATA[ SHIP_TO_CITY = #SHIP_TO_CITY# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="SHIP_TO_STATE">
+        			<![CDATA[ SHIP_TO_STATE = #SHIP_TO_STATE# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="SHIP_TO_ZIP">
+        			<![CDATA[ SHIP_TO_ZIP = #SHIP_TO_ZIP# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="SHIP_TO_COUNTRY">
+        			<![CDATA[ SHIP_TO_COUNTRY = #SHIP_TO_COUNTRY# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="SHIP_TO_COUNTRY_CODE">
+        			<![CDATA[ SHIP_TO_COUNTRY_CODE = #SHIP_TO_COUNTRY_CODE# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="BILL_TO_ID">
+        			<![CDATA[ BILL_TO_ID = #BILL_TO_ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="BILL_TO_NAME">
+        			<![CDATA[ BILL_TO_NAME = #BILL_TO_NAME# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="BILL_TO_ADDR1">
+        			<![CDATA[ BILL_TO_ADDR1 = #BILL_TO_ADDR1# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="BILL_TO_ADDR2">
+        			<![CDATA[ BILL_TO_ADDR2 = #BILL_TO_ADDR2# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="BILL_TO_ADDR3">
+        			<![CDATA[ BILL_TO_ADDR3 = #BILL_TO_ADDR3# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="BILL_TO_CITY">
+        			<![CDATA[ BILL_TO_CITY = #BILL_TO_CITY# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="BILL_TO_STATE">
+        			<![CDATA[ BILL_TO_STATE = #BILL_TO_STATE# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="BILL_TO_ZIP">
+        			<![CDATA[ BILL_TO_ZIP = #BILL_TO_ZIP# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="BILL_TO_COUNTRY">
+        			<![CDATA[ BILL_TO_COUNTRY = #BILL_TO_COUNTRY# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="BILL_TO_COUNTRY_CODE">
+        			<![CDATA[ BILL_TO_COUNTRY_CODE = #BILL_TO_COUNTRY_CODE# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="COMMENTS">
+        			<![CDATA[ COMMENTS = #COMMENTS# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="PICK_BATCH_ID">
+        			<![CDATA[ PICK_BATCH_ID = #PICK_BATCH_ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_0">
+        			<![CDATA[ EXTEND_COLUMN_0 = #EXTEND_COLUMN_0# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_1">
+        			<![CDATA[ EXTEND_COLUMN_1 = #EXTEND_COLUMN_1# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_2">
+        			<![CDATA[ EXTEND_COLUMN_2 = #EXTEND_COLUMN_2# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_3">
+        			<![CDATA[ EXTEND_COLUMN_3 = #EXTEND_COLUMN_3# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_4">
+        			<![CDATA[ EXTEND_COLUMN_4 = #EXTEND_COLUMN_4# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_5">
+        			<![CDATA[ EXTEND_COLUMN_5 = #EXTEND_COLUMN_5# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_6">
+        			<![CDATA[ EXTEND_COLUMN_6 = #EXTEND_COLUMN_6# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_7">
+        			<![CDATA[ EXTEND_COLUMN_7 = #EXTEND_COLUMN_7# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_8">
+        			<![CDATA[ EXTEND_COLUMN_8 = #EXTEND_COLUMN_8# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_9">
+        			<![CDATA[ EXTEND_COLUMN_9 = #EXTEND_COLUMN_9# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="IS_LINE">
+        			<![CDATA[ IS_LINE = #IS_LINE# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="ROUTE_CODE">
+        			<![CDATA[ ROUTE_CODE = #ROUTE_CODE# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="IS_CLASSIFY">
+        			<![CDATA[ IS_CLASSIFY = #IS_CLASSIFY# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="CLASS_CODE">
+        			<![CDATA[ CLASS_CODE = #CLASS_CODE# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="IS_URGENCY">
+        			<![CDATA[ IS_URGENCY = #IS_URGENCY# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+    <select id="SelectForPickTickt"  parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+select VPT.PICK_TICKET_CODE,cu.whse_name as CUST_CODE,cu.extend_column_3 AS CUST_NAME, 
+max(trunc(vpa.created_time +1)) as PICK_TIME 
+from v_wms_pick_ticket vpt 
+left join v_wms_pick_ticket_detail vpd on(vpt.id=vpd.pick_ticket_id) 
+left join v_wms_pick_queue vpq on (vpd.pick_ticket_id=vpq.pick_ticket_id and vpd.item_id=vpq.item_id) 
+inner join v_wms_pick_queue_planact vpa on(vpq.id=vpa.pick_queue_id) 
+left join v_wms_pick_batch vpb on(vpq.batch_id=vpb.id) 
+left join v_wms_base_warehouse cu on (cu.id=vpt.ship_to_id) 
+left join v_wms_item item on (vpq.item_id=item.id) 
+left join v_phr_sec_usrs us on (vpt.pick_ticket_code=us.extend_column_1)
+where vpt.status='PA' AND vpq.status='AC'
+and (us.extend_column_1 is null or us.login_name=#LOGINNAME#) 
+and vpt.whse_id= 
+(SELECT distinct(BZ.WHSE_ID) FROM V_WMS_BASE_USER_ZONE ZO INNER JOIN V_WMS_BASE_ZONE BZ ON(BZ.ID=ZO.ZONE_ID) WHERE ZO.USER_ID=#USER_ID#) 
+group by VPT.PICK_TICKET_CODE,cu.whse_name ,cu.extend_column_3
+order by VPT.PICK_TICKET_CODE
+            ]]>
+    </select>
+		<select id="SelectForPickTicktBox"  parameterClass="System.Collections.IDictionary">
+			<![CDATA[
+select   b.route_code,q.batch_id,pt.pick_ticket_code,cu.extend_column_3 as CUST_NAME,max(trunc(vpa.created_time +1)) as PICK_TIME 
+ from   v_wms_pick_batch b  
+left join v_wms_pick_queue q on(b.id=q.batch_id)
+left join v_wms_pick_ticket pt on(q.pick_ticket_id=pt.id)
+left join v_wms_base_warehouse cu on (cu.id=pt.ship_to_id) 
+left join v_wms_pick_queue_planact vpa on(q.id=vpa.pick_queue_id) 
+where pt.status='PA' AND q.status='AC' and b.route_code=#boxnum# 
+and pt.whse_id= 
+(SELECT distinct(BZ.WHSE_ID) 
+FROM V_WMS_BASE_USER_ZONE ZO 
+INNER JOIN V_WMS_BASE_ZONE BZ ON(BZ.ID=ZO.ZONE_ID) WHERE ZO.USER_ID=#USER_ID#) 
+group by b.route_code,q.batch_id,pt.pick_ticket_code,cu.extend_column_3  
+            ]]>
+		</select>
+		<select id="SelectForPickTicktBoxList"  parameterClass="System.Collections.IDictionary">
+			<![CDATA[
+                select 
+                vpt.id as TICKET_ID,
+                VPT.PICK_TICKET_CODE,
+                cu.whse_name as CUST_CODE,
+                cu.extend_column_3 AS CUST_NAME,
+                vpd.line_no as LINE_NO,
+                vpd.ID as DETAIL_ID,
+                vpd.item_id as DITEM,
+                vpd.status as DETAIL_STATUS,
+                vpd.picked_qty as PICK_QTY,
+                vpq.id as VPQ_ID,
+                vpq.item_id as QITEM,
+                vpq.order_qty as ORDER_QTY,
+                vpq.picked_qty AS PICKED_QTY,
+                item.id as ITEM_ID,
+                item.item_code as ITEM_CODE,
+                item.item_name as ITEM_NAME,
+                vpa.id as VPA_ID,
+                vpa.allocated_qty-vpa.act_qty as ALLOCATED_QTY,
+                vpa.loc_code as LOC_CODE,
+                vpt.Status as ORDER_STATUS,
+                vpq.pick_ticket_id as PICK_ID,
+                vpq.STATUS AS PICK_STATUS,
+                vpb.id as BATCH_ID,
+                US.LOGIN_NAME AS LOGINNAME,
+                US.EXTEND_COLUMN_1 AS USER_PICK,
+                vpa.pick_queue_id as PICK_QUEUE_ID,
+                iu.id as UID_ID,
+                vpa.mu_id as MU_ID,
+                vpt.whse_id as WHSE_ID,
+                vpa.act_qty as ACT_QTY,vpb.route_code 
+                from v_wms_pick_ticket  vpt
+                inner join  v_wms_pick_ticket_detail vpd on(vpt.id=vpd.pick_ticket_id)
+                left join v_wms_pick_queue vpq on (vpt.id=vpq.pick_ticket_id)
+                inner join v_wms_pick_queue_planact vpa on(vpq.id=vpa.pick_queue_id)
+                inner join v_wms_pick_batch vpb on(vpq.batch_id=vpb.id)
+                left join v_wms_base_warehouse cu on (cu.id=vpt.ship_to_id)
+                inner join v_wms_item item on (vpq.item_id=item.id)
+                left join v_phr_sec_usrs us on (vpt.pick_ticket_code=us.extend_column_1)
+                INNER join v_wms_inv_uid iu on (vpa.Uid_Id = iu.Id)
+            ]]>
+			<dynamic prepend="WHERE">
+				
+				<isNotNull prepend="AND" property="boxnum">
+					<iterate property="boxnum" open="(" close=")" conjunction="or">
+						<![CDATA[vpb.route_code  = #boxnum[]# ]]>
+					</iterate>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PICK_TICKET_CODE">
+					<iterate property="PICK_TICKET_CODE" open="(" close=")" conjunction="or">
+						<![CDATA[VPT.PICK_TICKET_CODE = #PICK_TICKET_CODE[]# ]]>
+					</iterate>
+				</isNotNull>
+				<isNotNull prepend="AND" property="VPA_ID">
+					<![CDATA[ VPA.ID = #VPA_ID# ]]>
+				</isNotNull>
+				<isNull prepend="AND" property="CC">
+					<![CDATA[VPT.STATUS!='CA']]>
+				</isNull>
+				<isNotNull prepend="AND" property="USER_ID">
+					<![CDATA[ VPT.whse_id = (SELECT distinct(BZ.WHSE_ID) FROM V_WMS_BASE_USER_ZONE ZO INNER JOIN V_WMS_BASE_ZONE BZ ON(BZ.ID=ZO.ZONE_ID) WHERE ZO.USER_ID=#USER_ID#) ]]>
+				</isNotNull>
+			</dynamic>
+			<![CDATA[ order by vpa.loc_code]]>
+		</select>
+    <select id="SelectForPickTicktBy"  parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+                select 
+                vpt.id as TICKET_ID,
+                VPT.PICK_TICKET_CODE,
+                cu.whse_name as CUST_CODE,
+                cu.extend_column_3 AS CUST_NAME,
+                vpd.line_no as LINE_NO,
+                vpd.ID as DETAIL_ID,
+                vpd.item_id as DITEM,
+                vpd.status as DETAIL_STATUS,
+                vpd.picked_qty as PICK_QTY,
+                vpq.id as VPQ_ID,
+                vpq.item_id as QITEM,
+                vpq.order_qty as ORDER_QTY,
+                vpq.picked_qty AS PICKED_QTY,
+                item.id as ITEM_ID,
+                item.item_code as ITEM_CODE,
+                item.item_name as ITEM_NAME,
+                vpa.id as VPA_ID,
+                vpa.allocated_qty-vpa.act_qty as ALLOCATED_QTY,
+                vpa.loc_code as LOC_CODE,
+                vpt.Status as ORDER_STATUS,
+                vpq.pick_ticket_id as PICK_ID,
+                vpq.STATUS AS PICK_STATUS,
+                vpb.id as BATCH_ID,
+                US.LOGIN_NAME AS LOGINNAME,
+                US.EXTEND_COLUMN_1 AS USER_PICK,
+                vpa.pick_queue_id as PICK_QUEUE_ID,
+                iu.id as UID_ID,
+                vpa.mu_id as MU_ID,
+                vpt.whse_id as WHSE_ID,
+                vpa.act_qty as ACT_QTY
+                from v_wms_pick_ticket  vpt
+                inner join  v_wms_pick_ticket_detail vpd on(vpt.id=vpd.pick_ticket_id)
+                left join v_wms_pick_queue vpq on (vpt.id=vpq.pick_ticket_id)
+                inner join v_wms_pick_queue_planact vpa on(vpq.id=vpa.pick_queue_id)
+                inner join v_wms_pick_batch vpb on(vpq.batch_id=vpb.id)
+                left join v_wms_base_warehouse cu on (cu.id=vpt.ship_to_id)
+                inner join v_wms_item item on (vpq.item_id=item.id)
+                left join v_phr_sec_usrs us on (vpt.pick_ticket_code=us.extend_column_1)
+                INNER join v_wms_inv_uid iu on (vpa.Uid_Id = iu.Id)
+            ]]>
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PICK_TICKET_CODE">
+          <![CDATA[ VPT.PICK_TICKET_CODE = #PICK_TICKET_CODE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="VPA_ID">
+          <![CDATA[ VPA.ID = #VPA_ID# ]]>
+        </isNotNull>
+        <isNull prepend="AND" property="CC">
+          <![CDATA[VPT.STATUS!='CA']]>
+        </isNull>
+        <isNotNull prepend="AND" property="USER_ID">
+          <![CDATA[ VPT.whse_id = (SELECT distinct(BZ.WHSE_ID) FROM V_WMS_BASE_USER_ZONE ZO INNER JOIN V_WMS_BASE_ZONE BZ ON(BZ.ID=ZO.ZONE_ID) WHERE ZO.USER_ID=#USER_ID#) ]]>
+        </isNotNull>
+      </dynamic>
+      <![CDATA[ order by vpa.loc_code]]>
+    </select>
+		<select id="SelectForPageing" extends="SelectAll" parameterClass="System.Collections.IDictionary">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PICK_TICKET_CODE">
+        			<![CDATA[ PICK_TICKET_CODE = #PICK_TICKET_CODE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="WHSE_ID">
+        			<![CDATA[ WHSE_ID = #WHSE_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="COMPANY_ID">
+        			<![CDATA[ COMPANY_ID = #COMPANY_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="STATUS">
+        			<![CDATA[ STATUS = #STATUS# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="USER_ID">
+        			<![CDATA[ USER_ID = #USER_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ORD_DATE">
+        			<![CDATA[ ORD_DATE = #ORD_DATE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SHIP_DATE">
+        			<![CDATA[ SHIP_DATE = #SHIP_DATE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="DUE_DATE">
+        			<![CDATA[ DUE_DATE = #DUE_DATE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SHIP_VIA">
+        			<![CDATA[ SHIP_VIA = #SHIP_VIA# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SHIPPING_TERMS">
+        			<![CDATA[ SHIPPING_TERMS = #SHIPPING_TERMS# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SHIP_TO_ID">
+        			<![CDATA[ SHIP_TO_ID = #SHIP_TO_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SHIP_TO_NAME">
+        			<![CDATA[ SHIP_TO_NAME = #SHIP_TO_NAME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SHIP_TO_ADDR1">
+        			<![CDATA[ SHIP_TO_ADDR1 = #SHIP_TO_ADDR1# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SHIP_TO_ADDR2">
+        			<![CDATA[ SHIP_TO_ADDR2 = #SHIP_TO_ADDR2# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SHIP_TO_ADDR3">
+        			<![CDATA[ SHIP_TO_ADDR3 = #SHIP_TO_ADDR3# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SHIP_TO_CITY">
+        			<![CDATA[ SHIP_TO_CITY = #SHIP_TO_CITY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SHIP_TO_STATE">
+        			<![CDATA[ SHIP_TO_STATE = #SHIP_TO_STATE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SHIP_TO_ZIP">
+        			<![CDATA[ SHIP_TO_ZIP = #SHIP_TO_ZIP# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SHIP_TO_COUNTRY">
+        			<![CDATA[ SHIP_TO_COUNTRY = #SHIP_TO_COUNTRY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SHIP_TO_COUNTRY_CODE">
+        			<![CDATA[ SHIP_TO_COUNTRY_CODE = #SHIP_TO_COUNTRY_CODE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="BILL_TO_ID">
+        			<![CDATA[ BILL_TO_ID = #BILL_TO_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="BILL_TO_NAME">
+        			<![CDATA[ BILL_TO_NAME = #BILL_TO_NAME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="BILL_TO_ADDR1">
+        			<![CDATA[ BILL_TO_ADDR1 = #BILL_TO_ADDR1# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="BILL_TO_ADDR2">
+        			<![CDATA[ BILL_TO_ADDR2 = #BILL_TO_ADDR2# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="BILL_TO_ADDR3">
+        			<![CDATA[ BILL_TO_ADDR3 = #BILL_TO_ADDR3# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="BILL_TO_CITY">
+        			<![CDATA[ BILL_TO_CITY = #BILL_TO_CITY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="BILL_TO_STATE">
+        			<![CDATA[ BILL_TO_STATE = #BILL_TO_STATE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="BILL_TO_ZIP">
+        			<![CDATA[ BILL_TO_ZIP = #BILL_TO_ZIP# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="BILL_TO_COUNTRY">
+        			<![CDATA[ BILL_TO_COUNTRY = #BILL_TO_COUNTRY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="BILL_TO_COUNTRY_CODE">
+        			<![CDATA[ BILL_TO_COUNTRY_CODE = #BILL_TO_COUNTRY_CODE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="COMMENTS">
+        			<![CDATA[ COMMENTS = #COMMENTS# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PICK_BATCH_ID">
+        			<![CDATA[ PICK_BATCH_ID = #PICK_BATCH_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CREATED_TIME">
+        			<![CDATA[ CREATED_TIME = #CREATED_TIME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CANCEL_DATE">
+        			<![CDATA[ CANCEL_DATE = #CANCEL_DATE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_0">
+        			<![CDATA[ EXTEND_COLUMN_0 = #EXTEND_COLUMN_0# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_1">
+        			<![CDATA[ EXTEND_COLUMN_1 = #EXTEND_COLUMN_1# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_2">
+        			<![CDATA[ EXTEND_COLUMN_2 = #EXTEND_COLUMN_2# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_3">
+        			<![CDATA[ EXTEND_COLUMN_3 = #EXTEND_COLUMN_3# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_4">
+        			<![CDATA[ EXTEND_COLUMN_4 = #EXTEND_COLUMN_4# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_5">
+        			<![CDATA[ EXTEND_COLUMN_5 = #EXTEND_COLUMN_5# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_6">
+        			<![CDATA[ EXTEND_COLUMN_6 = #EXTEND_COLUMN_6# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_7">
+        			<![CDATA[ EXTEND_COLUMN_7 = #EXTEND_COLUMN_7# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_8">
+        			<![CDATA[ EXTEND_COLUMN_8 = #EXTEND_COLUMN_8# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_9">
+        			<![CDATA[ EXTEND_COLUMN_9 = #EXTEND_COLUMN_9# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_LINE">
+        			<![CDATA[ IS_LINE = #IS_LINE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ROUTE_CODE">
+        			<![CDATA[ ROUTE_CODE = #ROUTE_CODE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_CLASSIFY">
+        			<![CDATA[ IS_CLASSIFY = #IS_CLASSIFY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CLASS_CODE">
+        			<![CDATA[ CLASS_CODE = #CLASS_CODE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LAST_MODIFIED">
+        			<![CDATA[ LAST_MODIFIED = #LAST_MODIFIED# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_URGENCY">
+        			<![CDATA[ IS_URGENCY = #IS_URGENCY# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+		<insert id="Insert" parameterClass="VWmsPickTicket">
+			<selectKey resultClass="double" type="pre" property="ID" > 
+				<![CDATA[ select V_WMS_PICK_TICKET_SEQ.NEXTVAL as value from dual ]]>
+			</selectKey>
+			<![CDATA[
+			insert into V_WMS_PICK_TICKET
+			(
+			    ID,
+			    PICK_TICKET_CODE,
+			    WHSE_ID,
+			    COMPANY_ID,
+			    STATUS,
+			    USER_ID,
+			    ORD_DATE,
+			    SHIP_DATE,
+			    DUE_DATE,
+			    SHIP_VIA,
+			    SHIPPING_TERMS,
+			    SHIP_TO_ID,
+			    SHIP_TO_NAME,
+			    SHIP_TO_ADDR1,
+			    SHIP_TO_ADDR2,
+			    SHIP_TO_ADDR3,
+			    SHIP_TO_CITY,
+			    SHIP_TO_STATE,
+			    SHIP_TO_ZIP,
+			    SHIP_TO_COUNTRY,
+			    SHIP_TO_COUNTRY_CODE,
+			    BILL_TO_ID,
+			    BILL_TO_NAME,
+			    BILL_TO_ADDR1,
+			    BILL_TO_ADDR2,
+			    BILL_TO_ADDR3,
+			    BILL_TO_CITY,
+			    BILL_TO_STATE,
+			    BILL_TO_ZIP,
+			    BILL_TO_COUNTRY,
+			    BILL_TO_COUNTRY_CODE,
+			    COMMENTS,
+			    PICK_BATCH_ID,
+			    CREATED_TIME,
+			    CANCEL_DATE,
+			    EXTEND_COLUMN_0,
+			    EXTEND_COLUMN_1,
+			    EXTEND_COLUMN_2,
+			    EXTEND_COLUMN_3,
+			    EXTEND_COLUMN_4,
+			    EXTEND_COLUMN_5,
+			    EXTEND_COLUMN_6,
+			    EXTEND_COLUMN_7,
+			    EXTEND_COLUMN_8,
+			    EXTEND_COLUMN_9,
+			    IS_LINE,
+			    ROUTE_CODE,
+			    IS_CLASSIFY,
+			    CLASS_CODE,
+			    LAST_MODIFIED,
+			    IS_URGENCY
+			)
+			values 
+			(
+				#ID#,
+				#PICK_TICKET_CODE#,
+				#WHSE_ID#,
+				#COMPANY_ID#,
+				#STATUS#,
+				#USER_ID#,
+				#ORD_DATE#,
+				#SHIP_DATE#,
+				#DUE_DATE#,
+				#SHIP_VIA#,
+				#SHIPPING_TERMS#,
+				#SHIP_TO_ID#,
+				#SHIP_TO_NAME#,
+				#SHIP_TO_ADDR1#,
+				#SHIP_TO_ADDR2#,
+				#SHIP_TO_ADDR3#,
+				#SHIP_TO_CITY#,
+				#SHIP_TO_STATE#,
+				#SHIP_TO_ZIP#,
+				#SHIP_TO_COUNTRY#,
+				#SHIP_TO_COUNTRY_CODE#,
+				#BILL_TO_ID#,
+				#BILL_TO_NAME#,
+				#BILL_TO_ADDR1#,
+				#BILL_TO_ADDR2#,
+				#BILL_TO_ADDR3#,
+				#BILL_TO_CITY#,
+				#BILL_TO_STATE#,
+				#BILL_TO_ZIP#,
+				#BILL_TO_COUNTRY#,
+				#BILL_TO_COUNTRY_CODE#,
+				#COMMENTS#,
+				#PICK_BATCH_ID#,
+				#CREATED_TIME#,
+				#CANCEL_DATE#,
+				#EXTEND_COLUMN_0#,
+				#EXTEND_COLUMN_1#,
+				#EXTEND_COLUMN_2#,
+				#EXTEND_COLUMN_3#,
+				#EXTEND_COLUMN_4#,
+				#EXTEND_COLUMN_5#,
+				#EXTEND_COLUMN_6#,
+				#EXTEND_COLUMN_7#,
+				#EXTEND_COLUMN_8#,
+				#EXTEND_COLUMN_9#,
+				#IS_LINE#,
+				#ROUTE_CODE#,
+				#IS_CLASSIFY#,
+				#CLASS_CODE#,
+				#LAST_MODIFIED#,
+				#IS_URGENCY#
+			)
+			]]>
+		</insert>
+
+    <update id="UpdateStatus" parameterClass="VWmsPickTicket" >
+      <![CDATA[
+			update V_WMS_PICK_TICKET set
+				STATUS = 'BL',
+				LAST_MODIFIED = sysdate
+			where
+				ID=#ID#
+			]]>
+    </update>
+
+   
+		<update id="Update" parameterClass="VWmsPickTicket" >
+			<![CDATA[
+			update V_WMS_PICK_TICKET set
+				PICK_TICKET_CODE = #PICK_TICKET_CODE#,
+				WHSE_ID = #WHSE_ID#,
+				COMPANY_ID = #COMPANY_ID#,
+				STATUS = #STATUS#,
+				USER_ID = #USER_ID#,
+				ORD_DATE = #ORD_DATE#,
+				SHIP_DATE = #SHIP_DATE#,
+				DUE_DATE = #DUE_DATE#,
+				SHIP_VIA = #SHIP_VIA#,
+				SHIPPING_TERMS = #SHIPPING_TERMS#,
+				SHIP_TO_ID = #SHIP_TO_ID#,
+				SHIP_TO_NAME = #SHIP_TO_NAME#,
+				SHIP_TO_ADDR1 = #SHIP_TO_ADDR1#,
+				SHIP_TO_ADDR2 = #SHIP_TO_ADDR2#,
+				SHIP_TO_ADDR3 = #SHIP_TO_ADDR3#,
+				SHIP_TO_CITY = #SHIP_TO_CITY#,
+				SHIP_TO_STATE = #SHIP_TO_STATE#,
+				SHIP_TO_ZIP = #SHIP_TO_ZIP#,
+				SHIP_TO_COUNTRY = #SHIP_TO_COUNTRY#,
+				SHIP_TO_COUNTRY_CODE = #SHIP_TO_COUNTRY_CODE#,
+				BILL_TO_ID = #BILL_TO_ID#,
+				BILL_TO_NAME = #BILL_TO_NAME#,
+				BILL_TO_ADDR1 = #BILL_TO_ADDR1#,
+				BILL_TO_ADDR2 = #BILL_TO_ADDR2#,
+				BILL_TO_ADDR3 = #BILL_TO_ADDR3#,
+				BILL_TO_CITY = #BILL_TO_CITY#,
+				BILL_TO_STATE = #BILL_TO_STATE#,
+				BILL_TO_ZIP = #BILL_TO_ZIP#,
+				BILL_TO_COUNTRY = #BILL_TO_COUNTRY#,
+				BILL_TO_COUNTRY_CODE = #BILL_TO_COUNTRY_CODE#,
+				COMMENTS = #COMMENTS#,
+				PICK_BATCH_ID = #PICK_BATCH_ID#,
+				CREATED_TIME = #CREATED_TIME#,
+				CANCEL_DATE = #CANCEL_DATE#,
+				EXTEND_COLUMN_0 = #EXTEND_COLUMN_0#,
+				EXTEND_COLUMN_1 = #EXTEND_COLUMN_1#,
+				EXTEND_COLUMN_2 = #EXTEND_COLUMN_2#,
+				EXTEND_COLUMN_3 = #EXTEND_COLUMN_3#,
+				EXTEND_COLUMN_4 = #EXTEND_COLUMN_4#,
+				EXTEND_COLUMN_5 = #EXTEND_COLUMN_5#,
+				EXTEND_COLUMN_6 = #EXTEND_COLUMN_6#,
+				EXTEND_COLUMN_7 = #EXTEND_COLUMN_7#,
+				EXTEND_COLUMN_8 = #EXTEND_COLUMN_8#,
+				EXTEND_COLUMN_9 = #EXTEND_COLUMN_9#,
+				IS_LINE = #IS_LINE#,
+				ROUTE_CODE = #ROUTE_CODE#,
+				IS_CLASSIFY = #IS_CLASSIFY#,
+				CLASS_CODE = #CLASS_CODE#,
+				LAST_MODIFIED = #LAST_MODIFIED#,
+				IS_URGENCY = #IS_URGENCY#
+			where
+				ID = #ID#
+			]]>
+		</update>
+		
+		<update id="UpdateSection" parameterClass="VWmsPickTicket" >
+			<![CDATA[
+			update V_WMS_PICK_TICKET set 
+			]]>
+			<dynamic prepend=" ">
+				<isNotEmpty prepend="," property="PICK_TICKET_CODE">
+					<![CDATA[ PICK_TICKET_CODE=#PICK_TICKET_CODE#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="WHSE_ID">
+					<![CDATA[ WHSE_ID=#WHSE_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="COMPANY_ID">
+					<![CDATA[ COMPANY_ID=#COMPANY_ID#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="STATUS">
+					<![CDATA[ STATUS=#STATUS#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="USER_ID">
+					<![CDATA[ USER_ID=#USER_ID#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="ORD_DATE">
+					<![CDATA[ ORD_DATE=#ORD_DATE#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="SHIP_DATE">
+					<![CDATA[ SHIP_DATE=#SHIP_DATE#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="DUE_DATE">
+					<![CDATA[ DUE_DATE=#DUE_DATE#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="SHIP_VIA">
+					<![CDATA[ SHIP_VIA=#SHIP_VIA#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="SHIPPING_TERMS">
+					<![CDATA[ SHIPPING_TERMS=#SHIPPING_TERMS#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="SHIP_TO_ID">
+					<![CDATA[ SHIP_TO_ID=#SHIP_TO_ID#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="SHIP_TO_NAME">
+					<![CDATA[ SHIP_TO_NAME=#SHIP_TO_NAME#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="SHIP_TO_ADDR1">
+					<![CDATA[ SHIP_TO_ADDR1=#SHIP_TO_ADDR1#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="SHIP_TO_ADDR2">
+					<![CDATA[ SHIP_TO_ADDR2=#SHIP_TO_ADDR2#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="SHIP_TO_ADDR3">
+					<![CDATA[ SHIP_TO_ADDR3=#SHIP_TO_ADDR3#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="SHIP_TO_CITY">
+					<![CDATA[ SHIP_TO_CITY=#SHIP_TO_CITY#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="SHIP_TO_STATE">
+					<![CDATA[ SHIP_TO_STATE=#SHIP_TO_STATE#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="SHIP_TO_ZIP">
+					<![CDATA[ SHIP_TO_ZIP=#SHIP_TO_ZIP#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="SHIP_TO_COUNTRY">
+					<![CDATA[ SHIP_TO_COUNTRY=#SHIP_TO_COUNTRY#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="SHIP_TO_COUNTRY_CODE">
+					<![CDATA[ SHIP_TO_COUNTRY_CODE=#SHIP_TO_COUNTRY_CODE#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="BILL_TO_ID">
+					<![CDATA[ BILL_TO_ID=#BILL_TO_ID#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="BILL_TO_NAME">
+					<![CDATA[ BILL_TO_NAME=#BILL_TO_NAME#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="BILL_TO_ADDR1">
+					<![CDATA[ BILL_TO_ADDR1=#BILL_TO_ADDR1#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="BILL_TO_ADDR2">
+					<![CDATA[ BILL_TO_ADDR2=#BILL_TO_ADDR2#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="BILL_TO_ADDR3">
+					<![CDATA[ BILL_TO_ADDR3=#BILL_TO_ADDR3#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="BILL_TO_CITY">
+					<![CDATA[ BILL_TO_CITY=#BILL_TO_CITY#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="BILL_TO_STATE">
+					<![CDATA[ BILL_TO_STATE=#BILL_TO_STATE#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="BILL_TO_ZIP">
+					<![CDATA[ BILL_TO_ZIP=#BILL_TO_ZIP#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="BILL_TO_COUNTRY">
+					<![CDATA[ BILL_TO_COUNTRY=#BILL_TO_COUNTRY#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="BILL_TO_COUNTRY_CODE">
+					<![CDATA[ BILL_TO_COUNTRY_CODE=#BILL_TO_COUNTRY_CODE#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="COMMENTS">
+					<![CDATA[ COMMENTS=#COMMENTS#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="PICK_BATCH_ID">
+					<![CDATA[ PICK_BATCH_ID=#PICK_BATCH_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="CREATED_TIME">
+					<![CDATA[ CREATED_TIME=#CREATED_TIME#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="CANCEL_DATE">
+					<![CDATA[ CANCEL_DATE=#CANCEL_DATE#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="EXTEND_COLUMN_0">
+					<![CDATA[ EXTEND_COLUMN_0=#EXTEND_COLUMN_0#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="EXTEND_COLUMN_1">
+					<![CDATA[ EXTEND_COLUMN_1=#EXTEND_COLUMN_1#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="EXTEND_COLUMN_2">
+					<![CDATA[ EXTEND_COLUMN_2=#EXTEND_COLUMN_2#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="EXTEND_COLUMN_3">
+					<![CDATA[ EXTEND_COLUMN_3=#EXTEND_COLUMN_3#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="EXTEND_COLUMN_4">
+					<![CDATA[ EXTEND_COLUMN_4=#EXTEND_COLUMN_4#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="EXTEND_COLUMN_5">
+					<![CDATA[ EXTEND_COLUMN_5=#EXTEND_COLUMN_5#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="EXTEND_COLUMN_6">
+					<![CDATA[ EXTEND_COLUMN_6=#EXTEND_COLUMN_6#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="EXTEND_COLUMN_7">
+					<![CDATA[ EXTEND_COLUMN_7=#EXTEND_COLUMN_7#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="EXTEND_COLUMN_8">
+					<![CDATA[ EXTEND_COLUMN_8=#EXTEND_COLUMN_8#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="EXTEND_COLUMN_9">
+					<![CDATA[ EXTEND_COLUMN_9=#EXTEND_COLUMN_9#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="IS_LINE">
+					<![CDATA[ IS_LINE=#IS_LINE#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="ROUTE_CODE">
+					<![CDATA[ ROUTE_CODE=#ROUTE_CODE#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="IS_CLASSIFY">
+					<![CDATA[ IS_CLASSIFY=#IS_CLASSIFY#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="CLASS_CODE">
+					<![CDATA[ CLASS_CODE=#CLASS_CODE#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="LAST_MODIFIED">
+					<![CDATA[ LAST_MODIFIED=#LAST_MODIFIED#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="IS_URGENCY">
+					<![CDATA[ IS_URGENCY=#IS_URGENCY#]]>
+				</isNotNull>
+			</dynamic>
+			<![CDATA[
+			where
+				ID = #ID#
+			]]>
+		</update>
+		<delete id="Delete" parameterClass="VWmsPickTicket" >
+			<![CDATA[
+			delete from V_WMS_PICK_TICKET
+			where 
+				ID = #ID#
+			]]>
+		</delete>
+
+    <!--出库装箱数据同步接口-主表查询-->
+    <select id="SelectPackOrder" parameterClass="System.Collections.IDictionary" >
+      <![CDATA[
+      select h.id, h.pick_ticket_code as packingno, w.whse_name as customerno, w.extend_column_3 as customername
+       , #DATE# as "date"
+      from v_wms_pick_ticket h left outer join v_Wms_Base_Warehouse w on h.ship_to_id = w.id
+      where exists (
+            select 1 
+            from V_WMS_PICK_TICKET_act a, v_wms_pick_ticket_detail d
+            where a.pick_ticket_id = d.id
+                  and d.pick_ticket_id = h.id
+                  and d.status = 'PI'
+                  and trunc(a.ship_time) = to_date(#DATE#,'yyyy-mm-dd'))
+      order by h.pick_ticket_code
+      ]]>
+    </select>
+	</statements>
+	
+</sqlMap>

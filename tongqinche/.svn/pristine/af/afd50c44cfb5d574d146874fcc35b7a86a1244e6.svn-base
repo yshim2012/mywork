@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="RouteLoc" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="RouteLoc" type="DataMapper.RouteLoc, DataMapper" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="RouteLoc">
+      <result property="Id" column="ID" />
+      <result property="RouteId" column="Route_Id" />
+      <result property="LocId" column="Loc_Id" />
+      <result property="Sequence" column="Sequence" />
+      <result property="Status" column="Status" />
+      <result property="CreateTime" column="Create_Time" />
+      <result property="CreateUserid" column="Create_Userid" />
+      <result property="UpdateTime" column="Update_Time" />
+      <result property="UpdateUserid" column="Update_Userid" /> 
+    </resultMap>
+  </resultMaps>
+
+  <statements>
+    <select id="SelectAll" resultMap="SelectResult">
+      <![CDATA[
+			select
+				* 
+			from TB_Route_Loc
+			]]>
+    </select>
+
+    <select id="SelectById" extends="SelectAll" parameterClass="RouteLoc" resultMap="SelectResult">
+      <![CDATA[
+			where
+				ID = #Id#
+			]]>
+    </select>
+
+    <select id="SelectRouteAndLoc" parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+			 select r.Route_Name,rl.Sequence,l.* from TB_Route r
+     inner join TB_Route_Loc rl on r.id = rl.Route_Id
+     inner join TB_Loc l on l.ID =rl.Loc_Id
+			]]>
+      <dynamic prepend="WHERE"> 
+        <isNotEmpty prepend="AND" property="RouteName">
+          <![CDATA[ Route_Name Like '%' +#RouteName#+ '%' ]]>
+        </isNotEmpty>
+      </dynamic>
+    </select>
+
+    <select id="SelectByParam" extends="SelectAll" parameterClass="RouteLoc" resultMap="SelectResult">
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="RouteName">
+          <![CDATA[ Route_Name Like '%' +#RouteName#+ '%' ]]>
+        </isNotEmpty>
+      </dynamic>
+    </select>
+
+    <delete id="Delete" parameterClass="RouteLoc" >
+      <![CDATA[
+			delete from TB_Route_Loc
+			where 
+				ID = #Id#
+			]]>
+    </delete>
+
+
+  </statements>
+
+</sqlMap>

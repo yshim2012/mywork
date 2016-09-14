@@ -1,0 +1,170 @@
+﻿namespace LDV.WMS.RF.ClientForm
+{
+    partial class ReceivingOutManager
+    {
+        /// <summary>
+        /// 必需的设计器变量。
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// 清理所有正在使用的资源。
+        /// </summary>
+        /// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows 窗体设计器生成的代码
+
+        /// <summary>
+        /// 设计器支持所需的方法 - 不要
+        /// 使用代码编辑器修改此方法的内容。
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.btnReceiving = new System.Windows.Forms.Button();
+            this.btnPick = new System.Windows.Forms.Button();
+            this.btnShipments = new System.Windows.Forms.Button();
+            this.btnPackge = new System.Windows.Forms.Button();
+            this.btnReturn = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.btnPickOld = new System.Windows.Forms.Button();
+            this.btnMergePackage = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // btnReceiving
+            // 
+            this.btnReceiving.BackColor = System.Drawing.Color.Green;
+            this.btnReceiving.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.btnReceiving.ForeColor = System.Drawing.Color.White;
+            this.btnReceiving.Location = new System.Drawing.Point(46, 46);
+            this.btnReceiving.Name = "btnReceiving";
+            this.btnReceiving.Size = new System.Drawing.Size(226, 36);
+            this.btnReceiving.TabIndex = 4;
+            this.btnReceiving.Text = "上架";
+            this.btnReceiving.Click += new System.EventHandler(this.btnReceiving_Click);
+            // 
+            // btnPick
+            // 
+            this.btnPick.BackColor = System.Drawing.Color.Green;
+            this.btnPick.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.btnPick.ForeColor = System.Drawing.Color.White;
+            this.btnPick.Location = new System.Drawing.Point(46, 87);
+            this.btnPick.Name = "btnPick";
+            this.btnPick.Size = new System.Drawing.Size(226, 36);
+            this.btnPick.TabIndex = 5;
+            this.btnPick.Text = "箱号拣货";
+            this.btnPick.Click += new System.EventHandler(this.btnPick_Click);
+            // 
+            // btnShipments
+            // 
+            this.btnShipments.BackColor = System.Drawing.Color.Green;
+            this.btnShipments.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.btnShipments.ForeColor = System.Drawing.Color.White;
+            this.btnShipments.Location = new System.Drawing.Point(46, 169);
+            this.btnShipments.Name = "btnShipments";
+            this.btnShipments.Size = new System.Drawing.Size(226, 36);
+            this.btnShipments.TabIndex = 6;
+            this.btnShipments.Text = "核料";
+            this.btnShipments.Click += new System.EventHandler(this.btnShipments_Click);
+            // 
+            // btnPackge
+            // 
+            this.btnPackge.BackColor = System.Drawing.Color.Green;
+            this.btnPackge.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.btnPackge.ForeColor = System.Drawing.Color.White;
+            this.btnPackge.Location = new System.Drawing.Point(46, 210);
+            this.btnPackge.Name = "btnPackge";
+            this.btnPackge.Size = new System.Drawing.Size(110, 36);
+            this.btnPackge.TabIndex = 7;
+            this.btnPackge.Text = "包装箱调整";
+            this.btnPackge.Click += new System.EventHandler(this.btnPackge_Click);
+            // 
+            // btnReturn
+            // 
+            this.btnReturn.BackColor = System.Drawing.Color.Green;
+            this.btnReturn.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.btnReturn.ForeColor = System.Drawing.Color.White;
+            this.btnReturn.Location = new System.Drawing.Point(46, 251);
+            this.btnReturn.Name = "btnReturn";
+            this.btnReturn.Size = new System.Drawing.Size(226, 36);
+            this.btnReturn.TabIndex = 8;
+            this.btnReturn.Text = "返回";
+            this.btnReturn.Click += new System.EventHandler(this.menuItem1_Click);
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.Green;
+            this.button2.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.button2.ForeColor = System.Drawing.Color.White;
+            this.button2.Location = new System.Drawing.Point(46, 5);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(226, 36);
+            this.button2.TabIndex = 10;
+            this.button2.Text = "包装";
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // btnPickOld
+            // 
+            this.btnPickOld.BackColor = System.Drawing.Color.Green;
+            this.btnPickOld.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.btnPickOld.ForeColor = System.Drawing.Color.White;
+            this.btnPickOld.Location = new System.Drawing.Point(46, 128);
+            this.btnPickOld.Name = "btnPickOld";
+            this.btnPickOld.Size = new System.Drawing.Size(226, 36);
+            this.btnPickOld.TabIndex = 11;
+            this.btnPickOld.Text = "拣货";
+            this.btnPickOld.Click += new System.EventHandler(this.btnPickOld_Click);
+            // 
+            // btnMergePackage
+            // 
+            this.btnMergePackage.BackColor = System.Drawing.Color.Green;
+            this.btnMergePackage.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.btnMergePackage.ForeColor = System.Drawing.Color.White;
+            this.btnMergePackage.Location = new System.Drawing.Point(162, 211);
+            this.btnMergePackage.Name = "btnMergePackage";
+            this.btnMergePackage.Size = new System.Drawing.Size(110, 36);
+            this.btnMergePackage.TabIndex = 12;
+            this.btnMergePackage.Text = "合箱";
+            this.btnMergePackage.Click += new System.EventHandler(this.btnMergePackage_Click);
+            // 
+            // ReceivingOutManager
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoScroll = true;
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(318, 295);
+            this.ControlBox = false;
+            this.Controls.Add(this.btnMergePackage);
+            this.Controls.Add(this.btnPickOld);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnReturn);
+            this.Controls.Add(this.btnPackge);
+            this.Controls.Add(this.btnShipments);
+            this.Controls.Add(this.btnPick);
+            this.Controls.Add(this.btnReceiving);
+            this.Name = "ReceivingOutManager";
+            this.Text = "收发货管理";
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Button btnReceiving;
+        private System.Windows.Forms.Button btnPick;
+        private System.Windows.Forms.Button btnShipments;
+        private System.Windows.Forms.Button btnPackge;
+        private System.Windows.Forms.Button btnReturn;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnPickOld;
+        private System.Windows.Forms.Button btnMergePackage;
+    }
+}

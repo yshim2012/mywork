@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<sqlMap 
+	namespace="VWmsBaseCustomer" xmlns="http://ibatis.apache.org/mapping" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	
+	<alias>
+		<typeAlias alias="VWmsBaseCustomer" type="LDV.WMS.RF.DataMapper.VWmsBaseCustomer, LDV.WMS.RF.DataMapper" />
+	</alias>
+	
+	<resultMaps>
+		<resultMap id="SelectResult" class="VWmsBaseCustomer">
+			<result property="ID" column="ID" />
+			<result property="CUST_CODE" column="CUST_CODE" />
+			<result property="CUST_NAME" column="CUST_NAME" />
+			<result property="PARENT_CUST_ID" column="PARENT_CUST_ID" />
+			<result property="ADDRESS_ID" column="ADDRESS_ID" />
+			<result property="COMMENTS" column="COMMENTS" />
+			<result property="IS_DISABLED" column="IS_DISABLED" />
+			<result property="CREATED_TIME" column="CREATED_TIME" />
+			<result property="LAST_MODIFIED" column="LAST_MODIFIED" />
+		</resultMap>
+	</resultMaps>
+	
+	<statements>
+	
+		<select id="SelectAll" resultMap="SelectResult">
+			<![CDATA[
+			select
+				ID,
+				CUST_CODE,
+				CUST_NAME,
+				PARENT_CUST_ID,
+				ADDRESS_ID,
+				COMMENTS,
+				IS_DISABLED,
+				CREATED_TIME,
+				LAST_MODIFIED
+			from V_WMS_BASE_CUSTOMER
+			]]>
+		</select>
+		
+		<select id="SelectById" extends="SelectAll" parameterClass="double" resultMap="SelectResult">
+			<![CDATA[
+			where
+				ID = #value#
+			]]>
+		</select>
+		
+		<select id="SelectByParam" extends="SelectAll" parameterClass="VWmsBaseCustomer" resultMap="SelectResult">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="CUST_CODE">
+        			<![CDATA[ CUST_CODE = #CUST_CODE# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="CUST_NAME">
+        			<![CDATA[ CUST_NAME = #CUST_NAME# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="PARENT_CUST_ID">
+        			<![CDATA[ PARENT_CUST_ID = #PARENT_CUST_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ADDRESS_ID">
+        			<![CDATA[ ADDRESS_ID = #ADDRESS_ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="COMMENTS">
+        			<![CDATA[ COMMENTS = #COMMENTS# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="IS_DISABLED">
+        			<![CDATA[ IS_DISABLED = #IS_DISABLED# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+		
+		<select id="SelectForPageing" extends="SelectAll" parameterClass="System.Collections.IDictionary">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CUST_CODE">
+        			<![CDATA[ CUST_CODE = #CUST_CODE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CUST_NAME">
+        			<![CDATA[ CUST_NAME = #CUST_NAME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PARENT_CUST_ID">
+        			<![CDATA[ PARENT_CUST_ID = #PARENT_CUST_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ADDRESS_ID">
+        			<![CDATA[ ADDRESS_ID = #ADDRESS_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="COMMENTS">
+        			<![CDATA[ COMMENTS = #COMMENTS# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_DISABLED">
+        			<![CDATA[ IS_DISABLED = #IS_DISABLED# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CREATED_TIME">
+        			<![CDATA[ CREATED_TIME = #CREATED_TIME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LAST_MODIFIED">
+        			<![CDATA[ LAST_MODIFIED = #LAST_MODIFIED# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+		<insert id="Insert" parameterClass="VWmsBaseCustomer">
+			<selectKey resultClass="double" type="pre" property="ID" > 
+				<![CDATA[ select V_WMS_BASE_CUSTOMER_SEQ.NEXTVAL as value from dual ]]>
+			</selectKey>
+			<![CDATA[
+			insert into V_WMS_BASE_CUSTOMER
+			(
+			    ID,
+			    CUST_CODE,
+			    CUST_NAME,
+			    PARENT_CUST_ID,
+			    ADDRESS_ID,
+			    COMMENTS,
+			    IS_DISABLED,
+			    CREATED_TIME,
+			    LAST_MODIFIED
+			)
+			values 
+			(
+				#ID#,
+				#CUST_CODE#,
+				#CUST_NAME#,
+				#PARENT_CUST_ID#,
+				#ADDRESS_ID#,
+				#COMMENTS#,
+				#IS_DISABLED#,
+				#CREATED_TIME#,
+				#LAST_MODIFIED#
+			)
+			]]>
+		</insert>
+		<update id="Update" parameterClass="VWmsBaseCustomer" >
+			<![CDATA[
+			update V_WMS_BASE_CUSTOMER set
+				CUST_CODE = #CUST_CODE#,
+				CUST_NAME = #CUST_NAME#,
+				PARENT_CUST_ID = #PARENT_CUST_ID#,
+				ADDRESS_ID = #ADDRESS_ID#,
+				COMMENTS = #COMMENTS#,
+				IS_DISABLED = #IS_DISABLED#,
+				CREATED_TIME = #CREATED_TIME#,
+				LAST_MODIFIED = #LAST_MODIFIED#
+			where
+				ID = #ID#
+			]]>
+		</update>
+		
+		<update id="UpdateSection" parameterClass="VWmsBaseCustomer" >
+			<![CDATA[
+			update V_WMS_BASE_CUSTOMER set 
+			]]>
+			<dynamic prepend=" ">
+				<isNotEmpty prepend="," property="CUST_CODE">
+					<![CDATA[ CUST_CODE=#CUST_CODE#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="CUST_NAME">
+					<![CDATA[ CUST_NAME=#CUST_NAME#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="PARENT_CUST_ID">
+					<![CDATA[ PARENT_CUST_ID=#PARENT_CUST_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="ADDRESS_ID">
+					<![CDATA[ ADDRESS_ID=#ADDRESS_ID#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="COMMENTS">
+					<![CDATA[ COMMENTS=#COMMENTS#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="IS_DISABLED">
+					<![CDATA[ IS_DISABLED=#IS_DISABLED#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="CREATED_TIME">
+					<![CDATA[ CREATED_TIME=#CREATED_TIME#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="LAST_MODIFIED">
+					<![CDATA[ LAST_MODIFIED=#LAST_MODIFIED#]]>
+				</isNotNull>
+			</dynamic>
+			<![CDATA[
+			where
+				ID = #ID#
+			]]>
+		</update>
+		<delete id="Delete" parameterClass="VWmsBaseCustomer" >
+			<![CDATA[
+			delete from V_WMS_BASE_CUSTOMER
+			where 
+				ID = #ID#
+			]]>
+		</delete>
+	</statements>
+	
+</sqlMap>

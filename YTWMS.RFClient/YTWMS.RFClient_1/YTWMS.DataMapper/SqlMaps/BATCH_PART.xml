@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="BatchPart" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="BatchPart" type="DataMapper.BatchPart, DataMapper" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="BatchPart">
+      <result property="ID" column="ID" />
+      <result property="PART_ID" column="PART_ID" />
+      <result property="UNIT" column="UNIT" />
+      <result property="SUPPLIER_ID" column="SUPPLIER_ID" />
+      <result property="PROJECT_ID" column="PROJECT_ID" />
+      <result property="PROJECT_ITEM_ID" column="PROJECT_ITEM_ID" />
+      <result property="WAREHOUSE_ID" column="WAREHOUSE_ID" />
+      <result property="BATCH_NO" column="BATCH_NO" />
+      <result property="FURNACE_NO" column="FURNACE_NO" />
+      <result property="CREATE_TIME" column="CREATE_TIME" />
+      <result property="CREATE_USER_ID" column="CREATE_USER_ID" />
+      <result property="LAST_UPDATE" column="LAST_UPDATE" />
+      <result property="UPDATE_USER_ID" column="UPDATE_USER_ID" />
+      <result property="REMARK" column="REMARK" />
+      <result property="BOX_NUMBER" column="BOX_NUMBER" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectAll" resultMap="SelectResult" >
+      <![CDATA[
+           SELECT ID
+                  ,PART_ID
+                  ,UNIT
+                  ,SUPPLIER_ID
+                  ,PROJECT_ID
+                  ,PROJECT_ITEM_ID
+                  ,WAREHOUSE_ID
+                  ,BATCH_NO
+                  ,FURNACE_NO
+                  ,CREATE_TIME
+                  ,CREATE_USER_ID
+                  ,LAST_UPDATE
+                  ,UPDATE_USER_ID
+                  ,REMARK
+                  ,BOX_NUMBER
+              FROM BATCH_PART
+			]]>
+    </select>
+
+    <select id="SelectByParam" extends="SelectAll" resultMap="SelectResult" parameterClass="BatchPart">
+      <dynamic prepend="WHERE">
+        <isNotNull property="ID">
+          <isNotEqual prepend="AND" property="ID" compareValue="0">
+            <![CDATA[ ID = #ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull property="PART_ID">
+          <isNotEqual prepend="AND" property="PART_ID" compareValue="0">
+            <![CDATA[ PART_ID = #PART_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull property="SUPPLIER_ID">
+          <isNotEqual prepend="AND" property="SUPPLIER_ID" compareValue="0">
+            <![CDATA[ SUPPLIER_ID = #SUPPLIER_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull property="PROJECT_ID">
+          <isNotEqual  prepend="AND"  property="PROJECT_ID" compareValue="0" >
+            <![CDATA[ PROJECT_ID = #PROJECT_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull  property="PROJECT_ITEM_ID">
+          <isNotEqual  prepend="AND"  property="PROJECT_ITEM_ID" compareValue="0" >
+            <![CDATA[ PROJECT_ITEM_ID = #PROJECT_ITEM_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull prepend="AND" property="BATCH_NO">
+          <![CDATA[ BATCH_NO =  #BATCH_NO# ]]>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="UNIT">
+          <![CDATA[ UNIT =  #UNIT# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="FURNACE_NO">
+          <![CDATA[ FURNACE_NO = #FURNACE_NO# ]]>
+        </isNotEmpty>
+        <isNotNull property="WAREHOUSE_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+            <![CDATA[ WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="BOX_NUMBER">
+          <![CDATA[ BOX_NUMBER = #BOX_NUMBER# ]]>
+        </isNotEmpty>
+      </dynamic>
+    </select>
+
+    <insert id="Insert" parameterClass="BatchPart">
+      <![CDATA[
+		      INSERT INTO BATCH_PART
+                 (PART_ID
+                 ,UNIT
+                 ,SUPPLIER_ID
+                 ,PROJECT_ID
+                 ,PROJECT_ITEM_ID
+                 ,WAREHOUSE_ID
+                 ,BATCH_NO
+                 ,FURNACE_NO
+                 ,CREATE_TIME
+                 ,CREATE_USER_ID
+                 ,REMARK
+                 ,BOX_NUMBER)
+           VALUES
+                 (#PART_ID#
+                 ,#UNIT#
+                 ,#SUPPLIER_ID#
+                 ,#PROJECT_ID#
+                 ,#PROJECT_ITEM_ID#
+                 ,#WAREHOUSE_ID#
+                 ,#BATCH_NO#
+                 ,#FURNACE_NO#
+                 ,#CREATE_TIME#
+                 ,#CREATE_USER_ID#
+                 ,#REMARK#
+                 ,#BOX_NUMBER#)
+			]]>
+      <selectKey resultClass="int" type="post" property="ID" >
+        <![CDATA[ select @@IDENTITY ; ]]>
+      </selectKey>
+    </insert>
+
+    <update id="UpdateInfo" parameterClass="BatchPart">
+      <![CDATA[
+         UPDATE BATCH_PART
+               SET PART_ID = #PART_ID#
+                  ,UNIT = #UNIT#
+                  ,SUPPLIER_ID = #SUPPLIER_ID#
+                  ,PROJECT_ID = #PROJECT_ID#
+                  ,PROJECT_ITEM_ID = #PROJECT_ITEM_ID#
+                  ,WAREHOUSE_ID = #WAREHOUSE_ID#
+                  ,BATCH_NO = #BATCH_NO#
+                  ,FURNACE_NO = #FURNACE_NO#
+                  ,LAST_UPDATE = #LAST_UPDATE#
+                  ,UPDATE_USER_ID = #UPDATE_USER_ID#
+                  ,BOX_NUMBER=#BOX_NUMBER#
+             WHERE ID=#ID#
+      ]]>
+    </update>
+
+    <!--逻辑删除-->
+    <delete id="Delete" parameterClass="BatchPart" >
+      <![CDATA[
+		      	DELETE BATCH_PART WHERE ID=#ID#
+			]]>
+    </delete>
+  </statements>
+</sqlMap>

@@ -1,0 +1,469 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<sqlMap 
+	namespace="VPhrSecUsr" xmlns="http://ibatis.apache.org/mapping" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	
+	<alias>
+		<typeAlias alias="VPhrSecUsr" type="LDV.WMS.RF.DataMapper.VPhrSecUsr, LDV.WMS.RF.DataMapper" />
+	</alias>
+	
+	<resultMaps>
+		<resultMap id="SelectResult" class="VPhrSecUsr">
+			<result property="ID" column="ID" />
+			<result property="IS_DISABLED" column="IS_DISABLED" />
+			<result property="IS_SYSTEM" column="IS_SYSTEM" />
+			<result property="LOGIN_NAME" column="LOGIN_NAME" />
+			<result property="ENCRYPTED_PASSWORD" column="ENCRYPTED_PASSWORD" />
+			<result property="FIRST_NAME" column="FIRST_NAME" />
+			<result property="LAST_NAME" column="LAST_NAME" />
+			<result property="BIRTHDAY" column="BIRTHDAY" />
+			<result property="IS_FEMALE" column="IS_FEMALE" />
+			<result property="COMPANY_ID" column="COMPANY_ID" />
+			<result property="EMAIL" column="EMAIL" />
+			<result property="DESCRIPTION" column="DESCRIPTION" />
+			<result property="LOGIN_COUNT" column="LOGIN_COUNT" />
+			<result property="DISABLED_TIME" column="DISABLED_TIME" />
+			<result property="CREATED_TIME" column="CREATED_TIME" />
+			<result property="LAST_LOGIN" column="LAST_LOGIN" />
+			<result property="LAST_MODIFIED" column="LAST_MODIFIED" />
+			<result property="EXTEND_COLUMN_0" column="EXTEND_COLUMN_0" />
+			<result property="EXTEND_COLUMN_1" column="EXTEND_COLUMN_1" />
+			<result property="EXTEND_COLUMN_2" column="EXTEND_COLUMN_2" />
+			<result property="EXTEND_COLUMN_3" column="EXTEND_COLUMN_3" />
+			<result property="EXTEND_COLUMN_4" column="EXTEND_COLUMN_4" />
+			<result property="EXTEND_COLUMN_5" column="EXTEND_COLUMN_5" />
+			<result property="EXTEND_COLUMN_6" column="EXTEND_COLUMN_6" />
+			<result property="EXTEND_COLUMN_7" column="EXTEND_COLUMN_7" />
+			<result property="EXTEND_COLUMN_8" column="EXTEND_COLUMN_8" />
+			<result property="EXTEND_COLUMN_9" column="EXTEND_COLUMN_9" />
+		</resultMap>
+	</resultMaps>
+	
+	<statements>
+	
+		<select id="SelectAll" resultMap="SelectResult">
+			<![CDATA[
+			select
+				ID,
+				IS_DISABLED,
+				IS_SYSTEM,
+				LOGIN_NAME,
+				ENCRYPTED_PASSWORD,
+				FIRST_NAME,
+				LAST_NAME,
+				BIRTHDAY,
+				IS_FEMALE,
+				COMPANY_ID,
+				EMAIL,
+				DESCRIPTION,
+				LOGIN_COUNT,
+				DISABLED_TIME,
+				CREATED_TIME,
+				LAST_LOGIN,
+				LAST_MODIFIED,
+				EXTEND_COLUMN_0,
+				EXTEND_COLUMN_1,
+				EXTEND_COLUMN_2,
+				EXTEND_COLUMN_3,
+				EXTEND_COLUMN_4,
+				EXTEND_COLUMN_5,
+				EXTEND_COLUMN_6,
+				EXTEND_COLUMN_7,
+				EXTEND_COLUMN_8,
+				EXTEND_COLUMN_9
+			from V_PHR_SEC_USRS
+			]]>
+		</select>
+		
+		<select id="SelectById" extends="SelectAll" parameterClass="double" resultMap="SelectResult">
+			<![CDATA[
+			where
+				ID = #value#
+			]]>
+		</select>
+		<select id="SelectByextend" extends="SelectAll" parameterClass="string" resultMap="SelectResult">
+			<![CDATA[
+			where
+				extend_column_1 is not null 
+			]]>
+		</select>
+		<select id="SelectByColumn" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+			<![CDATA[
+			select
+				ID,
+				IS_DISABLED,
+				IS_SYSTEM,
+				LOGIN_NAME,
+				ENCRYPTED_PASSWORD,
+				FIRST_NAME
+			from V_PHR_SEC_USRS 
+			]]>
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_1">
+					<![CDATA[ extend_column_1 like '%'|| #EXTEND_COLUMN_1# || '%' ]]>
+				</isNotNull>
+				
+			</dynamic>
+		</select>
+		<select id="SelectByParam" extends="SelectAll" parameterClass="VPhrSecUsr" resultMap="SelectResult">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_DISABLED">
+        			<![CDATA[ IS_DISABLED = #IS_DISABLED# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_SYSTEM">
+        			<![CDATA[ IS_SYSTEM = #IS_SYSTEM# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="LOGIN_NAME">
+        			<![CDATA[ LOGIN_NAME = #LOGIN_NAME# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="ENCRYPTED_PASSWORD">
+        			<![CDATA[ ENCRYPTED_PASSWORD = #ENCRYPTED_PASSWORD# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="FIRST_NAME">
+        			<![CDATA[ FIRST_NAME = #FIRST_NAME# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="LAST_NAME">
+        			<![CDATA[ LAST_NAME = #LAST_NAME# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="IS_FEMALE">
+        			<![CDATA[ IS_FEMALE = #IS_FEMALE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="COMPANY_ID">
+        			<![CDATA[ COMPANY_ID = #COMPANY_ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="EMAIL">
+        			<![CDATA[ EMAIL = #EMAIL# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="DESCRIPTION">
+        			<![CDATA[ DESCRIPTION = #DESCRIPTION# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="LOGIN_COUNT">
+        			<![CDATA[ LOGIN_COUNT = #LOGIN_COUNT# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_0">
+        			<![CDATA[ EXTEND_COLUMN_0 = #EXTEND_COLUMN_0# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_1">
+        			<![CDATA[ EXTEND_COLUMN_1 = #EXTEND_COLUMN_1# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_2">
+        			<![CDATA[ EXTEND_COLUMN_2 = #EXTEND_COLUMN_2# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_3">
+        			<![CDATA[ EXTEND_COLUMN_3 = #EXTEND_COLUMN_3# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_4">
+        			<![CDATA[ EXTEND_COLUMN_4 = #EXTEND_COLUMN_4# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_5">
+        			<![CDATA[ EXTEND_COLUMN_5 = #EXTEND_COLUMN_5# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_6">
+        			<![CDATA[ EXTEND_COLUMN_6 = #EXTEND_COLUMN_6# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_7">
+        			<![CDATA[ EXTEND_COLUMN_7 = #EXTEND_COLUMN_7# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_8">
+        			<![CDATA[ EXTEND_COLUMN_8 = #EXTEND_COLUMN_8# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_9">
+        			<![CDATA[ EXTEND_COLUMN_9 = #EXTEND_COLUMN_9# ]]>
+				</isNotEmpty>
+			</dynamic>
+		</select>
+		
+		<select id="SelectForPageing" extends="SelectAll" parameterClass="System.Collections.IDictionary">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_DISABLED">
+        			<![CDATA[ IS_DISABLED = #IS_DISABLED# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_SYSTEM">
+        			<![CDATA[ IS_SYSTEM = #IS_SYSTEM# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LOGIN_NAME">
+        			<![CDATA[ LOGIN_NAME = #LOGIN_NAME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ENCRYPTED_PASSWORD">
+        			<![CDATA[ ENCRYPTED_PASSWORD = #ENCRYPTED_PASSWORD# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="FIRST_NAME">
+        			<![CDATA[ FIRST_NAME = #FIRST_NAME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LAST_NAME">
+        			<![CDATA[ LAST_NAME = #LAST_NAME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="BIRTHDAY">
+        			<![CDATA[ BIRTHDAY = #BIRTHDAY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_FEMALE">
+        			<![CDATA[ IS_FEMALE = #IS_FEMALE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="COMPANY_ID">
+        			<![CDATA[ COMPANY_ID = #COMPANY_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EMAIL">
+        			<![CDATA[ EMAIL = #EMAIL# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="DESCRIPTION">
+        			<![CDATA[ DESCRIPTION = #DESCRIPTION# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LOGIN_COUNT">
+        			<![CDATA[ LOGIN_COUNT = #LOGIN_COUNT# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="DISABLED_TIME">
+        			<![CDATA[ DISABLED_TIME = #DISABLED_TIME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CREATED_TIME">
+        			<![CDATA[ CREATED_TIME = #CREATED_TIME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LAST_LOGIN">
+        			<![CDATA[ LAST_LOGIN = #LAST_LOGIN# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LAST_MODIFIED">
+        			<![CDATA[ LAST_MODIFIED = #LAST_MODIFIED# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_0">
+        			<![CDATA[ EXTEND_COLUMN_0 = #EXTEND_COLUMN_0# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_1">
+        			<![CDATA[ EXTEND_COLUMN_1 = #EXTEND_COLUMN_1# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_2">
+        			<![CDATA[ EXTEND_COLUMN_2 = #EXTEND_COLUMN_2# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_3">
+        			<![CDATA[ EXTEND_COLUMN_3 = #EXTEND_COLUMN_3# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_4">
+        			<![CDATA[ EXTEND_COLUMN_4 = #EXTEND_COLUMN_4# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_5">
+        			<![CDATA[ EXTEND_COLUMN_5 = #EXTEND_COLUMN_5# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_6">
+        			<![CDATA[ EXTEND_COLUMN_6 = #EXTEND_COLUMN_6# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_7">
+        			<![CDATA[ EXTEND_COLUMN_7 = #EXTEND_COLUMN_7# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_8">
+        			<![CDATA[ EXTEND_COLUMN_8 = #EXTEND_COLUMN_8# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_9">
+        			<![CDATA[ EXTEND_COLUMN_9 = #EXTEND_COLUMN_9# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+		<insert id="Insert" parameterClass="VPhrSecUsr">
+			<selectKey resultClass="double" type="pre" property="ID" > 
+				<![CDATA[ select V_PHR_SEC_USRS_SEQ.NEXTVAL as value from dual ]]>
+			</selectKey>
+			<![CDATA[
+			insert into V_PHR_SEC_USRS
+			(
+			    ID,
+			    IS_DISABLED,
+			    IS_SYSTEM,
+			    LOGIN_NAME,
+			    ENCRYPTED_PASSWORD,
+			    FIRST_NAME,
+			    LAST_NAME,
+			    BIRTHDAY,
+			    IS_FEMALE,
+			    COMPANY_ID,
+			    EMAIL,
+			    DESCRIPTION,
+			    LOGIN_COUNT,
+			    DISABLED_TIME,
+			    CREATED_TIME,
+			    LAST_LOGIN,
+			    LAST_MODIFIED,
+			    EXTEND_COLUMN_0,
+			    EXTEND_COLUMN_1,
+			    EXTEND_COLUMN_2,
+			    EXTEND_COLUMN_3,
+			    EXTEND_COLUMN_4,
+			    EXTEND_COLUMN_5,
+			    EXTEND_COLUMN_6,
+			    EXTEND_COLUMN_7,
+			    EXTEND_COLUMN_8,
+			    EXTEND_COLUMN_9
+			)
+			values 
+			(
+				#ID#,
+				#IS_DISABLED#,
+				#IS_SYSTEM#,
+				#LOGIN_NAME#,
+				#ENCRYPTED_PASSWORD#,
+				#FIRST_NAME#,
+				#LAST_NAME#,
+				#BIRTHDAY#,
+				#IS_FEMALE#,
+				#COMPANY_ID#,
+				#EMAIL#,
+				#DESCRIPTION#,
+				#LOGIN_COUNT#,
+				#DISABLED_TIME#,
+				#CREATED_TIME#,
+				#LAST_LOGIN#,
+				#LAST_MODIFIED#,
+				#EXTEND_COLUMN_0#,
+				#EXTEND_COLUMN_1#,
+				#EXTEND_COLUMN_2#,
+				#EXTEND_COLUMN_3#,
+				#EXTEND_COLUMN_4#,
+				#EXTEND_COLUMN_5#,
+				#EXTEND_COLUMN_6#,
+				#EXTEND_COLUMN_7#,
+				#EXTEND_COLUMN_8#,
+				#EXTEND_COLUMN_9#
+			)
+			]]>
+		</insert>
+		<update id="Update" parameterClass="VPhrSecUsr" >
+			<![CDATA[
+			update V_PHR_SEC_USRS set
+				IS_DISABLED = #IS_DISABLED#,
+				IS_SYSTEM = #IS_SYSTEM#,
+				LOGIN_NAME = #LOGIN_NAME#,
+				ENCRYPTED_PASSWORD = #ENCRYPTED_PASSWORD#,
+				FIRST_NAME = #FIRST_NAME#,
+				LAST_NAME = #LAST_NAME#,
+				BIRTHDAY = #BIRTHDAY#,
+				IS_FEMALE = #IS_FEMALE#,
+				COMPANY_ID = #COMPANY_ID#,
+				EMAIL = #EMAIL#,
+				DESCRIPTION = #DESCRIPTION#,
+				LOGIN_COUNT = #LOGIN_COUNT#,
+				DISABLED_TIME = #DISABLED_TIME#,
+				CREATED_TIME = #CREATED_TIME#,
+				LAST_LOGIN = #LAST_LOGIN#,
+				LAST_MODIFIED = #LAST_MODIFIED#,
+				EXTEND_COLUMN_0 = #EXTEND_COLUMN_0#,
+				EXTEND_COLUMN_1 = #EXTEND_COLUMN_1#,
+				EXTEND_COLUMN_2 = #EXTEND_COLUMN_2#,
+				EXTEND_COLUMN_3 = #EXTEND_COLUMN_3#,
+				EXTEND_COLUMN_4 = #EXTEND_COLUMN_4#,
+				EXTEND_COLUMN_5 = #EXTEND_COLUMN_5#,
+				EXTEND_COLUMN_6 = #EXTEND_COLUMN_6#,
+				EXTEND_COLUMN_7 = #EXTEND_COLUMN_7#,
+				EXTEND_COLUMN_8 = #EXTEND_COLUMN_8#,
+				EXTEND_COLUMN_9 = #EXTEND_COLUMN_9#
+			where
+				ID = #ID#
+			]]>
+		</update>
+		
+		<update id="UpdateSection" parameterClass="VPhrSecUsr" >
+			<![CDATA[
+			update V_PHR_SEC_USRS set 
+			]]>
+			<dynamic prepend=" ">
+				<isNotNull prepend="," property="IS_DISABLED">
+					<![CDATA[ IS_DISABLED=#IS_DISABLED#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="IS_SYSTEM">
+					<![CDATA[ IS_SYSTEM=#IS_SYSTEM#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="LOGIN_NAME">
+					<![CDATA[ LOGIN_NAME=#LOGIN_NAME#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="ENCRYPTED_PASSWORD">
+					<![CDATA[ ENCRYPTED_PASSWORD=#ENCRYPTED_PASSWORD#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="FIRST_NAME">
+					<![CDATA[ FIRST_NAME=#FIRST_NAME#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="LAST_NAME">
+					<![CDATA[ LAST_NAME=#LAST_NAME#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="BIRTHDAY">
+					<![CDATA[ BIRTHDAY=#BIRTHDAY#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="IS_FEMALE">
+					<![CDATA[ IS_FEMALE=#IS_FEMALE#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="COMPANY_ID">
+					<![CDATA[ COMPANY_ID=#COMPANY_ID#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="EMAIL">
+					<![CDATA[ EMAIL=#EMAIL#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="DESCRIPTION">
+					<![CDATA[ DESCRIPTION=#DESCRIPTION#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="LOGIN_COUNT">
+					<![CDATA[ LOGIN_COUNT=#LOGIN_COUNT#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="DISABLED_TIME">
+					<![CDATA[ DISABLED_TIME=#DISABLED_TIME#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="CREATED_TIME">
+					<![CDATA[ CREATED_TIME=#CREATED_TIME#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="LAST_LOGIN">
+					<![CDATA[ LAST_LOGIN=#LAST_LOGIN#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="LAST_MODIFIED">
+					<![CDATA[ LAST_MODIFIED=#LAST_MODIFIED#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="EXTEND_COLUMN_0">
+					<![CDATA[ EXTEND_COLUMN_0=#EXTEND_COLUMN_0#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="EXTEND_COLUMN_1">
+					<![CDATA[ EXTEND_COLUMN_1=#EXTEND_COLUMN_1#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="EXTEND_COLUMN_2">
+					<![CDATA[ EXTEND_COLUMN_2=#EXTEND_COLUMN_2#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="EXTEND_COLUMN_3">
+					<![CDATA[ EXTEND_COLUMN_3=#EXTEND_COLUMN_3#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="EXTEND_COLUMN_4">
+					<![CDATA[ EXTEND_COLUMN_4=#EXTEND_COLUMN_4#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="EXTEND_COLUMN_5">
+					<![CDATA[ EXTEND_COLUMN_5=#EXTEND_COLUMN_5#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="EXTEND_COLUMN_6">
+					<![CDATA[ EXTEND_COLUMN_6=#EXTEND_COLUMN_6#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="EXTEND_COLUMN_7">
+					<![CDATA[ EXTEND_COLUMN_7=#EXTEND_COLUMN_7#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="EXTEND_COLUMN_8">
+					<![CDATA[ EXTEND_COLUMN_8=#EXTEND_COLUMN_8#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="EXTEND_COLUMN_9">
+					<![CDATA[ EXTEND_COLUMN_9=#EXTEND_COLUMN_9#]]>
+				</isNotEmpty>
+			</dynamic>
+			<![CDATA[
+			where
+				ID = #ID#
+			]]>
+		</update>
+    <update id="UpdateOpState" parameterClass="VPhrSecUsr" >
+      <![CDATA[ UPDATE V_PHR_SEC_USRS SET 
+      EXTEND_COLUMN_1=#EXTEND_COLUMN_1#,EXTEND_COLUMN_2=#EXTEND_COLUMN_2#
+      WHERE ID = #ID#
+       ]]>
+    </update>
+		<delete id="Delete" parameterClass="VPhrSecUsr" >
+			<![CDATA[
+			delete from V_PHR_SEC_USRS
+			where 
+				ID = #ID#
+			]]>
+		</delete>
+	</statements>
+	
+</sqlMap>

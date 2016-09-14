@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<sqlMap 
+	namespace="VWmsPickQueueAct" xmlns="http://ibatis.apache.org/mapping" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	
+	<alias>
+		<typeAlias alias="VWmsPickQueueAct" type="LDV.WMS.RF.DataMapper.VWmsPickQueueAct, LDV.WMS.RF.DataMapper" />
+	</alias>
+	
+	<resultMaps>
+		<resultMap id="SelectResult" class="VWmsPickQueueAct">
+			<result property="ID" column="ID" />
+			<result property="BATCH_ID" column="BATCH_ID" />
+			<result property="PICK_QUEUE_ID" column="PICK_QUEUE_ID" />
+			<result property="LOC_ID" column="LOC_ID" />
+			<result property="MU_ID" column="MU_ID" />
+			<result property="UID_ID" column="UID_ID" />
+			<result property="ALLOCATED_QTY" column="ALLOCATED_QTY" />
+			<result property="PICKED_QTY" column="PICKED_QTY" />
+			<result property="USER_ID" column="USER_ID" />
+			<result property="PICKED_TIME" column="PICKED_TIME" />
+			<result property="IS_DISABLED" column="IS_DISABLED" />
+			<result property="LAST_MODIFIED" column="LAST_MODIFIED" />
+			<result property="EXTEND_COLUMN_0" column="EXTEND_COLUMN_0" />
+			<result property="EXTEND_COLUMN_1" column="EXTEND_COLUMN_1" />
+			<result property="EXTEND_COLUMN_2" column="EXTEND_COLUMN_2" />
+			<result property="EXTEND_COLUMN_3" column="EXTEND_COLUMN_3" />
+			<result property="EXTEND_COLUMN_4" column="EXTEND_COLUMN_4" />
+			<result property="SHIP_TIME" column="SHIP_TIME" />
+      <result property="INV_DETAIL_ID" column="INV_DETAIL_ID" />
+		</resultMap>
+	</resultMaps>
+	
+	<statements>
+	
+		<select id="SelectAll" resultMap="SelectResult">
+			<![CDATA[
+			select
+				ID,
+				BATCH_ID,
+				PICK_QUEUE_ID,
+				LOC_ID,
+				MU_ID,
+				UID_ID,
+				ALLOCATED_QTY,
+				PICKED_QTY,
+				USER_ID,
+				PICKED_TIME,
+				IS_DISABLED,
+				LAST_MODIFIED,
+				EXTEND_COLUMN_0,
+				EXTEND_COLUMN_1,
+				EXTEND_COLUMN_2,
+				EXTEND_COLUMN_3,
+				EXTEND_COLUMN_4,
+				SHIP_TIME,INV_DETAIL_ID
+			from V_WMS_PICK_QUEUE_ACT
+			]]>
+		</select>
+		
+		<select id="SelectById" extends="SelectAll" parameterClass="double" resultMap="SelectResult">
+			<![CDATA[
+			where
+				ID = #value#
+			]]>
+		</select>
+		
+		<select id="SelectByParam" extends="SelectAll" parameterClass="VWmsPickQueueAct" resultMap="SelectResult">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="BATCH_ID">
+        			<![CDATA[ BATCH_ID = #BATCH_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PICK_QUEUE_ID">
+        			<![CDATA[ PICK_QUEUE_ID = #PICK_QUEUE_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LOC_ID">
+        			<![CDATA[ LOC_ID = #LOC_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="MU_ID">
+        			<![CDATA[ MU_ID = #MU_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="UID_ID">
+        			<![CDATA[ UID_ID = #UID_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ALLOCATED_QTY">
+        			<![CDATA[ ALLOCATED_QTY = #ALLOCATED_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PICKED_QTY">
+        			<![CDATA[ PICKED_QTY = #PICKED_QTY# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="USER_ID">
+        			<![CDATA[ USER_ID = #USER_ID# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="IS_DISABLED">
+        			<![CDATA[ IS_DISABLED = #IS_DISABLED# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_0">
+        			<![CDATA[ EXTEND_COLUMN_0 = #EXTEND_COLUMN_0# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_1">
+        			<![CDATA[ EXTEND_COLUMN_1 = #EXTEND_COLUMN_1# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_2">
+        			<![CDATA[ EXTEND_COLUMN_2 = #EXTEND_COLUMN_2# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_3">
+        			<![CDATA[ EXTEND_COLUMN_3 = #EXTEND_COLUMN_3# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_4">
+        			<![CDATA[ EXTEND_COLUMN_4 = #EXTEND_COLUMN_4# ]]>
+				</isNotEmpty>
+			</dynamic>
+		</select>
+		
+		<select id="SelectForPageing" extends="SelectAll" parameterClass="System.Collections.IDictionary">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="BATCH_ID">
+        			<![CDATA[ BATCH_ID = #BATCH_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PICK_QUEUE_ID">
+        			<![CDATA[ PICK_QUEUE_ID = #PICK_QUEUE_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LOC_ID">
+        			<![CDATA[ LOC_ID = #LOC_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="MU_ID">
+        			<![CDATA[ MU_ID = #MU_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="UID_ID">
+        			<![CDATA[ UID_ID = #UID_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ALLOCATED_QTY">
+        			<![CDATA[ ALLOCATED_QTY = #ALLOCATED_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PICKED_QTY">
+        			<![CDATA[ PICKED_QTY = #PICKED_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="USER_ID">
+        			<![CDATA[ USER_ID = #USER_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PICKED_TIME">
+        			<![CDATA[ PICKED_TIME = #PICKED_TIME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_DISABLED">
+        			<![CDATA[ IS_DISABLED = #IS_DISABLED# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LAST_MODIFIED">
+        			<![CDATA[ LAST_MODIFIED = #LAST_MODIFIED# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_0">
+        			<![CDATA[ EXTEND_COLUMN_0 = #EXTEND_COLUMN_0# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_1">
+        			<![CDATA[ EXTEND_COLUMN_1 = #EXTEND_COLUMN_1# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_2">
+        			<![CDATA[ EXTEND_COLUMN_2 = #EXTEND_COLUMN_2# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_3">
+        			<![CDATA[ EXTEND_COLUMN_3 = #EXTEND_COLUMN_3# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_4">
+        			<![CDATA[ EXTEND_COLUMN_4 = #EXTEND_COLUMN_4# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SHIP_TIME">
+        			<![CDATA[ SHIP_TIME = #SHIP_TIME# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+		<insert id="Insert" parameterClass="VWmsPickQueueAct">
+			<selectKey resultClass="double" type="pre" property="ID" > 
+				<![CDATA[ select V_WMS_PICK_QUEUE_ACT_SEQ.NEXTVAL as value from dual ]]>
+			</selectKey>
+			<![CDATA[
+			insert into V_WMS_PICK_QUEUE_ACT
+			(
+			    ID,
+			    BATCH_ID,
+			    PICK_QUEUE_ID,
+			    LOC_ID,
+			    MU_ID,
+			    UID_ID,
+			    ALLOCATED_QTY,
+			    PICKED_QTY,
+			    USER_ID,
+			    PICKED_TIME,
+			    IS_DISABLED,
+			    LAST_MODIFIED,
+			    EXTEND_COLUMN_0,
+			    EXTEND_COLUMN_1,
+			    EXTEND_COLUMN_2,
+			    EXTEND_COLUMN_3,
+			    EXTEND_COLUMN_4,
+			    SHIP_TIME,INV_DETAIL_ID
+			)
+			values 
+			(
+				#ID#,
+				#BATCH_ID#,
+				#PICK_QUEUE_ID#,
+				#LOC_ID#,
+				#MU_ID#,
+				#UID_ID#,
+				#ALLOCATED_QTY#,
+				#PICKED_QTY#,
+				#USER_ID#,
+				#PICKED_TIME#,
+				#IS_DISABLED#,
+				#LAST_MODIFIED#,
+				#EXTEND_COLUMN_0#,
+				#EXTEND_COLUMN_1#,
+				#EXTEND_COLUMN_2#,
+				#EXTEND_COLUMN_3#,
+				#EXTEND_COLUMN_4#,
+				#SHIP_TIME#,#INV_DETAIL_ID#
+			)
+			]]>
+		</insert>
+
+    <update id="UpdateStatus" parameterClass="VWmsPickQueueAct" >
+      <![CDATA[
+			update V_WMS_PICK_QUEUE_ACT set
+				LAST_MODIFIED = SYSDATE,
+				EXTEND_COLUMN_0 = 'CL'
+			where
+				PICK_QUEUE_ID = #PICK_QUEUE_ID#
+			]]>
+    </update>
+    
+		<update id="Update" parameterClass="VWmsPickQueueAct" >
+			<![CDATA[
+			update V_WMS_PICK_QUEUE_ACT set
+				BATCH_ID = #BATCH_ID#,
+				PICK_QUEUE_ID = #PICK_QUEUE_ID#,
+				LOC_ID = #LOC_ID#,
+				MU_ID = #MU_ID#,
+				UID_ID = #UID_ID#,
+				ALLOCATED_QTY = #ALLOCATED_QTY#,
+				PICKED_QTY = #PICKED_QTY#,
+				USER_ID = #USER_ID#,
+				PICKED_TIME = #PICKED_TIME#,
+				IS_DISABLED = #IS_DISABLED#,
+				LAST_MODIFIED = #LAST_MODIFIED#,
+				EXTEND_COLUMN_0 = #EXTEND_COLUMN_0#,
+				EXTEND_COLUMN_1 = #EXTEND_COLUMN_1#,
+				EXTEND_COLUMN_2 = #EXTEND_COLUMN_2#,
+				EXTEND_COLUMN_3 = #EXTEND_COLUMN_3#,
+				EXTEND_COLUMN_4 = #EXTEND_COLUMN_4#,
+				SHIP_TIME = #SHIP_TIME#
+			where
+				ID = #ID#
+			]]>
+		</update>
+		<delete id="Delete" parameterClass="VWmsPickQueueAct" >
+			<![CDATA[
+			delete from V_WMS_PICK_QUEUE_ACT
+			where 
+				ID = #ID#
+			]]>
+		</delete>
+	</statements>
+	
+</sqlMap>

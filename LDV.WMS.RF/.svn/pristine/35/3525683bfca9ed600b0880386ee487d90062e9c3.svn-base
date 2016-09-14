@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<sqlMap 
+	namespace="LdvPlanCheckDetail" xmlns="http://ibatis.apache.org/mapping" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	
+	<alias>
+		<typeAlias alias="LdvPlanCheckDetail" type="LDV.WMS.RF.DataMapper.LdvPlanCheckDetail, LDV.WMS.RF.DataMapper" />
+	</alias>
+	
+	<resultMaps>
+		<resultMap id="SelectResult" class="LdvPlanCheckDetail">
+			<result property="ID" column="ID" />
+			<result property="PLAN_CHECK_ID" column="PLAN_CHECK_ID" />
+			<result property="LOC_ID" column="LOC_ID" />
+			<result property="ITEM_ID" column="ITEM_ID" />
+			<result property="QTY" column="QTY" />
+			<result property="CHECK_QTY" column="CHECK_QTY" />
+			<result property="CHECK_USER_ID" column="CHECK_USER_ID" />
+			<result property="CHECK_DATE" column="CHECK_DATE" />
+			<result property="STATE" column="STATE" />
+			<result property="CREATE_DATE" column="CREATE_DATE" />
+			<result property="CREATE_USER_ID" column="CREATE_USER_ID" />
+			<result property="LAST_MODIFY_DATE" column="LAST_MODIFY_DATE" />
+			<result property="LAST_MODIFY_USER_ID" column="LAST_MODIFY_USER_ID" />
+		</resultMap>
+	</resultMaps>
+	
+	<statements>
+	
+		<select id="SelectAll" resultMap="SelectResult">
+			<![CDATA[
+			select
+				ID,
+				PLAN_CHECK_ID,
+				LOC_ID,
+				ITEM_ID,
+				QTY,
+				CHECK_QTY,
+				CHECK_USER_ID,
+				CHECK_DATE,
+				STATE,
+				CREATE_DATE,
+				CREATE_USER_ID,
+				LAST_MODIFY_DATE,
+				LAST_MODIFY_USER_ID
+			from LDV_PLAN_CHECK_DETAIL
+			]]>
+		</select>
+		
+		<select id="SelectById" extends="SelectAll" parameterClass="" resultMap="SelectResult">
+			<![CDATA[
+			where
+			1 = 1
+			]]>
+		</select>
+		
+		<select id="SelectByParam" extends="SelectAll" parameterClass="LdvPlanCheckDetail" resultMap="SelectResult">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PLAN_CHECK_ID">
+        			<![CDATA[ PLAN_CHECK_ID = #PLAN_CHECK_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LOC_ID">
+        			<![CDATA[ LOC_ID = #LOC_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ITEM_ID">
+        			<![CDATA[ ITEM_ID = #ITEM_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="QTY">
+        			<![CDATA[ QTY = #QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CHECK_QTY">
+        			<![CDATA[ CHECK_QTY = #CHECK_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CHECK_USER_ID">
+        			<![CDATA[ CHECK_USER_ID = #CHECK_USER_ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="STATE">
+        			<![CDATA[ STATE = #STATE# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="CREATE_USER_ID">
+        			<![CDATA[ CREATE_USER_ID = #CREATE_USER_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LAST_MODIFY_USER_ID">
+        			<![CDATA[ LAST_MODIFY_USER_ID = #LAST_MODIFY_USER_ID# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+		
+		<select id="SelectForPageing" extends="SelectAll" parameterClass="System.Collections.IDictionary">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PLAN_CHECK_ID">
+        			<![CDATA[ PLAN_CHECK_ID = #PLAN_CHECK_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LOC_ID">
+        			<![CDATA[ LOC_ID = #LOC_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ITEM_ID">
+        			<![CDATA[ ITEM_ID = #ITEM_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="QTY">
+        			<![CDATA[ QTY = #QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CHECK_QTY">
+        			<![CDATA[ CHECK_QTY = #CHECK_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CHECK_USER_ID">
+        			<![CDATA[ CHECK_USER_ID = #CHECK_USER_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CHECK_DATE">
+        			<![CDATA[ CHECK_DATE = #CHECK_DATE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="STATE">
+        			<![CDATA[ STATE = #STATE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CREATE_USER_ID">
+        			<![CDATA[ CREATE_USER_ID = #CREATE_USER_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LAST_MODIFY_DATE">
+        			<![CDATA[ LAST_MODIFY_DATE = #LAST_MODIFY_DATE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LAST_MODIFY_USER_ID">
+        			<![CDATA[ LAST_MODIFY_USER_ID = #LAST_MODIFY_USER_ID# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+
+    <select id="SelectForCheck"  parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+            select 
+            LPC.ID AS MAIN_ID,
+            LPCD.ID AS D_ID,
+            LPC.CHECK_CREDENCE as CHECK_CREDENCE,
+            WBL.LOC_CODE,
+            WI.ITEM_CODE,
+            WI.ITEM_NAME,
+            LPCD.CHECK_QTY,
+            LPC.STATE AS MAIN_STATE,
+            LPCD.STATE AS SON_STATE,
+            US.LOGIN_NAME AS LOGINNAME,
+            US.EXTEND_COLUMN_1 AS USER_PICK 
+            from LDV_PLAN_CHECK LPC
+            inner join LDV_PLAN_CHECK_DETAIL LPCD on (LPCD.PLAN_CHECK_ID=LPC.ID)
+            INNER JOIN v_wms_base_location WBL ON (LPCD.LOC_ID=WBL.ID)
+            INNER JOIN v_wms_item WI ON (LPCD.ITEM_ID=WI.ID)
+            INNER JOIN V_WMS_BASE_ZONE zon ON (WBL.ZONE_ID=ZON.ID)
+            LEFT JOIN V_PHR_SEC_USRS US ON (LPC.CHECK_CREDENCE=US.EXTEND_COLUMN_1)
+      ]]>
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="CHECK_CREDENCE">
+          <![CDATA[ UPPER(LPC.CHECK_CREDENCE) = UPPER(#CHECK_CREDENCE#) ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="USER_ID">
+          <![CDATA[ zon.whse_id = (SELECT distinct(BZ.WHSE_ID) FROM V_WMS_BASE_USER_ZONE ZO INNER JOIN V_WMS_BASE_ZONE BZ ON(BZ.ID=ZO.ZONE_ID) WHERE ZO.USER_ID=#USER_ID#) ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LOGINNAME">
+          <![CDATA[ us.extend_column_1 is null or us.login_name=#LOGINNAME# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="ID">
+          <![CDATA[ LPCD.ID = #ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="PLAN_CHECK_ID">
+          <![CDATA[ LPCD.PLAN_CHECK_ID = #PLAN_CHECK_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LOC_ID">
+          <![CDATA[ LPCD.LOC_ID = #LOC_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="ITEM_ID">
+          <![CDATA[ LPCD.ITEM_ID = #ITEM_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="QTY">
+          <![CDATA[ LPCD.QTY = #QTY# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="CHECK_QTY">
+          <![CDATA[ LPCD.CHECK_QTY = #CHECK_QTY# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="CHECK_USER_ID">
+          <![CDATA[ LPCD.CHECK_USER_ID = #CHECK_USER_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="CHECK_DATE">
+          <![CDATA[ LPCD.CHECK_DATE = #CHECK_DATE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="STATE">
+          <![CDATA[ LPCD.STATE = #STATE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="CREATE_USER_ID">
+          <![CDATA[ LPCD.CREATE_USER_ID = #CREATE_USER_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LAST_MODIFY_DATE">
+          <![CDATA[ LPCD.LAST_MODIFY_DATE = #LAST_MODIFY_DATE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LAST_MODIFY_USER_ID">
+          <![CDATA[ LPCD.LAST_MODIFY_USER_ID = #LAST_MODIFY_USER_ID# ]]>
+        </isNotNull>
+      </dynamic>
+      <![CDATA[order by D_ID]]>
+    </select>
+		<insert id="Insert" parameterClass="LdvPlanCheckDetail">
+			<![CDATA[
+			insert into LDV_PLAN_CHECK_DETAIL
+			(
+			    ID,
+			    PLAN_CHECK_ID,
+			    LOC_ID,
+			    ITEM_ID,
+			    QTY,
+			    CHECK_QTY,
+			    CHECK_USER_ID,
+			    CHECK_DATE,
+			    STATE,
+			    CREATE_USER_ID,
+			    LAST_MODIFY_DATE,
+			    LAST_MODIFY_USER_ID
+			)
+			values 
+			(
+				#ID#,
+				#PLAN_CHECK_ID#,
+				#LOC_ID#,
+				#ITEM_ID#,
+				#QTY#,
+				#CHECK_QTY#,
+				#CHECK_USER_ID#,
+				#CHECK_DATE#,
+				#STATE#,
+				#CREATE_USER_ID#,
+				#LAST_MODIFY_DATE#,
+				#LAST_MODIFY_USER_ID#
+			)
+			]]>
+		</insert>
+		<update id="Update" parameterClass="LdvPlanCheckDetail" >
+			<![CDATA[
+			update LDV_PLAN_CHECK_DETAIL set
+				ID = #ID#,
+				PLAN_CHECK_ID = #PLAN_CHECK_ID#,
+				LOC_ID = #LOC_ID#,
+				ITEM_ID = #ITEM_ID#,
+				QTY = #QTY#,
+				CHECK_QTY = #CHECK_QTY#,
+				CHECK_USER_ID = #CHECK_USER_ID#,
+				CHECK_DATE = #CHECK_DATE#,
+				STATE = #STATE#,
+				LAST_MODIFY_DATE = #LAST_MODIFY_DATE#,
+				LAST_MODIFY_USER_ID = #LAST_MODIFY_USER_ID#
+			where
+				1=1
+			]]>
+		</update>
+		
+		<update id="UpdateSection" parameterClass="LdvPlanCheckDetail" >
+			<![CDATA[
+			update LDV_PLAN_CHECK_DETAIL set 
+			]]>
+			<dynamic prepend=" ">
+				<isNotNull prepend="," property="PLAN_CHECK_ID">
+					<![CDATA[ PLAN_CHECK_ID=#PLAN_CHECK_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="LOC_ID">
+					<![CDATA[ LOC_ID=#LOC_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="ITEM_ID">
+					<![CDATA[ ITEM_ID=#ITEM_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="QTY">
+					<![CDATA[ QTY=#QTY#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="CHECK_QTY">
+					<![CDATA[ CHECK_QTY=#CHECK_QTY#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="CHECK_USER_ID">
+					<![CDATA[ CHECK_USER_ID=#CHECK_USER_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="CHECK_DATE">
+					<![CDATA[ CHECK_DATE=#CHECK_DATE#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="STATE">
+					<![CDATA[ STATE=#STATE#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="LAST_MODIFY_DATE">
+					<![CDATA[ LAST_MODIFY_DATE=#LAST_MODIFY_DATE#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="LAST_MODIFY_USER_ID">
+					<![CDATA[ LAST_MODIFY_USER_ID=#LAST_MODIFY_USER_ID#]]>
+				</isNotNull>
+			</dynamic>
+			<![CDATA[
+			where ID=#ID#
+			]]>
+		</update>
+		<delete id="Delete" parameterClass="LdvPlanCheckDetail" >
+			<![CDATA[
+			delete from LDV_PLAN_CHECK_DETAIL
+			where 
+				1=1
+			]]>
+		</delete>
+	</statements>
+	
+</sqlMap>

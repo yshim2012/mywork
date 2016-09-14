@@ -1,0 +1,231 @@
+﻿namespace LDV.WMS.RF.ClientForm
+{
+    partial class ShipmentsOrderDetail
+    {
+        /// <summary>
+        /// 必需的设计器变量。
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// 清理所有正在使用的资源。
+        /// </summary>
+        /// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows 窗体设计器生成的代码
+
+        /// <summary>
+        /// 设计器支持所需的方法 - 不要
+        /// 使用代码编辑器修改此方法的内容。
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.txtCustomerName = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtOrderNumber = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtPackgeNumber = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btnNextPart = new System.Windows.Forms.Button();
+            this.dataGrid1 = new System.Windows.Forms.DataGrid();
+            this.dataGridTableStyle1 = new System.Windows.Forms.DataGridTableStyle();
+            this.dataGridTextBoxColumn1 = new System.Windows.Forms.DataGridTextBoxColumn();
+            this.dataGridTextBoxColumn2 = new System.Windows.Forms.DataGridTextBoxColumn();
+            this.dataGridTextBoxColumn3 = new System.Windows.Forms.DataGridTextBoxColumn();
+            this.dataGridTextBoxColumn4 = new System.Windows.Forms.DataGridTextBoxColumn();
+            this.lblMessage = new System.Windows.Forms.Label();
+            this.btnReturn = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // txtCustomerName
+            // 
+            this.txtCustomerName.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.txtCustomerName.Location = new System.Drawing.Point(93, 6);
+            this.txtCustomerName.Name = "txtCustomerName";
+            this.txtCustomerName.ReadOnly = true;
+            this.txtCustomerName.Size = new System.Drawing.Size(209, 26);
+            this.txtCustomerName.TabIndex = 5;
+            // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.label2.Location = new System.Drawing.Point(19, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(90, 20);
+            this.label2.Text = "客户名称：";
+            // 
+            // txtOrderNumber
+            // 
+            this.txtOrderNumber.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.txtOrderNumber.Location = new System.Drawing.Point(93, 37);
+            this.txtOrderNumber.Name = "txtOrderNumber";
+            this.txtOrderNumber.ReadOnly = true;
+            this.txtOrderNumber.Size = new System.Drawing.Size(209, 26);
+            this.txtOrderNumber.TabIndex = 11;
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.label1.Location = new System.Drawing.Point(31, 40);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(68, 20);
+            this.label1.Text = "订单号：";
+            // 
+            // txtPackgeNumber
+            // 
+            this.txtPackgeNumber.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.txtPackgeNumber.Location = new System.Drawing.Point(93, 69);
+            this.txtPackgeNumber.MaxLength = 18;
+            this.txtPackgeNumber.Name = "txtPackgeNumber";
+            this.txtPackgeNumber.Size = new System.Drawing.Size(131, 26);
+            this.txtPackgeNumber.TabIndex = 14;
+            this.txtPackgeNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPackgeNumber_KeyPress);
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.label3.Location = new System.Drawing.Point(16, 72);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(88, 20);
+            this.label3.Text = "包装箱号：";
+            // 
+            // btnNextPart
+            // 
+            this.btnNextPart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.btnNextPart.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.btnNextPart.ForeColor = System.Drawing.Color.White;
+            this.btnNextPart.Location = new System.Drawing.Point(230, 65);
+            this.btnNextPart.Name = "btnNextPart";
+            this.btnNextPart.Size = new System.Drawing.Size(79, 32);
+            this.btnNextPart.TabIndex = 20;
+            this.btnNextPart.Text = "开始核料";
+            this.btnNextPart.Click += new System.EventHandler(this.btnNextPart_Click);
+            // 
+            // dataGrid1
+            // 
+            this.dataGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGrid1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.dataGrid1.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.dataGrid1.Location = new System.Drawing.Point(-3, 126);
+            this.dataGrid1.Name = "dataGrid1";
+            this.dataGrid1.RowHeadersVisible = false;
+            this.dataGrid1.Size = new System.Drawing.Size(318, 128);
+            this.dataGrid1.TabIndex = 21;
+            this.dataGrid1.TableStyles.Add(this.dataGridTableStyle1);
+            this.dataGrid1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dataGrid1_MouseUp);
+            // 
+            // dataGridTableStyle1
+            // 
+            this.dataGridTableStyle1.GridColumnStyles.Add(this.dataGridTextBoxColumn1);
+            this.dataGridTableStyle1.GridColumnStyles.Add(this.dataGridTextBoxColumn2);
+            this.dataGridTableStyle1.GridColumnStyles.Add(this.dataGridTextBoxColumn3);
+            this.dataGridTableStyle1.GridColumnStyles.Add(this.dataGridTextBoxColumn4);
+            this.dataGridTableStyle1.MappingName = "OrderList";
+            // 
+            // dataGridTextBoxColumn1
+            // 
+            this.dataGridTextBoxColumn1.Format = "";
+            this.dataGridTextBoxColumn1.FormatInfo = null;
+            this.dataGridTextBoxColumn1.HeaderText = "零件代码";
+            this.dataGridTextBoxColumn1.MappingName = "ITEM_CODE";
+            this.dataGridTextBoxColumn1.NullText = "";
+            this.dataGridTextBoxColumn1.Width = 90;
+            // 
+            // dataGridTextBoxColumn2
+            // 
+            this.dataGridTextBoxColumn2.Format = "";
+            this.dataGridTextBoxColumn2.FormatInfo = null;
+            this.dataGridTextBoxColumn2.HeaderText = "零件名称";
+            this.dataGridTextBoxColumn2.MappingName = "ITEM_NAME";
+            this.dataGridTextBoxColumn2.NullText = "";
+            this.dataGridTextBoxColumn2.Width = 125;
+            // 
+            // dataGridTextBoxColumn3
+            // 
+            this.dataGridTextBoxColumn3.Format = "";
+            this.dataGridTextBoxColumn3.FormatInfo = null;
+            this.dataGridTextBoxColumn3.HeaderText = "出库数量";
+            this.dataGridTextBoxColumn3.MappingName = "ORDER_QTY";
+            this.dataGridTextBoxColumn3.NullText = "";
+            // 
+            // dataGridTextBoxColumn4
+            // 
+            this.dataGridTextBoxColumn4.Format = "";
+            this.dataGridTextBoxColumn4.FormatInfo = null;
+            this.dataGridTextBoxColumn4.HeaderText = "核料数量";
+            this.dataGridTextBoxColumn4.MappingName = "SHIP_QTY";
+            this.dataGridTextBoxColumn4.NullText = "";
+            // 
+            // lblMessage
+            // 
+            this.lblMessage.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.lblMessage.ForeColor = System.Drawing.Color.Red;
+            this.lblMessage.Location = new System.Drawing.Point(13, 98);
+            this.lblMessage.Name = "lblMessage";
+            this.lblMessage.Size = new System.Drawing.Size(296, 26);
+            // 
+            // btnReturn
+            // 
+            this.btnReturn.BackColor = System.Drawing.Color.Green;
+            this.btnReturn.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.btnReturn.ForeColor = System.Drawing.Color.White;
+            this.btnReturn.Location = new System.Drawing.Point(26, 258);
+            this.btnReturn.Name = "btnReturn";
+            this.btnReturn.Size = new System.Drawing.Size(72, 32);
+            this.btnReturn.TabIndex = 25;
+            this.btnReturn.Text = "返回";
+            this.btnReturn.Click += new System.EventHandler(this.btnReturn_Click_1);
+            // 
+            // ShipmentsOrderDetail
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoScroll = true;
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(318, 295);
+            this.ControlBox = false;
+            this.Controls.Add(this.btnReturn);
+            this.Controls.Add(this.txtPackgeNumber);
+            this.Controls.Add(this.txtOrderNumber);
+            this.Controls.Add(this.txtCustomerName);
+            this.Controls.Add(this.lblMessage);
+            this.Controls.Add(this.dataGrid1);
+            this.Controls.Add(this.btnNextPart);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.label2);
+            this.Name = "ShipmentsOrderDetail";
+            this.Text = "核料订单明细";
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.TextBox txtCustomerName;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtOrderNumber;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtPackgeNumber;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnNextPart;
+        private System.Windows.Forms.DataGrid dataGrid1;
+        private System.Windows.Forms.Label lblMessage;
+        private System.Windows.Forms.DataGridTableStyle dataGridTableStyle1;
+        private System.Windows.Forms.DataGridTextBoxColumn dataGridTextBoxColumn1;
+        private System.Windows.Forms.DataGridTextBoxColumn dataGridTextBoxColumn2;
+        private System.Windows.Forms.DataGridTextBoxColumn dataGridTextBoxColumn3;
+        private System.Windows.Forms.DataGridTextBoxColumn dataGridTextBoxColumn4;
+        private System.Windows.Forms.Button btnReturn;
+    }
+}

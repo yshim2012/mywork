@@ -1,0 +1,8 @@
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.Utility\bin\Debug\LDV.WMS.RF.Utility.dll
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.Utility\bin\Debug\LDV.WMS.RF.Utility.pdb
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.Utility\bin\Debug\ICSharpCode.SharpZipLib.dll
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.Utility\bin\Debug\log4net.dll
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.Utility\bin\Debug\Newtonsoft.Json.dll
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.Utility\obj\Debug\ResolveAssemblyReference.cache
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.Utility\obj\Debug\LDV.WMS.RF.Utility.dll
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.Utility\obj\Debug\LDV.WMS.RF.Utility.pdb

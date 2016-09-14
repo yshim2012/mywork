@@ -1,0 +1,228 @@
+﻿namespace LDV.WMS.RF.ClientForm
+{
+    partial class ShipmentsScan
+    {
+        /// <summary>
+        /// 必需的设计器变量。
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// 清理所有正在使用的资源。
+        /// </summary>
+        /// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows 窗体设计器生成的代码
+
+        /// <summary>
+        /// 设计器支持所需的方法 - 不要
+        /// 使用代码编辑器修改此方法的内容。
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.txtOrderNumber = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtCustomerName = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtPackgeNumber = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtPartNumber = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtShipmentsCount = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.btnReturn = new System.Windows.Forms.Button();
+            this.btnOut = new System.Windows.Forms.Button();
+            this.lblMessage = new System.Windows.Forms.Label();
+            this.lblCount = new System.Windows.Forms.Label();
+            this.SuspendLayout();
+            // 
+            // txtOrderNumber
+            // 
+            this.txtOrderNumber.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.txtOrderNumber.Location = new System.Drawing.Point(76, 18);
+            this.txtOrderNumber.Name = "txtOrderNumber";
+            this.txtOrderNumber.ReadOnly = true;
+            this.txtOrderNumber.Size = new System.Drawing.Size(156, 26);
+            this.txtOrderNumber.TabIndex = 13;
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.label1.Location = new System.Drawing.Point(14, 19);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(100, 20);
+            this.label1.Text = "订单号：";
+            // 
+            // txtCustomerName
+            // 
+            this.txtCustomerName.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.txtCustomerName.Location = new System.Drawing.Point(76, 49);
+            this.txtCustomerName.Name = "txtCustomerName";
+            this.txtCustomerName.ReadOnly = true;
+            this.txtCustomerName.Size = new System.Drawing.Size(156, 26);
+            this.txtCustomerName.TabIndex = 16;
+            // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.label2.Location = new System.Drawing.Point(0, 50);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(100, 20);
+            this.label2.Text = "客户名称：";
+            // 
+            // txtPackgeNumber
+            // 
+            this.txtPackgeNumber.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.txtPackgeNumber.Location = new System.Drawing.Point(76, 80);
+            this.txtPackgeNumber.Name = "txtPackgeNumber";
+            this.txtPackgeNumber.ReadOnly = true;
+            this.txtPackgeNumber.Size = new System.Drawing.Size(156, 26);
+            this.txtPackgeNumber.TabIndex = 19;
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.label3.Location = new System.Drawing.Point(1, 81);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(100, 20);
+            this.label3.Text = "包装箱号：";
+            // 
+            // label4
+            // 
+            this.label4.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.label4.Location = new System.Drawing.Point(56, 133);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(100, 20);
+            this.label4.Text = "品种数：";
+            // 
+            // txtPartNumber
+            // 
+            this.txtPartNumber.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.txtPartNumber.Location = new System.Drawing.Point(77, 156);
+            this.txtPartNumber.Name = "txtPartNumber";
+            this.txtPartNumber.Size = new System.Drawing.Size(155, 26);
+            this.txtPartNumber.TabIndex = 26;
+            this.txtPartNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPartNumber_KeyPress);
+            this.txtPartNumber.LostFocus += new System.EventHandler(this.txtPartNumber_LostFocus);
+            // 
+            // label7
+            // 
+            this.label7.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.label7.Location = new System.Drawing.Point(17, 157);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(100, 20);
+            this.label7.Text = "物料号：";
+            // 
+            // txtShipmentsCount
+            // 
+            this.txtShipmentsCount.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.txtShipmentsCount.Location = new System.Drawing.Point(77, 186);
+            this.txtShipmentsCount.Name = "txtShipmentsCount";
+            this.txtShipmentsCount.Size = new System.Drawing.Size(155, 26);
+            this.txtShipmentsCount.TabIndex = 29;
+            this.txtShipmentsCount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtShipmentsCount_KeyPress);
+            // 
+            // label8
+            // 
+            this.label8.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.label8.Location = new System.Drawing.Point(2, 186);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(100, 20);
+            this.label8.Text = "核料数量：";
+            // 
+            // btnReturn
+            // 
+            this.btnReturn.BackColor = System.Drawing.Color.Green;
+            this.btnReturn.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.btnReturn.ForeColor = System.Drawing.Color.White;
+            this.btnReturn.Location = new System.Drawing.Point(26, 272);
+            this.btnReturn.Name = "btnReturn";
+            this.btnReturn.Size = new System.Drawing.Size(72, 32);
+            this.btnReturn.TabIndex = 32;
+            this.btnReturn.Text = "返回";
+            this.btnReturn.Click += new System.EventHandler(this.btnReturn_Click);
+            // 
+            // btnOut
+            // 
+            this.btnOut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.btnOut.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.btnOut.ForeColor = System.Drawing.Color.White;
+            this.btnOut.Location = new System.Drawing.Point(146, 272);
+            this.btnOut.Name = "btnOut";
+            this.btnOut.Size = new System.Drawing.Size(72, 32);
+            this.btnOut.TabIndex = 31;
+            this.btnOut.Text = "出库";
+            this.btnOut.Click += new System.EventHandler(this.btnOut_Click);
+            // 
+            // lblMessage
+            // 
+            this.lblMessage.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.lblMessage.ForeColor = System.Drawing.Color.Red;
+            this.lblMessage.Location = new System.Drawing.Point(6, 226);
+            this.lblMessage.Name = "lblMessage";
+            this.lblMessage.Size = new System.Drawing.Size(227, 34);
+            // 
+            // lblCount
+            // 
+            this.lblCount.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.lblCount.Location = new System.Drawing.Point(122, 133);
+            this.lblCount.Name = "lblCount";
+            this.lblCount.Size = new System.Drawing.Size(67, 20);
+            // 
+            // ShipmentsScan
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoScroll = true;
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(243, 352);
+            this.ControlBox = false;
+            this.Controls.Add(this.lblCount);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.txtPackgeNumber);
+            this.Controls.Add(this.txtShipmentsCount);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.lblMessage);
+            this.Controls.Add(this.btnReturn);
+            this.Controls.Add(this.btnOut);
+            this.Controls.Add(this.txtPartNumber);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.txtCustomerName);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.txtOrderNumber);
+            this.Controls.Add(this.label1);
+            this.Name = "ShipmentsScan";
+            this.Text = "核料扫描";
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.TextBox txtOrderNumber;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtCustomerName;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtPackgeNumber;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtPartNumber;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txtShipmentsCount;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button btnReturn;
+        private System.Windows.Forms.Button btnOut;
+        private System.Windows.Forms.Label lblMessage;
+        private System.Windows.Forms.Label lblCount;
+    }
+}

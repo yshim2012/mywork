@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.l-and-t.com/messageConfig" elementFormDefault="qualified" xmlns:mstns="http://tempuri.org/XMLSchema.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.l-and-t.com/messageConfig" xmlns:vs="http://schemas.microsoft.com/Visual-Studio-Intellisense" xmlns:NS="http://www.l-and-t.com/messageConfig" vs:friendlyname="Message Configuration Schema" vs:ishtmlschema="false" vs:iscasesensitive="true" vs:requireattributequotes="true" vs:defaultnamespacequalifier="" vs:defaultnsprefix="">
+  <xs:element name="message">
+    <xs:complexType mixed="true">
+      <xs:attribute name="id" use="required" type="xs:string" />
+      <xs:attribute name="value" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="region">
+    <xs:complexType mixed="true">
+      <xs:sequence>
+        <xs:element ref="message" maxOccurs="unbounded" />
+      </xs:sequence>
+      <xs:attribute name="name" use="required" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="messages">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="region" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+    <xs:unique name="uniqueregionname">
+      <xs:selector xpath=".//NS:region"/>
+      <xs:field xpath="@name"/>
+    </xs:unique>
+    <xs:unique name="uniquemessageid">
+      <xs:selector xpath=".//NS:message"/>
+      <xs:field xpath="@id"/>
+    </xs:unique>
+    <xs:unique name="uniquemessagevalue">
+      <xs:selector xpath=".//NS:message"/>
+      <xs:field xpath="@value"/>
+    </xs:unique>
+  </xs:element>
+</xs:schema>

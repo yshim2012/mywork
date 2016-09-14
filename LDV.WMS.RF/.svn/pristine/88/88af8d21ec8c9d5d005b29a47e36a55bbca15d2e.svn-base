@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="LdvPlanMoveLocDetail" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="LdvPlanMoveLocDetail" type="LDV.WMS.RF.DataMapper.LdvPlanMoveLocDetail, LDV.WMS.RF.DataMapper" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="LdvPlanMoveLocDetail">
+      <result property="ID" column="ID" />
+      <result property="PLAN_MOVE_LOC_ID" column="PLAN_MOVE_LOC_ID" />
+      <result property="INV_DETAIL_ID" column="INV_DETAIL_ID" />
+      <result property="LOC_ID" column="LOC_ID" />
+      <result property="MOVE_LOC_ID" column="MOVE_LOC_ID" />
+      <result property="ITEM_ID" column="ITEM_ID" />
+      <result property="QTY" column="QTY" />
+      <result property="MOVE_QTY" column="MOVE_QTY" />
+      <result property="MOVE_USER_ID" column="MOVE_USER_ID" />
+      <result property="MOVE_DATE" column="MOVE_DATE" />
+      <result property="STATE" column="STATE" />
+      <result property="CREATE_DATE" column="CREATE_DATE" />
+      <result property="CREATE_USER_ID" column="CREATE_USER_ID" />
+      <result property="LAST_MODIFY_DATE" column="LAST_MODIFY_DATE" />
+      <result property="LAST_MODIFY_USER_ID" column="LAST_MODIFY_USER_ID" />
+    </resultMap>
+  </resultMaps>
+
+  <statements>
+
+    <select id="SelectAll" resultMap="SelectResult">
+      <![CDATA[
+		      SELECT ID,
+                 PLAN_MOVE_LOC_ID,
+                 INV_DETAIL_ID,
+                 LOC_ID,
+                 MOVE_LOC_ID,
+                 ITEM_ID,
+                 QTY,
+                 MOVE_QTY,
+                 MOVE_USER_ID,
+                 MOVE_DATE,
+                 STATE,
+                 CREATE_DATE,
+                 CREATE_USER_ID,
+                 LAST_MODIFY_DATE,
+                 LAST_MODIFY_USER_ID
+            FROM LDV_PLAN_MOVE_LOC_DETAIL
+			]]>
+    </select>
+
+    <select id="SelectByParam" extends="SelectAll" parameterClass="LdvPlanMoveLocDetail" resultMap="SelectResult">
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ID">
+          <![CDATA[ ID = #ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="PLAN_MOVE_LOC_ID">
+          <![CDATA[ PLAN_MOVE_LOC_ID = #PLAN_MOVE_LOC_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LOC_ID">
+          <![CDATA[ LOC_ID = #LOC_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="MOVE_LOC_ID">
+          <![CDATA[ MOVE_LOC_ID = #MOVE_LOC_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="MOVE_USER_ID">
+          <![CDATA[ MOVE_USER_ID = #MOVE_USER_ID# ]]>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="STATE">
+          <![CDATA[ STATE = #STATE# ]]>
+        </isNotEmpty>
+        <isNotNull prepend="AND" property="CREATE_USER_ID">
+          <![CDATA[ CREATE_USER_ID = #CREATE_USER_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LAST_MODIFY_USER_ID">
+          <![CDATA[ LAST_MODIFY_USER_ID = #LAST_MODIFY_USER_ID# ]]>
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectMoveDetail" parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+        SELECT DETAIL.ID,
+                       L.LOC_CODE,
+                       L.ID           LOC_ID,
+                       TL.ID          TARGET_ID,
+                       TL.LOC_CODE    TARGET_CODE,
+                       ITEM.ID        PART_ID,
+                       DETAIL.QTY,
+                       ITEM.ITEM_CODE,
+                       ITEM.ITEM_NAME,
+                       BACH.LOT
+                  FROM LDV_PLAN_MOVE_LOC_DETAIL DETAIL
+                 INNER JOIN V_WMS_BASE_LOCATION L    ON (DETAIL.LOC_ID = L.ID)
+                 INNER JOIN V_WMS_BASE_LOCATION TL    ON (DETAIL.MOVE_LOC_ID = TL.ID)
+                 INNER JOIN V_WMS_ITEM ITEM    ON (ITEM.ID = DETAIL.ITEM_ID)
+                 INNER JOIN V_WMS_INV_DETAIL INV    ON (INV.ID = DETAIL.INV_DETAIL_ID)
+                 INNER JOIN V_WMS_INV_UID BACH    ON (BACH.ID = INV.UID_ID)
+      ]]>
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ID">
+          <![CDATA[ DETAIL.ID = #ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="PLAN_MOVE_LOC_ID">
+          <![CDATA[ DETAIL.PLAN_MOVE_LOC_ID = #PLAN_MOVE_LOC_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LOC_ID">
+          <![CDATA[ DETAIL.LOC_ID = #LOC_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="MOVE_LOC_ID">
+          <![CDATA[ DETAIL.MOVE_LOC_ID = #MOVE_LOC_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="MOVE_USER_ID">
+          <![CDATA[ DETAIL.MOVE_USER_ID = #MOVE_USER_ID# ]]>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="STATE">
+          <![CDATA[ DETAIL.STATE = #STATE# ]]>
+        </isNotEmpty>
+        <isNotNull prepend="AND" property="CREATE_USER_ID">
+          <![CDATA[ DETAIL.CREATE_USER_ID = #CREATE_USER_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LAST_MODIFY_USER_ID">
+          <![CDATA[ DETAIL.LAST_MODIFY_USER_ID = #LAST_MODIFY_USER_ID# ]]>
+        </isNotNull>
+      </dynamic>
+		
+    </select>
+
+    <!--根据计划单查询移库计划明细-->
+    <select id="SelectMoveDetailByPlanNo" parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+              select M.ID,
+                     MD.ID          DETAIL_ID,
+                     I.ITEM_CODE,
+                     I.ITEM_NAME,
+                     md.QTY,
+                     L.LOC_CODE,
+                     L.ID           LOC_ID,
+                     U.LOT,
+                     MD.MOVE_LOC_ID,
+                     ML.LOC_CODE TARGET_LOC_CODE,
+                     MD.inv_detail_id
+                from LDV_PLAN_MOVE_LOC m 
+               INNER join ldv_plan_move_loc_detail md    on (m.id = md.plan_move_loc_id)
+               INNER join v_wms_item i    on (md.item_id = i.id)
+               INNER join v_wms_base_location l    on (md.loc_id = l.id)
+               INNER join v_wms_base_location ml    on (md.move_loc_id = ml.id)
+               INNER join v_wms_inv_detail d    on (md.inv_detail_id = d.id)
+               INNER join v_wms_inv_uid u    on (d.uid_id = u.id)
+               WHERE M.STATE IN ('OP')
+                 AND MD.STATE = 'OP'
+      ]]>
+      <dynamic>
+        <isNotNull prepend="AND" property="MOVE_LOC_NUM">
+          <![CDATA[ M.MOVE_LOC_NUM = #MOVE_LOC_NUM# ]]>
+        </isNotNull>
+      </dynamic>
+		<![CDATA[           
+                order by l.loc_code
+      ]]>
+    </select>
+
+    <!--移库确认-->
+    <update id="UpdateState" parameterClass="LdvPlanMoveLocDetail" >
+      <![CDATA[
+			UPDATE LDV_PLAN_MOVE_LOC_DETAIL SET
+             MOVE_QTY =  #MOVE_QTY#,
+             MOVE_USER_ID = #MOVE_USER_ID#,
+             MOVE_DATE = SYSDATE,
+             STATE = #STATE#,
+             LAST_MODIFY_DATE = SYSDATE,
+				     LAST_MODIFY_USER_ID = #LAST_MODIFY_USER_ID#
+			WHERE
+        ID=#ID#
+			]]>
+    </update>
+  </statements>
+
+</sqlMap>

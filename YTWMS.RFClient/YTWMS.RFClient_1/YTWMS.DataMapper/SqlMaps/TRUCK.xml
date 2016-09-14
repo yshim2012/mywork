@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<sqlMap
+	namespace="Truck" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="Truck" type="DataMapper.Truck, DataMapper" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="Truck">
+      <result property="ID" column="ID" />
+      <result property="TRUCK_CODE" column="TRUCK_CODE" />
+      <result property="TRUCK_NAME" column="TRUCK_NAME" />
+      <result property="LICENCEPLATE" column="LICENCEPLATE" />
+      <result property="LENGTH" column="LENGTH" />
+      <result property="WIDTH" column="WIDTH" />
+      <result property="HEIGHT" column="HEIGHT" />
+      <result property="WEIGHT" column="WEIGHT" />
+      <result property="IS_DISABLE" column="IS_DISABLE" />
+      <result property="CREATE_TIME" column="CREATE_TIME" />
+      <result property="CREATE_USER_ID" column="CREATE_USER_ID" />
+      <result property="LAST_UPDATE" column="LAST_UPDATE" />
+      <result property="UPDATE_USER_ID" column="UPDATE_USER_ID" />
+      <result property="WAREHOUSE_ID" column="WAREHOUSE_ID" />
+    </resultMap>
+  </resultMaps>
+
+  <statements>
+
+    <select id="SelectAll" resultMap="SelectResult" >
+      <![CDATA[
+			SELECT ID
+            ,TRUCK_CODE
+            ,TRUCK_NAME
+            ,LICENCEPLATE
+            ,LENGTH
+            ,WIDTH
+            ,HEIGHT      
+            ,WEIGHT
+            ,IS_DISABLE
+            ,CREATE_TIME
+            ,CREATE_USER_ID
+            ,LAST_UPDATE
+            ,UPDATE_USER_ID
+            ,WAREHOUSE_ID
+        FROM TRUCK
+			]]>
+    </select>
+    
+    <select id="SelectByParam" extends="SelectAll" resultMap="SelectResult"  parameterClass="System.Collections.IDictionary">
+      <dynamic prepend="WHERE">
+        <isNotNull property="ID">
+          <isNotEqual prepend="AND" property="ID" compareValue="0">
+            <![CDATA[ ID = #ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull prepend="AND" property="TRUCK_NAME">
+          <![CDATA[ TRUCK_NAME LIKE '%'+ #TRUCK_NAME# +'%' ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="TRUCK_CODE">
+          <![CDATA[ TRUCK_CODE LIKE '%'+ #TRUCK_CODE# +'%' ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LICENCEPLATE">
+          <![CDATA[ LICENCEPLATE LIKE '%'+ #LICENCEPLATE# +'%' ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_DISABLE">
+          <![CDATA[ IS_DISABLE = #IS_DISABLE# ]]>
+        </isNotNull>
+        <isNotNull property="WAREHOUSE_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+            <![CDATA[ WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+      
+    </dynamic>
+    </select>
+
+  </statements>
+</sqlMap>

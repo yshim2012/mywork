@@ -1,0 +1,5 @@
+D:\mywork\LDV.WMS.RF\ClientForward\bin\Debug\ClientForward.dll
+D:\mywork\LDV.WMS.RF\ClientForward\bin\Debug\ClientForward.pdb
+D:\mywork\LDV.WMS.RF\ClientForward\obj\Debug\ResolveAssemblyReference.cache
+D:\mywork\LDV.WMS.RF\ClientForward\obj\Debug\ClientForward.dll
+D:\mywork\LDV.WMS.RF\ClientForward\obj\Debug\ClientForward.pdb

@@ -1,0 +1,615 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<sqlMap 
+	namespace="VWmsRcvDocDetail" xmlns="http://ibatis.apache.org/mapping" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	
+	<alias>
+		<typeAlias alias="VWmsRcvDocDetail" type="LDV.WMS.RF.DataMapper.VWmsRcvDocDetail, LDV.WMS.RF.DataMapper" />
+	</alias>
+	
+	<resultMaps>
+		<resultMap id="SelectResult" class="VWmsRcvDocDetail">
+			<result property="ID" column="ID" />
+			<result property="RCV_DOC_ID" column="RCV_DOC_ID" />
+			<result property="LINE_NO" column="LINE_NO" />
+			<result property="ITEM_ID" column="ITEM_ID" />
+			<result property="LOT" column="LOT" />
+			<result property="SERIAL" column="SERIAL" />
+			<result property="XDATE" column="XDATE" />
+			<result property="EXPECTED_QTY" column="EXPECTED_QTY" />
+			<result property="ACTUAL_QTY" column="ACTUAL_QTY" />
+			<result property="DMG_QTY" column="DMG_QTY" />
+			<result property="CREATED_TIME" column="CREATED_TIME" />
+			<result property="CAUSE" column="CAUSE" />
+			<result property="IS_DAMAGE" column="IS_DAMAGE" />
+			<result property="EXTEND_COLUMN_0" column="EXTEND_COLUMN_0" />
+			<result property="EXTEND_COLUMN_1" column="EXTEND_COLUMN_1" />
+			<result property="EXTEND_COLUMN_2" column="EXTEND_COLUMN_2" />
+			<result property="EXTEND_COLUMN_3" column="EXTEND_COLUMN_3" />
+			<result property="EXTEND_COLUMN_4" column="EXTEND_COLUMN_4" />
+			<result property="RECEIVEDATE" column="RECEIVEDATE" />
+			<result property="GOODSTYPE" column="GOODSTYPE" />
+			<result property="INBOUND_STD_QTY" column="INBOUND_STD_QTY" />
+			<result property="SUPPLIER_ID" column="SUPPLIER_ID" />
+			<result property="VERSION" column="VERSION" />
+			<result property="PICK_DETAIL_ID" column="PICK_DETAIL_ID" />
+			<result property="LAST_MODIFIED" column="LAST_MODIFIED" />
+			<result property="VERSION_TRANSACTION" column="VERSION_TRANSACTION" />
+			<result property="IS_VMI" column="IS_VMI" />
+			<result property="LIFERSHEIN" column="LIFERSHEIN" />
+			<result property="VTRNR" column="VTRNR" />
+			<result property="CROSSING" column="CROSSING" />
+			<result property="QC_FLAG" column="QC_FLAG" />
+			<result property="CONSIGNMENT" column="CONSIGNMENT" />
+			<result property="ASSEMPLY_FLAG" column="ASSEMPLY_FLAG" />
+			<result property="FINANCE_FLAG" column="FINANCE_FLAG" />
+			<result property="QTY" column="QTY" />
+			<result property="UOM_NAME" column="UOM_NAME" />
+      <result property="RV_QTY" column="RV_QTY" />
+      <result property="PQ_QTY" column="PQ_QTY" />
+		</resultMap>
+	</resultMaps>
+	
+	<statements>
+	
+		<select id="SelectAll" resultMap="SelectResult">
+			<![CDATA[
+			select
+				ID,
+				RCV_DOC_ID,
+				LINE_NO,
+				ITEM_ID,
+				LOT,
+				SERIAL,
+				XDATE,
+				EXPECTED_QTY,
+        PQ_QTY,
+				ACTUAL_QTY,
+				DMG_QTY,
+				CREATED_TIME,
+				CAUSE,
+				IS_DAMAGE,
+				EXTEND_COLUMN_0,
+				EXTEND_COLUMN_1,
+				EXTEND_COLUMN_2,
+				EXTEND_COLUMN_3,
+				EXTEND_COLUMN_4,
+				RECEIVEDATE,
+				GOODSTYPE,
+				INBOUND_STD_QTY,
+				SUPPLIER_ID,
+				VERSION,
+				PICK_DETAIL_ID,
+				LAST_MODIFIED,
+				VERSION_TRANSACTION,
+				IS_VMI,
+				LIFERSHEIN,
+				VTRNR,
+				CROSSING,
+				QC_FLAG,
+				CONSIGNMENT,
+				ASSEMPLY_FLAG,
+				FINANCE_FLAG,
+				QTY,
+				UOM_NAME
+			from V_WMS_RCV_DOC_DETAIL
+			]]>
+		</select>
+		
+		<select id="SelectById" extends="SelectAll" parameterClass="double" resultMap="SelectResult">
+			<![CDATA[
+			where
+				ID = #value#
+			]]>
+		</select>
+
+    <select id="SelectStatusById"  parameterClass="double" resultMap="SelectResult">
+      <![CDATA[
+			select 	EXTEND_COLUMN_2,EXPECTED_QTY,PQ_QTY from V_WMS_RCV_DOC_DETAIL where ID=#ID#
+			]]>
+    </select>
+
+    <select id="SelectAPSumById"  parameterClass="double" resultMap="SelectResult">
+      <![CDATA[
+		select sum(actual_qty) APSum,nvl(sum(pq_qty),0) PQSum  from v_wms_rcv_doc_detail
+    where
+    rcv_doc_id in ( select rcv_doc_id from v_wms_rcv_doc_detail where  id in (#ID#))
+    and item_id in ( select item_id from v_wms_rcv_doc_detail where  id in (#ID#))
+
+			]]>
+    </select>
+    
+    <select id="SelectByParam" extends="SelectAll" parameterClass="VWmsRcvDocDetail" resultMap="SelectResult">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="RCV_DOC_ID">
+        			<![CDATA[ RCV_DOC_ID = #RCV_DOC_ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="LINE_NO">
+        			<![CDATA[ LINE_NO = #LINE_NO# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="ITEM_ID">
+        			<![CDATA[ ITEM_ID = #ITEM_ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="LOT">
+        			<![CDATA[ LOT = #LOT# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="SERIAL">
+        			<![CDATA[ SERIAL = #SERIAL# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="EXPECTED_QTY">
+        			<![CDATA[ EXPECTED_QTY = #EXPECTED_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ACTUAL_QTY">
+        			<![CDATA[ ACTUAL_QTY = #ACTUAL_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="DMG_QTY">
+        			<![CDATA[ DMG_QTY = #DMG_QTY# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="CAUSE">
+        			<![CDATA[ CAUSE = #CAUSE# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="IS_DAMAGE">
+        			<![CDATA[ IS_DAMAGE = #IS_DAMAGE# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_0">
+        			<![CDATA[ EXTEND_COLUMN_0 = #EXTEND_COLUMN_0# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_1">
+        			<![CDATA[ EXTEND_COLUMN_1 = #EXTEND_COLUMN_1# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_2">
+        			<![CDATA[ EXTEND_COLUMN_2 = #EXTEND_COLUMN_2# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_3">
+        			<![CDATA[ EXTEND_COLUMN_3 = #EXTEND_COLUMN_3# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_4">
+        			<![CDATA[ EXTEND_COLUMN_4 = #EXTEND_COLUMN_4# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="GOODSTYPE">
+        			<![CDATA[ GOODSTYPE = #GOODSTYPE# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="INBOUND_STD_QTY">
+        			<![CDATA[ INBOUND_STD_QTY = #INBOUND_STD_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SUPPLIER_ID">
+        			<![CDATA[ SUPPLIER_ID = #SUPPLIER_ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="VERSION">
+        			<![CDATA[ VERSION = #VERSION# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="PICK_DETAIL_ID">
+        			<![CDATA[ PICK_DETAIL_ID = #PICK_DETAIL_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="VERSION_TRANSACTION">
+        			<![CDATA[ VERSION_TRANSACTION = #VERSION_TRANSACTION# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_VMI">
+        			<![CDATA[ IS_VMI = #IS_VMI# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="LIFERSHEIN">
+        			<![CDATA[ LIFERSHEIN = #LIFERSHEIN# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="VTRNR">
+        			<![CDATA[ VTRNR = #VTRNR# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="CROSSING">
+        			<![CDATA[ CROSSING = #CROSSING# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="QC_FLAG">
+        			<![CDATA[ QC_FLAG = #QC_FLAG# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CONSIGNMENT">
+        			<![CDATA[ CONSIGNMENT = #CONSIGNMENT# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ASSEMPLY_FLAG">
+        			<![CDATA[ ASSEMPLY_FLAG = #ASSEMPLY_FLAG# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="FINANCE_FLAG">
+        			<![CDATA[ FINANCE_FLAG = #FINANCE_FLAG# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="QTY">
+        			<![CDATA[ QTY = #QTY# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="UOM_NAME">
+        			<![CDATA[ UOM_NAME = #UOM_NAME# ]]>
+				</isNotEmpty>
+			</dynamic>
+		</select>
+		
+		<select id="SelectForPageing" extends="SelectAll" parameterClass="System.Collections.IDictionary">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="RCV_DOC_ID">
+        			<![CDATA[ RCV_DOC_ID = #RCV_DOC_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LINE_NO">
+        			<![CDATA[ LINE_NO = #LINE_NO# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ITEM_ID">
+        			<![CDATA[ ITEM_ID = #ITEM_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LOT">
+        			<![CDATA[ LOT = #LOT# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SERIAL">
+        			<![CDATA[ SERIAL = #SERIAL# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="XDATE">
+        			<![CDATA[ XDATE = #XDATE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXPECTED_QTY">
+        			<![CDATA[ EXPECTED_QTY = #EXPECTED_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ACTUAL_QTY">
+        			<![CDATA[ ACTUAL_QTY = #ACTUAL_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="DMG_QTY">
+        			<![CDATA[ DMG_QTY = #DMG_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CREATED_TIME">
+        			<![CDATA[ CREATED_TIME = #CREATED_TIME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CAUSE">
+        			<![CDATA[ CAUSE = #CAUSE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_DAMAGE">
+        			<![CDATA[ IS_DAMAGE = #IS_DAMAGE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_0">
+        			<![CDATA[ EXTEND_COLUMN_0 = #EXTEND_COLUMN_0# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_1">
+        			<![CDATA[ EXTEND_COLUMN_1 = #EXTEND_COLUMN_1# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_2">
+        			<![CDATA[ EXTEND_COLUMN_2 = #EXTEND_COLUMN_2# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_3">
+        			<![CDATA[ EXTEND_COLUMN_3 = #EXTEND_COLUMN_3# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_4">
+        			<![CDATA[ EXTEND_COLUMN_4 = #EXTEND_COLUMN_4# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="RECEIVEDATE">
+        			<![CDATA[ RECEIVEDATE = #RECEIVEDATE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="GOODSTYPE">
+        			<![CDATA[ GOODSTYPE = #GOODSTYPE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="INBOUND_STD_QTY">
+        			<![CDATA[ INBOUND_STD_QTY = #INBOUND_STD_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SUPPLIER_ID">
+        			<![CDATA[ SUPPLIER_ID = #SUPPLIER_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="VERSION">
+        			<![CDATA[ VERSION = #VERSION# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PICK_DETAIL_ID">
+        			<![CDATA[ PICK_DETAIL_ID = #PICK_DETAIL_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LAST_MODIFIED">
+        			<![CDATA[ LAST_MODIFIED = #LAST_MODIFIED# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="VERSION_TRANSACTION">
+        			<![CDATA[ VERSION_TRANSACTION = #VERSION_TRANSACTION# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_VMI">
+        			<![CDATA[ IS_VMI = #IS_VMI# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LIFERSHEIN">
+        			<![CDATA[ LIFERSHEIN = #LIFERSHEIN# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="VTRNR">
+        			<![CDATA[ VTRNR = #VTRNR# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CROSSING">
+        			<![CDATA[ CROSSING = #CROSSING# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="QC_FLAG">
+        			<![CDATA[ QC_FLAG = #QC_FLAG# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CONSIGNMENT">
+        			<![CDATA[ CONSIGNMENT = #CONSIGNMENT# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ASSEMPLY_FLAG">
+        			<![CDATA[ ASSEMPLY_FLAG = #ASSEMPLY_FLAG# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="FINANCE_FLAG">
+        			<![CDATA[ FINANCE_FLAG = #FINANCE_FLAG# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="QTY">
+        			<![CDATA[ QTY = #QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="UOM_NAME">
+        			<![CDATA[ UOM_NAME = #UOM_NAME# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+		<insert id="Insert" parameterClass="VWmsRcvDocDetail">
+			<selectKey resultClass="double" type="pre" property="ID" > 
+				<![CDATA[ select V_WMS_RCV_DOC_DETAIL_SEQ.NEXTVAL as value from dual ]]>
+			</selectKey>
+			<![CDATA[
+			insert into V_WMS_RCV_DOC_DETAIL
+			(
+			    ID,
+			    RCV_DOC_ID,
+			    LINE_NO,
+			    ITEM_ID,
+			    LOT,
+			    SERIAL,
+			    XDATE,
+			    EXPECTED_QTY,
+			    ACTUAL_QTY,
+			    DMG_QTY,
+			    CREATED_TIME,
+			    CAUSE,
+			    IS_DAMAGE,
+			    EXTEND_COLUMN_0,
+			    EXTEND_COLUMN_1,
+			    EXTEND_COLUMN_2,
+			    EXTEND_COLUMN_3,
+			    EXTEND_COLUMN_4,
+			    RECEIVEDATE,
+			    GOODSTYPE,
+			    INBOUND_STD_QTY,
+			    SUPPLIER_ID,
+			    VERSION,
+			    PICK_DETAIL_ID,
+			    LAST_MODIFIED,
+			    VERSION_TRANSACTION,
+			    IS_VMI,
+			    LIFERSHEIN,
+			    VTRNR,
+			    CROSSING,
+			    QC_FLAG,
+			    CONSIGNMENT,
+			    ASSEMPLY_FLAG,
+			    FINANCE_FLAG,
+			    QTY,
+			    UOM_NAME
+			)
+			values 
+			(
+				#ID#,
+				#RCV_DOC_ID#,
+				#LINE_NO#,
+				#ITEM_ID#,
+				#LOT#,
+				#SERIAL#,
+				#XDATE#,
+				#EXPECTED_QTY#,
+				#ACTUAL_QTY#,
+				#DMG_QTY#,
+				#CREATED_TIME#,
+				#CAUSE#,
+				#IS_DAMAGE#,
+				#EXTEND_COLUMN_0#,
+				#EXTEND_COLUMN_1#,
+				#EXTEND_COLUMN_2#,
+				#EXTEND_COLUMN_3#,
+				#EXTEND_COLUMN_4#,
+				#RECEIVEDATE#,
+				#GOODSTYPE#,
+				#INBOUND_STD_QTY#,
+				#SUPPLIER_ID#,
+				#VERSION#,
+				#PICK_DETAIL_ID#,
+				#LAST_MODIFIED#,
+				#VERSION_TRANSACTION#,
+				#IS_VMI#,
+				#LIFERSHEIN#,
+				#VTRNR#,
+				#CROSSING#,
+				#QC_FLAG#,
+				#CONSIGNMENT#,
+				#ASSEMPLY_FLAG#,
+				#FINANCE_FLAG#,
+				#QTY#,
+				#UOM_NAME#
+			)
+			]]>
+		</insert>
+		<update id="Update" parameterClass="VWmsRcvDocDetail" >
+			<![CDATA[
+			update V_WMS_RCV_DOC_DETAIL set
+				RCV_DOC_ID = #RCV_DOC_ID#,
+				LINE_NO = #LINE_NO#,
+				ITEM_ID = #ITEM_ID#,
+				LOT = #LOT#,
+				SERIAL = #SERIAL#,
+				XDATE = #XDATE#,
+				EXPECTED_QTY = #EXPECTED_QTY#,
+				ACTUAL_QTY = #ACTUAL_QTY#,
+				DMG_QTY = #DMG_QTY#,
+				CREATED_TIME = #CREATED_TIME#,
+				CAUSE = #CAUSE#,
+				IS_DAMAGE = #IS_DAMAGE#,
+				EXTEND_COLUMN_0 = #EXTEND_COLUMN_0#,
+				EXTEND_COLUMN_1 = #EXTEND_COLUMN_1#,
+				EXTEND_COLUMN_2 = #EXTEND_COLUMN_2#,
+				EXTEND_COLUMN_3 = #EXTEND_COLUMN_3#,
+				EXTEND_COLUMN_4 = #EXTEND_COLUMN_4#,
+				RECEIVEDATE = #RECEIVEDATE#,
+				GOODSTYPE = #GOODSTYPE#,
+				INBOUND_STD_QTY = #INBOUND_STD_QTY#,
+				SUPPLIER_ID = #SUPPLIER_ID#,
+				VERSION = #VERSION#,
+				PICK_DETAIL_ID = #PICK_DETAIL_ID#,
+				LAST_MODIFIED = #LAST_MODIFIED#,
+				VERSION_TRANSACTION = #VERSION_TRANSACTION#,
+				IS_VMI = #IS_VMI#,
+				LIFERSHEIN = #LIFERSHEIN#,
+				VTRNR = #VTRNR#,
+				CROSSING = #CROSSING#,
+				QC_FLAG = #QC_FLAG#,
+				CONSIGNMENT = #CONSIGNMENT#,
+				ASSEMPLY_FLAG = #ASSEMPLY_FLAG#,
+				FINANCE_FLAG = #FINANCE_FLAG#,
+				QTY = #QTY#,
+				UOM_NAME = #UOM_NAME#
+			where
+				ID = #ID#
+			]]>
+		</update>
+    
+    <update id="UpdateStatus" parameterClass="VWmsRcvDocDetail" >
+      <![CDATA[
+			update V_WMS_RCV_DOC_DETAIL set 
+			EXTEND_COLUMN_2=#EXTEND_COLUMN_2#
+			where
+      item_id in 
+			(select item_id from V_WMS_RCV_DOC_DETAIL where ID = #ID#)
+      and RCV_DOC_ID in
+      (  select RCV_DOC_ID from V_WMS_RCV_DOC_DETAIL where ID= #ID#)
+			]]>
+    </update>
+
+    <update id="UpdateStatusByDetailID" parameterClass="VWmsRcvDocDetail" >
+      <![CDATA[
+			update V_WMS_RCV_DOC_DETAIL set 
+			EXTEND_COLUMN_2=#EXTEND_COLUMN_2#
+			where
+      ID= #ID#
+			]]>
+    </update>
+
+    <update id="UpdateSection" parameterClass="VWmsRcvDocDetail" >
+			<![CDATA[
+			update V_WMS_RCV_DOC_DETAIL set 
+			]]>
+			<dynamic prepend=" ">
+				<isNotNull prepend="," property="RCV_DOC_ID">
+					<![CDATA[ RCV_DOC_ID=#RCV_DOC_ID#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="LINE_NO">
+					<![CDATA[ LINE_NO=#LINE_NO#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="ITEM_ID">
+					<![CDATA[ ITEM_ID=#ITEM_ID#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="LOT">
+					<![CDATA[ LOT=#LOT#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="SERIAL">
+					<![CDATA[ SERIAL=#SERIAL#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="XDATE">
+					<![CDATA[ XDATE=#XDATE#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="EXPECTED_QTY">
+					<![CDATA[ EXPECTED_QTY=#EXPECTED_QTY#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="ACTUAL_QTY">
+					<![CDATA[ ACTUAL_QTY=#ACTUAL_QTY#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="DMG_QTY">
+					<![CDATA[ DMG_QTY=#DMG_QTY#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="CREATED_TIME">
+					<![CDATA[ CREATED_TIME=#CREATED_TIME#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="CAUSE">
+					<![CDATA[ CAUSE=#CAUSE#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="IS_DAMAGE">
+					<![CDATA[ IS_DAMAGE=#IS_DAMAGE#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="EXTEND_COLUMN_0">
+					<![CDATA[ EXTEND_COLUMN_0=#EXTEND_COLUMN_0#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="EXTEND_COLUMN_1">
+					<![CDATA[ EXTEND_COLUMN_1=#EXTEND_COLUMN_1#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="EXTEND_COLUMN_2">
+					<![CDATA[ EXTEND_COLUMN_2=#EXTEND_COLUMN_2#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="EXTEND_COLUMN_3">
+					<![CDATA[ EXTEND_COLUMN_3=#EXTEND_COLUMN_3#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="EXTEND_COLUMN_4">
+					<![CDATA[ EXTEND_COLUMN_4=#EXTEND_COLUMN_4#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="RECEIVEDATE">
+					<![CDATA[ RECEIVEDATE=#RECEIVEDATE#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="GOODSTYPE">
+					<![CDATA[ GOODSTYPE=#GOODSTYPE#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="INBOUND_STD_QTY">
+					<![CDATA[ INBOUND_STD_QTY=#INBOUND_STD_QTY#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="SUPPLIER_ID">
+					<![CDATA[ SUPPLIER_ID=#SUPPLIER_ID#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="VERSION">
+					<![CDATA[ VERSION=#VERSION#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="PICK_DETAIL_ID">
+					<![CDATA[ PICK_DETAIL_ID=#PICK_DETAIL_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="LAST_MODIFIED">
+					<![CDATA[ LAST_MODIFIED=#LAST_MODIFIED#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="VERSION_TRANSACTION">
+					<![CDATA[ VERSION_TRANSACTION=#VERSION_TRANSACTION#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="IS_VMI">
+					<![CDATA[ IS_VMI=#IS_VMI#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="LIFERSHEIN">
+					<![CDATA[ LIFERSHEIN=#LIFERSHEIN#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="VTRNR">
+					<![CDATA[ VTRNR=#VTRNR#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="CROSSING">
+					<![CDATA[ CROSSING=#CROSSING#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="QC_FLAG">
+					<![CDATA[ QC_FLAG=#QC_FLAG#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="CONSIGNMENT">
+					<![CDATA[ CONSIGNMENT=#CONSIGNMENT#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="ASSEMPLY_FLAG">
+					<![CDATA[ ASSEMPLY_FLAG=#ASSEMPLY_FLAG#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="FINANCE_FLAG">
+					<![CDATA[ FINANCE_FLAG=#FINANCE_FLAG#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="QTY">
+					<![CDATA[ QTY=#QTY#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="UOM_NAME">
+					<![CDATA[ UOM_NAME=#UOM_NAME#]]>
+				</isNotEmpty>
+        <isNotEmpty prepend="," property="RV_QTY">
+          <![CDATA[ RV_QTY=#RV_QTY#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="PQ_QTY">
+          <![CDATA[ PQ_QTY=#PQ_QTY#]]>
+        </isNotEmpty>
+			</dynamic>
+			<![CDATA[
+			where
+				ID = #ID#
+			]]>
+		</update>
+		<delete id="Delete" parameterClass="VWmsRcvDocDetail" >
+			<![CDATA[
+			delete from V_WMS_RCV_DOC_DETAIL
+			where 
+				ID = #ID#
+			]]>
+		</delete>
+	</statements>
+	
+</sqlMap>

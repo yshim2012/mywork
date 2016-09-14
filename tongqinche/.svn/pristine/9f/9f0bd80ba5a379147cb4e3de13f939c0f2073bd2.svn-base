@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+  namespace="Carrier" xmlns="http://ibatis.apache.org/mapping"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <alias>
+    <typeAlias alias="Carrier" type="DataMapper.Carrier,DataMapper"/>
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="Carrier">
+      <result property="ID" column="ID" />
+      <result property="CarrierName" column="CarrierName" />
+      <result property="Contact" column="Contact" />
+      <result property="Mobile" column="Mobile" />
+      <result property="Tel" column="Tel" />
+      <result property="Address" column="Address" />
+      <result property="Status" column="Status" />
+    </resultMap>
+  </resultMaps>
+
+  <statements>
+
+    <select id="SelectAll" resultMap="SelectResult">
+      <![CDATA[
+			select
+				* 
+			from TB_Carrier	
+			]]>
+    </select>
+
+    <select id="SelectById" extends="SelectAll" parameterClass="Carrier" resultMap="SelectResult">
+      <![CDATA[
+			where
+				ID = #ID#
+			]]>
+    </select>
+
+    <select id="SelectByParam" extends="SelectAll" parameterClass="Carrier" resultMap="SelectResult">
+      <dynamic prepend="WHERE">
+
+        <isNotEmpty prepend="AND" property="CarrierName">
+          <![CDATA[ CarrierName = #CarrierName# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="Contact">
+          <![CDATA[ Contact Like '%' +#Contact#+ '%' ]]>
+        </isNotEmpty>
+      </dynamic>
+    </select>
+    
+  </statements>
+  
+</sqlMap>

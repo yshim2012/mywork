@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="Dict" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="Dict" type="DataMapper.Dict, DataMapper" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="Dict">
+      <result property="Id" column="ID" />
+      <result property="Code" column="Code" />
+      <result property="Name" column="Name" />
+      <result property="ParentCode" column="Parent_Code" />
+      <result property="Status" column="Status" /> 
+      <result property="CreateTime" column="Create_Time" />
+      <result property="CreateUserId" column="Create_Userid" />
+      <result property="UpdateTime" column="Update_Time" />
+      <result property="UpdateUserId" column="Update_Userid" />
+    </resultMap>
+  </resultMaps>
+
+  <statements>
+    <select id="SelectAll" resultMap="SelectResult">
+      <![CDATA[
+			select
+				* 
+			from tb_dict
+			]]>
+    </select>
+
+    <select id="SelectById" extends="SelectAll" parameterClass="Dict" resultMap="SelectResult">
+      <![CDATA[
+			where
+				ID = #Id#
+			]]>
+    </select>
+
+    <select id="SelectByParam" extends="SelectAll" parameterClass="Dict" resultMap="SelectResult">
+      <dynamic prepend="WHERE">
+
+        <isNotEmpty prepend="AND" property="Code">
+          <![CDATA[ Code = #Code# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="Name">
+          <![CDATA[ Name Like '%' +#Name#+ '%' ]]>
+        </isNotEmpty>
+
+        <isNotEmpty prepend="AND" property="ParentCode">
+          <![CDATA[ Parent_Code  = #ParentCode#  ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="Status">
+          <![CDATA[ Status = #Status# ]]>
+        </isNotEmpty>
+      </dynamic>
+    </select>
+
+
+    <delete id="Delete" parameterClass="Dict" >
+      <![CDATA[
+			delete from tb_dict
+			where 
+				ID = #Id#
+			]]>
+    </delete>
+
+
+  </statements>
+
+</sqlMap>

@@ -1,0 +1,5 @@
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.UCWebService\bin\LDV.WMS.RF.UCWebService.dll
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.UCWebService\bin\LDV.WMS.RF.UCWebService.pdb
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.UCWebService\obj\Debug\ResolveAssemblyReference.cache
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.UCWebService\obj\Debug\LDV.WMS.RF.UCWebService.dll
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.UCWebService\obj\Debug\LDV.WMS.RF.UCWebService.pdb

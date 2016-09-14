@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="Route" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="Route" type="DataMapper.Route, DataMapper" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="Route">
+      <result property="Id" column="ID" />
+      <result property="RouteName" column="Route_Name" />
+      <result property="StopMap" column="Stop_Map" />
+      <result property="IsUsing" column="Is_Using" />
+      <result property="Status" column="Status" />
+      <result property="CreateTime" column="Create_Time" />
+      <result property="CreateUserid" column="Create_Userid" />
+      <result property="UpdateTime" column="Update_Time" />
+      <result property="UpdateUserid" column="Update_Userid" /> 
+    </resultMap>
+  </resultMaps>
+
+  <statements>
+    <select id="SelectAll" resultMap="SelectResult">
+      <![CDATA[
+			select
+				* 
+			from TB_Route
+			]]>
+    </select>
+
+    <select id="SelectById" extends="SelectAll" parameterClass="Route" resultMap="SelectResult">
+      <![CDATA[
+			where
+				ID = #Id#
+			]]>
+    </select>
+
+    <select id="SelectByParam" extends="SelectAll" parameterClass="Route" resultMap="SelectResult">
+      <dynamic prepend="WHERE"> 
+        <isNotEmpty prepend="AND" property="RouteName">
+          <![CDATA[ Route_Name Like '%' +#RouteName#+ '%' ]]>
+        </isNotEmpty>
+      </dynamic>
+    </select>
+
+
+    <delete id="Delete" parameterClass="Route" >
+      <![CDATA[
+			delete from TB_Route
+			where 
+				ID = #Id#
+			]]>
+    </delete>
+
+
+  </statements>
+
+</sqlMap>

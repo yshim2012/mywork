@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="VWmsItemPartPackage" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<alias>
+		<typeAlias alias="VWmsItemPartPackage" type="LDV.WMS.RF.DataMapper.VWmsItemPartPackage, LDV.WMS.RF.DataMapper" />
+	</alias>
+
+	<resultMaps>
+		<resultMap id="SelectResult" class="VWmsItemPartPackage">
+			<result property="ID" column="ID" />
+			<result property="ITEM_ID" column="ITEM_ID" />
+			<result property="PICTURE_STREAM" column="PICTURE_STREAM" />
+			<result property="CREATE_USER" column="CREATE_USER" />
+			<result property="CREATE_DATE" column="CREATE_DATE" />
+		</resultMap>
+	</resultMaps>
+
+	<statements>
+
+		<select id="SelectAll" resultMap="SelectResult">
+			<![CDATA[
+			select
+				ID,
+				ITEM_ID,
+				PICTURE_STREAM,
+				CREATE_USER,
+				CREATE_DATE
+			from V_WMS_ITEM_PARTSPAKAGE
+			]]>
+		</select>
+
+		<select id="SelectById" extends="SelectAll" parameterClass="double" resultMap="SelectResult">
+			<![CDATA[
+			where
+				ID = #value#
+			]]>
+		</select>
+
+		<select id="SelectByItemId"  parameterClass="VWmsItemPartPackage" resultMap="SelectResult">
+			<![CDATA[select
+				ID,ITEM_ID,PICTURE_STREAM,CREATE_USER,CREATE_DATE
+			from V_WMS_ITEM_PARTSPAKAGE]]>
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+					<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ITEM_ID">
+					<![CDATA[ ITEM_ID = #ITEM_ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="PICTURE_STREAM">
+					<![CDATA[ PICTURE_STREAM = #PICTURE_STREAM# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="CREATE_USER">
+					<![CDATA[ CREATE_USER = #CREATE_USER# ]]>
+				</isNotEmpty>
+			</dynamic>
+		</select>
+
+		<select id="SelectByParam" extends="SelectAll" parameterClass="VWmsItemPartPackage" resultMap="SelectResult">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+					<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ITEM_ID">
+					<![CDATA[ ITEM_ID = #ITEM_ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="PICTURE_STREAM">
+					<![CDATA[ PICTURE_STREAM = #PICTURE_STREAM# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="CREATE_USER">
+					<![CDATA[ CREATE_USER = #CREATE_USER# ]]>
+				</isNotEmpty>
+			</dynamic>
+		</select>
+
+		<select id="SelectForPageing" extends="SelectAll" parameterClass="System.Collections.IDictionary">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+					<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ITEM_ID">
+					<![CDATA[ ITEM_ID = #ITEM_ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="PICTURE_STREAM">
+					<![CDATA[ PICTURE_STREAM = #PICTURE_STREAM# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="CREATE_USER">
+					<![CDATA[ CREATE_USER = #CREATE_USER# ]]>
+				</isNotEmpty>
+			</dynamic>
+		</select>
+		<insert id="Insert" parameterClass="VWmsItemPartPackage">
+			<selectKey resultClass="double" type="pre" property="ID" >
+				<![CDATA[ select V_WMS_ITEM_PARTSPAKAGE_SEQ.NEXTVAL as value from dual ]]>
+			</selectKey>
+			<![CDATA[
+			insert into V_WMS_ITEM_PARTSPAKAGE
+			(
+			    ID,
+				ITEM_ID,
+				PICTURE_STREAM,
+				CREATE_USER,
+				CREATE_DATE
+			)
+			values 
+			(
+				#ID#,
+				#ITEM_ID#,
+				#PICTURE_STREAM#,
+				#CREATE_USER#,
+				#CREATE_DATE#
+			)
+			]]>
+		</insert>
+		<delete id="Delete" parameterClass="VWmsItemPartPackage" >
+			<![CDATA[
+			delete from V_WMS_ITEM_PARTSPAKAGE
+			where 
+				ID = #ID#
+			]]>
+		</delete>
+	</statements>
+
+</sqlMap>

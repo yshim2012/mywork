@@ -1,0 +1,485 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<sqlMap 
+	namespace="VWmsInvTransaction" xmlns="http://ibatis.apache.org/mapping" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	
+	<alias>
+		<typeAlias alias="VWmsInvTransaction" type="LDV.WMS.RF.DataMapper.VWmsInvTransaction, LDV.WMS.RF.DataMapper" />
+	</alias>
+	
+	<resultMaps>
+		<resultMap id="SelectResult" class="VWmsInvTransaction">
+			<result property="ID" column="ID" />
+			<result property="TRANSACTION_CODE" column="TRANSACTION_CODE" />
+			<result property="WHSE_ID" column="WHSE_ID" />
+			<result property="LOC_ID" column="LOC_ID" />
+			<result property="COMPANY_ID" column="COMPANY_ID" />
+			<result property="ITEM_ID" column="ITEM_ID" />
+			<result property="LOT" column="LOT" />
+			<result property="SERIAL" column="SERIAL" />
+			<result property="XDATE" column="XDATE" />
+			<result property="F_QTY" column="F_QTY" />
+			<result property="T_QTY" column="T_QTY" />
+			<result property="F_MU_ID" column="F_MU_ID" />
+			<result property="T_MU_ID" column="T_MU_ID" />
+			<result property="F_STATUS" column="F_STATUS" />
+			<result property="T_STATUS" column="T_STATUS" />
+			<result property="F_ITEM_STATUS" column="F_ITEM_STATUS" />
+			<result property="T_ITEM_STATUS" column="T_ITEM_STATUS" />
+			<result property="REASON_CODE" column="REASON_CODE" />
+			<result property="RELATED_DOC_TYPE" column="RELATED_DOC_TYPE" />
+			<result property="RELATED_DOC_NO" column="RELATED_DOC_NO" />
+			<result property="DESCRIPTION" column="DESCRIPTION" />
+			<result property="USER_ID" column="USER_ID" />
+			<result property="CREATED_TIME" column="CREATED_TIME" />
+			<result property="T_LOC_ID" column="T_LOC_ID" />
+			<result property="F_RECEIVED_TIME" column="F_RECEIVED_TIME" />
+			<result property="T_RECEIVED_TIME" column="T_RECEIVED_TIME" />
+			<result property="F_GOODSTYPE" column="F_GOODSTYPE" />
+			<result property="T_GOODSTYPE" column="T_GOODSTYPE" />
+			<result property="LX_CODE" column="LX_CODE" />
+			<result property="SUPPLIER_ID" column="SUPPLIER_ID" />
+		</resultMap>
+	</resultMaps>
+	
+	<statements>
+	
+		<select id="SelectAll" resultMap="SelectResult">
+			<![CDATA[
+			select
+				ID,
+				TRANSACTION_CODE,
+				WHSE_ID,
+				LOC_ID,
+				COMPANY_ID,
+				ITEM_ID,
+				LOT,
+				SERIAL,
+				XDATE,
+				F_QTY,
+				T_QTY,
+				F_MU_ID,
+				T_MU_ID,
+				F_STATUS,
+				T_STATUS,
+				F_ITEM_STATUS,
+				T_ITEM_STATUS,
+				REASON_CODE,
+				RELATED_DOC_TYPE,
+				RELATED_DOC_NO,
+				DESCRIPTION,
+				USER_ID,
+				CREATED_TIME,
+				T_LOC_ID,
+				F_RECEIVED_TIME,
+				T_RECEIVED_TIME,
+				F_GOODSTYPE,
+				T_GOODSTYPE,
+				LX_CODE,
+				SUPPLIER_ID
+			from V_WMS_INV_TRANSACTIONS
+			]]>
+		</select>
+		
+		<select id="SelectById" extends="SelectAll" parameterClass="double" resultMap="SelectResult">
+			<![CDATA[
+			where
+				ID = #value#
+			]]>
+		</select>
+		
+		<select id="SelectByParam" extends="SelectAll" parameterClass="VWmsInvTransaction" resultMap="SelectResult">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="TRANSACTION_CODE">
+        			<![CDATA[ TRANSACTION_CODE = #TRANSACTION_CODE# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="WHSE_ID">
+        			<![CDATA[ WHSE_ID = #WHSE_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LOC_ID">
+        			<![CDATA[ LOC_ID = #LOC_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="COMPANY_ID">
+        			<![CDATA[ COMPANY_ID = #COMPANY_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ITEM_ID">
+        			<![CDATA[ ITEM_ID = #ITEM_ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="LOT">
+        			<![CDATA[ LOT = #LOT# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="SERIAL">
+        			<![CDATA[ SERIAL = #SERIAL# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="F_QTY">
+        			<![CDATA[ F_QTY = #F_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="T_QTY">
+        			<![CDATA[ T_QTY = #T_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="F_MU_ID">
+        			<![CDATA[ F_MU_ID = #F_MU_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="T_MU_ID">
+        			<![CDATA[ T_MU_ID = #T_MU_ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="F_STATUS">
+        			<![CDATA[ F_STATUS = #F_STATUS# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="T_STATUS">
+        			<![CDATA[ T_STATUS = #T_STATUS# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="F_ITEM_STATUS">
+        			<![CDATA[ F_ITEM_STATUS = #F_ITEM_STATUS# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="T_ITEM_STATUS">
+        			<![CDATA[ T_ITEM_STATUS = #T_ITEM_STATUS# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="REASON_CODE">
+        			<![CDATA[ REASON_CODE = #REASON_CODE# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="RELATED_DOC_TYPE">
+        			<![CDATA[ RELATED_DOC_TYPE = #RELATED_DOC_TYPE# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="RELATED_DOC_NO">
+        			<![CDATA[ RELATED_DOC_NO = #RELATED_DOC_NO# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="DESCRIPTION">
+        			<![CDATA[ DESCRIPTION = #DESCRIPTION# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="USER_ID">
+        			<![CDATA[ USER_ID = #USER_ID# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="T_LOC_ID">
+        			<![CDATA[ T_LOC_ID = #T_LOC_ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="F_GOODSTYPE">
+        			<![CDATA[ F_GOODSTYPE = #F_GOODSTYPE# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="T_GOODSTYPE">
+        			<![CDATA[ T_GOODSTYPE = #T_GOODSTYPE# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="LX_CODE">
+        			<![CDATA[ LX_CODE = #LX_CODE# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="SUPPLIER_ID">
+        			<![CDATA[ SUPPLIER_ID = #SUPPLIER_ID# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+		
+		<select id="SelectForPageing" extends="SelectAll" parameterClass="System.Collections.IDictionary">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="TRANSACTION_CODE">
+        			<![CDATA[ TRANSACTION_CODE = #TRANSACTION_CODE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="WHSE_ID">
+        			<![CDATA[ WHSE_ID = #WHSE_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LOC_ID">
+        			<![CDATA[ LOC_ID = #LOC_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="COMPANY_ID">
+        			<![CDATA[ COMPANY_ID = #COMPANY_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ITEM_ID">
+        			<![CDATA[ ITEM_ID = #ITEM_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LOT">
+        			<![CDATA[ LOT = #LOT# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SERIAL">
+        			<![CDATA[ SERIAL = #SERIAL# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="XDATE">
+        			<![CDATA[ XDATE = #XDATE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="F_QTY">
+        			<![CDATA[ F_QTY = #F_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="T_QTY">
+        			<![CDATA[ T_QTY = #T_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="F_MU_ID">
+        			<![CDATA[ F_MU_ID = #F_MU_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="T_MU_ID">
+        			<![CDATA[ T_MU_ID = #T_MU_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="F_STATUS">
+        			<![CDATA[ F_STATUS = #F_STATUS# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="T_STATUS">
+        			<![CDATA[ T_STATUS = #T_STATUS# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="F_ITEM_STATUS">
+        			<![CDATA[ F_ITEM_STATUS = #F_ITEM_STATUS# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="T_ITEM_STATUS">
+        			<![CDATA[ T_ITEM_STATUS = #T_ITEM_STATUS# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="REASON_CODE">
+        			<![CDATA[ REASON_CODE = #REASON_CODE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="RELATED_DOC_TYPE">
+        			<![CDATA[ RELATED_DOC_TYPE = #RELATED_DOC_TYPE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="RELATED_DOC_NO">
+        			<![CDATA[ RELATED_DOC_NO = #RELATED_DOC_NO# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="DESCRIPTION">
+        			<![CDATA[ DESCRIPTION = #DESCRIPTION# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="USER_ID">
+        			<![CDATA[ USER_ID = #USER_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CREATED_TIME">
+        			<![CDATA[ CREATED_TIME = #CREATED_TIME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="T_LOC_ID">
+        			<![CDATA[ T_LOC_ID = #T_LOC_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="F_RECEIVED_TIME">
+        			<![CDATA[ F_RECEIVED_TIME = #F_RECEIVED_TIME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="T_RECEIVED_TIME">
+        			<![CDATA[ T_RECEIVED_TIME = #T_RECEIVED_TIME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="F_GOODSTYPE">
+        			<![CDATA[ F_GOODSTYPE = #F_GOODSTYPE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="T_GOODSTYPE">
+        			<![CDATA[ T_GOODSTYPE = #T_GOODSTYPE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LX_CODE">
+        			<![CDATA[ LX_CODE = #LX_CODE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SUPPLIER_ID">
+        			<![CDATA[ SUPPLIER_ID = #SUPPLIER_ID# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+		<insert id="Insert" parameterClass="VWmsInvTransaction">
+			<selectKey resultClass="double" type="pre" property="ID" > 
+				<![CDATA[ select V_WMS_INV_TRANSACTIONS_SEQ.NEXTVAL as value from dual ]]>
+			</selectKey>
+			<![CDATA[
+			insert into V_WMS_INV_TRANSACTIONS
+			(
+			    ID,
+			    TRANSACTION_CODE,
+			    WHSE_ID,
+			    LOC_ID,
+			    COMPANY_ID,
+			    ITEM_ID,
+			    LOT,
+			    SERIAL,
+			    XDATE,
+			    F_QTY,
+			    T_QTY,
+			    F_MU_ID,
+			    T_MU_ID,
+			    F_STATUS,
+			    T_STATUS,
+			    F_ITEM_STATUS,
+			    T_ITEM_STATUS,
+			    REASON_CODE,
+			    RELATED_DOC_TYPE,
+			    RELATED_DOC_NO,
+			    DESCRIPTION,
+			    USER_ID,
+			    CREATED_TIME,
+			    T_LOC_ID,
+			    F_RECEIVED_TIME,
+			    T_RECEIVED_TIME,
+			    F_GOODSTYPE,
+			    T_GOODSTYPE,
+			    LX_CODE,
+			    SUPPLIER_ID
+			)
+			values 
+			(
+				#ID#,
+				#TRANSACTION_CODE#,
+				#WHSE_ID#,
+				#LOC_ID#,
+				#COMPANY_ID#,
+				#ITEM_ID#,
+				#LOT#,
+				#SERIAL#,
+				#XDATE#,
+				#F_QTY#,
+				#T_QTY#,
+				#F_MU_ID#,
+				#T_MU_ID#,
+				#F_STATUS#,
+				#T_STATUS#,
+				#F_ITEM_STATUS#,
+				#T_ITEM_STATUS#,
+				#REASON_CODE#,
+				#RELATED_DOC_TYPE#,
+				#RELATED_DOC_NO#,
+				#DESCRIPTION#,
+				#USER_ID#,
+				#CREATED_TIME#,
+				#T_LOC_ID#,
+				#F_RECEIVED_TIME#,
+				#T_RECEIVED_TIME#,
+				#F_GOODSTYPE#,
+				#T_GOODSTYPE#,
+				#LX_CODE#,
+				#SUPPLIER_ID#
+			)
+			]]>
+		</insert>
+		<update id="Update" parameterClass="VWmsInvTransaction" >
+			<![CDATA[
+			update V_WMS_INV_TRANSACTIONS set
+				TRANSACTION_CODE = #TRANSACTION_CODE#,
+				WHSE_ID = #WHSE_ID#,
+				LOC_ID = #LOC_ID#,
+				COMPANY_ID = #COMPANY_ID#,
+				ITEM_ID = #ITEM_ID#,
+				LOT = #LOT#,
+				SERIAL = #SERIAL#,
+				XDATE = #XDATE#,
+				F_QTY = #F_QTY#,
+				T_QTY = #T_QTY#,
+				F_MU_ID = #F_MU_ID#,
+				T_MU_ID = #T_MU_ID#,
+				F_STATUS = #F_STATUS#,
+				T_STATUS = #T_STATUS#,
+				F_ITEM_STATUS = #F_ITEM_STATUS#,
+				T_ITEM_STATUS = #T_ITEM_STATUS#,
+				REASON_CODE = #REASON_CODE#,
+				RELATED_DOC_TYPE = #RELATED_DOC_TYPE#,
+				RELATED_DOC_NO = #RELATED_DOC_NO#,
+				DESCRIPTION = #DESCRIPTION#,
+				USER_ID = #USER_ID#,
+				CREATED_TIME = #CREATED_TIME#,
+				T_LOC_ID = #T_LOC_ID#,
+				F_RECEIVED_TIME = #F_RECEIVED_TIME#,
+				T_RECEIVED_TIME = #T_RECEIVED_TIME#,
+				F_GOODSTYPE = #F_GOODSTYPE#,
+				T_GOODSTYPE = #T_GOODSTYPE#,
+				LX_CODE = #LX_CODE#,
+				SUPPLIER_ID = #SUPPLIER_ID#
+			where
+				ID = #ID#
+			]]>
+		</update>
+		
+		<update id="UpdateSection" parameterClass="VWmsInvTransaction" >
+			<![CDATA[
+			update V_WMS_INV_TRANSACTIONS set 
+			]]>
+			<dynamic prepend=" ">
+				<isNotEmpty prepend="," property="TRANSACTION_CODE">
+					<![CDATA[ TRANSACTION_CODE=#TRANSACTION_CODE#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="WHSE_ID">
+					<![CDATA[ WHSE_ID=#WHSE_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="LOC_ID">
+					<![CDATA[ LOC_ID=#LOC_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="COMPANY_ID">
+					<![CDATA[ COMPANY_ID=#COMPANY_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="ITEM_ID">
+					<![CDATA[ ITEM_ID=#ITEM_ID#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="LOT">
+					<![CDATA[ LOT=#LOT#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="SERIAL">
+					<![CDATA[ SERIAL=#SERIAL#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="XDATE">
+					<![CDATA[ XDATE=#XDATE#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="F_QTY">
+					<![CDATA[ F_QTY=#F_QTY#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="T_QTY">
+					<![CDATA[ T_QTY=#T_QTY#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="F_MU_ID">
+					<![CDATA[ F_MU_ID=#F_MU_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="T_MU_ID">
+					<![CDATA[ T_MU_ID=#T_MU_ID#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="F_STATUS">
+					<![CDATA[ F_STATUS=#F_STATUS#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="T_STATUS">
+					<![CDATA[ T_STATUS=#T_STATUS#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="F_ITEM_STATUS">
+					<![CDATA[ F_ITEM_STATUS=#F_ITEM_STATUS#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="T_ITEM_STATUS">
+					<![CDATA[ T_ITEM_STATUS=#T_ITEM_STATUS#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="REASON_CODE">
+					<![CDATA[ REASON_CODE=#REASON_CODE#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="RELATED_DOC_TYPE">
+					<![CDATA[ RELATED_DOC_TYPE=#RELATED_DOC_TYPE#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="RELATED_DOC_NO">
+					<![CDATA[ RELATED_DOC_NO=#RELATED_DOC_NO#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="DESCRIPTION">
+					<![CDATA[ DESCRIPTION=#DESCRIPTION#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="USER_ID">
+					<![CDATA[ USER_ID=#USER_ID#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="CREATED_TIME">
+					<![CDATA[ CREATED_TIME=#CREATED_TIME#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="T_LOC_ID">
+					<![CDATA[ T_LOC_ID=#T_LOC_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="F_RECEIVED_TIME">
+					<![CDATA[ F_RECEIVED_TIME=#F_RECEIVED_TIME#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="T_RECEIVED_TIME">
+					<![CDATA[ T_RECEIVED_TIME=#T_RECEIVED_TIME#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="F_GOODSTYPE">
+					<![CDATA[ F_GOODSTYPE=#F_GOODSTYPE#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="T_GOODSTYPE">
+					<![CDATA[ T_GOODSTYPE=#T_GOODSTYPE#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="LX_CODE">
+					<![CDATA[ LX_CODE=#LX_CODE#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="SUPPLIER_ID">
+					<![CDATA[ SUPPLIER_ID=#SUPPLIER_ID#]]>
+				</isNotNull>
+			</dynamic>
+			<![CDATA[
+			where
+				ID = #ID#
+			]]>
+		</update>
+		<delete id="Delete" parameterClass="VWmsInvTransaction" >
+			<![CDATA[
+			delete from V_WMS_INV_TRANSACTIONS
+			where 
+				ID = #ID#
+			]]>
+		</delete>
+	</statements>
+	
+</sqlMap>

@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<sqlMap 
+	namespace="LdvFreedomCheck" xmlns="http://ibatis.apache.org/mapping" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	
+	<alias>
+		<typeAlias alias="LdvFreedomCheck" type="LDV.WMS.RF.DataMapper.LdvFreedomCheck, LDV.WMS.RF.DataMapper" />
+	</alias>
+	
+	<resultMaps>
+		<resultMap id="SelectResult" class="LdvFreedomCheck">
+			<result property="ID" column="ID" />
+			<result property="LOC_ID" column="LOC_ID" />
+			<result property="ITEM_ID" column="ITEM_ID" />
+			<result property="QTY" column="QTY" />
+			<result property="CREATE_DATE" column="CREATE_DATE" />
+			<result property="CREATE_USER_ID" column="CREATE_USER_ID" />
+			<result property="LAST_MODIFY_DATE" column="LAST_MODIFY_DATE" />
+			<result property="LAST_MODIFY_USER_ID" column="LAST_MODIFY_USER_ID" />
+		</resultMap>
+	</resultMaps>
+	
+	<statements>
+	
+		<select id="SelectAll" resultMap="SelectResult">
+			<![CDATA[
+			select
+				ID,
+				LOC_ID,
+				ITEM_ID,
+				QTY,
+				CREATE_DATE,
+				CREATE_USER_ID,
+				LAST_MODIFY_DATE,
+				LAST_MODIFY_USER_ID
+			from LDV_FREEDOM_CHECK
+			]]>
+		</select>
+		
+		<select id="SelectById" extends="SelectAll" parameterClass="" resultMap="SelectResult">
+			<![CDATA[
+			where
+			1 = 1
+			]]>
+		</select>
+		
+		<select id="SelectByParam" extends="SelectAll" parameterClass="LdvFreedomCheck" resultMap="SelectResult">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LOC_ID">
+        			<![CDATA[ LOC_ID = #LOC_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ITEM_ID">
+        			<![CDATA[ ITEM_ID = #ITEM_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="QTY">
+        			<![CDATA[ QTY = #QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CREATE_USER_ID">
+        			<![CDATA[ CREATE_USER_ID = #CREATE_USER_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LAST_MODIFY_USER_ID">
+        			<![CDATA[ LAST_MODIFY_USER_ID = #LAST_MODIFY_USER_ID# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+		
+		<select id="SelectForPageing" extends="SelectAll" parameterClass="System.Collections.IDictionary">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LOC_ID">
+        			<![CDATA[ LOC_ID = #LOC_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ITEM_ID">
+        			<![CDATA[ ITEM_ID = #ITEM_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="QTY">
+        			<![CDATA[ QTY = #QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CREATE_USER_ID">
+        			<![CDATA[ CREATE_USER_ID = #CREATE_USER_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LAST_MODIFY_DATE">
+        			<![CDATA[ LAST_MODIFY_DATE = #LAST_MODIFY_DATE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LAST_MODIFY_USER_ID">
+        			<![CDATA[ LAST_MODIFY_USER_ID = #LAST_MODIFY_USER_ID# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+		<insert id="Insert" parameterClass="LdvFreedomCheck">
+      <selectKey resultClass="double" type="pre" property="ID" >
+        <![CDATA[ select LDV_FREEDOM_CHECK_SEQ.NEXTVAL as value from dual ]]>
+      </selectKey>
+			<![CDATA[
+			insert into LDV_FREEDOM_CHECK
+			(
+			    ID,
+			    LOC_ID,
+			    ITEM_ID,
+			    QTY,
+          CREATE_DATE,
+			    CREATE_USER_ID,
+			    LAST_MODIFY_DATE,
+			    LAST_MODIFY_USER_ID
+			)
+			values 
+			(
+				#ID#,
+				#LOC_ID#,
+				#ITEM_ID#,
+				#QTY#,
+        #CREATE_DATE#,
+				#CREATE_USER_ID#,
+				#LAST_MODIFY_DATE#,
+				#LAST_MODIFY_USER_ID#
+			)
+			]]>
+		</insert>
+		<update id="Update" parameterClass="LdvFreedomCheck" >
+			<![CDATA[
+			update LDV_FREEDOM_CHECK set
+				ID = #ID#,
+				LOC_ID = #LOC_ID#,
+				ITEM_ID = #ITEM_ID#,
+				QTY = #QTY#,
+				LAST_MODIFY_DATE = #LAST_MODIFY_DATE#,
+				LAST_MODIFY_USER_ID = #LAST_MODIFY_USER_ID#
+			where
+				1=1
+			]]>
+		</update>
+		
+		<update id="UpdateSection" parameterClass="LdvFreedomCheck" >
+			<![CDATA[
+			update LDV_FREEDOM_CHECK set 
+			]]>
+			<dynamic prepend=" ">
+				<isNotNull prepend="," property="ID">
+					<![CDATA[ ID=#ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="LOC_ID">
+					<![CDATA[ LOC_ID=#LOC_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="ITEM_ID">
+					<![CDATA[ ITEM_ID=#ITEM_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="QTY">
+					<![CDATA[ QTY=#QTY#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="LAST_MODIFY_DATE">
+					<![CDATA[ LAST_MODIFY_DATE=#LAST_MODIFY_DATE#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="LAST_MODIFY_USER_ID">
+					<![CDATA[ LAST_MODIFY_USER_ID=#LAST_MODIFY_USER_ID#]]>
+				</isNotNull>
+			</dynamic>
+			<![CDATA[
+			where
+			]]>
+		</update>
+		<delete id="Delete" parameterClass="LdvFreedomCheck" >
+			<![CDATA[
+			delete from LDV_FREEDOM_CHECK
+			where 
+				1=1
+			]]>
+		</delete>
+	</statements>
+	
+</sqlMap>

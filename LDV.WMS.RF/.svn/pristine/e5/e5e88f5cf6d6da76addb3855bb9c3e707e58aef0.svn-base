@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<sqlMap 
+	namespace="LdvPackageBarcode" xmlns="http://ibatis.apache.org/mapping" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	
+	<alias>
+		<typeAlias alias="LdvPackageBarcode" type="LDV.WMS.RF.DataMapper.LdvPackageBarcode, LDV.WMS.RF.DataMapper" />
+	</alias>
+	
+	<resultMaps>
+		<resultMap id="SelectResult" class="LdvPackageBarcode">
+			<result property="ID" column="ID" />
+			<result property="PACKAGE_BARCODE" column="PACKAGE_BARCODE" />
+			<result property="CREATE_DATE" column="CREATE_DATE" />
+			<result property="CREATE_USER_ID" column="CREATE_USER_ID" />
+      <result property="STATUS" column="STATUS" />
+      <result property="LAST_MODIFY_DATE" column="LAST_MODIFY_DATE" />
+      <result property="BOX_NUM" column="BOX_NUM" />
+		</resultMap>
+	</resultMaps>
+	
+	<statements>
+	
+		<select id="SelectAll" resultMap="SelectResult">
+			<![CDATA[
+			select
+				ID,
+				PACKAGE_BARCODE,
+				CREATE_DATE,
+				CREATE_USER_ID,
+        STATUS,
+        LAST_MODIFY_DATE,
+        BOX_NUM
+			from LDV_PACKAGE_BARCODE
+			]]>
+		</select>
+		
+		<select id="SelectById" extends="SelectAll" parameterClass="double" resultMap="SelectResult">
+			<![CDATA[
+			where
+				ID = #value#
+			]]>
+		</select>
+
+    <select id="SelectByItemCount"  parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+      <![CDATA[
+			SELECT PB.PACKAGE_BARCODE,
+       PT.PICK_TICKET_CODE,
+       TD.ITEM_ID
+       FROM LDV_PACKAGE_BARCODE PB
+       LEFT JOIN LDV_PACKAGE_ITEM_REL IR ON(IR.PACKAGE_BARCODE_ID=PB.ID)
+       LEFT JOIN V_WMS_PICK_TICKET_DETAIL TD ON(IR.PICK_TICKET_DETAIL_ID=TD.ID)
+       LEFT JOIN V_WMS_PICK_TICKET PT ON(TD.PICK_TICKET_ID=PT.ID)
+       ]]>
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PICK_TICKET_CODE">
+          <![CDATA[ PT.PICK_TICKET_CODE='$PICK_TICKET_CODE$']]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="PACKAGE_BARCODE">
+          <![CDATA[ PB.PACKAGE_BARCODE='$PACKAGE_BARCODE$']]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="ID">
+          <![CDATA[ PB.ID=#ID#]]>
+        </isNotNull>
+      </dynamic>
+      <![CDATA[
+       GROUP BY PT.PICK_TICKET_CODE,
+       TD.ITEM_ID,PACKAGE_BARCODE
+			]]>
+    </select>
+    
+    <select id="SelectBoxCountByPickTickCode"  parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+      <![CDATA[
+			SELECT DISTINCT PB.PACKAGE_BARCODE
+       FROM LDV_PACKAGE_BARCODE PB
+       LEFT JOIN LDV_PACKAGE_ITEM_REL IR ON(IR.PACKAGE_BARCODE_ID=PB.ID)
+       LEFT JOIN V_WMS_PICK_TICKET_DETAIL TD ON(IR.PICK_TICKET_DETAIL_ID=TD.ID)
+       LEFT JOIN V_WMS_PICK_TICKET PT ON(TD.PICK_TICKET_ID=PT.ID)
+       WHERE PT.PICK_TICKET_CODE=#PICK_TICKET_CODE#
+			]]>
+    </select>
+
+    <select id="SelectPackgeByCode" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+      <![CDATA[
+       SELECT PT.WHSE_ID,
+       PB.ID,
+       PB.PACKAGE_BARCODE,
+       PT.PICK_TICKET_CODE,
+       PB.STATUS
+       FROM LDV_PACKAGE_BARCODE PB
+       LEFT JOIN LDV_PACKAGE_ITEM_REL IR ON(IR.PACKAGE_BARCODE_ID=PB.ID)
+       LEFT JOIN V_WMS_PICK_TICKET_DETAIL TD ON(IR.PICK_TICKET_DETAIL_ID=TD.ID)
+       LEFT JOIN V_WMS_PICK_TICKET PT ON(TD.PICK_TICKET_ID=PT.ID)
+       WHERE PB.PACKAGE_BARCODE = #PACKAGE_BARCODE#
+			]]>
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ID">
+          <![CDATA[ PB.ID = #ID# ]]>
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectPackgeByID" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+      <![CDATA[
+       SELECT PT.WHSE_ID,
+       PB.ID,
+       PB.PACKAGE_BARCODE,
+       PT.PICK_TICKET_CODE,
+       PB.STATUS
+       FROM LDV_PACKAGE_BARCODE PB
+       LEFT JOIN LDV_PACKAGE_ITEM_REL IR ON(IR.PACKAGE_BARCODE_ID=PB.ID)
+       LEFT JOIN V_WMS_PICK_TICKET_DETAIL TD ON(IR.PICK_TICKET_DETAIL_ID=TD.ID)
+       LEFT JOIN V_WMS_PICK_TICKET PT ON(TD.PICK_TICKET_ID=PT.ID )
+       WHERE PB.ID = #ID#
+			]]>
+    </select>
+    
+		<select id="SelectByParam" extends="SelectAll" parameterClass="LdvPackageBarcode" resultMap="SelectResult">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="PACKAGE_BARCODE">
+        			<![CDATA[ PACKAGE_BARCODE = #PACKAGE_BARCODE# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="CREATE_USER_ID">
+        			<![CDATA[ CREATE_USER_ID = #CREATE_USER_ID# ]]>
+				</isNotNull>
+        <isNotNull prepend="AND" property="STATUS">
+          <![CDATA[ STATUS = #STATUS# ]]>
+        </isNotNull>
+			</dynamic>
+		</select>
+		
+		<select id="SelectForPageing" extends="SelectAll" parameterClass="System.Collections.IDictionary">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PACKAGE_BARCODE">
+        			<![CDATA[ PACKAGE_BARCODE = #PACKAGE_BARCODE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CREATE_USER_ID">
+        			<![CDATA[ CREATE_USER_ID = #CREATE_USER_ID# ]]>
+				</isNotNull>
+        <isNotNull prepend="AND" property="STATUS">
+          <![CDATA[ STATUS = #STATUS# ]]>
+        </isNotNull>
+			</dynamic>
+		</select>
+		<insert id="Insert" parameterClass="LdvPackageBarcode">
+			<selectKey resultClass="double" type="pre" property="ID" > 
+				<![CDATA[ select LDV_PACKAGE_BARCODE_SEQ.NEXTVAL as value from dual ]]>
+			</selectKey>
+			<![CDATA[
+			insert into LDV_PACKAGE_BARCODE
+			(
+			    ID,
+			    PACKAGE_BARCODE,
+			    CREATE_USER_ID,
+          STATUS,
+          LAST_MODIFY_DATE
+			)
+			values 
+			(
+				#ID#,
+				#PACKAGE_BARCODE#,
+				#CREATE_USER_ID#,
+        #STATUS#,
+        #LAST_MODIFY_DATE#
+			)
+			]]>
+		</insert>
+    <update id="UpdateBoxNum" parameterClass="System.Collections.IDictionary" >
+      <![CDATA[
+			update LDV_PACKAGE_BARCODE set box_num =( select nvl(max(box_num),0)+1 from
+      LDV_PACKAGE_ITEM_REL l 
+      left join  LDV_PACKAGE_BARCODE b on(l.package_barcode_id=b.id)
+      left join v_wms_pick_ticket_detail d on(l.pick_ticket_detail_id=d.id)
+      left join v_wms_pick_ticket pt on(d.pick_ticket_id=pt.id)
+      where pt.PICK_TICKET_CODE='$PICK_TICKET_CODE$') 
+      where ID=$ID$
+			]]>
+    </update>
+    <update id="UpdateStatus" parameterClass="LdvPackageBarcode" >
+      <![CDATA[
+			update LDV_PACKAGE_BARCODE set
+				STATUS='NP'
+			where
+				ID = #ID#
+			]]>
+    </update>
+		<update id="Update" parameterClass="LdvPackageBarcode" >
+			<![CDATA[
+			update LDV_PACKAGE_BARCODE set
+				PACKAGE_BARCODE = #PACKAGE_BARCODE#
+			where
+				ID = #ID#
+			]]>
+		</update>
+
+    <update id="UpdateBox" parameterClass="LdvPackageBarcode" >
+      <![CDATA[
+		update LDV_PACKAGE_BARCODE set ]]>
+      <dynamic prepend=" ">
+        <isNotEmpty prepend="," property="PICK_TICKET_CODE">
+          <![CDATA[ box_num =(select nvl(max(box_num),0)+1 from
+LDV_PACKAGE_ITEM_REL l 
+left join  LDV_PACKAGE_BARCODE b on(l.package_barcode_id=b.id)
+left join v_wms_pick_ticket_detail d on(l.pick_ticket_detail_id=d.id)
+left join v_wms_pick_ticket pt on(d.pick_ticket_id=pt.id) where pt.pick_ticket_code=#PICK_TICKET_CODE#)]]>
+        </isNotEmpty>
+      </dynamic>
+    <![CDATA[where ID=#ID#]]>
+    </update>
+
+    <update id="UpdateBox1" parameterClass="LdvPackageBarcode" >
+      <![CDATA[
+		update LDV_PACKAGE_BARCODE set ]]>
+      <dynamic prepend=" ">
+        <isNotEmpty prepend="," property="PICK_TICKET_CODE">
+          <![CDATA[ box_num= box_num-1
+where id IN(
+select distinct l.package_barcode_id from  LDV_PACKAGE_ITEM_REL l 
+left join v_wms_pick_ticket_detail d on(l.pick_ticket_detail_id=d.id)
+left join v_wms_pick_ticket pt on(d.pick_ticket_id=pt.id)
+where pt.pick_ticket_code=#PICK_TICKET_CODE#) AND box_num>#BOX_NUM#]]>
+        </isNotEmpty>
+      </dynamic>
+    </update>
+		
+		<update id="UpdateSection" parameterClass="LdvPackageBarcode" >
+			<![CDATA[
+			update LDV_PACKAGE_BARCODE set 
+			]]>
+			<dynamic prepend=" ">
+				<isNotEmpty prepend="," property="PACKAGE_BARCODE">
+					<![CDATA[ PACKAGE_BARCODE=#PACKAGE_BARCODE#]]>
+				</isNotEmpty>
+        <isNotEmpty prepend="," property="LAST_MODIFY_DATE">
+					<![CDATA[ LAST_MODIFY_DATE=#LAST_MODIFY_DATE#]]>
+				</isNotEmpty>
+        <isNotEmpty prepend="," property="STATUS">
+					<![CDATA[ STATUS=#STATUS#]]>
+				</isNotEmpty>
+        <isNotNull prepend="," property="BOX_NUM">
+          <![CDATA[ BOX_NUM=#BOX_NUM#]]>
+        </isNotNull>
+			</dynamic>
+			<![CDATA[
+			where
+				ID = #ID#
+			]]>
+		</update>
+		<delete id="Delete" parameterClass="LdvPackageBarcode" >
+			<![CDATA[
+			delete from LDV_PACKAGE_BARCODE
+			where 
+				ID = #ID#
+			]]>
+		</delete>
+	</statements>
+	
+</sqlMap>

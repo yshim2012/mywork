@@ -1,0 +1,155 @@
+﻿namespace LDV.WMS.RF.ClientForm.Receiving
+{
+    partial class NewReceivingAP
+    {
+        /// <summary>
+        /// 必需的设计器变量。
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// 清理所有正在使用的资源。
+        /// </summary>
+        /// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows 窗体设计器生成的代码
+
+        /// <summary>
+        /// 设计器支持所需的方法 - 不要
+        /// 使用代码编辑器修改此方法的内容。
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.dataGrid1 = new System.Windows.Forms.DataGrid();
+            this.dataGridTableStyle1 = new System.Windows.Forms.DataGridTableStyle();
+            this.dataGridTextBoxColumn1 = new System.Windows.Forms.DataGridTextBoxColumn();
+            this.dataGridTextBoxColumn2 = new System.Windows.Forms.DataGridTextBoxColumn();
+            this.dataGridTextBoxColumn3 = new System.Windows.Forms.DataGridTextBoxColumn();
+            this.btnReturn = new System.Windows.Forms.Button();
+            this.btnStartReceiving = new System.Windows.Forms.Button();
+            this.lblMessage = new System.Windows.Forms.Label();
+            this.SuspendLayout();
+            // 
+            // dataGrid1
+            // 
+            this.dataGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGrid1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.dataGrid1.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.dataGrid1.Location = new System.Drawing.Point(0, 1);
+            this.dataGrid1.Name = "dataGrid1";
+            this.dataGrid1.RowHeadersVisible = false;
+            this.dataGrid1.Size = new System.Drawing.Size(239, 220);
+            this.dataGrid1.TabIndex = 0;
+            this.dataGrid1.TableStyles.Add(this.dataGridTableStyle1);
+            this.dataGrid1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dataGrid1_MouseUp);
+            this.dataGrid1.Click += new System.EventHandler(this.dataGrid1_Click);
+            // 
+            // dataGridTableStyle1
+            // 
+            this.dataGridTableStyle1.GridColumnStyles.Add(this.dataGridTextBoxColumn1);
+            this.dataGridTableStyle1.GridColumnStyles.Add(this.dataGridTextBoxColumn2);
+            this.dataGridTableStyle1.GridColumnStyles.Add(this.dataGridTextBoxColumn3);
+            this.dataGridTableStyle1.MappingName = "OrderList";
+            // 
+            // dataGridTextBoxColumn1
+            // 
+            this.dataGridTextBoxColumn1.Format = "";
+            this.dataGridTextBoxColumn1.FormatInfo = null;
+            this.dataGridTextBoxColumn1.HeaderText = "零件编号";
+            this.dataGridTextBoxColumn1.MappingName = "ITEM_CODE";
+            this.dataGridTextBoxColumn1.NullText = "";
+            this.dataGridTextBoxColumn1.Width = 100;
+            // 
+            // dataGridTextBoxColumn2
+            // 
+            this.dataGridTextBoxColumn2.Format = "";
+            this.dataGridTextBoxColumn2.FormatInfo = null;
+            this.dataGridTextBoxColumn2.HeaderText = "零件包装数量";
+            this.dataGridTextBoxColumn2.MappingName = "PQQTY";
+            this.dataGridTextBoxColumn2.NullText = "";
+            this.dataGridTextBoxColumn2.Width = 100;
+            // 
+            // dataGridTextBoxColumn3
+            // 
+            this.dataGridTextBoxColumn3.Format = "";
+            this.dataGridTextBoxColumn3.FormatInfo = null;
+            this.dataGridTextBoxColumn3.HeaderText = "零件上架数量";
+            this.dataGridTextBoxColumn3.MappingName = "ACTUAL_QTY";
+            this.dataGridTextBoxColumn3.NullText = "";
+            this.dataGridTextBoxColumn3.Width = 100;
+            // 
+            // btnReturn
+            // 
+            this.btnReturn.BackColor = System.Drawing.Color.Green;
+            this.btnReturn.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.btnReturn.ForeColor = System.Drawing.Color.White;
+            this.btnReturn.Location = new System.Drawing.Point(9, 279);
+            this.btnReturn.Name = "btnReturn";
+            this.btnReturn.Size = new System.Drawing.Size(72, 32);
+            this.btnReturn.TabIndex = 21;
+            this.btnReturn.Text = "返回";
+            this.btnReturn.Click += new System.EventHandler(this.btnReturn_Click);
+            // 
+            // btnStartReceiving
+            // 
+            this.btnStartReceiving.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.btnStartReceiving.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.btnStartReceiving.ForeColor = System.Drawing.Color.White;
+            this.btnStartReceiving.Location = new System.Drawing.Point(161, 279);
+            this.btnStartReceiving.Name = "btnStartReceiving";
+            this.btnStartReceiving.Size = new System.Drawing.Size(72, 32);
+            this.btnStartReceiving.TabIndex = 22;
+            this.btnStartReceiving.Text = "开始上架";
+            this.btnStartReceiving.Click += new System.EventHandler(this.btnStartReceiving_Click);
+            // 
+            // lblMessage
+            // 
+            this.lblMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblMessage.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.lblMessage.ForeColor = System.Drawing.Color.Red;
+            this.lblMessage.Location = new System.Drawing.Point(0, 243);
+            this.lblMessage.Name = "lblMessage";
+            this.lblMessage.Size = new System.Drawing.Size(243, 29);
+            // 
+            // NewReceivingAP
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoScroll = true;
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(243, 352);
+            this.ControlBox = false;
+            this.Controls.Add(this.lblMessage);
+            this.Controls.Add(this.btnStartReceiving);
+            this.Controls.Add(this.btnReturn);
+            this.Controls.Add(this.dataGrid1);
+            this.MaximizeBox = false;
+            this.Name = "NewReceivingAP";
+            this.Text = "上架明细";
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.DataGridTableStyle dataGridTableStyle1;
+        private System.Windows.Forms.Button btnReturn;
+        private System.Windows.Forms.Button btnStartReceiving;
+        private System.Windows.Forms.DataGridTextBoxColumn dataGridTextBoxColumn1;
+        private System.Windows.Forms.DataGridTextBoxColumn dataGridTextBoxColumn2;
+        private System.Windows.Forms.DataGridTextBoxColumn dataGridTextBoxColumn3;
+        public System.Windows.Forms.Label lblMessage;
+        public System.Windows.Forms.DataGrid dataGrid1;
+    }
+}

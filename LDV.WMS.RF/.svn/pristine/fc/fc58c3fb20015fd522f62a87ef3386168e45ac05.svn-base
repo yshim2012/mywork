@@ -1,0 +1,715 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="VWmsSvwsapIdocinfo" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="VWmsSvwsapIdocinfo" type="LDV.WMS.RF.DataMapper.VWmsSvwsapIdocinfo, LDV.WMS.RF.DataMapper" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="VWmsSvwsapIdocinfo">
+      <result property="ID" column="ID" />
+      <result property="WMSID" column="WMSID" />
+      <result property="BLDAT" column="BLDAT" />
+      <result property="BUDAT" column="BUDAT" />
+      <result property="XBLNR" column="XBLNR" />
+      <result property="CONTRACT" column="CONTRACT" />
+      <result property="STATUS" column="STATUS" />
+      <result property="ERROR_NUMBER" column="ERROR_NUMBER" />
+      <result property="CH_ERR_MESSAGE" column="CH_ERR_MESSAGE" />
+      <result property="BKTXT" column="BKTXT" />
+      <result property="BWART" column="BWART" />
+      <result property="MATNR" column="MATNR" />
+      <result property="LGORT" column="LGORT" />
+      <result property="CHARG" column="CHARG" />
+      <result property="BWTAR" column="BWTAR" />
+      <result property="LIFNR" column="LIFNR" />
+      <result property="UMCHA" column="UMCHA" />
+      <result property="UMMAT" column="UMMAT" />
+      <result property="ERFMG" column="ERFMG" />
+      <result property="ERFME" column="ERFME" />
+      <result property="FRBNR" column="FRBNR" />
+      <result property="XABLN" column="XABLN" />
+      <result property="EBELN" column="EBELN" />
+      <result property="EBELP" column="EBELP" />
+      <result property="KOSTL" column="KOSTL" />
+      <result property="AUFNR" column="AUFNR" />
+      <result property="UMLGO" column="UMLGO" />
+      <result property="XMLFILE" column="XMLFILE" />
+      <result property="REMARK_MESSAGE" column="REMARK_MESSAGE" />
+      <result property="MUCODE" column="MUCODE" />
+      <result property="TRACKID" column="TRACKID" />
+      <result property="ASN" column="ASN" />
+      <result property="CREATED_TIME" column="CREATED_TIME" />
+      <result property="WEMPF" column="WEMPF" />
+      <result property="WERKS" column="WERKS" />
+      <result property="POSNR" column="POSNR" />
+      <result property="ERROR_MESSAGE" column="ERROR_MESSAGE" />
+      <result property="KUNNR" column="KUNNR" />
+      <result property="SOBKZ" column="SOBKZ" />
+      <result property="GRUND" column="GRUND" />
+      <result property="RSNUM" column="RSNUM" />
+      <result property="RSPOS" column="RSPOS" />
+      <result property="INSMK" column="INSMK" />
+      <result property="LAST_MODIFIED" column="LAST_MODIFIED" />
+      <result property="INNER_BILL_NO" column="INNER_BILL_NO" />
+      <result property="RECEIVE_MATERIAL" column="RECEIVE_MATERIAL" />
+    </resultMap>
+  </resultMaps>
+
+  <statements>
+
+    <select id="SelectAll" resultMap="SelectResult">
+      <![CDATA[
+			select
+				ID,
+				WMSID,
+				BLDAT,
+				BUDAT,
+				XBLNR,
+				CONTRACT,
+				STATUS,
+				ERROR_NUMBER,
+				CH_ERR_MESSAGE,
+				BKTXT,
+				BWART,
+				MATNR,
+				LGORT,
+				CHARG,
+				BWTAR,
+				LIFNR,
+				UMCHA,
+				UMMAT,
+				ERFMG,
+				ERFME,
+				FRBNR,
+				XABLN,
+				EBELN,
+				EBELP,
+				KOSTL,
+				AUFNR,
+				UMLGO,
+				XMLFILE,
+				REMARK_MESSAGE,
+				MUCODE,
+				TRACKID,
+				ASN,
+				CREATED_TIME,
+				WEMPF,
+				WERKS,
+				POSNR,
+				ERROR_MESSAGE,
+				KUNNR,
+				SOBKZ,
+				GRUND,
+				RSNUM,
+				RSPOS,
+				INSMK,
+				LAST_MODIFIED,
+				INNER_BILL_NO,
+				RECEIVE_MATERIAL
+			from V_WMS_SVWSAP_IDOCINFO
+			]]>
+    </select>
+
+    <select id="SelectById" extends="SelectAll" parameterClass="double" resultMap="SelectResult">
+      <![CDATA[
+			where
+				ID = #value#
+			]]>
+    </select>
+
+    <select id="SelectByParam" extends="SelectAll" parameterClass="VWmsSvwsapIdocinfo" resultMap="SelectResult">
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ID">
+          <![CDATA[ ID = #ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="WMSID">
+          <![CDATA[ WMSID = #WMSID# ]]>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="BLDAT">
+          <![CDATA[ BLDAT = #BLDAT# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="BUDAT">
+          <![CDATA[ BUDAT = #BUDAT# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="XBLNR">
+          <![CDATA[ XBLNR = #XBLNR# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="CONTRACT">
+          <![CDATA[ CONTRACT = #CONTRACT# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="STATUS">
+          <![CDATA[ STATUS = #STATUS# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="ERROR_NUMBER">
+          <![CDATA[ ERROR_NUMBER = #ERROR_NUMBER# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="CH_ERR_MESSAGE">
+          <![CDATA[ CH_ERR_MESSAGE = #CH_ERR_MESSAGE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="BKTXT">
+          <![CDATA[ BKTXT = #BKTXT# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="BWART">
+          <![CDATA[ BWART = #BWART# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="MATNR">
+          <![CDATA[ MATNR = #MATNR# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="LGORT">
+          <![CDATA[ LGORT = #LGORT# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="CHARG">
+          <![CDATA[ CHARG = #CHARG# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="BWTAR">
+          <![CDATA[ BWTAR = #BWTAR# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="LIFNR">
+          <![CDATA[ LIFNR = #LIFNR# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="UMCHA">
+          <![CDATA[ UMCHA = #UMCHA# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="UMMAT">
+          <![CDATA[ UMMAT = #UMMAT# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="ERFMG">
+          <![CDATA[ ERFMG = #ERFMG# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="ERFME">
+          <![CDATA[ ERFME = #ERFME# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="FRBNR">
+          <![CDATA[ FRBNR = #FRBNR# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="XABLN">
+          <![CDATA[ XABLN = #XABLN# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="EBELN">
+          <![CDATA[ EBELN = #EBELN# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="EBELP">
+          <![CDATA[ EBELP = #EBELP# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="KOSTL">
+          <![CDATA[ KOSTL = #KOSTL# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="AUFNR">
+          <![CDATA[ AUFNR = #AUFNR# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="UMLGO">
+          <![CDATA[ UMLGO = #UMLGO# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="XMLFILE">
+          <![CDATA[ XMLFILE = #XMLFILE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="REMARK_MESSAGE">
+          <![CDATA[ REMARK_MESSAGE = #REMARK_MESSAGE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="MUCODE">
+          <![CDATA[ MUCODE = #MUCODE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="TRACKID">
+          <![CDATA[ TRACKID = #TRACKID# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="ASN">
+          <![CDATA[ ASN = #ASN# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="WEMPF">
+          <![CDATA[ WEMPF = #WEMPF# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="WERKS">
+          <![CDATA[ WERKS = #WERKS# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="POSNR">
+          <![CDATA[ POSNR = #POSNR# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="ERROR_MESSAGE">
+          <![CDATA[ ERROR_MESSAGE = #ERROR_MESSAGE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="KUNNR">
+          <![CDATA[ KUNNR = #KUNNR# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="SOBKZ">
+          <![CDATA[ SOBKZ = #SOBKZ# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="GRUND">
+          <![CDATA[ GRUND = #GRUND# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="RSNUM">
+          <![CDATA[ RSNUM = #RSNUM# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="RSPOS">
+          <![CDATA[ RSPOS = #RSPOS# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="INSMK">
+          <![CDATA[ INSMK = #INSMK# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="INNER_BILL_NO">
+          <![CDATA[ INNER_BILL_NO = #INNER_BILL_NO# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="RECEIVE_MATERIAL">
+          <![CDATA[ RECEIVE_MATERIAL = #RECEIVE_MATERIAL# ]]>
+        </isNotEmpty>
+      </dynamic>
+    </select>
+
+    <select id="SelectForPageing" extends="SelectAll" parameterClass="System.Collections.IDictionary">
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ID">
+          <![CDATA[ ID = #ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="WMSID">
+          <![CDATA[ WMSID = #WMSID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="BLDAT">
+          <![CDATA[ BLDAT = #BLDAT# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="BUDAT">
+          <![CDATA[ BUDAT = #BUDAT# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="XBLNR">
+          <![CDATA[ XBLNR = #XBLNR# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="CONTRACT">
+          <![CDATA[ CONTRACT = #CONTRACT# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="STATUS">
+          <![CDATA[ STATUS = #STATUS# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="ERROR_NUMBER">
+          <![CDATA[ ERROR_NUMBER = #ERROR_NUMBER# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="CH_ERR_MESSAGE">
+          <![CDATA[ CH_ERR_MESSAGE = #CH_ERR_MESSAGE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="BKTXT">
+          <![CDATA[ BKTXT = #BKTXT# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="BWART">
+          <![CDATA[ BWART = #BWART# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="MATNR">
+          <![CDATA[ MATNR = #MATNR# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LGORT">
+          <![CDATA[ LGORT = #LGORT# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="CHARG">
+          <![CDATA[ CHARG = #CHARG# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="BWTAR">
+          <![CDATA[ BWTAR = #BWTAR# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LIFNR">
+          <![CDATA[ LIFNR = #LIFNR# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="UMCHA">
+          <![CDATA[ UMCHA = #UMCHA# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="UMMAT">
+          <![CDATA[ UMMAT = #UMMAT# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="ERFMG">
+          <![CDATA[ ERFMG = #ERFMG# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="ERFME">
+          <![CDATA[ ERFME = #ERFME# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="FRBNR">
+          <![CDATA[ FRBNR = #FRBNR# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="XABLN">
+          <![CDATA[ XABLN = #XABLN# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="EBELN">
+          <![CDATA[ EBELN = #EBELN# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="EBELP">
+          <![CDATA[ EBELP = #EBELP# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="KOSTL">
+          <![CDATA[ KOSTL = #KOSTL# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="AUFNR">
+          <![CDATA[ AUFNR = #AUFNR# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="UMLGO">
+          <![CDATA[ UMLGO = #UMLGO# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="XMLFILE">
+          <![CDATA[ XMLFILE = #XMLFILE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="REMARK_MESSAGE">
+          <![CDATA[ REMARK_MESSAGE = #REMARK_MESSAGE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="MUCODE">
+          <![CDATA[ MUCODE = #MUCODE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="TRACKID">
+          <![CDATA[ TRACKID = #TRACKID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="ASN">
+          <![CDATA[ ASN = #ASN# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="CREATED_TIME">
+          <![CDATA[ CREATED_TIME = #CREATED_TIME# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="WEMPF">
+          <![CDATA[ WEMPF = #WEMPF# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="WERKS">
+          <![CDATA[ WERKS = #WERKS# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="POSNR">
+          <![CDATA[ POSNR = #POSNR# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="ERROR_MESSAGE">
+          <![CDATA[ ERROR_MESSAGE = #ERROR_MESSAGE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="KUNNR">
+          <![CDATA[ KUNNR = #KUNNR# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="SOBKZ">
+          <![CDATA[ SOBKZ = #SOBKZ# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="GRUND">
+          <![CDATA[ GRUND = #GRUND# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="RSNUM">
+          <![CDATA[ RSNUM = #RSNUM# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="RSPOS">
+          <![CDATA[ RSPOS = #RSPOS# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="INSMK">
+          <![CDATA[ INSMK = #INSMK# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LAST_MODIFIED">
+          <![CDATA[ LAST_MODIFIED = #LAST_MODIFIED# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="INNER_BILL_NO">
+          <![CDATA[ INNER_BILL_NO = #INNER_BILL_NO# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="RECEIVE_MATERIAL">
+          <![CDATA[ RECEIVE_MATERIAL = #RECEIVE_MATERIAL# ]]>
+        </isNotNull>
+      </dynamic>
+    </select>
+    <insert id="Insert" parameterClass="VWmsSvwsapIdocinfo">
+      <selectKey resultClass="double" type="pre" property="ID" >
+        <![CDATA[ select V_WMS_SVWSAP_IDOCINFO_SEQ.NEXTVAL as value from dual ]]>
+      </selectKey>
+      <![CDATA[
+			insert into V_WMS_SVWSAP_IDOCINFO
+			(
+			    ID,
+			    WMSID,
+			    BLDAT,
+			    BUDAT,
+			    XBLNR,
+			    CONTRACT,
+			    STATUS,
+			    ERROR_NUMBER,
+			    CH_ERR_MESSAGE,
+			    BKTXT,
+			    BWART,
+			    MATNR,
+			    LGORT,
+			    CHARG,
+			    BWTAR,
+			    LIFNR,
+			    UMCHA,
+			    UMMAT,
+			    ERFMG,
+			    ERFME,
+			    FRBNR,
+			    XABLN,
+			    EBELN,
+			    EBELP,
+			    KOSTL,
+			    AUFNR,
+			    UMLGO,
+			    XMLFILE,
+			    REMARK_MESSAGE,
+			    MUCODE,
+			    TRACKID,
+			    ASN,
+			    CREATED_TIME,
+			    WEMPF,
+			    WERKS,
+			    POSNR,
+			    ERROR_MESSAGE,
+			    KUNNR,
+			    SOBKZ,
+			    GRUND,
+			    RSNUM,
+			    RSPOS,
+			    INSMK,
+			    LAST_MODIFIED,
+			    INNER_BILL_NO,
+			    RECEIVE_MATERIAL
+			)
+			values 
+			(
+				#ID#,
+				#WMSID#,
+				#BLDAT#,
+				#BUDAT#,
+				#XBLNR#,
+				#CONTRACT#,
+				#STATUS#,
+				#ERROR_NUMBER#,
+				#CH_ERR_MESSAGE#,
+				#BKTXT#,
+				#BWART#,
+				#MATNR#,
+				#LGORT#,
+				#CHARG#,
+				#BWTAR#,
+				#LIFNR#,
+				#UMCHA#,
+				#UMMAT#,
+				#ERFMG#,
+				#ERFME#,
+				#FRBNR#,
+				#XABLN#,
+				#EBELN#,
+				#EBELP#,
+				#KOSTL#,
+				#AUFNR#,
+				#UMLGO#,
+				#XMLFILE#,
+				#REMARK_MESSAGE#,
+				#MUCODE#,
+				#TRACKID#,
+				#ASN#,
+				#CREATED_TIME#,
+				#WEMPF#,
+				#WERKS#,
+				#POSNR#,
+				#ERROR_MESSAGE#,
+				#KUNNR#,
+				#SOBKZ#,
+				#GRUND#,
+				#RSNUM#,
+				#RSPOS#,
+				#INSMK#,
+				#LAST_MODIFIED#,
+				#INNER_BILL_NO#,
+				#RECEIVE_MATERIAL#
+			)
+			]]>
+    </insert>
+    <update id="Update" parameterClass="VWmsSvwsapIdocinfo" >
+      <![CDATA[
+			update V_WMS_SVWSAP_IDOCINFO set
+				WMSID = #WMSID#,
+				BLDAT = #BLDAT#,
+				BUDAT = #BUDAT#,
+				XBLNR = #XBLNR#,
+				CONTRACT = #CONTRACT#,
+				STATUS = #STATUS#,
+				ERROR_NUMBER = #ERROR_NUMBER#,
+				CH_ERR_MESSAGE = #CH_ERR_MESSAGE#,
+				BKTXT = #BKTXT#,
+				BWART = #BWART#,
+				MATNR = #MATNR#,
+				LGORT = #LGORT#,
+				CHARG = #CHARG#,
+				BWTAR = #BWTAR#,
+				LIFNR = #LIFNR#,
+				UMCHA = #UMCHA#,
+				UMMAT = #UMMAT#,
+				ERFMG = #ERFMG#,
+				ERFME = #ERFME#,
+				FRBNR = #FRBNR#,
+				XABLN = #XABLN#,
+				EBELN = #EBELN#,
+				EBELP = #EBELP#,
+				KOSTL = #KOSTL#,
+				AUFNR = #AUFNR#,
+				UMLGO = #UMLGO#,
+				XMLFILE = #XMLFILE#,
+				REMARK_MESSAGE = #REMARK_MESSAGE#,
+				MUCODE = #MUCODE#,
+				TRACKID = #TRACKID#,
+				ASN = #ASN#,
+				CREATED_TIME = #CREATED_TIME#,
+				WEMPF = #WEMPF#,
+				WERKS = #WERKS#,
+				POSNR = #POSNR#,
+				ERROR_MESSAGE = #ERROR_MESSAGE#,
+				KUNNR = #KUNNR#,
+				SOBKZ = #SOBKZ#,
+				GRUND = #GRUND#,
+				RSNUM = #RSNUM#,
+				RSPOS = #RSPOS#,
+				INSMK = #INSMK#,
+				LAST_MODIFIED = #LAST_MODIFIED#,
+				INNER_BILL_NO = #INNER_BILL_NO#,
+				RECEIVE_MATERIAL = #RECEIVE_MATERIAL#
+			where
+				ID = #ID#
+			]]>
+    </update>
+
+    <update id="UpdateSection" parameterClass="VWmsSvwsapIdocinfo" >
+      <![CDATA[
+			update V_WMS_SVWSAP_IDOCINFO set 
+			]]>
+      <dynamic prepend=" ">
+        <isNotNull prepend="," property="WMSID">
+          <![CDATA[ WMSID=#WMSID#]]>
+        </isNotNull>
+        <isNotEmpty prepend="," property="BLDAT">
+          <![CDATA[ BLDAT=#BLDAT#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="BUDAT">
+          <![CDATA[ BUDAT=#BUDAT#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="XBLNR">
+          <![CDATA[ XBLNR=#XBLNR#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="CONTRACT">
+          <![CDATA[ CONTRACT=#CONTRACT#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="STATUS">
+          <![CDATA[ STATUS=#STATUS#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="ERROR_NUMBER">
+          <![CDATA[ ERROR_NUMBER=#ERROR_NUMBER#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="CH_ERR_MESSAGE">
+          <![CDATA[ CH_ERR_MESSAGE=#CH_ERR_MESSAGE#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="BKTXT">
+          <![CDATA[ BKTXT=#BKTXT#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="BWART">
+          <![CDATA[ BWART=#BWART#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="MATNR">
+          <![CDATA[ MATNR=#MATNR#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="LGORT">
+          <![CDATA[ LGORT=#LGORT#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="CHARG">
+          <![CDATA[ CHARG=#CHARG#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="BWTAR">
+          <![CDATA[ BWTAR=#BWTAR#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="LIFNR">
+          <![CDATA[ LIFNR=#LIFNR#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="UMCHA">
+          <![CDATA[ UMCHA=#UMCHA#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="UMMAT">
+          <![CDATA[ UMMAT=#UMMAT#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="ERFMG">
+          <![CDATA[ ERFMG=#ERFMG#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="ERFME">
+          <![CDATA[ ERFME=#ERFME#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="FRBNR">
+          <![CDATA[ FRBNR=#FRBNR#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="XABLN">
+          <![CDATA[ XABLN=#XABLN#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="EBELN">
+          <![CDATA[ EBELN=#EBELN#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="EBELP">
+          <![CDATA[ EBELP=#EBELP#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="KOSTL">
+          <![CDATA[ KOSTL=#KOSTL#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="AUFNR">
+          <![CDATA[ AUFNR=#AUFNR#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="UMLGO">
+          <![CDATA[ UMLGO=#UMLGO#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="XMLFILE">
+          <![CDATA[ XMLFILE=#XMLFILE#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="REMARK_MESSAGE">
+          <![CDATA[ REMARK_MESSAGE=#REMARK_MESSAGE#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="MUCODE">
+          <![CDATA[ MUCODE=#MUCODE#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="TRACKID">
+          <![CDATA[ TRACKID=#TRACKID#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="ASN">
+          <![CDATA[ ASN=#ASN#]]>
+        </isNotEmpty>
+        <isNotNull prepend="," property="CREATED_TIME">
+          <![CDATA[ CREATED_TIME=#CREATED_TIME#]]>
+        </isNotNull>
+        <isNotEmpty prepend="," property="WEMPF">
+          <![CDATA[ WEMPF=#WEMPF#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="WERKS">
+          <![CDATA[ WERKS=#WERKS#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="POSNR">
+          <![CDATA[ POSNR=#POSNR#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="ERROR_MESSAGE">
+          <![CDATA[ ERROR_MESSAGE=#ERROR_MESSAGE#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="KUNNR">
+          <![CDATA[ KUNNR=#KUNNR#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="SOBKZ">
+          <![CDATA[ SOBKZ=#SOBKZ#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="GRUND">
+          <![CDATA[ GRUND=#GRUND#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="RSNUM">
+          <![CDATA[ RSNUM=#RSNUM#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="RSPOS">
+          <![CDATA[ RSPOS=#RSPOS#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="INSMK">
+          <![CDATA[ INSMK=#INSMK#]]>
+        </isNotEmpty>
+        <isNotNull prepend="," property="LAST_MODIFIED">
+          <![CDATA[ LAST_MODIFIED=#LAST_MODIFIED#]]>
+        </isNotNull>
+        <isNotEmpty prepend="," property="INNER_BILL_NO">
+          <![CDATA[ INNER_BILL_NO=#INNER_BILL_NO#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="RECEIVE_MATERIAL">
+          <![CDATA[ RECEIVE_MATERIAL=#RECEIVE_MATERIAL#]]>
+        </isNotEmpty>
+      </dynamic>
+      <![CDATA[
+			where
+				ID = #ID#
+			]]>
+    </update>
+    <delete id="Delete" parameterClass="VWmsSvwsapIdocinfo" >
+      <![CDATA[
+			delete from V_WMS_SVWSAP_IDOCINFO
+			where 
+				ID = #ID#
+			]]>
+    </delete>
+  </statements>
+
+</sqlMap>

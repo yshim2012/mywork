@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<sqlMap 
+	namespace="VWmsPickTicketAct" xmlns="http://ibatis.apache.org/mapping" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	
+	<alias>
+		<typeAlias alias="VWmsPickTicketAct" type="LDV.WMS.RF.DataMapper.VWmsPickTicketAct, LDV.WMS.RF.DataMapper" />
+	</alias>
+	
+	<resultMaps>
+		<resultMap id="SelectResult" class="VWmsPickTicketAct">
+			<result property="ID" column="ID" />
+			<result property="PICK_TICKET_ID" column="PICK_TICKET_ID" />
+			<result property="LINE_NO" column="LINE_NO" />
+			<result property="UID_ID" column="UID_ID" />
+			<result property="MU_ID" column="MU_ID" />
+			<result property="QTY" column="QTY" />
+			<result property="USER_ID" column="USER_ID" />
+			<result property="PICKED_TIME" column="PICKED_TIME" />
+			<result property="VEHICLE_NO" column="VEHICLE_NO" />
+			<result property="LOAD_NO" column="LOAD_NO" />
+			<result property="SHIP_TIME" column="SHIP_TIME" />
+			<result property="IS_FINAL_LOAD_NO" column="IS_FINAL_LOAD_NO" />
+			<result property="IS_DISABLED" column="IS_DISABLED" />
+			<result property="LAST_MODIFIED" column="LAST_MODIFIED" />
+			<result property="RECEIVE_TIME" column="RECEIVE_TIME" />
+			<result property="LOC_ID" column="LOC_ID" />
+		</resultMap>
+	</resultMaps>
+	
+	<statements>
+	
+		<select id="SelectAll" resultMap="SelectResult">
+			<![CDATA[
+			select
+				ID,
+				PICK_TICKET_ID,
+				LINE_NO,
+				UID_ID,
+				MU_ID,
+				QTY,
+				USER_ID,
+				PICKED_TIME,
+				VEHICLE_NO,
+				LOAD_NO,
+				SHIP_TIME,
+				IS_FINAL_LOAD_NO,
+				IS_DISABLED,
+				LAST_MODIFIED,
+				RECEIVE_TIME,
+				LOC_ID
+			from V_WMS_PICK_TICKET_ACT
+			]]>
+		</select>
+		
+		<select id="SelectById" extends="SelectAll" parameterClass="double" resultMap="SelectResult">
+			<![CDATA[
+			where
+				ID = #value#
+			]]>
+		</select>
+		
+		<select id="SelectByParam" extends="SelectAll" parameterClass="VWmsPickTicketAct" resultMap="SelectResult">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PICK_TICKET_ID">
+        			<![CDATA[ PICK_TICKET_ID = #PICK_TICKET_ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="LINE_NO">
+        			<![CDATA[ LINE_NO = #LINE_NO# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="UID_ID">
+        			<![CDATA[ UID_ID = #UID_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="MU_ID">
+        			<![CDATA[ MU_ID = #MU_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="QTY">
+        			<![CDATA[ QTY = #QTY# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="USER_ID">
+        			<![CDATA[ USER_ID = #USER_ID# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="VEHICLE_NO">
+        			<![CDATA[ VEHICLE_NO = #VEHICLE_NO# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="LOAD_NO">
+        			<![CDATA[ LOAD_NO = #LOAD_NO# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="IS_FINAL_LOAD_NO">
+        			<![CDATA[ IS_FINAL_LOAD_NO = #IS_FINAL_LOAD_NO# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="IS_DISABLED">
+        			<![CDATA[ IS_DISABLED = #IS_DISABLED# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="LOC_ID">
+        			<![CDATA[ LOC_ID = #LOC_ID# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+		
+		<select id="SelectForPageing" extends="SelectAll" parameterClass="System.Collections.IDictionary">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PICK_TICKET_ID">
+        			<![CDATA[ PICK_TICKET_ID = #PICK_TICKET_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LINE_NO">
+        			<![CDATA[ LINE_NO = #LINE_NO# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="UID_ID">
+        			<![CDATA[ UID_ID = #UID_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="MU_ID">
+        			<![CDATA[ MU_ID = #MU_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="QTY">
+        			<![CDATA[ QTY = #QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="USER_ID">
+        			<![CDATA[ USER_ID = #USER_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PICKED_TIME">
+        			<![CDATA[ PICKED_TIME = #PICKED_TIME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="VEHICLE_NO">
+        			<![CDATA[ VEHICLE_NO = #VEHICLE_NO# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LOAD_NO">
+        			<![CDATA[ LOAD_NO = #LOAD_NO# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SHIP_TIME">
+        			<![CDATA[ SHIP_TIME = #SHIP_TIME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_FINAL_LOAD_NO">
+        			<![CDATA[ IS_FINAL_LOAD_NO = #IS_FINAL_LOAD_NO# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_DISABLED">
+        			<![CDATA[ IS_DISABLED = #IS_DISABLED# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LAST_MODIFIED">
+        			<![CDATA[ LAST_MODIFIED = #LAST_MODIFIED# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="RECEIVE_TIME">
+        			<![CDATA[ RECEIVE_TIME = #RECEIVE_TIME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LOC_ID">
+        			<![CDATA[ LOC_ID = #LOC_ID# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+		<insert id="Insert" parameterClass="VWmsPickTicketAct">
+			<selectKey resultClass="double" type="pre" property="ID" > 
+				<![CDATA[ select V_WMS_PICK_TICKET_ACT_SEQ.NEXTVAL as value from dual ]]>
+			</selectKey>
+			<![CDATA[
+			insert into V_WMS_PICK_TICKET_ACT
+			(
+			    ID,
+			    PICK_TICKET_ID,
+			    LINE_NO,
+			    UID_ID,
+			    MU_ID,
+			    QTY,
+			    USER_ID,
+			    PICKED_TIME,
+			    VEHICLE_NO,
+			    LOAD_NO,
+			    SHIP_TIME,
+			    IS_FINAL_LOAD_NO,
+			    IS_DISABLED,
+			    LAST_MODIFIED,
+			    RECEIVE_TIME,
+			    LOC_ID
+			)
+			values 
+			(
+				#ID#,
+				#PICK_TICKET_ID#,
+				#LINE_NO#,
+				#UID_ID#,
+				#MU_ID#,
+				#QTY#,
+				#USER_ID#,
+				#PICKED_TIME#,
+				#VEHICLE_NO#,
+				#LOAD_NO#,
+				#SHIP_TIME#,
+				#IS_FINAL_LOAD_NO#,
+				#IS_DISABLED#,
+				#LAST_MODIFIED#,
+				#RECEIVE_TIME#,
+				#LOC_ID#
+			)
+			]]>
+		</insert>
+    
+		<update id="Update" parameterClass="VWmsPickTicketAct" >
+			<![CDATA[
+			update V_WMS_PICK_TICKET_ACT set
+				PICK_TICKET_ID = #PICK_TICKET_ID#,
+				LINE_NO = #LINE_NO#,
+				UID_ID = #UID_ID#,
+				MU_ID = #MU_ID#,
+				QTY = #QTY#,
+				USER_ID = #USER_ID#,
+				PICKED_TIME = #PICKED_TIME#,
+				VEHICLE_NO = #VEHICLE_NO#,
+				LOAD_NO = #LOAD_NO#,
+				SHIP_TIME = #SHIP_TIME#,
+				IS_FINAL_LOAD_NO = #IS_FINAL_LOAD_NO#,
+				IS_DISABLED = #IS_DISABLED#,
+				LAST_MODIFIED = #LAST_MODIFIED#,
+				RECEIVE_TIME = #RECEIVE_TIME#,
+				LOC_ID = #LOC_ID#
+			where
+				ID = #ID#
+			]]>
+		</update>
+		
+		<update id="UpdateSection" parameterClass="VWmsPickTicketAct" >
+			<![CDATA[
+			update V_WMS_PICK_TICKET_ACT set 
+			]]>
+			<dynamic prepend=" ">
+				<isNotNull prepend="," property="PICK_TICKET_ID">
+					<![CDATA[ PICK_TICKET_ID=#PICK_TICKET_ID#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="LINE_NO">
+					<![CDATA[ LINE_NO=#LINE_NO#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="UID_ID">
+					<![CDATA[ UID_ID=#UID_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="MU_ID">
+					<![CDATA[ MU_ID=#MU_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="QTY">
+					<![CDATA[ QTY=#QTY#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="USER_ID">
+					<![CDATA[ USER_ID=#USER_ID#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="PICKED_TIME">
+					<![CDATA[ PICKED_TIME=#PICKED_TIME#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="VEHICLE_NO">
+					<![CDATA[ VEHICLE_NO=#VEHICLE_NO#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="LOAD_NO">
+					<![CDATA[ LOAD_NO=#LOAD_NO#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="SHIP_TIME">
+					<![CDATA[ SHIP_TIME=#SHIP_TIME#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="IS_FINAL_LOAD_NO">
+					<![CDATA[ IS_FINAL_LOAD_NO=#IS_FINAL_LOAD_NO#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="IS_DISABLED">
+					<![CDATA[ IS_DISABLED=#IS_DISABLED#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="LAST_MODIFIED">
+					<![CDATA[ LAST_MODIFIED=#LAST_MODIFIED#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="RECEIVE_TIME">
+					<![CDATA[ RECEIVE_TIME=#RECEIVE_TIME#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="LOC_ID">
+					<![CDATA[ LOC_ID=#LOC_ID#]]>
+				</isNotNull>
+			</dynamic>
+			<![CDATA[
+			where
+				ID = #ID#
+			]]>
+		</update>
+		<delete id="Delete" parameterClass="VWmsPickTicketAct" >
+			<![CDATA[
+			delete from V_WMS_PICK_TICKET_ACT
+			where 
+				ID = #ID#
+			]]>
+		</delete>
+
+    <!--出库装箱数据同步接口-子表查询-->
+    <select id="SelectPackOrderItem" parameterClass="System.Collections.IDictionary" >
+      <![CDATA[
+      SELECT d.pick_ticket_id as id, d.id as ids, b.package_barcode as boxno, r.id as boxlineno
+       , i.item_code as Itemid, i.item_name as itemname, r.qty, u.login_name as checkuser
+      FROM ldv_package_barcode b, ldv_package_item_rel r, v_wms_pick_ticket_detail d, v_wms_pick_ticket_act a, v_wms_item i, v_phr_sec_usrs u
+      where  r.create_user_id = u.id
+            and b.id = r.package_barcode_id
+            and r.pick_ticket_detail_id = d.id
+            and d.pick_ticket_id = a.pick_ticket_id
+            and d.item_id = i.id
+            and trunc(a.ship_time) = to_date(#DATE#,'yyyy-mm-dd')
+      order by d.pick_ticket_id, d.id, b.package_barcode
+      ]]>
+    </select>
+	</statements>
+	
+</sqlMap>

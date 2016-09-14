@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+  namespace="Carrier" xmlns="http://ibatis.apache.org/mapping"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <alias>
+    <typeAlias alias="Carrier" type="DataMapper.Carrier,DataMapper"/>
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="Carrier">
+      <result property="ID" column="ID" />
+      <result property="CarrierName" column="CarrierName" />
+      <result property="Contact" column="Contact" />
+      <result property="Mobile" column="Mobile" />
+      <result property="Tel" column="Tel" />
+      <result property="Address" column="Address" />
+      <result property="Status" column="Status" />
+      <result property="CreateTime" column="CreateTime" />
+      <result property="CreateUserId" column="CreateUserId" />
+      <result property="UpdateTime" column="UpdateTime" />
+      <result property="UpdateUserId" column="UpdateUserId" />
+    </resultMap>
+  </resultMaps>
+
+  <statements>
+
+    <select id="SelectAll" resultMap="SelectResult">
+      <![CDATA[
+			select
+				* 
+			from TB_Carrier	
+			]]>
+    </select>
+    <!--承运商修改-根据ID查询承运商-->
+    <select id="SelectById" extends="SelectAll" parameterClass="Carrier" resultMap="SelectResult">
+      <![CDATA[
+      select * from TB_Carrier
+			where
+				ID = #ID#
+			]]>
+    </select>
+
+    <select id="SelectByParam" extends="SelectAll" parameterClass="Carrier" resultMap="SelectResult">
+      <dynamic prepend="WHERE">
+
+        <isNotEmpty prepend="AND" property="CarrierName">
+          <![CDATA[ CarrierName = #CarrierName# ]]>
+        </isNotEmpty>
+        
+        <isNotEmpty prepend="AND" property="Contact">
+          <![CDATA[ Contact Like '%' + #Contact# + '%' ]]>
+        </isNotEmpty>
+        
+      </dynamic>
+    </select>
+    <!--承运商新增-->
+    <insert id="InsertCarrier" parameterClass="Carrier">
+      <![CDATA[
+			insert into TB_Carrier
+			(
+			  CarrierName,
+        Contact,
+        Mobile,
+        Tel,
+        Address,
+        Status,
+        CreateTime,
+        CreateUserId,
+        UpdateTime,
+        UpdateUserId
+			)
+			values 
+			(
+			 #CarrierName#,
+       #Contact#,
+       #Mobile#,
+       #Tel#,
+       #Address#,
+       0,
+       getdate(),
+       1,
+       getdate(),
+       1
+			)
+			]]>
+    </insert>
+    <!--承运商修改-->
+    <update id="UpdateCarrier" parameterClass="Carrier">
+      <![CDATA[
+        update TB_Carrier 
+      set
+      CarrierName= #CarrierName#
+      ,Contact = #Contact#
+      ,Mobile = #Mobile#
+      ,Tel= #Tel#
+      ,Address = #Address#
+      ,CreateTime=getdate()
+      ,CreateUserId=#CreateUserId#
+      ,UpdateTime =getdate()
+      ,UpdateUserId = #UpdateUserId#
+     where
+					Id = #ID#
+      ]]>
+    </update>
+  </statements>
+
+</sqlMap>

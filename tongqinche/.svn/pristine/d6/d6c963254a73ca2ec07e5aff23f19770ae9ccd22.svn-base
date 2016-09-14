@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="Employee" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="Employee" type="DataMapper.Employee, DataMapper" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="Employee">
+      <result property="Id" column="ID" />
+      <result property="EmployeeNo" column="EmployeeNo" />
+      <result property="CardNo" column="CardNo" />
+      <result property="Name" column="Name" />
+      <result property="Phone" column="Phone" />
+      <result property="Email" column="Email" />
+      <result property="ImportType" column="ImportType" />
+      <result property="Department" column="Department" />
+      <result property="Company" column="Company" />
+      <result property="ListType" column="ListType" />
+      <result property="Status" column="Status" /> 
+      <result property="CreateTime" column="CreateTime" />
+      <result property="CreateUserId" column="CreateUserId" />
+      <result property="UpdateTime" column="UpdateTime" />
+      <result property="UpdateUserId" column="UpdateUserId" />
+    </resultMap>
+  </resultMaps>
+
+  <statements>
+    <select id="SelectAll" resultMap="SelectResult">
+      <![CDATA[
+			select
+				* 
+			from TB_Employee
+			]]>
+    </select>
+
+    <select id="SelectById" extends="SelectAll" parameterClass="Employee" resultMap="SelectResult">
+      <![CDATA[
+			where
+				ID = #Id#
+			]]>
+    </select>
+
+    <select id="SelectByParam" extends="SelectAll" parameterClass="Employee" resultMap="SelectResult">
+      <dynamic prepend="WHERE">
+
+        <isNotEmpty prepend="AND" property="Company">
+          <![CDATA[ Company like '%' +#Company#+ '%']]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="Department">
+          <![CDATA[ Department Like '%' +#Department#+ '%' ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="EmployeeNo">
+          <![CDATA[ EmployeeNo =  #EmployeeNo# ]]>
+        </isNotEmpty>
+
+        <isNotEmpty prepend="AND" property="Name">
+          <![CDATA[ Name =  #Name# ]]>
+        </isNotEmpty>
+
+        <isNotEmpty prepend="AND" property="Status">
+          <![CDATA[ Status =  #Status# ]]>
+        </isNotEmpty>
+
+        <isNotEmpty prepend="AND" property="ImportType">
+          <![CDATA[ ImportType =  #ImportType# ]]>
+        </isNotEmpty>
+      </dynamic>
+    </select>
+
+
+    <delete id="Delete" parameterClass="Employee" >
+      <![CDATA[
+			delete from TB_Employee
+			where 
+				ID = #Id#
+			]]>
+    </delete>
+
+
+  </statements>
+
+</sqlMap>

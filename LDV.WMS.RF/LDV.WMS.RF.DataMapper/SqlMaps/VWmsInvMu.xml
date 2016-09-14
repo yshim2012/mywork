@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<sqlMap 
+	namespace="VWmsInvMu" xmlns="http://ibatis.apache.org/mapping" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	
+	<alias>
+		<typeAlias alias="VWmsInvMu" type="LDV.WMS.RF.DataMapper.VWmsInvMu, LDV.WMS.RF.DataMapper" />
+	</alias>
+	
+	<resultMaps>
+		<resultMap id="SelectResult" class="VWmsInvMu">
+			<result property="ID" column="ID" />
+			<result property="LP" column="LP" />
+			<result property="WHSE_ID" column="WHSE_ID" />
+			<result property="COMPANY_ID" column="COMPANY_ID" />
+			<result property="WEIGHT" column="WEIGHT" />
+			<result property="HEIGHT" column="HEIGHT" />
+			<result property="LENGTH" column="LENGTH" />
+			<result property="WIDTH" column="WIDTH" />
+			<result property="PACK_CODE" column="PACK_CODE" />
+			<result property="IS_DISABLED" column="IS_DISABLED" />
+			<result property="CREATED_TIME" column="CREATED_TIME" />
+			<result property="LAST_MODIFIED" column="LAST_MODIFIED" />
+			<result property="PACKAGE_TYPE" column="PACKAGE_TYPE" />
+			<result property="ITEM_ID" column="ITEM_ID" />
+		</resultMap>
+	</resultMaps>
+	
+	<statements>
+	
+		<select id="SelectAll" resultMap="SelectResult">
+			<![CDATA[
+			select
+				ID,
+				LP,
+				WHSE_ID,
+				COMPANY_ID,
+				WEIGHT,
+				HEIGHT,
+				LENGTH,
+				WIDTH,
+				PACK_CODE,
+				IS_DISABLED,
+				CREATED_TIME,
+				LAST_MODIFIED,
+				PACKAGE_TYPE,
+				ITEM_ID
+			from V_WMS_INV_MU
+			]]>
+		</select>
+		
+		<select id="SelectById" extends="SelectAll" parameterClass="double" resultMap="SelectResult">
+			<![CDATA[
+			where
+				ID = #value#
+			]]>
+		</select>
+		
+		<select id="SelectByParam" extends="SelectAll" parameterClass="VWmsInvMu" resultMap="SelectResult">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="LP">
+        			<![CDATA[ LP = #LP# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="WHSE_ID">
+        			<![CDATA[ WHSE_ID = #WHSE_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="COMPANY_ID">
+        			<![CDATA[ COMPANY_ID = #COMPANY_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="WEIGHT">
+        			<![CDATA[ WEIGHT = #WEIGHT# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="HEIGHT">
+        			<![CDATA[ HEIGHT = #HEIGHT# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LENGTH">
+        			<![CDATA[ LENGTH = #LENGTH# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="WIDTH">
+        			<![CDATA[ WIDTH = #WIDTH# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="PACK_CODE">
+        			<![CDATA[ PACK_CODE = #PACK_CODE# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="IS_DISABLED">
+        			<![CDATA[ IS_DISABLED = #IS_DISABLED# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="PACKAGE_TYPE">
+        			<![CDATA[ PACKAGE_TYPE = #PACKAGE_TYPE# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="ITEM_ID">
+        			<![CDATA[ ITEM_ID = #ITEM_ID# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+		
+		<select id="SelectForPageing" extends="SelectAll" parameterClass="System.Collections.IDictionary">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LP">
+        			<![CDATA[ LP = #LP# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="WHSE_ID">
+        			<![CDATA[ WHSE_ID = #WHSE_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="COMPANY_ID">
+        			<![CDATA[ COMPANY_ID = #COMPANY_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="WEIGHT">
+        			<![CDATA[ WEIGHT = #WEIGHT# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="HEIGHT">
+        			<![CDATA[ HEIGHT = #HEIGHT# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LENGTH">
+        			<![CDATA[ LENGTH = #LENGTH# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="WIDTH">
+        			<![CDATA[ WIDTH = #WIDTH# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PACK_CODE">
+        			<![CDATA[ PACK_CODE = #PACK_CODE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_DISABLED">
+        			<![CDATA[ IS_DISABLED = #IS_DISABLED# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CREATED_TIME">
+        			<![CDATA[ CREATED_TIME = #CREATED_TIME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LAST_MODIFIED">
+        			<![CDATA[ LAST_MODIFIED = #LAST_MODIFIED# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PACKAGE_TYPE">
+        			<![CDATA[ PACKAGE_TYPE = #PACKAGE_TYPE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ITEM_ID">
+        			<![CDATA[ ITEM_ID = #ITEM_ID# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+		<insert id="Insert" parameterClass="VWmsInvMu">
+			<selectKey resultClass="double" type="pre" property="ID" > 
+				<![CDATA[ select V_WMS_INV_MU_SEQ.NEXTVAL as value from dual ]]>
+			</selectKey>
+			<![CDATA[
+			insert into V_WMS_INV_MU
+			(
+			    ID,
+			    LP,
+			    WHSE_ID,
+			    COMPANY_ID,
+			    WEIGHT,
+			    HEIGHT,
+			    LENGTH,
+			    WIDTH,
+			    PACK_CODE,
+			    IS_DISABLED,
+			    CREATED_TIME,
+			    LAST_MODIFIED,
+			    PACKAGE_TYPE,
+			    ITEM_ID
+			)
+			values 
+			(
+				#ID#,
+				#LP#,
+				#WHSE_ID#,
+				#COMPANY_ID#,
+				#WEIGHT#,
+				#HEIGHT#,
+				#LENGTH#,
+				#WIDTH#,
+				#PACK_CODE#,
+				#IS_DISABLED#,
+				#CREATED_TIME#,
+				#LAST_MODIFIED#,
+				#PACKAGE_TYPE#,
+				#ITEM_ID#
+			)
+			]]>
+		</insert>
+		<update id="Update" parameterClass="VWmsInvMu" >
+			<![CDATA[
+			update V_WMS_INV_MU set
+				LP = #LP#,
+				WHSE_ID = #WHSE_ID#,
+				COMPANY_ID = #COMPANY_ID#,
+				WEIGHT = #WEIGHT#,
+				HEIGHT = #HEIGHT#,
+				LENGTH = #LENGTH#,
+				WIDTH = #WIDTH#,
+				PACK_CODE = #PACK_CODE#,
+				IS_DISABLED = #IS_DISABLED#,
+				CREATED_TIME = #CREATED_TIME#,
+				LAST_MODIFIED = #LAST_MODIFIED#,
+				PACKAGE_TYPE = #PACKAGE_TYPE#,
+				ITEM_ID = #ITEM_ID#
+			where
+				ID = #ID#
+			]]>
+		</update>
+		
+		<update id="UpdateSection" parameterClass="VWmsInvMu" >
+			<![CDATA[
+			update V_WMS_INV_MU set 
+			]]>
+			<dynamic prepend=" ">
+				<isNotEmpty prepend="," property="LP">
+					<![CDATA[ LP=#LP#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="WHSE_ID">
+					<![CDATA[ WHSE_ID=#WHSE_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="COMPANY_ID">
+					<![CDATA[ COMPANY_ID=#COMPANY_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="WEIGHT">
+					<![CDATA[ WEIGHT=#WEIGHT#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="HEIGHT">
+					<![CDATA[ HEIGHT=#HEIGHT#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="LENGTH">
+					<![CDATA[ LENGTH=#LENGTH#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="WIDTH">
+					<![CDATA[ WIDTH=#WIDTH#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="PACK_CODE">
+					<![CDATA[ PACK_CODE=#PACK_CODE#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="IS_DISABLED">
+					<![CDATA[ IS_DISABLED=#IS_DISABLED#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="CREATED_TIME">
+					<![CDATA[ CREATED_TIME=#CREATED_TIME#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="LAST_MODIFIED">
+					<![CDATA[ LAST_MODIFIED=#LAST_MODIFIED#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="PACKAGE_TYPE">
+					<![CDATA[ PACKAGE_TYPE=#PACKAGE_TYPE#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="ITEM_ID">
+					<![CDATA[ ITEM_ID=#ITEM_ID#]]>
+				</isNotNull>
+			</dynamic>
+			<![CDATA[
+			where
+				ID = #ID#
+			]]>
+		</update>
+		<delete id="Delete" parameterClass="VWmsInvMu" >
+			<![CDATA[
+			delete from V_WMS_INV_MU
+			where 
+				ID = #ID#
+			]]>
+		</delete>
+	</statements>
+	
+</sqlMap>

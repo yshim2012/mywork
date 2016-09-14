@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="LdvQrCode" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="LdvQrCode" type="LDV.WMS.RF.DataMapper.LdvQrCode, LDV.WMS.RF.DataMapper" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="LdvQrCode">
+      <result property="ID" column="ID" />
+      <result property="QRCODE" column="QRCODE" />
+      <result property="REF_ID" column="REF_ID" />
+      <result property="REF_TYPE" column="REF_TYPE" />
+      <result property="CREATED_TIME" column="CREATED_TIME" />
+      <result property="CREATED_BY" column="CREATED_BY" />
+    </resultMap>
+  </resultMaps>
+
+  <statements>
+
+    <select id="SelectAll" resultMap="SelectResult">
+      <![CDATA[
+			select
+				ID,
+				QRCODE,
+				REF_ID,
+				REF_TYPE,
+				CREATED_TIME,
+				CREATED_BY
+			from LDV_QR_CODE
+			]]>
+    </select>
+
+    <select id="SelectById" extends="SelectAll" parameterClass="double" resultMap="SelectResult">
+      <![CDATA[
+			where
+				ID = #value#
+			]]>
+    </select>
+
+    <select id="SelectByParam" extends="SelectAll" parameterClass="LdvQrCode" resultMap="SelectResult">
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ID">
+          <![CDATA[ ID = #ID# ]]>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="QRCODE">
+          <![CDATA[ QRCODE = #QRCODE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="REF_TYPE">
+          <![CDATA[ REF_TYPE = #REF_TYPE# ]]>
+        </isNotEmpty>
+        <isNotNull prepend="AND" property="CREATED_BY">
+          <![CDATA[ CREATED_BY = #CREATED_BY# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LAST_MODIFY_USER_ID">
+          <![CDATA[ LAST_MODIFY_USER_ID = #LAST_MODIFY_USER_ID# ]]>
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectForPageing" extends="SelectAll" parameterClass="System.Collections.IDictionary">
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ID">
+          <![CDATA[ ID = #ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="QRCODE">
+          <![CDATA[ QRCODE = #QRCODE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="REF_ID">
+          <![CDATA[ REF_ID = #REF_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="REF_TYPE">
+          <![CDATA[ REF_TYPE = #REF_TYPE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="CREATED_BY">
+          <![CDATA[ CREATED_BY = #CREATED_BY# ]]>
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <!--二维码数据同步接口-查询-->
+    <select id="SelectQRCode" parameterClass="System.Collections.IDictionary" >
+      <![CDATA[
+      select t.qrcode
+      from ldv_qr_code t
+      where trunc(t.created_time) = to_date(#DATE#, 'yyyy-mm-dd')
+      order by t.id
+      ]]>
+    </select>
+    
+    <insert id="Insert" parameterClass="LdvQrCode">
+      <selectKey resultClass="double" type="pre" property="ID" >
+        <![CDATA[ select LDV_PLAN_CHECK_SEQ.NEXTVAL as value from dual ]]>
+      </selectKey>
+      <![CDATA[
+			insert into LDV_QR_CODE
+			(
+			    ID,
+			    QRCODE,
+			    REF_ID,
+			    REF_TYPE,
+          CREATED_TIME,
+			    CREATED_BY
+			)
+			values 
+			(
+				#ID#,
+				#QRCODE#,
+				#REF_ID#,
+				#REF_TYPE#,
+        #CREATED_TIME#,
+				#CREATED_BY#
+				)
+			]]>
+    </insert>
+    
+    <update id="Update" parameterClass="LdvQrCode" >
+      <![CDATA[
+			update LDV_QR_CODE set
+				QRCODE = #QRCODE#,
+				REF_ID = #REF_ID#,
+				REF_TYPE = #REF_TYPE#
+			where
+				ID = #ID#
+			]]>
+    </update>
+
+    <delete id="Delete" parameterClass="LdvQrCode" >
+      <![CDATA[
+			delete from LDV_QR_CODE
+			where 
+				ID = #ID#
+			]]>
+    </delete>
+  </statements>
+
+</sqlMap>

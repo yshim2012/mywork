@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<sqlMap 
+	namespace="VWmsItemLocationMap" xmlns="http://ibatis.apache.org/mapping" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	
+	<alias>
+		<typeAlias alias="VWmsItemLocationMap" type="LDV.WMS.RF.DataMapper.VWmsItemLocationMap, LDV.WMS.RF.DataMapper" />
+	</alias>
+	
+	<resultMaps>
+		<resultMap id="SelectResult" class="VWmsItemLocationMap">
+			<result property="ID" column="ID" />
+			<result property="ITEM_ID" column="ITEM_ID" />
+			<result property="SUPPLIER_ID" column="SUPPLIER_ID" />
+			<result property="LOC_ID" column="LOC_ID" />
+			<result property="MAX_PUT_NUM" column="MAX_PUT_NUM" />
+			<result property="CREATED_TIME" column="CREATED_TIME" />
+			<result property="LAST_MODIFIED" column="LAST_MODIFIED" />
+			<result property="ORDER_NUM" column="ORDER_NUM" />
+		</resultMap>
+	</resultMaps>
+	
+	<statements>
+	
+		<select id="SelectAll" resultMap="SelectResult">
+			<![CDATA[
+			select
+				ID,
+				ITEM_ID,
+				SUPPLIER_ID,
+				LOC_ID,
+				MAX_PUT_NUM,
+				CREATED_TIME,
+				LAST_MODIFIED,
+				ORDER_NUM
+			from V_WMS_ITEM_LOCATION_MAP
+			]]>
+		</select>
+		
+		<select id="SelectById" extends="SelectAll" parameterClass="double" resultMap="SelectResult">
+			<![CDATA[
+			where
+				ID = #value#
+			]]>
+		</select>
+		
+		<select id="SelectByParam" extends="SelectAll" parameterClass="VWmsItemLocationMap" resultMap="SelectResult">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ITEM_ID">
+        			<![CDATA[ ITEM_ID = #ITEM_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SUPPLIER_ID">
+        			<![CDATA[ SUPPLIER_ID = #SUPPLIER_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LOC_ID">
+        			<![CDATA[ LOC_ID = #LOC_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="MAX_PUT_NUM">
+        			<![CDATA[ MAX_PUT_NUM = #MAX_PUT_NUM# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ORDER_NUM">
+        			<![CDATA[ ORDER_NUM = #ORDER_NUM# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+		
+		<select id="SelectForPageing" extends="SelectAll" parameterClass="System.Collections.IDictionary">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ITEM_ID">
+        			<![CDATA[ ITEM_ID = #ITEM_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SUPPLIER_ID">
+        			<![CDATA[ SUPPLIER_ID = #SUPPLIER_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LOC_ID">
+        			<![CDATA[ LOC_ID = #LOC_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="MAX_PUT_NUM">
+        			<![CDATA[ MAX_PUT_NUM = #MAX_PUT_NUM# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CREATED_TIME">
+        			<![CDATA[ CREATED_TIME = #CREATED_TIME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LAST_MODIFIED">
+        			<![CDATA[ LAST_MODIFIED = #LAST_MODIFIED# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ORDER_NUM">
+        			<![CDATA[ ORDER_NUM = #ORDER_NUM# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+		<insert id="Insert" parameterClass="VWmsItemLocationMap">
+			<selectKey resultClass="double" type="pre" property="ID" > 
+				<![CDATA[ select .NEXTVAL as value from dual ]]>
+			</selectKey>
+			<![CDATA[
+			insert into V_WMS_ITEM_LOCATION_MAP
+			(
+			    ID,
+			    ITEM_ID,
+			    SUPPLIER_ID,
+			    LOC_ID,
+			    MAX_PUT_NUM,
+			    CREATED_TIME,
+			    LAST_MODIFIED,
+			    ORDER_NUM
+			)
+			values 
+			(
+				#ID#,
+				#ITEM_ID#,
+				#SUPPLIER_ID#,
+				#LOC_ID#,
+				#MAX_PUT_NUM#,
+				#CREATED_TIME#,
+				#LAST_MODIFIED#,
+				#ORDER_NUM#
+			)
+			]]>
+		</insert>
+		<update id="Update" parameterClass="VWmsItemLocationMap" >
+			<![CDATA[
+			update V_WMS_ITEM_LOCATION_MAP set
+				ITEM_ID = #ITEM_ID#,
+				SUPPLIER_ID = #SUPPLIER_ID#,
+				LOC_ID = #LOC_ID#,
+				MAX_PUT_NUM = #MAX_PUT_NUM#,
+				CREATED_TIME = #CREATED_TIME#,
+				LAST_MODIFIED = #LAST_MODIFIED#,
+				ORDER_NUM = #ORDER_NUM#
+			where
+				ID = #ID#
+			]]>
+		</update>
+		<delete id="Delete" parameterClass="VWmsItemLocationMap" >
+			<![CDATA[
+			delete from V_WMS_ITEM_LOCATION_MAP
+			where 
+				ID = #ID#
+			]]>
+		</delete>
+	</statements>
+	
+</sqlMap>

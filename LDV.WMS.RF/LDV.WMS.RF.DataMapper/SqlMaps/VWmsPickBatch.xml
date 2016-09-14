@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<sqlMap 
+	namespace="VWmsPickBatch" xmlns="http://ibatis.apache.org/mapping" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	
+	<alias>
+		<typeAlias alias="VWmsPickBatch" type="LDV.WMS.RF.DataMapper.VWmsPickBatch, LDV.WMS.RF.DataMapper" />
+	</alias>
+	
+	<resultMaps>
+		<resultMap id="SelectResult" class="VWmsPickBatch">
+			<result property="ID" column="ID" />
+			<result property="COMPANY_ID" column="COMPANY_ID" />
+			<result property="WHSE_ID" column="WHSE_ID" />
+			<result property="DESCRIPTION" column="DESCRIPTION" />
+			<result property="STATUS" column="STATUS" />
+			<result property="ALLOC_MODE" column="ALLOC_MODE" />
+			<result property="PICK_MODE" column="PICK_MODE" />
+			<result property="IS_DISABLED" column="IS_DISABLED" />
+			<result property="CREATED_TIME" column="CREATED_TIME" />
+			<result property="IS_LINE" column="IS_LINE" />
+			<result property="ROUTE_CODE" column="ROUTE_CODE" />
+			<result property="IS_CLASSIFY" column="IS_CLASSIFY" />
+			<result property="IS_URGENCY" column="IS_URGENCY" />
+			<result property="IS_PRINT" column="IS_PRINT" />
+			<result property="PRINT_TIME" column="PRINT_TIME" />
+			<result property="LAST_MODIFIED" column="LAST_MODIFIED" />
+			<result property="IS_TAKEN" column="IS_TAKEN" />
+			<result property="TAKER" column="TAKER" />
+			<result property="TAKEN_TIME" column="TAKEN_TIME" />
+		</resultMap>
+	</resultMaps>
+	
+	<statements>
+	
+		<select id="SelectAll" resultMap="SelectResult">
+			<![CDATA[
+			select
+				ID,
+				COMPANY_ID,
+				WHSE_ID,
+				DESCRIPTION,
+				STATUS,
+				ALLOC_MODE,
+				PICK_MODE,
+				IS_DISABLED,
+				CREATED_TIME,
+				IS_LINE,
+				ROUTE_CODE,
+				IS_CLASSIFY,
+				IS_URGENCY,
+				IS_PRINT,
+				PRINT_TIME,
+				LAST_MODIFIED,
+				IS_TAKEN,
+				TAKER,
+				TAKEN_TIME
+			from V_WMS_PICK_BATCH
+			]]>
+		</select>
+		
+		<select id="SelectById" extends="SelectAll" parameterClass="double" resultMap="SelectResult">
+			<![CDATA[
+			where
+				ID = #value#
+			]]>
+		</select>
+		
+		<select id="SelectByParam" extends="SelectAll" parameterClass="VWmsPickBatch" resultMap="SelectResult">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="COMPANY_ID">
+        			<![CDATA[ COMPANY_ID = #COMPANY_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="WHSE_ID">
+        			<![CDATA[ WHSE_ID = #WHSE_ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="DESCRIPTION">
+        			<![CDATA[ DESCRIPTION = #DESCRIPTION# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="STATUS">
+        			<![CDATA[ STATUS = #STATUS# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="ALLOC_MODE">
+        			<![CDATA[ ALLOC_MODE = #ALLOC_MODE# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="PICK_MODE">
+        			<![CDATA[ PICK_MODE = #PICK_MODE# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="IS_DISABLED">
+        			<![CDATA[ IS_DISABLED = #IS_DISABLED# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="IS_LINE">
+        			<![CDATA[ IS_LINE = #IS_LINE# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="ROUTE_CODE">
+        			<![CDATA[ ROUTE_CODE = #ROUTE_CODE# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="IS_CLASSIFY">
+        			<![CDATA[ IS_CLASSIFY = #IS_CLASSIFY# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="IS_URGENCY">
+        			<![CDATA[ IS_URGENCY = #IS_URGENCY# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="IS_PRINT">
+        			<![CDATA[ IS_PRINT = #IS_PRINT# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="IS_TAKEN">
+        			<![CDATA[ IS_TAKEN = #IS_TAKEN# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="TAKER">
+        			<![CDATA[ TAKER = #TAKER# ]]>
+				</isNotEmpty>
+			</dynamic>
+		</select>
+		
+		<select id="SelectForPageing" extends="SelectAll" parameterClass="System.Collections.IDictionary">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="COMPANY_ID">
+        			<![CDATA[ COMPANY_ID = #COMPANY_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="WHSE_ID">
+        			<![CDATA[ WHSE_ID = #WHSE_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="DESCRIPTION">
+        			<![CDATA[ DESCRIPTION = #DESCRIPTION# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="STATUS">
+        			<![CDATA[ STATUS = #STATUS# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ALLOC_MODE">
+        			<![CDATA[ ALLOC_MODE = #ALLOC_MODE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PICK_MODE">
+        			<![CDATA[ PICK_MODE = #PICK_MODE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_DISABLED">
+        			<![CDATA[ IS_DISABLED = #IS_DISABLED# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CREATED_TIME">
+        			<![CDATA[ CREATED_TIME = #CREATED_TIME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_LINE">
+        			<![CDATA[ IS_LINE = #IS_LINE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ROUTE_CODE">
+        			<![CDATA[ ROUTE_CODE = #ROUTE_CODE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_CLASSIFY">
+        			<![CDATA[ IS_CLASSIFY = #IS_CLASSIFY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_URGENCY">
+        			<![CDATA[ IS_URGENCY = #IS_URGENCY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_PRINT">
+        			<![CDATA[ IS_PRINT = #IS_PRINT# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PRINT_TIME">
+        			<![CDATA[ PRINT_TIME = #PRINT_TIME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LAST_MODIFIED">
+        			<![CDATA[ LAST_MODIFIED = #LAST_MODIFIED# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_TAKEN">
+        			<![CDATA[ IS_TAKEN = #IS_TAKEN# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="TAKER">
+        			<![CDATA[ TAKER = #TAKER# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="TAKEN_TIME">
+        			<![CDATA[ TAKEN_TIME = #TAKEN_TIME# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+		<insert id="Insert" parameterClass="VWmsPickBatch">
+			<selectKey resultClass="double" type="pre" property="ID" > 
+				<![CDATA[ select V_WMS_PICK_BATCH_SEQ.NEXTVAL as value from dual ]]>
+			</selectKey>
+			<![CDATA[
+			insert into V_WMS_PICK_BATCH
+			(
+			    ID,
+			    COMPANY_ID,
+			    WHSE_ID,
+			    DESCRIPTION,
+			    STATUS,
+			    ALLOC_MODE,
+			    PICK_MODE,
+			    IS_DISABLED,
+			    CREATED_TIME,
+			    IS_LINE,
+			    ROUTE_CODE,
+			    IS_CLASSIFY,
+			    IS_URGENCY,
+			    IS_PRINT,
+			    PRINT_TIME,
+			    LAST_MODIFIED,
+			    IS_TAKEN,
+			    TAKER,
+			    TAKEN_TIME
+			)
+			values 
+			(
+				#ID#,
+				#COMPANY_ID#,
+				#WHSE_ID#,
+				#DESCRIPTION#,
+				#STATUS#,
+				#ALLOC_MODE#,
+				#PICK_MODE#,
+				#IS_DISABLED#,
+				#CREATED_TIME#,
+				#IS_LINE#,
+				#ROUTE_CODE#,
+				#IS_CLASSIFY#,
+				#IS_URGENCY#,
+				#IS_PRINT#,
+				#PRINT_TIME#,
+				#LAST_MODIFIED#,
+				#IS_TAKEN#,
+				#TAKER#,
+				#TAKEN_TIME#
+			)
+			]]>
+		</insert>
+		<update id="Update" parameterClass="VWmsPickBatch" >
+			<![CDATA[
+			update V_WMS_PICK_BATCH set
+				STATUS = 'PI',
+				LAST_MODIFIED = sysdate
+			where
+				ID = #ID#
+			]]>
+		</update>
+		
+		<update id="UpdateSection" parameterClass="VWmsPickBatch" >
+			<![CDATA[
+			update V_WMS_PICK_BATCH set 
+			]]>
+			<dynamic prepend=" ">
+				<isNotNull prepend="," property="COMPANY_ID">
+					<![CDATA[ COMPANY_ID=#COMPANY_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="WHSE_ID">
+					<![CDATA[ WHSE_ID=#WHSE_ID#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="DESCRIPTION">
+					<![CDATA[ DESCRIPTION=#DESCRIPTION#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="STATUS">
+					<![CDATA[ STATUS=#STATUS#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="ALLOC_MODE">
+					<![CDATA[ ALLOC_MODE=#ALLOC_MODE#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="PICK_MODE">
+					<![CDATA[ PICK_MODE=#PICK_MODE#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="IS_DISABLED">
+					<![CDATA[ IS_DISABLED=#IS_DISABLED#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="CREATED_TIME">
+					<![CDATA[ CREATED_TIME=#CREATED_TIME#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="IS_LINE">
+					<![CDATA[ IS_LINE=#IS_LINE#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="ROUTE_CODE">
+					<![CDATA[ ROUTE_CODE=#ROUTE_CODE#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="IS_CLASSIFY">
+					<![CDATA[ IS_CLASSIFY=#IS_CLASSIFY#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="IS_URGENCY">
+					<![CDATA[ IS_URGENCY=#IS_URGENCY#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="IS_PRINT">
+					<![CDATA[ IS_PRINT=#IS_PRINT#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="PRINT_TIME">
+					<![CDATA[ PRINT_TIME=#PRINT_TIME#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="LAST_MODIFIED">
+					<![CDATA[ LAST_MODIFIED=#LAST_MODIFIED#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="IS_TAKEN">
+					<![CDATA[ IS_TAKEN=#IS_TAKEN#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="TAKER">
+					<![CDATA[ TAKER=#TAKER#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="TAKEN_TIME">
+					<![CDATA[ TAKEN_TIME=#TAKEN_TIME#]]>
+				</isNotNull>
+			</dynamic>
+			<![CDATA[
+			where
+				ID = #ID#
+			]]>
+		</update>
+		<delete id="Delete" parameterClass="VWmsPickBatch" >
+			<![CDATA[
+			delete from V_WMS_PICK_BATCH
+			where 
+				ID = #ID#
+			]]>
+		</delete>
+	</statements>
+	
+</sqlMap>

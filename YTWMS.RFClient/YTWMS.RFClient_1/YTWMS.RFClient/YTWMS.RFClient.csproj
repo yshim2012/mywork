@@ -1,0 +1,281 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AED04D27-F912-4D1C-B8EB-45F719B7DAB7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>YTWMS.RFClient</RootNamespace>
+    <AssemblyName>YTWMS.RFClient</AssemblyName>
+    <ProjectTypeGuids>{4D628B5B-2FBC-4AA6-8C16-197242AEB884};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PlatformFamilyName>WindowsCE</PlatformFamilyName>
+    <PlatformID>E2BECB1F-8C8C-41ba-B736-9BE7D946A398</PlatformID>
+    <OSVersion>5.00</OSVersion>
+    <DeployDirSuffix>ytwmsRf</DeployDirSuffix>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <NativePlatformName>Windows CE</NativePlatformName>
+    <FormFactorID>
+    </FormFactorID>
+    <StartupObject>
+    </StartupObject>
+    <DeployDirPrefix>%25CSIDL_PROGRAM_FILES%25</DeployDirPrefix>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;$(PlatformFamilyName)</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <FileAlignment>512</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;$(PlatformFamilyName)</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <FileAlignment>512</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.WindowsCE.Forms" />
+    <Reference Include="mscorlib" />
+    <Reference Include="SalesPoint.Device, Version=2.0.7.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\External_Bin\SalesPoint.Device.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseInfo.cs" />
+    <Compile Include="ConfigForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigForm.Designer.cs">
+      <DependentUpon>ConfigForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigLoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigLoginForm.Designer.cs">
+      <DependentUpon>ConfigLoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DownLoadForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DownLoadForm.Designer.cs">
+      <DependentUpon>DownLoadForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExceService.cs" />
+    <Compile Include="LoginFrom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginFrom.Designer.cs">
+      <DependentUpon>LoginFrom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginInfo.cs" />
+    <Compile Include="MenuForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MenuForm.Designer.cs">
+      <DependentUpon>MenuForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ConfigForm.resx">
+      <DependentUpon>ConfigForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigLoginForm.resx">
+      <DependentUpon>ConfigLoginForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DownLoadForm.resx">
+      <DependentUpon>DownLoadForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginFrom.resx">
+      <DependentUpon>LoginFrom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenuForm.resx">
+      <DependentUpon>MenuForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Receive\BatchPackageR.resx">
+      <DependentUpon>BatchPackageR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Receive\PackageR.resx">
+      <DependentUpon>PackageR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Receive\ReceiveInfo.resx">
+      <DependentUpon>ReceiveInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Send\PackageBack.resx">
+      <DependentUpon>PackageBack.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Send\PackageBackSupplierDetail.resx">
+      <DependentUpon>PackageBackSupplierDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Send\PackageSend.resx">
+      <DependentUpon>PackageSend.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Send\PackageSendDetail.resx">
+      <DependentUpon>PackageSendDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Send\SendInfo.resx">
+      <DependentUpon>SendInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Send\SortSend.resx">
+      <DependentUpon>SortSend.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Receive\BatchPackageR.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Receive\BatchPackageR.Designer.cs">
+      <DependentUpon>BatchPackageR.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Receive\PackageR.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Receive\PackageR.Designer.cs">
+      <DependentUpon>PackageR.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Receive\ReceiveInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Receive\ReceiveInfo.Designer.cs">
+      <DependentUpon>ReceiveInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RegExpLib.cs" />
+    <Compile Include="Send\PackageBack.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Send\PackageBack.Designer.cs">
+      <DependentUpon>PackageBack.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Send\PackageBackSupplierDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Send\PackageBackSupplierDetail.Designer.cs">
+      <DependentUpon>PackageBackSupplierDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Send\PackageSend.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Send\PackageSend.Designer.cs">
+      <DependentUpon>PackageSend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Send\PackageSendDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Send\PackageSendDetail.Designer.cs">
+      <DependentUpon>PackageSendDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Send\SendInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Send\SendInfo.Designer.cs">
+      <DependentUpon>SendInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Send\SortSend.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Send\SortSend.Designer.cs">
+      <DependentUpon>SortSend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\RFService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://192.168.0.54/YTRFServices/RFService.asmx">
+      <UrlBehavior>Static</UrlBehavior>
+      <RelPath>Web References\RFService\</RelPath>
+      <UpdateFromURL>http://192.168.0.54/YTRFServices/RFService.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>
+      </CachedAppSettingsObjectName>
+      <CachedSettingsPropName>
+      </CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\RFService\RFService.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\RFService\JjmcDimUser1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\RFService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\RFService\RFService.disco" />
+    <None Include="Web References\RFService\SendInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CodeBetter.Json.CF\CodeBetter.Json.CF.csproj">
+      <Project>{F21692C0-15A2-4286-AF51-90B4FBF349DF}</Project>
+      <Name>CodeBetter.Json.CF</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}">
+        <HostingProcess disable="1" />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Import Condition="'$(TargetFrameworkVersion)' == 'v3.5'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
+</Project>

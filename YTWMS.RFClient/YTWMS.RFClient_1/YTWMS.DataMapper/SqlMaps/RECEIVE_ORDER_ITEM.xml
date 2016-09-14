@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="ReceiveOrderItem" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="ReceiveOrderItem" type="DataMapper.ReceiveOrderItem, DataMapper" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="ReceiveOrderItem">
+      <result property="ID" column="ID" />
+      <result property="ORDER_BUSINESS_ID" column="ORDER_BUSINESS_ID" />
+      <result property="BATCH_PART_ID" column="BATCH_PART_ID" />
+      <result property="PLAN_IN_QTY" column="PLAN_IN_QTY" />
+      <result property="REAL_IN_QTY" column="REAL_IN_QTY" />
+      <result property="TYPE" column="TYPE" />
+      <result property="LOCATION_ID" column="LOCATION_ID" />
+      <result property="ORDER_SOURCE_ID" column="ORDER_SOURCE_ID" />
+      <result property="STATE" column="STATE" />
+      <result property="CREATE_TIME" column="CREATE_TIME" />
+      <result property="CREATE_USER_ID" column="CREATE_USER_ID" />
+      <result property="LAST_UPDATE" column="LAST_UPDATE" />
+      <result property="UPDATE_USER_ID" column="UPDATE_USER_ID" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <select id="SelectAll" resultMap="SelectResult" >
+      <![CDATA[
+          SELECT ID
+                ,ORDER_BUSINESS_ID
+                ,BATCH_PART_ID
+                ,PLAN_IN_QTY
+                ,REAL_IN_QTY
+                ,TYPE
+                ,LOCATION_ID
+                ,ORDER_SOURCE_ID
+                ,STATE
+                ,CREATE_TIME
+                ,CREATE_USER_ID
+                ,LAST_UPDATE
+                ,UPDATE_USER_ID
+            FROM RECEIVE_ORDER_ITEM
+			]]>
+    </select>
+
+    <select id="SelectByParam" extends="SelectAll" resultMap="SelectResult"  parameterClass="ReceiveOrderItem">
+      <dynamic prepend="WHERE">
+        <isNotEqual prepend="AND" property="ID" compareValue="0">
+          <![CDATA[ ID = #ID# ]]>
+        </isNotEqual>
+        <isNotEqual prepend="AND" property="ORDER_BUSINESS_ID" compareValue="0">
+          <![CDATA[ ORDER_BUSINESS_ID = #ORDER_BUSINESS_ID# ]]>
+        </isNotEqual>
+        <isNotEqual prepend="AND" property="BATCH_PART_ID" compareValue="0">
+          <![CDATA[ BATCH_PART_ID = #BATCH_PART_ID# ]]>
+        </isNotEqual>
+        <isNotEqual prepend="AND" property="LOCATION_ID" compareValue="0">
+          <![CDATA[ LOCATION_ID = #LOCATION_ID# ]]>
+        </isNotEqual>
+        <isNotEqual prepend="AND" property="ORDER_SOURCE_ID" compareValue="0">
+          <![CDATA[ ORDER_SOURCE_ID = #ORDER_SOURCE_ID# ]]>
+        </isNotEqual>
+        <isNotEmpty prepend="AND" property="TYPE">
+          <![CDATA[ TYPE =  #TYPE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="STATE">
+          <![CDATA[ STATE = #STATE# ]]>
+        </isNotEmpty>
+      </dynamic>
+    </select>
+
+    <insert id="Insert" parameterClass="ReceiveOrderItem">
+      <![CDATA[
+		     INSERT INTO RECEIVE_ORDER_ITEM
+                     (ORDER_BUSINESS_ID
+                     ,BATCH_PART_ID
+                     ,PLAN_IN_QTY
+                     ,REAL_IN_QTY
+                     ,TYPE
+                     ,RECOMMEND_LOC_ID
+                     ,LOCATION_ID
+                     ,ORDER_SOURCE_ID
+                     ,STATE
+                     ,CREATE_TIME
+                     ,CREATE_USER_ID)
+               VALUES
+                     (#ORDER_BUSINESS_ID#
+                     ,#BATCH_PART_ID#
+                     ,#PLAN_IN_QTY#
+                     ,#REAL_IN_QTY#
+                     ,#TYPE#
+                     ,#RECOMMEND_LOC_ID#
+                     ,#LOCATION_ID#
+                     ,#ORDER_SOURCE_ID#
+                     ,#STATE#
+                     ,#CREATE_TIME#
+                     ,#CREATE_USER_ID#)
+			]]>
+      <selectKey resultClass="int" type="post" property="ID" >
+        <![CDATA[ select @@IDENTITY ; ]]>
+      </selectKey>
+    </insert>
+
+  </statements>
+</sqlMap>

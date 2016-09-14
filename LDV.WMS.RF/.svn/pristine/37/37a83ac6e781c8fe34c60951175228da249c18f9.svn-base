@@ -1,0 +1,1 @@
+﻿<%@ WebService Language="C#" CodeBehind="UpdateClentService.asmx.cs" Class="LDV.WMS.RF.UCWebService.Service1" %>

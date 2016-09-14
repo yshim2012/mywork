@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sqlMapConfig xmlns="http://ibatis.apache.org/dataMapper"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <!--常量-->
+  <properties resource="XYDB.config">
+    <property key="namespace" value="DataMapper.SqlMaps"/>
+    <property key="assembly" value="DataMapper"/>
+  </properties>
+
+  <settings>
+    <setting useStatementNamespaces="true"/>
+    <setting cacheModelsEnabled="false"/>
+    <setting validateSqlMap="true"/>
+  </settings>
+
+  <providers embedded="DataMapper.Providers.config, DataMapper"/>
+
+  <database>
+    <provider name="sqlServer2.0"/>
+    <!--<provider name="oracleClient1.0"/>-->
+    <dataSource name="XY" connectionString="Data Source=${server};Initial Catalog=${datasource};User ID=${userid};Password=${password};Connection Timeout=120;"/>
+    <dialect>
+      <innerDialect name="SqlServerDialect" />
+      <!--<innerDialect name="OracleDialect" />-->
+    </dialect>
+  </database>
+
+  <sqlMaps>
+    <sqlMap embedded="${namespace}.BaseInfo.Loc.xml, ${assembly}"/> 
+    <sqlMap embedded="${namespace}.BaseInfo.Employee.xml, ${assembly}"/>
+    <sqlMap embedded="${namespace}.BaseInfo.Dict.xml, ${assembly}"/>
+    <sqlMap embedded="${namespace}.BaseInfo.RouteShift.xml, ${assembly}"/>
+    <sqlMap embedded="${namespace}.BaseInfo.User.xml, ${assembly}"/>
+    <sqlMap embedded="${namespace}.BaseInfo.Route.xml, ${assembly}"/>
+  </sqlMaps>
+
+</sqlMapConfig>

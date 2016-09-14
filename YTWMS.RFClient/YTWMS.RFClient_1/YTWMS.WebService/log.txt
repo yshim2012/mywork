@@ -1,0 +1,40 @@
+[Header]\r\n2016-06-24 10:20:15,146 [10316] DEBUG Utility.RunTimeLogger [(null)] - 2016/6/24 10:20:15:ºÙºÙºÙºÙºÙºÙºÙºÙ¹þ¹þ¹þºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙ
+[Footer]\r\n[Header]\r\n2016-06-24 10:31:29,198 [14000] DEBUG Utility.RunTimeLogger [(null)] - 2016/6/24 10:31:28:ºÙºÙºÙºÙºÙºÙºÙºÙ¹þ¹þ¹þºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙ
+2016-06-24 10:31:45,462 [15064] DEBUG Utility.RunTimeLogger [(null)] - 2016/6/24 10:31:45:ºÙºÙºÙºÙºÙºÙºÙºÙ¹þ¹þ¹þºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙ
+[Footer]\r\n[Header]\r\n2016-06-24 13:11:33,957 [14236] DEBUG Utility.RunTimeLogger [(null)] - 2016/6/24 13:11:33:ºÙºÙºÙºÙºÙºÙºÙºÙ¹þ¹þ¹þºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙ
+2016-06-24 13:12:22,073 [14236] DEBUG Utility.RunTimeLogger [(null)] - 2016/6/24 13:12:22:ºÙºÙºÙºÙºÙºÙºÙºÙ¹þ¹þ¹þºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙ
+2016-06-24 13:36:23,379 [9512] DEBUG Utility.RunTimeLogger [(null)] - 2016/6/24 13:36:23:ºÙºÙºÙºÙºÙºÙºÙºÙ¹þ¹þ¹þºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙºÙ
+2016-06-24 13:37:08,016 [9512] DEBUG Utility.RunTimeLogger [(null)] - 2016/6/24 13:37:08:Invalid column name 'BOX_NUMBER'.
+Invalid column name 'BOX_NUMBER'.
+[Footer]\r\n[Header]\r\n2016-07-12 16:51:41,309 [10572] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/12 16:51:40:ÒÑÌí¼ÓÏî¡£×ÖµäÖÐµÄ¹Ø¼ü×Ö:¡°PROJECT_ITEM_ID¡±ËùÌí¼ÓµÄ¹Ø¼ü×Ö:¡°PROJECT_ITEM_ID¡±
+2016-07-12 16:52:07,381 [780] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/12 16:52:07:ÒÑÌí¼ÓÏî¡£×ÖµäÖÐµÄ¹Ø¼ü×Ö:¡°PROJECT_ITEM_ID¡±ËùÌí¼ÓµÄ¹Ø¼ü×Ö:¡°PROJECT_ITEM_ID¡±
+[Footer]\r\n[Header]\r\n2016-07-13 16:40:26,135 [11196] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/13 16:40:25:Invalid column name 'PLAN_TIME'.
+2016-07-13 16:40:26,203 [11196] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/13 16:40:26:Invalid column name 'PLAN_TIME'.
+[Footer]\r\n[Header]\r\n2016-07-18 23:47:54,436 [13720] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/18 23:47:54:This SQL map does not contain a MappedStatement named Part.SelectInputByParam
+2016-07-18 23:47:57,573 [17004] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/18 23:47:57:This SQL map does not contain a MappedStatement named Part.SelectInputByParam
+2016-07-18 23:47:59,149 [6984] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/18 23:47:59:This SQL map does not contain a MappedStatement named Part.SelectInputByParam
+2016-07-18 23:48:00,876 [6984] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/18 23:48:00:This SQL map does not contain a MappedStatement named Part.SelectInputByParam
+2016-07-18 23:48:03,180 [13720] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/18 23:48:03:This SQL map does not contain a MappedStatement named Part.SelectInputByParam
+2016-07-18 23:48:03,506 [17004] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/18 23:48:03:This SQL map does not contain a MappedStatement named Part.SelectInputByParam
+2016-07-18 23:48:03,877 [13720] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/18 23:48:03:This SQL map does not contain a MappedStatement named Part.SelectInputByParam
+2016-07-18 23:49:01,733 [16044] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/18 23:49:01:This SQL map does not contain a MappedStatement named Part.SelectInputByParam
+2016-07-18 23:49:02,569 [17004] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/18 23:49:02:This SQL map does not contain a MappedStatement named Part.SelectInputByParam
+2016-07-18 23:49:02,920 [6984] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/18 23:49:02:This SQL map does not contain a MappedStatement named Part.SelectInputByParam
+2016-07-18 23:49:03,681 [10444] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/18 23:49:03:This SQL map does not contain a MappedStatement named Part.SelectInputByParam
+2016-07-18 23:49:03,931 [16928] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/18 23:49:03:This SQL map does not contain a MappedStatement named Part.SelectInputByParam
+2016-07-18 23:49:04,356 [12148] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/18 23:49:04:This SQL map does not contain a MappedStatement named Part.SelectInputByParam
+[Footer]\r\n[Header]\r\n2016-07-18 23:57:44,348 [8124] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/18 23:57:44:This SQL map does not contain a MappedStatement named Part.SelectInputByParam
+2016-07-18 23:57:46,996 [3480] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/18 23:57:46:This SQL map does not contain a MappedStatement named Part.SelectInputByParam
+2016-07-18 23:58:13,426 [8124] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/18 23:58:13:This SQL map does not contain a MappedStatement named Part.SelectInputByParam
+2016-07-18 23:58:34,660 [6984] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/18 23:58:34:This SQL map does not contain a MappedStatement named Part.SelectInputByParam
+[Footer]\r\n[Header]\r\n2016-07-19 00:01:07,441 [3480] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/19 0:01:07:There is no Get member named 'WAREHOUSE_ID' in class 'SqlParamSet'
+2016-07-19 00:05:25,559 [6984] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/19 0:05:25:There is no Get member named 'WAREHOUSE_ID' in class 'SqlParamSet'
+2016-07-19 00:12:40,748 [5668] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/19 0:12:40:There is no Get member named 'WAREHOUSE_ID' in class 'SqlParamSet'
+[Footer]\r\n[Header]\r\n2016-07-19 00:20:51,484 [10708] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/19 0:20:51:ID
+[Footer]\r\n[Header]\r\n2016-07-19 13:49:23,721 [11980] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/19 13:49:23:Î´½«¶ÔÏóÒýÓÃÉèÖÃµ½¶ÔÏóµÄÊµÀý¡£
+2016-07-19 13:52:30,664 [16960] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/19 13:52:30:Î´½«¶ÔÏóÒýÓÃÉèÖÃµ½¶ÔÏóµÄÊµÀý¡£
+[Footer]\r\n[Header]\r\n2016-07-20 10:50:11,590 [12332] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/20 10:50:09:Áã¼þ¿â´æÊýÁ¿Ð¡ÓÚ³ö¿âÊýÁ¿£¡
+2016-07-20 10:50:12,238 [12332] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/20 10:50:12:SqlMap could not invoke RollBackTransaction(). No Transaction was started. Call BeginTransaction() first.
+[Footer]\r\n[Header]\r\n2016-07-22 15:48:10,396 [17980] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/22 15:48:09:Áã¼þ¿â´æÊýÁ¿Ð¡ÓÚ³ö¿âÊýÁ¿£¡
+2016-07-22 15:48:10,546 [17980] DEBUG Utility.RunTimeLogger [(null)] - 2016/7/22 15:48:10:Áã¼þ¿â´æÊýÁ¿Ð¡ÓÚ³ö¿âÊýÁ¿£¡
+[Footer]\r\n

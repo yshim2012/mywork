@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="Project" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="Project" type="DataMapper.Project, DataMapper" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="Project">
+      <result property="ID" column="ID" />
+      <result property="PROJECT_CODE" column="PROJECT_CODE" />
+      <result property="PROJECT_NAME" column="PROJECT_NAME" />
+      <result property="PROJECT_TYPE" column="PROJECT_TYPE" />
+      <result property="IS_DISABLE" column="IS_DISABLE" />
+      <result property="REMARK" column="REMARK" />
+      <result property="CREATE_TIME" column="CREATE_TIME" />
+      <result property="CREATE_USER_ID" column="CREATE_USER_ID" />
+      <result property="LAST_UPDATE" column="LAST_UPDATE" />
+      <result property="UPDATE_USER_ID" column="UPDATE_USER_ID" />
+      <result property="WAREHOUSE_ID" column="WAREHOUSE_ID" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <select id="SelectAll" resultMap="SelectResult" >
+      <![CDATA[
+			SELECT ID
+            ,PROJECT_CODE
+            ,PROJECT_NAME
+            ,PROJECT_TYPE
+            ,IS_DISABLE
+            ,REMARK
+            ,CREATE_TIME
+            ,CREATE_USER_ID
+            ,LAST_UPDATE
+            ,UPDATE_USER_ID
+            ,WAREHOUSE_ID
+        FROM PROJECT
+			]]>
+    </select>
+
+    <select id="SelectByParam" extends="SelectAll" resultMap="SelectResult" parameterClass="System.Collections.IDictionary">
+      <dynamic prepend="WHERE">
+        <isNotNull property="ID">
+          <isNotEqual prepend="AND" property="ID" compareValue="0">
+            <![CDATA[ ID = #ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull prepend="AND" property="PROJECT_NAME">
+          <![CDATA[ PROJECT_NAME LIKE '%'+ #PROJECT_NAME# +'%' ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="PROJECT_CODE">
+          <![CDATA[ PROJECT_CODE = #PROJECT_CODE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="PROJECT_TYPE">
+          <![CDATA[ PROJECT_TYPE = #PROJECT_TYPE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="IS_DISABLE">
+          <![CDATA[ IS_DISABLE = #IS_DISABLE# ]]>
+        </isNotNull>
+        <isNotNull property="WAREHOUSE_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+            <![CDATA[ WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+      </dynamic>
+    </select>
+  </statements>
+</sqlMap>

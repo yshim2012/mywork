@@ -1,0 +1,176 @@
+﻿
+@{
+    ViewBag.Title = "POSCarrierEdit";
+}
+@section Head{}
+<div class="container-fluid">
+    <!-- BEGIN PAGE HEADER-->
+    <div class="row-fluid">
+
+        <div class="span12">
+
+            <ul class="breadcrumb">
+
+                <li>
+
+                    <i class="icon-home"></i>
+
+                    @Html.ActionLink("首页", "Index", "Home", routeValues: null, htmlAttributes: new { id = "IndexLink" })
+
+                    <span class="icon-angle-right"></span>
+
+                </li>
+
+                <li>
+
+                    <a href="#">基础数据管理</a>
+
+                    <span class="icon-angle-right"></span>
+
+                </li>
+
+                <li>
+                    @Html.ActionLink("车载机与承运商信息修改", "POSCarrierEdit", "POSCarrier", routeValues: null, htmlAttributes: new { id = "POSCarrierEditLink" })
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+    <!-- END PAGE HEADER-->
+    <!-- BEGIN PAGE CONTENT-->
+
+    <div class="row-fluid">
+
+        <div class="span12">
+
+            <!-- BEGIN SAMPLE FORM PORTLET-->
+
+            <div class="portlet-body form">
+
+                <div class="tabbable portlet-tabs">
+
+                    <div class="portlet-body">
+
+                        <div class="clearfix">
+
+                            <div class="btn-group">
+
+                                <button id="btnEdit" class="btn green">
+
+                                    修改 <i class="icon-edit"></i>
+
+                                </button>
+                            </div>
+                            <div class="btn-group">
+                                <button id="btnBack" class="btn green">
+
+                                    返回 <i class="icon-retweet"></i>
+
+                                </button>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                    <br />
+                    <br />
+                    <br />
+                    <div class="tab-content">
+
+                        <div class="tab-pane active" id="portlet_tab1">
+
+                            <!-- BEGIN FORM-->
+
+                            <form action="#" class="form-horizontal">
+
+
+
+                                <div class="row-fluid">
+                                    <div class="span6 ">
+                                        <div class="control-group">
+
+                                            <label class="control-label">承运商名称:</label>
+
+                                            <div class="controls">
+
+                                                <input id="CarrierName" name="LocCode" type="text" class="m-wrap Meduam" />
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="span6 ">
+                                        <div class="control-group">
+                                            <label class="control-label"> 车载机编号:</label>
+
+                                            <div class="controls">
+
+                                                <input id="POSId" name="LocName" type="text" class="m-wrap Meduam" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <!-- END FORM-->
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- END PAGE CONTENT-->
+</div>
+@section Body{
+    <script>
+    window.onload = function () {
+
+        $("#LocType").val("@ViewBag.editLoc.LocType");
+        $("#btnBack").click(function () {
+            window.history.back(-1);
+        });
+
+        $("#btnSearch").click(function () {
+            window.history.back(-1);
+        });
+
+        $("#btnEdit").click(function () {
+            var d = {};
+            //判断文件框内容
+            if ($("#CarrierName").val() != "") {
+                d["CarrierName"] = $("#CarrierName").val();
+            }
+
+            if ($("#POSId").val() != "") {
+                d["POSId"] = $("#POSId").val();
+            }
+            $.ajax({
+                url: "../api/LocApi/PostZhanDian",
+                type: "post",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(d),
+                success: function (data) {
+
+                }
+            }).fail(
+                function (err) {
+                    alert('查询失败!');
+                });
+
+        });
+    }
+    </script>
+}
+

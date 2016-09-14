@@ -1,0 +1,446 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<sqlMap 
+	namespace="VWmsBaseLocation" xmlns="http://ibatis.apache.org/mapping" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	
+	<alias>
+		<typeAlias alias="VWmsBaseLocation" type="LDV.WMS.RF.DataMapper.VWmsBaseLocation, LDV.WMS.RF.DataMapper" />
+	</alias>
+	
+	<resultMaps>
+		<resultMap id="SelectResult" class="VWmsBaseLocation">
+			<result property="ID" column="ID" />
+			<result property="LOC_CODE" column="LOC_CODE" />
+			<result property="ZONE_ID" column="ZONE_ID" />
+			<result property="COMPANY_ID" column="COMPANY_ID" />
+			<result property="AISLE" column="AISLE" />
+			<result property="BAY" column="BAY" />
+			<result property="SHELF_LEVEL" column="SHELF_LEVEL" />
+			<result property="SLOT" column="SLOT" />
+			<result property="TYPE" column="TYPE" />
+			<result property="IS_FROZON" column="IS_FROZON" />
+			<result property="IS_DISABLED" column="IS_DISABLED" />
+			<result property="CREATED_TIME" column="CREATED_TIME" />
+			<result property="LAST_MODIFIED" column="LAST_MODIFIED" />
+			<result property="EXTEND_COLUMN_0" column="EXTEND_COLUMN_0" />
+			<result property="EXTEND_COLUMN_1" column="EXTEND_COLUMN_1" />
+			<result property="EXTEND_COLUMN_2" column="EXTEND_COLUMN_2" />
+			<result property="EXTEND_COLUMN_3" column="EXTEND_COLUMN_3" />
+			<result property="EXTEND_COLUMN_4" column="EXTEND_COLUMN_4" />
+			<result property="MIN_BOX_QUANTITY" column="MIN_BOX_QUANTITY" />
+			<result property="MAX_BOX_QUANTITY" column="MAX_BOX_QUANTITY" />
+			<result property="IS_FLOOR" column="IS_FLOOR" />
+			<result property="LOC_TYPE" column="LOC_TYPE" />
+		</resultMap>
+	</resultMaps>
+	
+	<statements>
+	
+		<select id="SelectAll" resultMap="SelectResult">
+			<![CDATA[
+			select
+				ID,
+				LOC_CODE,
+				ZONE_ID,
+				COMPANY_ID,
+				AISLE,
+				BAY,
+				SHELF_LEVEL,
+				SLOT,
+				TYPE,
+				IS_FROZON,
+				IS_DISABLED,
+				CREATED_TIME,
+				LAST_MODIFIED,
+				EXTEND_COLUMN_0,
+				EXTEND_COLUMN_1,
+				EXTEND_COLUMN_2,
+				EXTEND_COLUMN_3,
+				EXTEND_COLUMN_4,
+				MIN_BOX_QUANTITY,
+				MAX_BOX_QUANTITY,
+				IS_FLOOR,
+				LOC_TYPE
+			from V_WMS_BASE_LOCATION
+			]]>
+		</select>
+		
+		<select id="SelectById" extends="SelectAll" parameterClass="double" resultMap="SelectResult">
+			<![CDATA[
+			where
+				ID = #value#
+			]]>
+		</select>
+    
+    <!-- update hzf 2014-11-27 15:02:16 加库位类型字段,零件code-->
+		<select id="SelectCheckLocById" parameterClass="double" resultMap="SelectResult">
+			<![CDATA[
+			SELECT BL.ID AS LOC_ID,BL.LOC_CODE AS LOC_CODE,LM.ITEM_ID,BL.TYPE,wi.item_code FROM V_WMS_BASE_LOCATION BL
+       LEFT JOIN V_WMS_ITEM_LOCATION_MAP LM ON(LM.LOC_ID=BL.ID)
+        left join  v_wms_item wi on(wi.id=lm.item_id)
+       WHERE BL.LOC_CODE=#LOC_CODE#
+			]]>
+		</select>
+    
+		<select id="SelectByParam" extends="SelectAll" parameterClass="VWmsBaseLocation" resultMap="SelectResult">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="LOC_CODE">
+        			<![CDATA[ LOC_CODE = #LOC_CODE# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="ZONE_ID">
+        			<![CDATA[ ZONE_ID = #ZONE_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="COMPANY_ID">
+        			<![CDATA[ COMPANY_ID = #COMPANY_ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="AISLE">
+        			<![CDATA[ AISLE = #AISLE# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="BAY">
+        			<![CDATA[ BAY = #BAY# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="SHELF_LEVEL">
+        			<![CDATA[ SHELF_LEVEL = #SHELF_LEVEL# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="SLOT">
+        			<![CDATA[ SLOT = #SLOT# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="TYPE">
+        			<![CDATA[ TYPE = #TYPE# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="IS_FROZON">
+        			<![CDATA[ IS_FROZON = #IS_FROZON# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_DISABLED">
+        			<![CDATA[ IS_DISABLED = #IS_DISABLED# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_0">
+        			<![CDATA[ EXTEND_COLUMN_0 = #EXTEND_COLUMN_0# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_1">
+        			<![CDATA[ EXTEND_COLUMN_1 = #EXTEND_COLUMN_1# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_2">
+        			<![CDATA[ EXTEND_COLUMN_2 = #EXTEND_COLUMN_2# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_3">
+        			<![CDATA[ EXTEND_COLUMN_3 = #EXTEND_COLUMN_3# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="EXTEND_COLUMN_4">
+        			<![CDATA[ EXTEND_COLUMN_4 = #EXTEND_COLUMN_4# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="MIN_BOX_QUANTITY">
+        			<![CDATA[ MIN_BOX_QUANTITY = #MIN_BOX_QUANTITY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="MAX_BOX_QUANTITY">
+        			<![CDATA[ MAX_BOX_QUANTITY = #MAX_BOX_QUANTITY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_FLOOR">
+        			<![CDATA[ IS_FLOOR = #IS_FLOOR# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="LOC_TYPE">
+        			<![CDATA[ LOC_TYPE = #LOC_TYPE# ]]>
+				</isNotEmpty>
+			</dynamic>
+		</select>
+		
+		<select id="SelectForPageing" extends="SelectAll" parameterClass="System.Collections.IDictionary">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LOC_CODE">
+        			<![CDATA[ LOC_CODE = #LOC_CODE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ZONE_ID">
+        			<![CDATA[ ZONE_ID = #ZONE_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="COMPANY_ID">
+        			<![CDATA[ COMPANY_ID = #COMPANY_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="AISLE">
+        			<![CDATA[ AISLE = #AISLE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="BAY">
+        			<![CDATA[ BAY = #BAY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SHELF_LEVEL">
+        			<![CDATA[ SHELF_LEVEL = #SHELF_LEVEL# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SLOT">
+        			<![CDATA[ SLOT = #SLOT# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="TYPE">
+        			<![CDATA[ TYPE = #TYPE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_FROZON">
+        			<![CDATA[ IS_FROZON = #IS_FROZON# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_DISABLED">
+        			<![CDATA[ IS_DISABLED = #IS_DISABLED# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CREATED_TIME">
+        			<![CDATA[ CREATED_TIME = #CREATED_TIME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LAST_MODIFIED">
+        			<![CDATA[ LAST_MODIFIED = #LAST_MODIFIED# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_0">
+        			<![CDATA[ EXTEND_COLUMN_0 = #EXTEND_COLUMN_0# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_1">
+        			<![CDATA[ EXTEND_COLUMN_1 = #EXTEND_COLUMN_1# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_2">
+        			<![CDATA[ EXTEND_COLUMN_2 = #EXTEND_COLUMN_2# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_3">
+        			<![CDATA[ EXTEND_COLUMN_3 = #EXTEND_COLUMN_3# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="EXTEND_COLUMN_4">
+        			<![CDATA[ EXTEND_COLUMN_4 = #EXTEND_COLUMN_4# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="MIN_BOX_QUANTITY">
+        			<![CDATA[ MIN_BOX_QUANTITY = #MIN_BOX_QUANTITY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="MAX_BOX_QUANTITY">
+        			<![CDATA[ MAX_BOX_QUANTITY = #MAX_BOX_QUANTITY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="IS_FLOOR">
+        			<![CDATA[ IS_FLOOR = #IS_FLOOR# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LOC_TYPE">
+        			<![CDATA[ LOC_TYPE = #LOC_TYPE# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+
+    <select id="SelectMainLoc" parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+      SELECT T.ID,
+             T.LOC_CODE,
+             I.ITEM_CODE,
+             T.Type
+      FROM   V_WMS_BASE_LOCATION T
+             LEFT JOIN V_WMS_ITEM_LOCATION_MAP M ON(T.ID=M.LOC_ID)
+             LEFT JOIN V_WMS_ITEM I ON(M.ITEM_ID=I.ID)
+      ]]>
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="LOC_CODE">
+          <![CDATA[T.LOC_CODE = #LOC_CODE#]]>
+        </isNotNull>
+      </dynamic>
+    </select>
+    
+    <select id="SelectForNull"  parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+          select lo.id,lo.LOC_CODE,ZON.ZONE_CODE from v_wms_base_location lo 
+          left join v_wms_base_zone zon on (lo.zone_id=zon.id) 
+          left join v_wms_item_location_map ma on (ma.loc_id=lo.id) 
+           left join (select loc_id,sum(qty)qty from v_wms_inv_detail
+          group by loc_id ) de on (lo.id=de.loc_id) 
+          where ma.id is null and (de.qty=0 or de.qty is null) and UPPER(lo.LOC_CODE)  LIKE '%' || UPPER(#LOC_CODE#) || '%' and zon.whse_id=(SELECT distinct(BZ.WHSE_ID) FROM V_WMS_BASE_USER_ZONE ZO INNER JOIN V_WMS_BASE_ZONE BZ ON(BZ.ID=ZO.ZONE_ID) WHERE ZO.USER_ID=#USER_ID#)
+		  order by lo.LOC_CODE
+		  ]]>
+		 
+    </select>
+
+		<!--根据物料编码/库位编码获取 批号  add by xhy 2014年9月25日-->
+		<select id="SelectLotsByItemLoc" parameterClass="System.Collections.IDictionary">
+			<![CDATA[
+				select distinct u.lot
+					 from v_wms_inv_detail v
+					left join v_wms_inv_uid u on(v.uid_id=u.id)
+					left join v_wms_inv_mu m on(v.mu_id=m.id)
+					left join v_wms_item i on(u.item_id=i.id)
+					left join v_wms_base_location l on(v.loc_id=l.id)
+					where i.item_code=#ITEM_CODE# and l.loc_code=#LOC_CODE#
+					
+			]]>
+		</select>
+    
+		<insert id="Insert" parameterClass="VWmsBaseLocation">
+			<selectKey resultClass="double" type="pre" property="ID" > 
+				<![CDATA[ select V_WMS_BASE_LOCATION_SEQ.NEXTVAL as value from dual ]]>
+			</selectKey>
+			<![CDATA[
+			insert into V_WMS_BASE_LOCATION
+			(
+			    ID,
+			    LOC_CODE,
+			    ZONE_ID,
+			    COMPANY_ID,
+			    AISLE,
+			    BAY,
+			    SHELF_LEVEL,
+			    SLOT,
+			    TYPE,
+			    IS_FROZON,
+			    IS_DISABLED,
+			    CREATED_TIME,
+			    LAST_MODIFIED,
+			    EXTEND_COLUMN_0,
+			    EXTEND_COLUMN_1,
+			    EXTEND_COLUMN_2,
+			    EXTEND_COLUMN_3,
+			    EXTEND_COLUMN_4,
+			    MIN_BOX_QUANTITY,
+			    MAX_BOX_QUANTITY,
+			    IS_FLOOR,
+			    LOC_TYPE
+			)
+			values 
+			(
+				#ID#,
+				#LOC_CODE#,
+				#ZONE_ID#,
+				#COMPANY_ID#,
+				#AISLE#,
+				#BAY#,
+				#SHELF_LEVEL#,
+				#SLOT#,
+				#TYPE#,
+				#IS_FROZON#,
+				#IS_DISABLED#,
+				#CREATED_TIME#,
+				#LAST_MODIFIED#,
+				#EXTEND_COLUMN_0#,
+				#EXTEND_COLUMN_1#,
+				#EXTEND_COLUMN_2#,
+				#EXTEND_COLUMN_3#,
+				#EXTEND_COLUMN_4#,
+				#MIN_BOX_QUANTITY#,
+				#MAX_BOX_QUANTITY#,
+				#IS_FLOOR#,
+				#LOC_TYPE#
+			)
+			]]>
+		</insert>
+		<update id="Update" parameterClass="VWmsBaseLocation" >
+			<![CDATA[
+			update V_WMS_BASE_LOCATION set
+				LOC_CODE = #LOC_CODE#,
+				ZONE_ID = #ZONE_ID#,
+				COMPANY_ID = #COMPANY_ID#,
+				AISLE = #AISLE#,
+				BAY = #BAY#,
+				SHELF_LEVEL = #SHELF_LEVEL#,
+				SLOT = #SLOT#,
+				TYPE = #TYPE#,
+				IS_FROZON = #IS_FROZON#,
+				IS_DISABLED = #IS_DISABLED#,
+				CREATED_TIME = #CREATED_TIME#,
+				LAST_MODIFIED = #LAST_MODIFIED#,
+				EXTEND_COLUMN_0 = #EXTEND_COLUMN_0#,
+				EXTEND_COLUMN_1 = #EXTEND_COLUMN_1#,
+				EXTEND_COLUMN_2 = #EXTEND_COLUMN_2#,
+				EXTEND_COLUMN_3 = #EXTEND_COLUMN_3#,
+				EXTEND_COLUMN_4 = #EXTEND_COLUMN_4#,
+				MIN_BOX_QUANTITY = #MIN_BOX_QUANTITY#,
+				MAX_BOX_QUANTITY = #MAX_BOX_QUANTITY#,
+				IS_FLOOR = #IS_FLOOR#,
+				LOC_TYPE = #LOC_TYPE#
+			where
+				ID = #ID#
+			]]>
+		</update>
+		
+		<update id="UpdateSection" parameterClass="VWmsBaseLocation" >
+			<![CDATA[
+			update V_WMS_BASE_LOCATION set 
+			]]>
+			<dynamic prepend=" ">
+				<isNotEmpty prepend="," property="LOC_CODE">
+					<![CDATA[ LOC_CODE=#LOC_CODE#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="ZONE_ID">
+					<![CDATA[ ZONE_ID=#ZONE_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="COMPANY_ID">
+					<![CDATA[ COMPANY_ID=#COMPANY_ID#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="AISLE">
+					<![CDATA[ AISLE=#AISLE#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="BAY">
+					<![CDATA[ BAY=#BAY#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="SHELF_LEVEL">
+					<![CDATA[ SHELF_LEVEL=#SHELF_LEVEL#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="SLOT">
+					<![CDATA[ SLOT=#SLOT#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="TYPE">
+					<![CDATA[ TYPE=#TYPE#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="IS_FROZON">
+					<![CDATA[ IS_FROZON=#IS_FROZON#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="IS_DISABLED">
+					<![CDATA[ IS_DISABLED=#IS_DISABLED#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="CREATED_TIME">
+					<![CDATA[ CREATED_TIME=#CREATED_TIME#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="LAST_MODIFIED">
+					<![CDATA[ LAST_MODIFIED=#LAST_MODIFIED#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="EXTEND_COLUMN_0">
+					<![CDATA[ EXTEND_COLUMN_0=#EXTEND_COLUMN_0#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="EXTEND_COLUMN_1">
+					<![CDATA[ EXTEND_COLUMN_1=#EXTEND_COLUMN_1#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="EXTEND_COLUMN_2">
+					<![CDATA[ EXTEND_COLUMN_2=#EXTEND_COLUMN_2#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="EXTEND_COLUMN_3">
+					<![CDATA[ EXTEND_COLUMN_3=#EXTEND_COLUMN_3#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="EXTEND_COLUMN_4">
+					<![CDATA[ EXTEND_COLUMN_4=#EXTEND_COLUMN_4#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="MIN_BOX_QUANTITY">
+					<![CDATA[ MIN_BOX_QUANTITY=#MIN_BOX_QUANTITY#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="MAX_BOX_QUANTITY">
+					<![CDATA[ MAX_BOX_QUANTITY=#MAX_BOX_QUANTITY#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="IS_FLOOR">
+					<![CDATA[ IS_FLOOR=#IS_FLOOR#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="LOC_TYPE">
+					<![CDATA[ LOC_TYPE=#LOC_TYPE#]]>
+				</isNotEmpty>
+			</dynamic>
+			<![CDATA[
+			where
+				ID = #ID#
+			]]>
+		</update>
+		<delete id="Delete" parameterClass="VWmsBaseLocation" >
+			<![CDATA[
+			delete from V_WMS_BASE_LOCATION
+			where 
+				ID = #ID#
+			]]>
+		</delete>
+
+    <!--上架-根据入库库位代码&用户ID判断入库库位的仓库是否是当前用户所对应仓库  add by MJY 2016年5月24日-->
+    <select id="SelectIsUserWhse"  parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+      <![CDATA[
+          SELECT BL.ID AS LOC_ID,BL.LOC_CODE AS LOC_CODE,BW.ID
+          FROM V_WMS_BASE_LOCATION BL
+          LEFT JOIN V_WMS_BASE_ZONE BZ ON (BL.ZONE_ID=BZ.ID AND BZ.IS_DISABLED=0)
+          LEFT JOIN V_WMS_BASE_WAREHOUSE BW ON (BW.ID=BZ.WHSE_ID AND BW.IS_DISABLED=0)
+          WHERE BL.LOC_CODE=#LOC_CODE#
+          AND BW.ID=(SELECT DISTINCT BZ.WHSE_ID FROM V_WMS_BASE_USER_ZONE ZO INNER JOIN V_WMS_BASE_ZONE BZ ON(BZ.ID=ZO.ZONE_ID) WHERE ZO.USER_ID=#USER_ID#)
+      ]]>
+    </select>
+	</statements>
+	
+</sqlMap>

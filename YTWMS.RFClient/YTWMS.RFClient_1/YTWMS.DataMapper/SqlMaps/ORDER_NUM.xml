@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="OrderNum" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="OrderNum" type="DataMapper.OrderNum, DataMapper" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="OrderNum">
+      <result property="ID" column="ID" />
+      <result property="ORDER_NO" column="ORDER_NO" />
+      <result property="DOCUMENT_NO" column="DOCUMENT_NO" />
+      <result property="WAREHOUSE_ID" column="WAREHOUSE_ID" />
+      <result property="ORDER_CREATE_TIME" column="ORDER_CREATE_TIME" />
+      <result property="CREATE_TIME" column="CREATE_TIME" />
+      <result property="CREATE_USER_ID" column="CREATE_USER_ID" />
+      <result property="LAST_UPDATE" column="LAST_UPDATE" />
+      <result property="UPDATE_USER_ID" column="UPDATE_USER_ID" />
+    </resultMap>
+    <resultMap id="SelectResult2" class="OrderNum">
+      <result property="ID" column="ID" />
+      <result property="ORDER_NO" column="ORDER_NO" />
+      <result property="ORDER_CREATE_TIME" column="ORDER_CREATE_TIME" />
+      <result property="ORDER_END_TIME" column="ORDER_END_TIME" />
+      <result property="ORDER_REMARK" column="ORDER_REMARK" />
+      <result property="QTY" column="QTY" />
+      <result property="ORDER_TYPE" column="ORDER_TYPE" />
+      <result property="PACKAGE_CODE" column="PACKAGE_CODE" />
+      <result property="PACKAGE_NAME" column="PACKAGE_NAME" />
+      <result property="TYPE" column="TYPE" />
+      <result property="LENGTH" column="LENGTH" />
+      <result property="WIDTH" column="WIDTH" />
+      <result property="HEIGHT" column="HEIGHT" />
+      <result property="RECEIVE_NAME" column="RECEIVE_NAME" />
+      <result property="SEND_NAME" column="SEND_NAME" />
+
+
+
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectAll" resultMap="SelectResult" >
+      <![CDATA[
+           SELECT ORDER_NUM.ID
+                  ,ORDER_NUM.ORDER_NO
+                  ,ORDER_NUM.DOCUMENT_NO
+                  ,ORDER_NUM.WAREHOUSE_ID
+                  ,ORDER_NUM.ORDER_CREATE_TIME
+                  ,ORDER_NUM.CREATE_TIME
+                  ,ORDER_NUM.CREATE_USER_ID
+                  ,ORDER_NUM.LAST_UPDATE
+                  ,ORDER_NUM.UPDATE_USER_ID
+              FROM ORDER_NUM
+			]]>
+    </select>
+
+    <select id="SelectAll2" resultMap="SelectResult2" parameterClass="System.Collections.IDictionary">
+
+      <dynamic prepend="WHERE">
+        <isNotEqual prepend="AND" property="ID" compareValue="0">
+          <![CDATA[ ID = #ID# ]]>
+        </isNotEqual>
+        <isNotEmpty prepend="AND" property="ORDER_NO">
+          <![CDATA[ ORDER_NO =  #ORDER_NO# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="DOCUMENT_NO">
+          <![CDATA[ DOCUMENT_NO = #DOCUMENT_NO# ]]>
+        </isNotEmpty>
+        <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+          <![CDATA[ WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+        </isNotEqual>
+      </dynamic>
+    </select>
+
+    <select id="SelectByParam" extends="SelectAll" resultMap="SelectResult"  parameterClass="OrderNum">
+      <dynamic prepend="WHERE">
+        <isNotEqual prepend="AND" property="ID" compareValue="0">
+          <![CDATA[ ID = #ID# ]]>
+        </isNotEqual>
+        <isNotEmpty prepend="AND" property="ORDER_NO">
+          <![CDATA[ ORDER_NO =  #ORDER_NO# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="DOCUMENT_NO">
+          <![CDATA[ DOCUMENT_NO = #DOCUMENT_NO# ]]>
+        </isNotEmpty>
+        <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+          <![CDATA[ WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+        </isNotEqual>
+      </dynamic>
+    </select>
+
+    <!--料箱发货单查询-->
+    <select id="SelectByParamWithDictionary" resultMap="SelectResult2"  parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+             SELECT	 od.ID
+            ,CONVERT(VARCHAR(10),OD.ORDER_CREATE_TIME,120) ORDER_CREATE_TIME,OD.ORDER_NO,P.PACKAGE_CODE,
+            P.PACKAGE_NAME,p.PACKAGE_TYPE,
+            CASE  P.PACKAGE_TYPE WHEN 'services' THEN '售后包装' WHEN 'paper' THEN '纸箱'              
+            WHEN 'rack' THEN '料架' WHEN 'iron' THEN '铁皮箱'              
+            WHEN 'Wbox' THEN '木箱' WHEN 'plastic' THEN '塑料箱'              
+            WHEN 'Sbox' THEN '小木箱' WHEN 'tito' THEN '铁托'
+            WHEN 'Wpallet' THEN '木托'  WHEN 'Siron' THEN '小铁箱'
+            ELSE '' END AS PACKAGE_TYPE_NAME,
+            ob.ORDER_STATE,
+            CASE  ob.ORDER_STATE WHEN 'finish' THEN '已发货' WHEN 'wait' THEN '待发货'              
+            ELSE '' END AS ORDER_STATE_NAME,
+            P.[LENGTH],P.WIDTH
+            ,P.HEIGHT,P.WEIGHT,PD.QTY
+            ,RW.WAREHOUSE_NAME AS RECEIVE_NAME 
+            ,SW.WAREHOUSE_NAME AS SEND_NAME
+            ,OB.ORDER_END_TIME
+            ,OB.ORDER_REMARK
+            FROM  ORDER_NUM OD
+            INNER JOIN  ORDER_BUSINESS ob ON(od.ID=ob.ORDER_NUM_ID)
+            INNER JOIN  PACKAGE_DELIVER pd ON(ob.ID=pd.ORDER_BUSINESS_ID)
+            INNER JOIN  PACKAGE p on(pd.package_id=p.id)
+            INNER JOIN	WAREHOUSE RW ON(RW.ID=OB.RECEIVE_LOC_ID)
+            INNER JOIN	WAREHOUSE SW ON(SW.ID=OB.SEND_LOC_ID)
+			]]>
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="ORDER_NO">
+          <![CDATA[od.ORDER_NO LIKE '%'+ #ORDER_NO# +'%' ]]>
+        </isNotEmpty>
+        <isNotNull property="ID">
+          <isNotEqual prepend="AND" property="ID" compareValue="0">
+            <![CDATA[ od.ID = #ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull property="RECEIVE_LOC_ID">
+          <isNotEqual prepend="AND" property="RECEIVE_LOC_ID" compareValue="0">
+            <![CDATA[ ob.RECEIVE_LOC_ID = #RECEIVE_LOC_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="RECEIVE_NAME">
+          <![CDATA[  RW.WAREHOUSE_NAME= #RECEIVE_NAME# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="ORDER_STATE">
+          <![CDATA[ ob.ORDER_STATE = #ORDER_STATE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="ORDER_TYPE">
+          <![CDATA[ ob.ORDER_TYPE = #ORDER_TYPE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="ORDER_TIME_START">
+          <![CDATA[ convert(varchar(10), od.ORDER_CREATE_TIME ,120)>= #ORDER_TIME_START# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="ORDER_TIME_END">
+          <![CDATA[ convert(varchar(10), od.ORDER_CREATE_TIME ,120)<= #ORDER_TIME_END# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="ORDER_REMARK">
+          <![CDATA[ ob.ORDER_REMARK = #ORDER_REMARK# ]]>
+        </isNotEmpty>
+      </dynamic>
+      <![CDATA[ order by od.ORDER_NO desc,P.PACKAGE_CODE desc,P.PACKAGE_NAME desc ]]>
+    </select>
+
+    <insert id="Insert" parameterClass="OrderNum">
+      <![CDATA[
+		       INSERT INTO YTWMS.dbo.ORDER_NUM
+                 (ORDER_NO
+                 ,DOCUMENT_NO
+                 ,WAREHOUSE_ID
+                 ,ORDER_CREATE_TIME
+                 ,CREATE_TIME
+                 ,CREATE_USER_ID)
+           VALUES
+                 (#ORDER_NO#
+                 ,#DOCUMENT_NO#
+                 ,#WAREHOUSE_ID#
+                 ,#ORDER_CREATE_TIME#
+                 ,#CREATE_TIME#
+                 ,#CREATE_USER_ID#)
+			]]>
+      <selectKey resultClass="int" type="post" property="ID" >
+        <![CDATA[ select @@IDENTITY ; ]]>
+      </selectKey>
+    </insert>
+
+    <update id="UpdateInfo" parameterClass="OrderNum">
+      <![CDATA[
+          UPDATE ORDER_NUM
+                 SET ORDER_NO = #ORDER_NO#
+                    ,DOCUMENT_NO = #DOCUMENT_NO#
+                    ,WAREHOUSE_ID = #WAREHOUSE_ID#
+                    ,ORDER_CREATE_TIME = #ORDER_CREATE_TIME#
+                    ,LAST_UPDATE = #LAST_UPDATE#
+                    ,UPDATE_USER_ID = #UPDATE_USER_ID#
+               WHERE ID=#ID#
+      ]]>
+    </update>
+
+    <!--逻辑删除-->
+    <delete id="Delete" parameterClass="OrderNum" >
+      <![CDATA[
+		      	DELETE ORDER_NUM WHERE ID=#ID#
+			]]>
+    </delete>
+  </statements>
+</sqlMap>

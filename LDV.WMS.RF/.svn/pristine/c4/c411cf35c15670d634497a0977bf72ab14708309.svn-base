@@ -1,0 +1,311 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<sqlMap 
+	namespace="VWmsPickQueue" xmlns="http://ibatis.apache.org/mapping" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	
+	<alias>
+		<typeAlias alias="VWmsPickQueue" type="LDV.WMS.RF.DataMapper.VWmsPickQueue, LDV.WMS.RF.DataMapper" />
+	</alias>
+	
+	<resultMaps>
+		<resultMap id="SelectResult" class="VWmsPickQueue">
+			<result property="ID" column="ID" />
+			<result property="BATCH_ID" column="BATCH_ID" />
+			<result property="PICK_TICKET_ID" column="PICK_TICKET_ID" />
+			<result property="LINE_NO" column="LINE_NO" />
+			<result property="ITEM_ID" column="ITEM_ID" />
+			<result property="LOT" column="LOT" />
+			<result property="SERIAL" column="SERIAL" />
+			<result property="XDATE" column="XDATE" />
+			<result property="ORDER_QTY" column="ORDER_QTY" />
+			<result property="ALLOC_QTY" column="ALLOC_QTY" />
+			<result property="PICKED_QTY" column="PICKED_QTY" />
+			<result property="STATUS" column="STATUS" />
+			<result property="CREATED_TIME" column="CREATED_TIME" />
+			<result property="LAST_MODIFIED" column="LAST_MODIFIED" />
+			<result property="VERSION_TRANSACTION" column="VERSION_TRANSACTION" />
+		</resultMap>
+	</resultMaps>
+	
+	<statements>
+	
+		<select id="SelectAll" resultMap="SelectResult">
+			<![CDATA[
+			select
+				ID,
+				BATCH_ID,
+				PICK_TICKET_ID,
+				LINE_NO,
+				ITEM_ID,
+				LOT,
+				SERIAL,
+				XDATE,
+				ORDER_QTY,
+				ALLOC_QTY,
+				PICKED_QTY,
+				STATUS,
+				CREATED_TIME,
+				LAST_MODIFIED,
+				VERSION_TRANSACTION
+			from V_WMS_PICK_QUEUE
+			]]>
+		</select>
+		
+		<select id="SelectById" extends="SelectAll" parameterClass="double" resultMap="SelectResult">
+			<![CDATA[
+			where
+				ID = #value#
+			]]>
+		</select>
+		
+		<select id="SelectByParam" extends="SelectAll" parameterClass="VWmsPickQueue" resultMap="SelectResult">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="BATCH_ID">
+        			<![CDATA[ BATCH_ID = #BATCH_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PICK_TICKET_ID">
+        			<![CDATA[ PICK_TICKET_ID = #PICK_TICKET_ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="LINE_NO">
+        			<![CDATA[ LINE_NO = #LINE_NO# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="ITEM_ID">
+        			<![CDATA[ ITEM_ID = #ITEM_ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="LOT">
+        			<![CDATA[ LOT = #LOT# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="SERIAL">
+        			<![CDATA[ SERIAL = #SERIAL# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="ORDER_QTY">
+        			<![CDATA[ ORDER_QTY = #ORDER_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ALLOC_QTY">
+        			<![CDATA[ ALLOC_QTY = #ALLOC_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PICKED_QTY">
+        			<![CDATA[ PICKED_QTY = #PICKED_QTY# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="STATUS">
+        			<![CDATA[ STATUS = #STATUS# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="VERSION_TRANSACTION">
+        			<![CDATA[ VERSION_TRANSACTION = #VERSION_TRANSACTION# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+		
+		<select id="SelectForPageing" extends="SelectAll" parameterClass="System.Collections.IDictionary">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="BATCH_ID">
+        			<![CDATA[ BATCH_ID = #BATCH_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PICK_TICKET_ID">
+        			<![CDATA[ PICK_TICKET_ID = #PICK_TICKET_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LINE_NO">
+        			<![CDATA[ LINE_NO = #LINE_NO# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ITEM_ID">
+        			<![CDATA[ ITEM_ID = #ITEM_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LOT">
+        			<![CDATA[ LOT = #LOT# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="SERIAL">
+        			<![CDATA[ SERIAL = #SERIAL# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="XDATE">
+        			<![CDATA[ XDATE = #XDATE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ORDER_QTY">
+        			<![CDATA[ ORDER_QTY = #ORDER_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ALLOC_QTY">
+        			<![CDATA[ ALLOC_QTY = #ALLOC_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PICKED_QTY">
+        			<![CDATA[ PICKED_QTY = #PICKED_QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="STATUS">
+        			<![CDATA[ STATUS = #STATUS# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CREATED_TIME">
+        			<![CDATA[ CREATED_TIME = #CREATED_TIME# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LAST_MODIFIED">
+        			<![CDATA[ LAST_MODIFIED = #LAST_MODIFIED# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="VERSION_TRANSACTION">
+        			<![CDATA[ VERSION_TRANSACTION = #VERSION_TRANSACTION# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+		<insert id="Insert" parameterClass="VWmsPickQueue">
+			<selectKey resultClass="double" type="pre" property="ID" > 
+				<![CDATA[ select V_WMS_PICK_QUEUE_SEQ.NEXTVAL as value from dual ]]>
+			</selectKey>
+			<![CDATA[
+			insert into V_WMS_PICK_QUEUE
+			(
+			    ID,
+			    BATCH_ID,
+			    PICK_TICKET_ID,
+			    LINE_NO,
+			    ITEM_ID,
+			    LOT,
+			    SERIAL,
+			    XDATE,
+			    ORDER_QTY,
+			    ALLOC_QTY,
+			    PICKED_QTY,
+			    STATUS,
+			    CREATED_TIME,
+			    LAST_MODIFIED,
+			    VERSION_TRANSACTION
+			)
+			values 
+			(
+				#ID#,
+				#BATCH_ID#,
+				#PICK_TICKET_ID#,
+				#LINE_NO#,
+				#ITEM_ID#,
+				#LOT#,
+				#SERIAL#,
+				#XDATE#,
+				#ORDER_QTY#,
+				#ALLOC_QTY#,
+				#PICKED_QTY#,
+				#STATUS#,
+				#CREATED_TIME#,
+				#LAST_MODIFIED#,
+				#VERSION_TRANSACTION#
+			)
+			]]>
+		</insert>
+    <update id="UpdateQty" parameterClass="VWmsPickQueue" >
+      <![CDATA[
+			update V_WMS_PICK_QUEUE set
+				ORDER_QTY = #ORDER_QTY#,
+				LAST_MODIFIED = SYSDATE
+			where
+				PICK_TICKET_ID = #PICK_TICKET_ID#
+			]]>
+    </update>
+
+    <update id="UpdateQueueQty" parameterClass="VWmsPickQueue" >
+      <![CDATA[
+			update V_WMS_PICK_QUEUE set
+         ALLOC_QTY=#ALLOC_QTY#,
+			    PICKED_QTY=#PICKED_QTY#,
+				LAST_MODIFIED = SYSDATE
+			where
+				PICK_TICKET_ID = #PICK_TICKET_ID#
+			]]>
+    </update>
+    
+    <update id="UpdateStatus" parameterClass="VWmsPickQueue" >
+      <![CDATA[
+			update V_WMS_PICK_QUEUE set
+				STATUS = 'AC',
+         ALLOC_QTY=#ALLOC_QTY#,
+			    PICKED_QTY=#PICKED_QTY#,
+				LAST_MODIFIED = SYSDATE
+			where
+				PICK_TICKET_ID = #PICK_TICKET_ID#
+			]]>
+    </update>
+
+    <update id="Update" parameterClass="VWmsPickQueue" >
+			<![CDATA[
+			update V_WMS_PICK_QUEUE set
+				BATCH_ID = #BATCH_ID#,
+				PICK_TICKET_ID = #PICK_TICKET_ID#,
+				LINE_NO = #LINE_NO#,
+				ITEM_ID = #ITEM_ID#,
+				LOT = #LOT#,
+				SERIAL = #SERIAL#,
+				XDATE = #XDATE#,
+				ORDER_QTY = #ORDER_QTY#,
+				ALLOC_QTY = #ALLOC_QTY#,
+				PICKED_QTY = #PICKED_QTY#,
+				STATUS = #STATUS#,
+				CREATED_TIME = #CREATED_TIME#,
+				LAST_MODIFIED = #LAST_MODIFIED#,
+				VERSION_TRANSACTION = #VERSION_TRANSACTION#
+			where
+				ID = #ID#
+			]]>
+		</update>
+		
+		<update id="UpdateSection" parameterClass="VWmsPickQueue" >
+			<![CDATA[
+			update V_WMS_PICK_QUEUE set 
+			]]>
+			<dynamic prepend=" ">
+				<isNotNull prepend="," property="BATCH_ID">
+					<![CDATA[ BATCH_ID=#BATCH_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="PICK_TICKET_ID">
+					<![CDATA[ PICK_TICKET_ID=#PICK_TICKET_ID#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="LINE_NO">
+					<![CDATA[ LINE_NO=#LINE_NO#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="ITEM_ID">
+					<![CDATA[ ITEM_ID=#ITEM_ID#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="LOT">
+					<![CDATA[ LOT=#LOT#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="SERIAL">
+					<![CDATA[ SERIAL=#SERIAL#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="XDATE">
+					<![CDATA[ XDATE=#XDATE#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="ORDER_QTY">
+					<![CDATA[ ORDER_QTY=#ORDER_QTY#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="ALLOC_QTY">
+					<![CDATA[ ALLOC_QTY=#ALLOC_QTY#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="PICKED_QTY">
+					<![CDATA[ PICKED_QTY=#PICKED_QTY#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="STATUS">
+					<![CDATA[ STATUS=#STATUS#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="CREATED_TIME">
+					<![CDATA[ CREATED_TIME=#CREATED_TIME#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="LAST_MODIFIED">
+					<![CDATA[ LAST_MODIFIED=#LAST_MODIFIED#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="VERSION_TRANSACTION">
+					<![CDATA[ VERSION_TRANSACTION=#VERSION_TRANSACTION#]]>
+				</isNotNull>
+			</dynamic>
+			<![CDATA[
+			where
+				ID = #ID#
+			]]>
+		</update>
+		<delete id="Delete" parameterClass="VWmsPickQueue" >
+			<![CDATA[
+			delete from V_WMS_PICK_QUEUE
+			where 
+				ID = #ID#
+			]]>
+		</delete>
+	</statements>
+	
+</sqlMap>

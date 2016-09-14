@@ -1,0 +1,8 @@
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.DataMapper\bin\Debug\LDV.WMS.RF.DataMapper.dll
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.DataMapper\bin\Debug\LDV.WMS.RF.DataMapper.pdb
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.DataMapper\bin\Debug\IBatisNet.Common.dll
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.DataMapper\bin\Debug\IBatisNet.DataMapper.dll
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.DataMapper\bin\Debug\Castle.DynamicProxy.dll
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.DataMapper\obj\Debug\ResolveAssemblyReference.cache
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.DataMapper\obj\Debug\LDV.WMS.RF.DataMapper.dll
+D:\mywork\LDV.WMS.RF\LDV.WMS.RF.DataMapper\obj\Debug\LDV.WMS.RF.DataMapper.pdb

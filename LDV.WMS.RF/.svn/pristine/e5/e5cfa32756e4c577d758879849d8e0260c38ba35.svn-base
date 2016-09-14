@@ -1,0 +1,5 @@
+<settings>
+  <!--<serverURL>10.102.12.59:8080/matrix</serverURL>-->
+  <serverURL>192.168.0.118/LDVRF/</serverURL>
+  <Version>1.0.0.101</Version>
+</settings>

@@ -1,0 +1,941 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="CheckService">
+        <s:complexType />
+      </s:element>
+      <s:element name="CheckServiceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CheckServiceResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetVersion">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetVersionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetVersionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllFiles">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAllFilesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllFilesResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DownLoadFile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FileName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownLoadFileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DownLoadFileResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Login">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Acount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginResult" type="tns:LtUser" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="LtUser">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseEntityOfLtUser">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="ID" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="USER_NAME" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="USER_ACCOUNT" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="USER_PWD" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="USER_EMAIL" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="USER_TEL" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="USER_MOBILE" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="USER_ADDR" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="IS_DELETE" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="IS_LOCK" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="CREATE_TIME" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="CREATE_USER" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="LAST_UPDATE" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="LAST_UPDATOR" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="WAREHOUSE_ID" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="WAREHOUSE_CODE" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="WAREHOUSE_NAME" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="House" type="tns:WareHouse" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BaseEntityOfLtUser" />
+      <s:complexType name="WareHouse">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseEntityOfWareHouse">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="ID" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="WAREHOUSE_CODE" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="WAREHOUSE_NAME" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CONTACT" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PHONE" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ADDRESS" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="E_MAIL" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TYPE" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="IS_DISABLE" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="REMARK" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="CREATE_TIME" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="CREATE_USER_ID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="LAST_UPDATE" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="UPDATE_USER_ID" nillable="true" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="WAREHOUSE_ID" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BaseEntityOfWareHouse" />
+      <s:element name="GetSortParts">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sortNo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="warehouseId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSortPartsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSortPartsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWareHouseTrcuks">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="warehouseId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWareHouseTrcuksResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWareHouseTrcuksResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendConfirm">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sortNo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="warehouseId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strDock" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strDriver" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strTruck" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendConfirmResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendConfirmResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getSendInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="info" type="tns:SendInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SendInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="WarehouseId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dock" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Driver" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="QueueList" type="tns:ArrayOfQueue" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfQueue">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Queue" nillable="true" type="tns:Queue" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Queue">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseEntityOfQueue">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="ID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="ORDER_BUSINESS_ID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="PART_ID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="SUPPLIER_ID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="PROJECT_ID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="PROJECT_ITEM_ID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="PLAN_QUEUE_QTY" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="QUEUE_NO" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="QUEUE_TIME" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="WAREHOUSE_ID" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="IS_DISABLE" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="CREATE_TIME" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="CREATE_USER_ID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="LAST_UPDATE" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="UPDATE_USER_ID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="ORDER_DELIVER_TIME" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="WAREHOUSE_NAME" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PART_CODE" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PART_NAME" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ORDER_STATE" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ORDER_NO" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PROJECT_NAME" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PROJECT_ITEM_NAME" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="ORDER_SOURCE_ID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="BATCH_PART_ID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="WAREHOUSE_LOCATION_ID" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BaseEntityOfQueue" />
+      <s:element name="getSendInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getSendInfoResult" type="tns:SendInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getQueueInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="no" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="warehouseId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getQueueInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getQueueInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWareHouseSupplier">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="warehouseId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWareHouseSupplierResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWareHouseSupplierResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWareHouseProject">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="warehouseId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWareHouseProjectResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWareHouseProjectResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckBoxInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="warehouseId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strJson" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckBoxInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckBoxInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PackageReceive">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="documentNo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strJson" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="warehouseId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PackageReceiveResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PackageReceiveResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BackSupplier">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="supplierId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="warehouseId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="truckNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="driver" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="tel" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonBox" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BackSupplierResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BackSupplierResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PullPackageSend">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="planNO" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="warehouseId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="truckNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="driver" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="tel" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonBox" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PullPackageSendResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PullPackageSendResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getPlanInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="no" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="warehouseId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getPlanInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getPlanInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckBoxStock">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="boxNO" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="partCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="warehouseId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckBoxStockResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckBoxStockResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CheckServiceSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckService" />
+  </wsdl:message>
+  <wsdl:message name="CheckServiceSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckServiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetVersionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetVersion" />
+  </wsdl:message>
+  <wsdl:message name="GetVersionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllFilesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllFiles" />
+  </wsdl:message>
+  <wsdl:message name="GetAllFilesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllFilesResponse" />
+  </wsdl:message>
+  <wsdl:message name="DownLoadFileSoapIn">
+    <wsdl:part name="parameters" element="tns:DownLoadFile" />
+  </wsdl:message>
+  <wsdl:message name="DownLoadFileSoapOut">
+    <wsdl:part name="parameters" element="tns:DownLoadFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoginSoapIn">
+    <wsdl:part name="parameters" element="tns:Login" />
+  </wsdl:message>
+  <wsdl:message name="LoginSoapOut">
+    <wsdl:part name="parameters" element="tns:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSortPartsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSortParts" />
+  </wsdl:message>
+  <wsdl:message name="GetSortPartsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSortPartsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWareHouseTrcuksSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWareHouseTrcuks" />
+  </wsdl:message>
+  <wsdl:message name="GetWareHouseTrcuksSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWareHouseTrcuksResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendConfirmSoapIn">
+    <wsdl:part name="parameters" element="tns:SendConfirm" />
+  </wsdl:message>
+  <wsdl:message name="SendConfirmSoapOut">
+    <wsdl:part name="parameters" element="tns:SendConfirmResponse" />
+  </wsdl:message>
+  <wsdl:message name="getSendInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:getSendInfo" />
+  </wsdl:message>
+  <wsdl:message name="getSendInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:getSendInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="getQueueInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:getQueueInfo" />
+  </wsdl:message>
+  <wsdl:message name="getQueueInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:getQueueInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWareHouseSupplierSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWareHouseSupplier" />
+  </wsdl:message>
+  <wsdl:message name="GetWareHouseSupplierSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWareHouseSupplierResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWareHouseProjectSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWareHouseProject" />
+  </wsdl:message>
+  <wsdl:message name="GetWareHouseProjectSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWareHouseProjectResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckBoxInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckBoxInfo" />
+  </wsdl:message>
+  <wsdl:message name="CheckBoxInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckBoxInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="PackageReceiveSoapIn">
+    <wsdl:part name="parameters" element="tns:PackageReceive" />
+  </wsdl:message>
+  <wsdl:message name="PackageReceiveSoapOut">
+    <wsdl:part name="parameters" element="tns:PackageReceiveResponse" />
+  </wsdl:message>
+  <wsdl:message name="BackSupplierSoapIn">
+    <wsdl:part name="parameters" element="tns:BackSupplier" />
+  </wsdl:message>
+  <wsdl:message name="BackSupplierSoapOut">
+    <wsdl:part name="parameters" element="tns:BackSupplierResponse" />
+  </wsdl:message>
+  <wsdl:message name="PullPackageSendSoapIn">
+    <wsdl:part name="parameters" element="tns:PullPackageSend" />
+  </wsdl:message>
+  <wsdl:message name="PullPackageSendSoapOut">
+    <wsdl:part name="parameters" element="tns:PullPackageSendResponse" />
+  </wsdl:message>
+  <wsdl:message name="getPlanInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:getPlanInfo" />
+  </wsdl:message>
+  <wsdl:message name="getPlanInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:getPlanInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckBoxStockSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckBoxStock" />
+  </wsdl:message>
+  <wsdl:message name="CheckBoxStockSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckBoxStockResponse" />
+  </wsdl:message>
+  <wsdl:portType name="RFServiceSoap">
+    <wsdl:operation name="CheckService">
+      <wsdl:input message="tns:CheckServiceSoapIn" />
+      <wsdl:output message="tns:CheckServiceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVersion">
+      <wsdl:input message="tns:GetVersionSoapIn" />
+      <wsdl:output message="tns:GetVersionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllFiles">
+      <wsdl:input message="tns:GetAllFilesSoapIn" />
+      <wsdl:output message="tns:GetAllFilesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownLoadFile">
+      <wsdl:input message="tns:DownLoadFileSoapIn" />
+      <wsdl:output message="tns:DownLoadFileSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <wsdl:input message="tns:LoginSoapIn" />
+      <wsdl:output message="tns:LoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSortParts">
+      <wsdl:input message="tns:GetSortPartsSoapIn" />
+      <wsdl:output message="tns:GetSortPartsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWareHouseTrcuks">
+      <wsdl:input message="tns:GetWareHouseTrcuksSoapIn" />
+      <wsdl:output message="tns:GetWareHouseTrcuksSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendConfirm">
+      <wsdl:input message="tns:SendConfirmSoapIn" />
+      <wsdl:output message="tns:SendConfirmSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getSendInfo">
+      <wsdl:input message="tns:getSendInfoSoapIn" />
+      <wsdl:output message="tns:getSendInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getQueueInfo">
+      <wsdl:input message="tns:getQueueInfoSoapIn" />
+      <wsdl:output message="tns:getQueueInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWareHouseSupplier">
+      <wsdl:input message="tns:GetWareHouseSupplierSoapIn" />
+      <wsdl:output message="tns:GetWareHouseSupplierSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWareHouseProject">
+      <wsdl:input message="tns:GetWareHouseProjectSoapIn" />
+      <wsdl:output message="tns:GetWareHouseProjectSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckBoxInfo">
+      <wsdl:input message="tns:CheckBoxInfoSoapIn" />
+      <wsdl:output message="tns:CheckBoxInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PackageReceive">
+      <wsdl:input message="tns:PackageReceiveSoapIn" />
+      <wsdl:output message="tns:PackageReceiveSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BackSupplier">
+      <wsdl:input message="tns:BackSupplierSoapIn" />
+      <wsdl:output message="tns:BackSupplierSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PullPackageSend">
+      <wsdl:input message="tns:PullPackageSendSoapIn" />
+      <wsdl:output message="tns:PullPackageSendSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getPlanInfo">
+      <wsdl:input message="tns:getPlanInfoSoapIn" />
+      <wsdl:output message="tns:getPlanInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckBoxStock">
+      <wsdl:input message="tns:CheckBoxStockSoapIn" />
+      <wsdl:output message="tns:CheckBoxStockSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="RFServiceSoap" type="tns:RFServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CheckService">
+      <soap:operation soapAction="http://tempuri.org/CheckService" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVersion">
+      <soap:operation soapAction="http://tempuri.org/GetVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllFiles">
+      <soap:operation soapAction="http://tempuri.org/GetAllFiles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownLoadFile">
+      <soap:operation soapAction="http://tempuri.org/DownLoadFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <soap:operation soapAction="http://tempuri.org/Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSortParts">
+      <soap:operation soapAction="http://tempuri.org/GetSortParts" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWareHouseTrcuks">
+      <soap:operation soapAction="http://tempuri.org/GetWareHouseTrcuks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendConfirm">
+      <soap:operation soapAction="http://tempuri.org/SendConfirm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSendInfo">
+      <soap:operation soapAction="http://tempuri.org/getSendInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getQueueInfo">
+      <soap:operation soapAction="http://tempuri.org/getQueueInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWareHouseSupplier">
+      <soap:operation soapAction="http://tempuri.org/GetWareHouseSupplier" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWareHouseProject">
+      <soap:operation soapAction="http://tempuri.org/GetWareHouseProject" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckBoxInfo">
+      <soap:operation soapAction="http://tempuri.org/CheckBoxInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PackageReceive">
+      <soap:operation soapAction="http://tempuri.org/PackageReceive" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BackSupplier">
+      <soap:operation soapAction="http://tempuri.org/BackSupplier" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PullPackageSend">
+      <soap:operation soapAction="http://tempuri.org/PullPackageSend" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPlanInfo">
+      <soap:operation soapAction="http://tempuri.org/getPlanInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckBoxStock">
+      <soap:operation soapAction="http://tempuri.org/CheckBoxStock" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="RFServiceSoap12" type="tns:RFServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CheckService">
+      <soap12:operation soapAction="http://tempuri.org/CheckService" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVersion">
+      <soap12:operation soapAction="http://tempuri.org/GetVersion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllFiles">
+      <soap12:operation soapAction="http://tempuri.org/GetAllFiles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownLoadFile">
+      <soap12:operation soapAction="http://tempuri.org/DownLoadFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <soap12:operation soapAction="http://tempuri.org/Login" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSortParts">
+      <soap12:operation soapAction="http://tempuri.org/GetSortParts" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWareHouseTrcuks">
+      <soap12:operation soapAction="http://tempuri.org/GetWareHouseTrcuks" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendConfirm">
+      <soap12:operation soapAction="http://tempuri.org/SendConfirm" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSendInfo">
+      <soap12:operation soapAction="http://tempuri.org/getSendInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getQueueInfo">
+      <soap12:operation soapAction="http://tempuri.org/getQueueInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWareHouseSupplier">
+      <soap12:operation soapAction="http://tempuri.org/GetWareHouseSupplier" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWareHouseProject">
+      <soap12:operation soapAction="http://tempuri.org/GetWareHouseProject" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckBoxInfo">
+      <soap12:operation soapAction="http://tempuri.org/CheckBoxInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PackageReceive">
+      <soap12:operation soapAction="http://tempuri.org/PackageReceive" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BackSupplier">
+      <soap12:operation soapAction="http://tempuri.org/BackSupplier" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PullPackageSend">
+      <soap12:operation soapAction="http://tempuri.org/PullPackageSend" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPlanInfo">
+      <soap12:operation soapAction="http://tempuri.org/getPlanInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckBoxStock">
+      <soap12:operation soapAction="http://tempuri.org/CheckBoxStock" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RFService">
+    <wsdl:port name="RFServiceSoap" binding="tns:RFServiceSoap">
+      <soap:address location="http://192.168.0.54/YTRFServices/RFService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="RFServiceSoap12" binding="tns:RFServiceSoap12">
+      <soap12:address location="http://192.168.0.54/YTRFServices/RFService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

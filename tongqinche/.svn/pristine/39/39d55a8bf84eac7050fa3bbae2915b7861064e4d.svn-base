@@ -1,0 +1,112 @@
+﻿using Common;
+using DataMapper;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+
+namespace tongqinche.Controllers
+{
+    public class LocApiController : ApiController
+    {
+        public string GetZhanDian()
+        {
+            Loc loc = new Loc();
+            var locList = loc.QueryList("SelectAll");
+            var jsonStr = JsonSerializationHandler.Serialize<IList<Loc>>(locList);
+            return jsonStr;
+
+        }
+        [HttpPost]
+        public int CreateLoc(dynamic loc)
+        {
+            if (loc != null)
+            {
+                Loc newLoc = new Loc();
+                newLoc.LocCode = loc["LocCode"];
+                return 1;
+            }
+            return 2;
+        }
+
+        [HttpPost]
+        public string PostZhanDian(dynamic loc)
+        {
+            Loc parmLoc = new Loc();
+            if (loc != null)
+            {
+                if (loc["LocCode"] != null)
+                {
+                    parmLoc.LocCode = loc["LocCode"].ToString().Trim();
+                }
+                if (loc["LocName"] != null)
+                {
+                    parmLoc.LocName = loc["LocName"].ToString().Trim();
+                }
+                if (loc["LocAddress"] != null)
+                {
+                    parmLoc.ProvinceCode = loc["LocAddress"].ToString().Trim();
+                }
+                if (loc["LocType"] != null)
+                {
+                    parmLoc.Latitude = loc["LocType"].ToString().Trim();
+                }
+                if (loc["LocStatus"] != null)
+                {
+                    parmLoc.Longitude = loc["LocStatus"].ToString().Trim();
+                }
+
+            }
+
+            var locList = parmLoc.QueryList("SelectByParam");
+            var jsonStr = JsonSerializationHandler.Serialize<IList<Loc>>(locList);
+            return jsonStr;
+        }
+
+        [HttpPost]
+        public void ExportZhanDian(dynamic loc)
+        {
+            try
+            {
+                Loc parmLoc = new Loc();
+                if (loc != null)
+                {
+                    if (loc["LocCode"] != null)
+                    {
+                        parmLoc.LocCode = loc["LocCode"].ToString().Trim();
+                    }
+                    if (loc["LocName"] != null)
+                    {
+                        parmLoc.LocName = loc["LocName"].ToString().Trim();
+                    }
+                    if (loc["LocAddress"] != null)
+                    {
+                        parmLoc.ProvinceCode = loc["LocAddress"].ToString().Trim();
+                    }
+                    if (loc["LocType"] != null)
+                    {
+                        parmLoc.Latitude = loc["LocType"].ToString().Trim();
+                    }
+                    if (loc["LocStatus"] != null)
+                    {
+                        parmLoc.Longitude = loc["LocStatus"].ToString().Trim();
+                    }
+
+                }
+
+                var locList = parmLoc.QueryDataTable("SelectByParam");
+                NPOIExcelHelper.DataTableToExcel(locList, "站点", "C:/Users/admin/Desktop/mytest1.xls");
+
+                //var jsonStr = JsonSerializationHandler.Serialize<IList<Loc>>(locList);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+    }
+}

@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<sqlMap 
+	namespace="LdvPackageItemRel" xmlns="http://ibatis.apache.org/mapping" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	
+	<alias>
+		<typeAlias alias="LdvPackageItemRel" type="LDV.WMS.RF.DataMapper.LdvPackageItemRel, LDV.WMS.RF.DataMapper" />
+	</alias>
+	
+	<resultMaps>
+		<resultMap id="SelectResult" class="LdvPackageItemRel">
+			<result property="ID" column="ID" />
+			<result property="PACKAGE_BARCODE_ID" column="PACKAGE_BARCODE_ID" />
+			<result property="PICK_TICKET_DETAIL_ID" column="PICK_TICKET_DETAIL_ID" />
+			<result property="QTY" column="QTY" />
+			<result property="CREATE_DATE" column="CREATE_DATE" />
+			<result property="CREATE_USER_ID" column="CREATE_USER_ID" />
+			<result property="LAST_MODIFY_DATE" column="LAST_MODIFY_DATE" />
+			<result property="LAST_MODIFY_USER_ID" column="LAST_MODIFY_USER_ID" />
+		</resultMap>
+	</resultMaps>
+	
+	<statements>
+	
+		<select id="SelectAll" resultMap="SelectResult">
+			<![CDATA[
+			select
+				ID,
+				PACKAGE_BARCODE_ID,
+				PICK_TICKET_DETAIL_ID,
+				QTY,
+				CREATE_DATE,
+				CREATE_USER_ID,
+				LAST_MODIFY_DATE,
+				LAST_MODIFY_USER_ID
+			from LDV_PACKAGE_ITEM_REL
+			]]>
+		</select>
+		
+		<select id="SelectById" extends="SelectAll" parameterClass="" resultMap="SelectResult">
+			<![CDATA[
+			where
+			1 = 1
+			]]>
+		</select>
+
+    <select id="SelectByPackgeId" extends="SelectAll" parameterClass="" resultMap="SelectResult">
+      <![CDATA[
+			where
+			1 = 1 AND ID=#ID#
+			]]>
+    </select>
+
+    <select id="SelectByParam" extends="SelectAll" parameterClass="LdvPackageItemRel" resultMap="SelectResult">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PACKAGE_BARCODE_ID">
+        			<![CDATA[ PACKAGE_BARCODE_ID = #PACKAGE_BARCODE_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PICK_TICKET_DETAIL_ID">
+        			<![CDATA[ PICK_TICKET_DETAIL_ID = #PICK_TICKET_DETAIL_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="QTY">
+        			<![CDATA[ QTY = #QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CREATE_USER_ID">
+        			<![CDATA[ CREATE_USER_ID = #CREATE_USER_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LAST_MODIFY_USER_ID">
+        			<![CDATA[ LAST_MODIFY_USER_ID = #LAST_MODIFY_USER_ID# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+
+    <select id="SelectPackege"  parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+                select lpb.id as PACKEGE_ID,lpb.package_barcode,lpb.BOX_NUM AS BOX_NUM,lpb.STATUS,lpir.id as D_ID,vpt.ship_to_id as SHIP_TO_ID,lpir.qty,ptd.item_id,item.item_code,ptd.ID AS PICK_ID,vpt.pick_ticket_code as PICK_TICKET_CODE from ldv_package_barcode lpb
+                left join ldv_package_item_rel lpir on (lpb.id=lpir.package_barcode_id)
+                left join v_wms_pick_ticket_detail ptd on (lpir.pick_ticket_detail_id=ptd.id)
+                left join v_wms_item item on (ptd.item_id=item.id)
+                LEFT join v_wms_pick_ticket vpt on (ptd.pick_ticket_id=vpt.id)]]>
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PACKAGE_BARCODE">
+          <![CDATA[ lpb.PACKAGE_BARCODE = #PACKAGE_BARCODE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="ITEM_CODE">
+          <![CDATA[ item.item_code = #ITEM_CODE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="ID">
+          <![CDATA[ lpir.ID = #ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="PACKAGE_BARCODE_ID">
+          <![CDATA[ lpir.PACKAGE_BARCODE_ID = #PACKAGE_BARCODE_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="PICK_TICKET_DETAIL_ID">
+          <![CDATA[ lpir.PICK_TICKET_DETAIL_ID = #PICK_TICKET_DETAIL_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="QTY">
+          <![CDATA[ lpir.QTY = #QTY# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="CREATE_USER_ID">
+          <![CDATA[ lpir.CREATE_USER_ID = #CREATE_USER_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LAST_MODIFY_DATE">
+          <![CDATA[ lpir.LAST_MODIFY_DATE = #LAST_MODIFY_DATE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LAST_MODIFY_USER_ID">
+          <![CDATA[ lpir.LAST_MODIFY_USER_ID = #LAST_MODIFY_USER_ID# ]]>
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectPackegeOn"  parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+                select lpb.id as PACKEGE_ID,lpb.package_barcode,lpb.STATUS,lpir.id as D_ID,vpt.ship_to_id as SHIP_TO_ID,lpir.qty,ptd.item_id,item.item_code,ptd.ID AS PICK_ID,vpt.pick_ticket_code as PICK_TICKET_CODE from ldv_package_barcode lpb
+                inner join ldv_package_item_rel lpir on (lpb.id=lpir.package_barcode_id)
+                left join v_wms_pick_ticket_detail ptd on (lpir.pick_ticket_detail_id=ptd.id)
+                left join v_wms_item item on (ptd.item_id=item.id)
+                INNER join v_wms_pick_ticket vpt on (ptd.pick_ticket_id=vpt.id)]]>
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PACKAGE_BARCODE">
+          <![CDATA[ lpb.PACKAGE_BARCODE = #PACKAGE_BARCODE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="ITEM_CODE">
+          <![CDATA[ item.item_code = #ITEM_CODE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="PACKEGE_ID">
+          <![CDATA[ lpb.id = #PACKEGE_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="ID">
+          <![CDATA[ lpir.ID = #ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="PACKAGE_BARCODE_ID">
+          <![CDATA[ lpir.PACKAGE_BARCODE_ID = #PACKAGE_BARCODE_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="PICK_TICKET_DETAIL_ID">
+          <![CDATA[ lpir.PICK_TICKET_DETAIL_ID = #PICK_TICKET_DETAIL_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="QTY">
+          <![CDATA[ lpir.QTY = #QTY# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="CREATE_USER_ID">
+          <![CDATA[ lpir.CREATE_USER_ID = #CREATE_USER_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LAST_MODIFY_DATE">
+          <![CDATA[ lpir.LAST_MODIFY_DATE = #LAST_MODIFY_DATE# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="LAST_MODIFY_USER_ID">
+          <![CDATA[ lpir.LAST_MODIFY_USER_ID = #LAST_MODIFY_USER_ID# ]]>
+        </isNotNull>
+      </dynamic>
+    </select>
+		
+		<select id="SelectForPageing" extends="SelectAll" parameterClass="System.Collections.IDictionary">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PACKAGE_BARCODE_ID">
+        			<![CDATA[ PACKAGE_BARCODE_ID = #PACKAGE_BARCODE_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="PICK_TICKET_DETAIL_ID">
+        			<![CDATA[ PICK_TICKET_DETAIL_ID = #PICK_TICKET_DETAIL_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="QTY">
+        			<![CDATA[ QTY = #QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="CREATE_USER_ID">
+        			<![CDATA[ CREATE_USER_ID = #CREATE_USER_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LAST_MODIFY_DATE">
+        			<![CDATA[ LAST_MODIFY_DATE = #LAST_MODIFY_DATE# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LAST_MODIFY_USER_ID">
+        			<![CDATA[ LAST_MODIFY_USER_ID = #LAST_MODIFY_USER_ID# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+		<insert id="Insert" parameterClass="LdvPackageItemRel">
+      <selectKey resultClass="double" type="pre" property="ID" >
+        <![CDATA[ select LDV_PACKAGE_ITEM_REL_SEQ.NEXTVAL as value from dual ]]>
+      </selectKey>
+			<![CDATA[
+			insert into LDV_PACKAGE_ITEM_REL
+			(
+			    ID,
+			    PACKAGE_BARCODE_ID,
+			    PICK_TICKET_DETAIL_ID,
+			    QTY,
+			    CREATE_USER_ID,
+			    LAST_MODIFY_DATE,
+			    LAST_MODIFY_USER_ID
+			)
+			values 
+			(
+				#ID#,
+				#PACKAGE_BARCODE_ID#,
+				#PICK_TICKET_DETAIL_ID#,
+				#QTY#,
+				#CREATE_USER_ID#,
+				#LAST_MODIFY_DATE#,
+				#LAST_MODIFY_USER_ID#
+			)
+			]]>
+		</insert>
+		<update id="Update" parameterClass="LdvPackageItemRel" >
+			<![CDATA[
+			update LDV_PACKAGE_ITEM_REL set
+				ID = #ID#,
+				PACKAGE_BARCODE_ID = #PACKAGE_BARCODE_ID#,
+				PICK_TICKET_DETAIL_ID = #PICK_TICKET_DETAIL_ID#,
+				QTY = #QTY#,
+				LAST_MODIFY_DATE = #LAST_MODIFY_DATE#,
+				LAST_MODIFY_USER_ID = #LAST_MODIFY_USER_ID#
+			where
+				1=1
+			]]>
+		</update>
+		
+		<update id="UpdateSection" parameterClass="LdvPackageItemRel" >
+			<![CDATA[
+			update LDV_PACKAGE_ITEM_REL set 
+			]]>
+			<dynamic prepend=" ">
+				<isNotNull prepend="," property="PACKAGE_BARCODE_ID">
+					<![CDATA[ PACKAGE_BARCODE_ID=#PACKAGE_BARCODE_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="PICK_TICKET_DETAIL_ID">
+					<![CDATA[ PICK_TICKET_DETAIL_ID=#PICK_TICKET_DETAIL_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="QTY">
+					<![CDATA[ QTY=#QTY#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="LAST_MODIFY_DATE">
+					<![CDATA[ LAST_MODIFY_DATE=#LAST_MODIFY_DATE#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="LAST_MODIFY_USER_ID">
+					<![CDATA[ LAST_MODIFY_USER_ID=#LAST_MODIFY_USER_ID#]]>
+				</isNotNull>
+			</dynamic>
+			<![CDATA[
+			where ID=#ID#
+			]]>
+		</update>
+		<delete id="Delete" parameterClass="LdvPackageItemRel" >
+			<![CDATA[
+			delete from LDV_PACKAGE_ITEM_REL
+			where 
+				1=1
+			]]>
+		</delete>
+	</statements>
+	
+</sqlMap>

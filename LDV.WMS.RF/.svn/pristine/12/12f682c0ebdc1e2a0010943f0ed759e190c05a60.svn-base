@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.l-and-t.com/textboxverifyConfig" elementFormDefault="qualified" xmlns:mstns="http://tempuri.org/XMLSchema.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.l-and-t.com/textboxverifyConfig" xmlns:vs="http://schemas.microsoft.com/Visual-Studio-Intellisense" xmlns:NS="http://www.l-and-t.com/textboxverifyConfig" vs:friendlyname="TextBoxVerify Configuration Schema" vs:ishtmlschema="false" vs:iscasesensitive="true" vs:requireattributequotes="true" vs:defaultnamespacequalifier="" vs:defaultnsprefix="">
+  <xs:element name="textbox">
+    <xs:complexType mixed="true">
+      <xs:attribute name="id" use="required" type="xs:string" />
+      <xs:attribute name="required" use="required" type="xs:boolean" />
+      <xs:attribute name="requiredmessageid" use="required" type="xs:string" />
+      <xs:attribute name="maxlength" use="required" type="xs:int" />
+      <xs:attribute name="lengthmessageid" use="required" type="xs:string" />
+      <xs:attribute name="typepattern" type="xs:string" />
+      <xs:attribute name="typemessageid" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="page">
+    <xs:complexType mixed="true">
+      <xs:sequence>
+        <xs:element ref="textbox" maxOccurs="unbounded" />
+      </xs:sequence>
+      <xs:attribute name="name" use="required" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="textboxverify">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="page" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+    <xs:unique name="uniquepagename">
+      <xs:selector xpath=".//NS:page"/>
+      <xs:field xpath="@name"/>
+    </xs:unique>
+  </xs:element>
+</xs:schema>

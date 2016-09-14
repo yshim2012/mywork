@@ -1,0 +1,498 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<sqlMap 
+	namespace="VWmsInvDetail" xmlns="http://ibatis.apache.org/mapping" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	
+	<alias>
+		<typeAlias alias="VWmsInvDetail" type="LDV.WMS.RF.DataMapper.VWmsInvDetail, LDV.WMS.RF.DataMapper" />
+    <typeAlias alias="LocItem" type="LDV.WMS.RF.DataMapper.LocItem, LDV.WMS.RF.DataMapper" />    
+	</alias>
+	
+	<resultMaps>
+		<resultMap id="SelectResult" class="VWmsInvDetail">
+			<result property="ID" column="ID" />
+			<result property="LOC_ID" column="LOC_ID" />
+			<result property="MU_ID" column="MU_ID" />
+			<result property="UID_ID" column="UID_ID" />
+			<result property="STATUS" column="STATUS" />
+			<result property="ITEM_STATUS" column="ITEM_STATUS" />
+			<result property="QTY" column="QTY" />
+			<result property="VERSION_TRANSACTION" column="VERSION_TRANSACTION" />
+      <result property="PLAN_PICK_QTY" column="PLAN_PICK_QTY" />
+		</resultMap>
+    <resultMap id="SelectLocItemResult" class="LocItem">
+      <result property="ID" column="ID" />
+      <result property="LOC_CODE" column="LOC_CODE" />
+      <result property="UID_ID" column="UID_ID" />
+      <result property="ITEM_CODE" column="ITEM_CODE" />
+      <result property="QTY" column="QTY" />
+    </resultMap>
+	</resultMaps>
+	
+	<statements>
+	
+		<select id="SelectAll" resultMap="SelectResult">
+			<![CDATA[
+			select
+				ID,
+				LOC_ID,
+				MU_ID,
+				UID_ID,
+				STATUS,
+				ITEM_STATUS,
+				QTY,
+				VERSION_TRANSACTION,
+        PLAN_PICK_QTY
+			from V_WMS_INV_DETAIL
+			]]>
+		</select>
+		
+		<select id="SelectById" extends="SelectAll" parameterClass="VWmsInvDetail" resultMap="SelectResult">
+			<![CDATA[
+			where
+				ID = #ID#
+			]]>
+		</select>
+    <select id="SelectByDocDetailId" extends="SelectAll" parameterClass="double" resultMap="SelectResult">
+      <![CDATA[
+			where id in( select vid.ID from V_WMS_INV_DETAIL vid
+       left join v_wms_rcv_doc_PQ  rv on vid.loc_id=rv.loc_id and vid.uid_id=rv.uid_id 
+       where rv.doc_detail_id=#ID#) 
+			]]>
+    </select>
+    <select id="SelectByPartQty" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+			<![CDATA[
+			select vim.whse_id,
+       vid.loc_id,
+       vid.qty,
+       viu.lot,
+       viu.supplier_id,
+       viu.item_id,
+       l.loc_code,
+       it.item_code,
+       it.item_name,
+       vid.plan_pick_qty
+        from v_wms_inv_detail vid
+        inner join  v_wms_inv_mu vim on(vid.mu_id=vim.id)
+        inner join v_wms_inv_uid viu on(vid.uid_id=viu.id)
+        inner join V_WMS_BASE_LOCATION L on(vid.loc_id=l.id)
+        inner join V_WMS_ITEM it on(viu.item_id=it.id)        
+			]]>
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ITEM_CODE">
+          <![CDATA[ IT.ITEM_CODE = #ITEM_CODE# ]]>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="LOC_CODE">
+          <![CDATA[ L.LOC_CODE = #LOC_CODE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="ID">
+          <![CDATA[ viu.WHSE_ID = (SELECT DISTINCT BZ.WHSE_ID FROM 
+          V_WMS_BASE_USER_ZONE ZO INNER JOIN V_WMS_BASE_ZONE BZ ON(BZ.ID=ZO.ZONE_ID) WHERE ZO.USER_ID=#ID#)]]>
+        </isNotEmpty>
+      </dynamic>
+		</select>
+		<select id="SelectByPartSupplierLoc" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+			<![CDATA[
+			select   
+       sum(vid.qty) qty,        
+       l.loc_code,
+       it.item_code
+        from v_wms_inv_detail vid
+        inner join  v_wms_inv_mu vim on(vid.mu_id=vim.id)
+        inner join v_wms_inv_uid viu on(vid.uid_id=viu.id)
+        inner join V_WMS_BASE_LOCATION L on(vid.loc_id=l.id)
+        inner join V_WMS_ITEM it on(viu.item_id=it.id)  
+	 
+		
+			]]>
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ITEM_CODE">
+					<![CDATA[ IT.ITEM_CODE = #ITEM_CODE# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="SUPPLIER_ID">
+					<![CDATA[ viu.SUPPLIER_ID = #SUPPLIER_ID# ]]>
+				</isNotEmpty>
+				
+			</dynamic>
+			<![CDATA[
+			AND l.loc_type='HI' and vid.status='V'  
+      group by     l.loc_code,       it.item_code 
+        order by sum(vid.qty) 
+			]]>
+		</select>
+
+    <select id="SelectByShipOutQty" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+      <![CDATA[
+			SELECT IDL.*,IU.LOT,IU.ITEM_ID FROM V_WMS_INV_DETAIL IDL
+      INNER JOIN V_WMS_BASE_LOCATION BL ON(BL.ID=IDL.LOC_ID)       
+      INNER JOIN V_WMS_INV_UID IU ON(IDL.UID_ID=IU.ID)   
+			]]>
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="MU_ID">
+          <![CDATA[  IDL.MU_ID = #MU_ID# ]]>  
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="UID_ID">
+          <![CDATA[ IDL.UID_ID = #UID_ID# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="LOC_CODE">
+          <![CDATA[ BL.LOC_CODE = #LOC_CODE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="ITEM_ID">
+          <![CDATA[ IU.ITEM_ID = #ITEM_ID# ]]>
+        </isNotEmpty>
+      </dynamic>
+      <!--<![CDATA[  AND QTY>0 ORDER BY IU.LOT ]]>-->
+      <![CDATA[  AND QTY>0 ORDER BY IU.extend_date_0 ASC ]]>
+    </select>
+    <select id="SelectByUidMid" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+      <![CDATA[
+      select TA.MU_ID,TA.UID_ID,SUM(TA.PICKED_QTY) AS PICKED_QTY,TA.LOC_ID,SUM(IDL.QTY) QTY from V_WMS_PICK_QUEUE PQ
+       INNER JOIN V_WMS_PICK_QUEUE_ACT TA ON(TA.PICK_QUEUE_ID=PQ.ID)  
+       INNER JOIN V_WMS_INV_DETAIL IDL ON (IDL.MU_ID=TA.MU_ID AND IDL.UID_ID=TA.UID_ID)
+       INNER JOIN V_WMS_BASE_LOCATION BL ON(BL.ID=IDL.LOC_ID AND BL.LOC_CODE = '$LOC_CODE$')  
+			]]>
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="MU_ID">
+          <![CDATA[  IDL.MU_ID = #MU_ID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="UID_ID">
+          <![CDATA[  IDL.UID_ID = #UID_ID# ]]>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="ITEM_ID">
+          <![CDATA[ PQ.ITEM_ID = #ITEM_ID# ]]>
+        </isNotEmpty>
+      </dynamic>
+      <![CDATA[ GROUP BY  TA.MU_ID,TA.UID_ID,TA.LOC_ID ]]>
+    </select>
+
+    <select id="SelectByUidMidQty" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+      <![CDATA[
+			    select *from (
+        select a.mu_id,a.uid_id,sum(a.picked_qty) AS PICKED_QTY,a.loc_id from V_WMS_PICK_QUEUE_ACT a
+        left join v_wms_pick_queue pq on(a.pick_queue_id=pq.id)
+        left join v_Wms_Pick_Ticket pt on(pq.pick_ticket_id=pt.id)
+        where PQ.ITEM_ID =  $ITEM_ID$   and  PQ.ID =  $PQID$  AND A.IS_DISABLED=0
+        group by a.mu_id,a.uid_id,a.loc_id)a
+         left join(
+        select act.mu_id,act.uid_id,NVL(sum(act.qty),0) AS PT_QTY,act.loc_id from V_WMS_PICK_TICKET_ACT act
+        left join v_wms_pick_queue pq on(act.pick_ticket_id=pq.pick_ticket_id)
+        left join v_Wms_Pick_Ticket pt on(pq.pick_ticket_id=pt.id)
+        where PQ.ITEM_ID =  $ITEM_ID$  and  PQ.ID = $PQID$  AND ACT.IS_DISABLED = 0
+        group by act.mu_id,act.uid_id,act.loc_id
+        )b on(a.mu_id=b.mu_id and a.uid_id=b.uid_id and a.loc_id=b.loc_id)
+        left join (
+        select idl.mu_id,idl.uid_id,sum(idl.qty) AS D_QTY from  V_WMS_INV_DETAIL IDL 
+                 LEFT JOIN V_WMS_BASE_LOCATION BL ON(BL.ID=IDL.LOC_ID)
+                 left join v_wms_inv_uid u on(idl.uid_id=u.id)
+                 where u.ITEM_ID =  $ITEM_ID$  AND BL.LOC_CODE = '$LOC_CODE$'
+                 group by  idl.uid_id,idl.mu_id
+                 )c on(a.mu_id=c.mu_id and a.uid_id=c.uid_id)
+         ]]>
+    </select>
+    
+    <!--<select id="SelectByUidMidQty" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+      <![CDATA[
+			select TA.MU_ID,TA.UID_ID,SUM(TA.PICKED_QTY) AS PICKED_QTY,IDL.LOC_ID,NVL(SUM(PTA.QTY),0) PT_QTY,SUM(IDL.QTY) AS D_QTY from V_WMS_PICK_QUEUE PQ
+       INNER JOIN V_WMS_PICK_QUEUE_ACT TA ON(TA.PICK_QUEUE_ID=PQ.ID)  
+       INNER JOIN V_WMS_INV_DETAIL IDL ON (IDL.MU_ID=TA.MU_ID AND IDL.UID_ID=TA.UID_ID)
+       INNER JOIN V_WMS_BASE_LOCATION BL ON(BL.ID=IDL.LOC_ID AND BL.LOC_CODE = '$LOC_CODE$')  
+       LEFT JOIN V_WMS_PICK_TICKET_ACT PTA ON(PTA.PICK_TICKET_ID = $PICK_TICKET_ID$)
+			]]>
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="PQID">
+          <![CDATA[  PQ.ID = #PQID# ]]>
+        </isNotNull>
+        <isNotNull prepend="AND" property="PQID_S">
+          <![CDATA[  PQ.ID IN ($PQID_S$) ]]>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="ITEM_ID">
+          <![CDATA[ PQ.ITEM_ID = #ITEM_ID# ]]>
+        </isNotEmpty>
+      </dynamic>
+      <![CDATA[ GROUP BY  TA.MU_ID,TA.UID_ID,IDL.LOC_ID]]>
+    </select>-->
+    
+    <select id="SelectLocItemByParam" parameterClass="LocItem" resultMap="SelectLocItemResult">
+      <![CDATA[
+      SELECT T.ID,
+             T.UID_ID,
+             T.MU_ID,
+             T.LOC_ID,
+             U.LOT,
+             L.LOC_CODE,
+             I.ITEM_CODE,
+             U.ITEM_ID,
+             T.QTY,
+             t.status,
+             t.item_status,
+             t.version_transaction,
+             T.PLAN_PICK_QTY,
+             U.WHSE_ID
+      FROM   V_WMS_INV_DETAIL T
+             LEFT JOIN V_WMS_BASE_LOCATION L ON(T.LOC_ID=L.ID)
+             LEFT JOIN V_WMS_INV_UID U ON(T.UID_ID = U.ID)
+             LEFT JOIN V_WMS_ITEM I ON(U.ITEM_ID=I.ID)
+      ]]>
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ID">
+          <![CDATA[ T.ID = #ID# ]]>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="LOC_CODE">
+          <![CDATA[ L.LOC_CODE = #LOC_CODE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="ITEM_CODE">
+          <![CDATA[ I.ITEM_CODE = #ITEM_CODE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="UID_ID">
+          <![CDATA[ T.UID_ID = #UID_ID# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="MU_ID">
+          <![CDATA[ T.MU_ID = #MU_ID# ]]>
+        </isNotEmpty>
+		<isNotEmpty prepend="AND" property="LOT_NO">
+			  <![CDATA[ U.LOT = #LOT_NO# ]]>
+		 </isNotEmpty>
+      </dynamic>
+      <![CDATA[ AND T.QTY >0 ORDER BY U.LOT ASC]]>
+    </select>
+
+    <select id="SelectLocItemByParam1" parameterClass="LocItem" resultMap="SelectLocItemResult">
+      <![CDATA[
+      SELECT T.ID,
+             T.UID_ID,
+             T.MU_ID,
+             T.LOC_ID,
+             U.LOT,
+             L.LOC_CODE,
+             I.ITEM_CODE,
+             U.ITEM_ID,
+             T.QTY as QTY,
+             T.PLAN_PICK_QTY,
+             U.WHSE_ID
+      FROM   V_WMS_INV_DETAIL T
+             LEFT JOIN V_WMS_BASE_LOCATION L ON(T.LOC_ID=L.ID)
+             LEFT JOIN V_WMS_INV_UID U ON(T.UID_ID = U.ID)
+             LEFT JOIN V_WMS_ITEM I ON(U.ITEM_ID=I.ID)
+      ]]>
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ID">
+          <![CDATA[ T.ID = #ID# ]]>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="LOC_CODE">
+          <![CDATA[ L.LOC_CODE = #LOC_CODE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="ITEM_CODE">
+          <![CDATA[ I.ITEM_CODE = #ITEM_CODE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="UID_ID">
+          <![CDATA[ T.UID_ID = #UID_ID# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="MU_ID">
+          <![CDATA[ T.MU_ID = #MU_ID# ]]>
+        </isNotEmpty>
+      </dynamic>
+      <![CDATA[ ORDER BY U.LOT ASC]]>
+    </select>
+		
+		<select id="SelectByParam" extends="SelectAll" parameterClass="VWmsInvDetail" resultMap="SelectResult">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LOC_ID">
+        			<![CDATA[ LOC_ID = #LOC_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="MU_ID">
+        			<![CDATA[ MU_ID = #MU_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="UID_ID">
+        			<![CDATA[ UID_ID = #UID_ID# ]]>
+				</isNotNull>
+				<isNotEmpty prepend="AND" property="STATUS">
+        			<![CDATA[ STATUS = #STATUS# ]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="ITEM_STATUS">
+        			<![CDATA[ ITEM_STATUS = #ITEM_STATUS# ]]>
+				</isNotEmpty>
+				<isNotNull prepend="AND" property="QTY">
+        			<![CDATA[ QTY = #QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="VERSION_TRANSACTION">
+        			<![CDATA[ VERSION_TRANSACTION = #VERSION_TRANSACTION# ]]>
+				</isNotNull>
+        <isNotNull prepend="AND" property="PLAN_PICK_QTY">
+        			<![CDATA[ PLAN_PICK_QTY = #PLAN_PICK_QTY# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+		
+		<select id="SelectForPageing" extends="SelectAll" parameterClass="System.Collections.IDictionary">
+			<dynamic prepend="WHERE">
+				<isNotNull prepend="AND" property="ID">
+        			<![CDATA[ ID = #ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="LOC_ID">
+        			<![CDATA[ LOC_ID = #LOC_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="MU_ID">
+        			<![CDATA[ MU_ID = #MU_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="UID_ID">
+        			<![CDATA[ UID_ID = #UID_ID# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="STATUS">
+        			<![CDATA[ STATUS = #STATUS# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="ITEM_STATUS">
+        			<![CDATA[ ITEM_STATUS = #ITEM_STATUS# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="QTY">
+        			<![CDATA[ QTY = #QTY# ]]>
+				</isNotNull>
+				<isNotNull prepend="AND" property="VERSION_TRANSACTION">
+        			<![CDATA[ VERSION_TRANSACTION = #VERSION_TRANSACTION# ]]>
+				</isNotNull>
+        <isNotNull prepend="AND" property="PLAN_PICK_QTY">
+        			<![CDATA[ PLAN_PICK_QTY = #PLAN_PICK_QTY# ]]>
+				</isNotNull>
+			</dynamic>
+		</select>
+		<insert id="Insert" parameterClass="VWmsInvDetail">
+			<selectKey resultClass="double" type="pre" property="ID" > 
+				<![CDATA[ select V_WMS_INV_DETAIL_SEQ.NEXTVAL as value from dual ]]>
+			</selectKey>
+			<![CDATA[
+			insert into V_WMS_INV_DETAIL
+			(
+			    ID,
+			    LOC_ID,
+			    MU_ID,
+			    UID_ID,
+			    STATUS,
+			    ITEM_STATUS,
+			    QTY,
+			    VERSION_TRANSACTION,
+          PLAN_PICK_QTY
+			)
+			values 
+			(
+				#ID#,
+				#LOC_ID#,
+				#MU_ID#,
+				#UID_ID#,
+				#STATUS#,
+				#ITEM_STATUS#,
+				#QTY#,
+				#VERSION_TRANSACTION#,
+        #PLAN_PICK_QTY#
+			)
+			]]>
+		</insert>
+    
+		<update id="Update" parameterClass="VWmsInvDetail" >
+			<![CDATA[
+			update V_WMS_INV_DETAIL set
+				LOC_ID = #LOC_ID#,
+				MU_ID = #MU_ID#,
+				UID_ID = #UID_ID#,
+				STATUS = #STATUS#,
+				ITEM_STATUS = #ITEM_STATUS#,
+				QTY = #QTY#,
+				VERSION_TRANSACTION = #VERSION_TRANSACTION#,
+        PLAN_PICK_QTY = #PLAN_PICK_QTY#
+			where
+				ID = #ID#
+			]]>
+		</update>
+		<update id="UpdateQty" parameterClass="VWmsInvDetail">
+			<![CDATA[
+		update V_WMS_INV_DETAIL set
+				QTY = #QTY#
+			where
+				ID = #ID#
+			]]>
+		</update>
+		<update id="UpdateSection" parameterClass="VWmsInvDetail" >
+			<![CDATA[
+			update V_WMS_INV_DETAIL set 
+			]]>
+			<dynamic prepend=" ">
+				<isNotNull prepend="," property="LOC_ID">
+					<![CDATA[ LOC_ID=#LOC_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="MU_ID">
+					<![CDATA[ MU_ID=#MU_ID#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="UID_ID">
+					<![CDATA[ UID_ID=#UID_ID#]]>
+				</isNotNull>
+				<isNotEmpty prepend="," property="STATUS">
+					<![CDATA[ STATUS=#STATUS#]]>
+				</isNotEmpty>
+				<isNotEmpty prepend="," property="ITEM_STATUS">
+					<![CDATA[ ITEM_STATUS=#ITEM_STATUS#]]>
+				</isNotEmpty>
+				<isNotNull prepend="," property="QTY">
+					<![CDATA[ QTY=#QTY#]]>
+				</isNotNull>
+				<isNotNull prepend="," property="VERSION_TRANSACTION">
+					<![CDATA[ VERSION_TRANSACTION=#VERSION_TRANSACTION#]]>
+				</isNotNull>
+        <isNotNull prepend="," property="PLAN_PICK_QTY">
+					<![CDATA[ PLAN_PICK_QTY=#PLAN_PICK_QTY#]]>
+				</isNotNull>
+			</dynamic>
+			<![CDATA[
+			where
+				ID = #ID#
+			]]>
+		</update>
+    
+    <update id="UpdateCountPQMinus" parameterClass="VWmsInvDetail" >
+      <![CDATA[
+		  update V_WMS_INV_DETAIL set qty=qty-#QTY# where id in( select vid.ID from V_WMS_INV_DETAIL vid
+       left join v_wms_rcv_doc_PQ  rv on vid.loc_id=rv.loc_id and vid.uid_id=rv.uid_id 
+       where rv.doc_detail_id=#ID#)
+			]]>
+    </update>
+    <update id="UpdateCountPQone" parameterClass="VWmsInvDetail" >
+      <![CDATA[
+		  update V_WMS_INV_DETAIL set qty=qty-#QTY# where id =#ID#
+			]]>
+    </update>
+
+    <update id="UpdateCountPQMinusByLOCUID" parameterClass="VWmsInvDetail" >
+      <![CDATA[
+		  update V_WMS_INV_DETAIL set qty=qty-#QTY# where MU_ID=#MU_ID# and LOC_ID=#LOC_ID# and UID_ID=#UID_ID#
+			]]>
+    </update>
+    
+    <update id="UPDATEINPUTAGE" parameterClass="System.Collections.IDictionary" >
+      <![CDATA[
+			  update INPUTAGE set
+				QTY=#QTY#,
+        LAST_MODIFIED=#LAST_MODIFIED#
+			  where
+				ID = #ID#
+			]]>
+    </update>
+
+    <delete id="Delete1" parameterClass="System.Collections.IDictionary" >
+      <![CDATA[
+			delete from INPUTAGE
+			where 
+				ID = #ID#
+			]]>
+    </delete>
+    
+    
+		<delete id="Delete" parameterClass="VWmsInvDetail" >
+			<![CDATA[
+			delete from V_WMS_INV_DETAIL
+			where 
+				ID = #ID#
+			]]>
+		</delete>
+	</statements>
+	
+</sqlMap>

@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<settings>
+  <add key="datasource" value="MDB_TEST" />
+  <add key="userid" value="chexiang" />
+  <add key="password" value="chexiang" />
+</settings>

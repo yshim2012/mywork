@@ -1,0 +1,402 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C2C43F8D-5952-4499-BE67-F4A743C882DF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LDV.WMS.RF.ClientForm</RootNamespace>
+    <AssemblyName>LDV.WMS.RF.ClientForm</AssemblyName>
+    <ProjectTypeGuids>{4D628B5B-2FBC-4AA6-8C16-197242AEB884};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PlatformFamilyName>PocketPC</PlatformFamilyName>
+    <PlatformID>4118C335-430C-497f-BE48-11C3316B135E</PlatformID>
+    <OSVersion>5.01</OSVersion>
+    <DeployDirSuffix>LDV_WMS_RF</DeployDirSuffix>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <NativePlatformName>Windows Mobile 5.0 Pocket PC SDK</NativePlatformName>
+    <FormFactorID>
+    </FormFactorID>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;$(PlatformFamilyName)</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <FileAlignment>512</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;$(PlatformFamilyName)</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <FileAlignment>512</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataQuery\DataQueryMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataQuery\DataQueryMain.Designer.cs">
+      <DependentUpon>DataQueryMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataQuery\MainLibraryQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataQuery\MainLibraryQuery.Designer.cs">
+      <DependentUpon>MainLibraryQuery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataQuery\FreeLibraryQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataQuery\FreeLibraryQuery.Designer.cs">
+      <DependentUpon>FreeLibraryQuery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataQuery\PartsQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataQuery\PartsQuery.Designer.cs">
+      <DependentUpon>PartsQuery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\CycleCountScanner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Inventory\CycleCountScanner.Designer.cs">
+      <DependentUpon>CycleCountScanner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\InventoryMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Inventory\InventoryMain.Designer.cs">
+      <DependentUpon>InventoryMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\PlanInventoryScan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Inventory\PlanInventoryScan.Designer.cs">
+      <DependentUpon>PlanInventoryScan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\ProgramCheckList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Inventory\ProgramCheckList.Designer.cs">
+      <DependentUpon>ProgramCheckList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LogonForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LogonForm.Designer.cs">
+      <DependentUpon>LogonForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="mainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="mainForm.Designer.cs">
+      <DependentUpon>mainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewPick\PickCheckBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewPick\PickCheckBox.Designer.cs">
+      <DependentUpon>PickCheckBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewPick\NewPickScan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewPick\NewPickScan.Designer.cs">
+      <DependentUpon>NewPickScan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Package\MergePackage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Package\MergePackage.designer.cs">
+      <DependentUpon>MergePackage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Package\PackageChange.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Package\PackageChange.Designer.cs">
+      <DependentUpon>PackageChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pick\PickCheckOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pick\PickCheckOrder.Designer.cs">
+      <DependentUpon>PickCheckOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pick\PickScan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pick\PickScan.Designer.cs">
+      <DependentUpon>PickScan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReceivingOutManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReceivingOutManager.Designer.cs">
+      <DependentUpon>ReceivingOutManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Receiving\NewReceivingAP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Receiving\NewReceivingAP.Designer.cs">
+      <DependentUpon>NewReceivingAP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Receiving\NewReceivingAPDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Receiving\NewReceivingAPDetail.Designer.cs">
+      <DependentUpon>NewReceivingAPDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Receiving\ReceivingDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Receiving\ReceivingDetail.Designer.cs">
+      <DependentUpon>ReceivingDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Receiving\ReceivingPQ.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Receiving\ReceivingPQ.Designer.cs">
+      <DependentUpon>ReceivingPQ.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Receiving\ReceivingPQDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Receiving\ReceivingPQDetail.Designer.cs">
+      <DependentUpon>ReceivingPQDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Receiving\ReceivingPQSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Receiving\ReceivingPQSelect.Designer.cs">
+      <DependentUpon>ReceivingPQSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Receiving\ReceivingScan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Receiving\ReceivingScan.Designer.cs">
+      <DependentUpon>ReceivingScan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Shipments\ShipmentsCheckOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Shipments\ShipmentsCheckOrder.Designer.cs">
+      <DependentUpon>ShipmentsCheckOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Shipments\ShipmentsOrderDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Shipments\ShipmentsOrderDetail.Designer.cs">
+      <DependentUpon>ShipmentsOrderDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Shipments\ShipmentsScan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Shipments\ShipmentsScan.Designer.cs">
+      <DependentUpon>ShipmentsScan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="User\UserEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="User\UserEdit.Designer.cs">
+      <DependentUpon>UserEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Warehouse\WarehouseMove.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Warehouse\WarehouseMove.Designer.cs">
+      <DependentUpon>WarehouseMove.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Warehouse\WarehouseMoveConfirm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Warehouse\WarehouseMoveConfirm.Designer.cs">
+      <DependentUpon>WarehouseMoveConfirm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Warehouse\WarehouseMoveNew.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Warehouse\WarehouseMoveNew.Designer.cs">
+      <DependentUpon>WarehouseMoveNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Warehouse\WarehouseMoveScan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Warehouse\WarehouseMoveScan.Designer.cs">
+      <DependentUpon>WarehouseMoveScan.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataQuery\DataQueryMain.resx">
+      <DependentUpon>DataQueryMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataQuery\MainLibraryQuery.resx">
+      <DependentUpon>MainLibraryQuery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataQuery\FreeLibraryQuery.resx">
+      <DependentUpon>FreeLibraryQuery.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataQuery\PartsQuery.resx">
+      <DependentUpon>PartsQuery.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventory\CycleCountScanner.resx">
+      <DependentUpon>CycleCountScanner.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventory\InventoryMain.resx">
+      <DependentUpon>InventoryMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventory\PlanInventoryScan.resx">
+      <DependentUpon>PlanInventoryScan.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventory\ProgramCheckList.resx">
+      <DependentUpon>ProgramCheckList.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogonForm.resx">
+      <DependentUpon>LogonForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="mainForm.resx">
+      <DependentUpon>mainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewPick\PickCheckBox.resx">
+      <DependentUpon>PickCheckBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewPick\NewPickScan.resx">
+      <DependentUpon>NewPickScan.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Package\MergePackage.resx">
+      <DependentUpon>MergePackage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Package\PackageChange.resx">
+      <DependentUpon>PackageChange.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pick\PickCheckOrder.resx">
+      <DependentUpon>PickCheckOrder.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pick\PickScan.resx">
+      <DependentUpon>PickScan.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReceivingOutManager.resx">
+      <DependentUpon>ReceivingOutManager.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Receiving\NewReceivingAP.resx">
+      <DependentUpon>NewReceivingAP.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Receiving\NewReceivingAPDetail.resx">
+      <DependentUpon>NewReceivingAPDetail.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Receiving\ReceivingDetail.resx">
+      <DependentUpon>ReceivingDetail.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Receiving\ReceivingPQ.resx">
+      <DependentUpon>ReceivingPQ.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Receiving\ReceivingPQDetail.resx">
+      <DependentUpon>ReceivingPQDetail.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Receiving\ReceivingPQSelect.resx">
+      <DependentUpon>ReceivingPQSelect.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Receiving\ReceivingScan.resx">
+      <DependentUpon>ReceivingScan.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Shipments\ShipmentsCheckOrder.resx">
+      <DependentUpon>ShipmentsCheckOrder.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Shipments\ShipmentsOrderDetail.resx">
+      <DependentUpon>ShipmentsOrderDetail.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Shipments\ShipmentsScan.resx">
+      <DependentUpon>ShipmentsScan.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User\UserEdit.resx">
+      <DependentUpon>UserEdit.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Warehouse\WarehouseMove.resx">
+      <DependentUpon>WarehouseMove.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Warehouse\WarehouseMoveConfirm.resx">
+      <DependentUpon>WarehouseMoveConfirm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Warehouse\WarehouseMoveNew.resx">
+      <DependentUpon>WarehouseMoveNew.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Warehouse\WarehouseMoveScan.resx">
+      <DependentUpon>WarehouseMoveScan.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClientForward\ClientForward.csproj">
+      <Project>{4BFA32F0-A38E-4889-AF38-4F6311CD63EA}</Project>
+      <Name>ClientForward</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}">
+        <HostingProcess disable="1" />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

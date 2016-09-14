@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="RideData" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="RideData" type="DataMapper.RideData, DataMapper" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="RideData">
+      <result property="Id" column="ID" />
+      <result property="POS_NO" column="POS_NO" />
+      <result property="CARD_PIN" column="CARD_PIN" />
+      <result property="BOARDING_LONGITUDE" column="BOARDING_LONGITUDE" />
+      <result property="BOARDING_LATITUDE" column="BOARDING_LATITUDE" />
+      <result property="ALIGHTING_LONGITUDE" column="ALIGHTING_LONGITUDE" />
+      <result property="ALIGHTING_LATITUDE" column="ALIGHTING_LATITUDE" />
+      <result property="BOARDING_TIME" column="BOARDING_TIME" />
+      <result property="ALIGHTING_TIME" column="ALIGHTING_TIME" />
+      <result property="ALIGHTING_LOC_ID" column="ALIGHTING_LOC_ID" />
+      <result property="BOARDING_LOC_ID" column="BOARDING_LOC_ID" />
+      <result property="ROUTE_ID" column="ROUTE_ID" />
+      <result property="TICKET_TYPE" column="TICKET_TYPE" />
+      <result property="AMOUNT" column="AMOUNT" />
+      <result property="JOB_NUMBER" column="JOB_NUMBER" />
+      <result property="NAME" column="NAME" />
+      <result property="DEPT" column="DEPT" />
+      <result property="CO" column="CO" />
+      <result property="CARD_TYPE" column="CARD_TYPE" />
+      <result property="COMMUTE_TYPE" column="COMMUTE_TYPE" />
+      <result property="CARRIER_ID" column="CARRIER_ID" />
+      <result property="CREATED_TIME" column="CREATED_TIME" />
+      <result property="CREATED_USER" column="CREATED_USER" />
+      <result property="UPDATED_TIME" column="UPDATED_TIME" />
+      <result property="UPDATED_USER" column="UPDATED_USER" />
+    </resultMap>
+  </resultMaps>
+
+  <statements>
+    <select id="SelectAll" resultMap="SelectResult">
+      <![CDATA[
+			select
+				* 
+			from T_RIDE_DATA
+			]]>
+    </select>
+
+    <select id="SelectById" extends="SelectAll" parameterClass="RideData" resultMap="SelectResult">
+      <![CDATA[
+			where
+				ID = #Id#
+			]]>
+    </select>
+
+    <select id="SelectByParam" extends="SelectAll" parameterClass="RideData" resultMap="SelectResult">
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="POS_NO">
+          <![CDATA[ POS_NO = #POS_NO# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="CARD_PIN">
+          <![CDATA[ CARD_PIN Like '%' +#CARD_PIN#+ '%' ]]>
+        </isNotEmpty>
+      </dynamic>
+    </select>
+
+
+    <delete id="Delete" parameterClass="RideData" >
+      <![CDATA[
+			delete from tb_RideData
+			where 
+				ID = #Id#
+			]]>
+    </delete>
+
+
+  </statements>
+
+</sqlMap>

@@ -1,0 +1,113 @@
+﻿using Common;
+using DataMapper;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using System.Data;
+
+namespace tongqinche.Controllers
+{
+    public class WhiteListApiController : ApiController
+    {
+        [HttpPost]
+        public string ShowEmployeeList(dynamic parm)
+        {
+            Employee em = new Employee();
+            if (parm != null)
+            {
+                if (parm["company"] != null)
+                {
+                    em.Company = parm["company"].ToString().Trim();
+                }
+                if (parm["department"] != null)
+                {
+                    em.Department = parm["department"].ToString().Trim();
+                }
+                if (parm["employeeNumber"] != null)
+                {
+                    em.EmployeeNo = parm["employeeNumber"].ToString().Trim();
+                }
+                if (parm["name"] != null)
+                {
+                    em.Name = parm["name"].ToString().Trim();
+                }
+                if (parm["importType"] != null)
+                {
+                    em.ImportType = parm["importType"].ToString().Trim();
+                }
+                if (parm["status"] != null)
+                {
+                    em.Status = parm["status"].ToString().Trim();
+                }
+            }
+
+            var dataList = em.QueryList("SelectByParam");
+            var jsonStr = JsonSerializationHandler.Serialize<IList<Employee>>(dataList);
+            return jsonStr;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="loc"></param>
+        [HttpPost]
+        public void ImportExcel(dynamic data)
+        {
+            try
+            {
+                if (data != null)
+                {
+                    DataTable dtFile = NPOIExcelHelper.Import(data["filePath"].ToString());
+                    DealExcel(data["fileType"].ToString(), dtFile);
+                    //var jsonStr = JsonSerializationHandler.Serialize<IList<Loc>>(locList);
+                }
+            }
+            catch (Exception)
+            {
+            }
+
+        }
+
+        [HttpPost]
+        public void DeleteEmployee(dynamic idList)
+        {
+            for (int i = 0; i < idList.Length; i++)
+            {
+                Employee em = new Employee();
+                em.Id = idList[i];
+                em.Update("");
+            }
+        }
+
+
+        public void DealExcel(string fileType, DataTable dt)
+        {
+            switch (fileType)
+            {
+                case "AIC":
+                    break;
+                case "SAP":
+                    break;
+                case "LADP":
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public void DealSAPFiles(DataTable dt)
+        { 
+            for (int i = 1; i < dt.Rows.Count; i++)
+            {
+                SapModel sap = new SapModel();
+                sap.EmployeeNo=  dt.Rows[i][0].ToString();
+                sap.TicketType = dt.Rows[i][1].ToString();
+                sap.CreateTime = DateTime.Now;
+                sap.UpdateTime = DateTime.Now;
+            }
+        }
+    }
+}

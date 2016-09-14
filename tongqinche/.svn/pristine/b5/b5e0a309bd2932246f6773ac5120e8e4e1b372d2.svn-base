@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<settings> 
+  <!--上海安吉 - 正式库10.102.1.79-->
+  <add key="server" value="192.168.0.178"/>
+  <add key="datasource" value="xybus"/>
+  <add key="userid" value="xybus"/>
+  <add key="password" value="xybus"/>
+</settings>

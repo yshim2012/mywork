@@ -1,0 +1,3264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetVersion">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetVersionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetVersionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Login">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginResult" type="tns:VPhrSecUsr" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="VPhrSecUsr">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseEntityOfVPhrSecUsr">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="ID" nillable="true" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="IS_DISABLED" nillable="true" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="IS_SYSTEM" nillable="true" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="LOGIN_NAME" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ENCRYPTED_PASSWORD" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="FIRST_NAME" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="LAST_NAME" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="BIRTHDAY" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="IS_FEMALE" nillable="true" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="COMPANY_ID" nillable="true" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="EMAIL" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="DESCRIPTION" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="LOGIN_COUNT" nillable="true" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="DISABLED_TIME" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="CREATED_TIME" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="LAST_LOGIN" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="LAST_MODIFIED" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="EXTEND_COLUMN_0" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="EXTEND_COLUMN_1" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="EXTEND_COLUMN_2" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="EXTEND_COLUMN_3" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="EXTEND_COLUMN_4" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="EXTEND_COLUMN_5" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="EXTEND_COLUMN_6" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="EXTEND_COLUMN_7" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="EXTEND_COLUMN_8" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="EXTEND_COLUMN_9" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BaseEntityOfVPhrSecUsr" />
+      <s:element name="GetUserAll">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetUserAllResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserAllResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRcvDoc">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetRcvDocResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRcvDocResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPickDoc">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetPickDocResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPickDocResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="orderNum" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserOrderResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoadMainDocByStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoadMainDocByStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoadMainDocByStatusResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePQStatusByClose">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ItemS" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DetailID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DOCID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="count" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePQStatusByCloseResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdatePQStatusByCloseResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoadMainDoc">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OrderNumber" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserId" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoadMainDocResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoadMainDocResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveOrderDetail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ITEM_ID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="InCount" type="s:float" />
+            <s:element minOccurs="1" maxOccurs="1" name="ACTUAL_QTY" type="s:float" />
+            <s:element minOccurs="1" maxOccurs="1" name="EXPECTED_QTY" type="s:float" />
+            <s:element minOccurs="1" maxOccurs="1" name="oldap_qty" type="s:float" />
+            <s:element minOccurs="0" maxOccurs="1" name="LocID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="WhseID" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="LotDate" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ISLOC" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="SUPPLIER_ID" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="User_ID" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="RID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveOrderDetailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SaveOrderDetailResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="OutMsg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoadMainDocRV">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OrderNumber" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserId" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoadMainDocRVResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoadMainDocRVResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveAllReceivingRV">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ITEM_ID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="InCount" type="s:float" />
+            <s:element minOccurs="1" maxOccurs="1" name="ACTUAL_QTY" type="s:float" />
+            <s:element minOccurs="1" maxOccurs="1" name="EXPECTED_QTY" type="s:float" />
+            <s:element minOccurs="0" maxOccurs="1" name="LocID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="WhseID" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="LotDate" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ISLOC" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="SUPPLIER_ID" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="User_ID" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="RID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveAllReceivingRVResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SaveAllReceivingRVResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="OutMsg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveAllReceivingPQ">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ITEM_ID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="InCount" type="s:float" />
+            <s:element minOccurs="1" maxOccurs="1" name="ACTUAL_QTY" type="s:float" />
+            <s:element minOccurs="1" maxOccurs="1" name="EXPECTED_QTY" type="s:float" />
+            <s:element minOccurs="0" maxOccurs="1" name="LocID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="WhseID" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="LotDate" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ISLOC" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="SUPPLIER_ID" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="User_ID" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="RID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveAllReceivingPQResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SaveAllReceivingPQResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="OutMsg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SelectReceivingStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Number_ID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SelectReceivingStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SelectReceivingStatusResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveOrderMain">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Row" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveOrderMainResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SaveOrderMainResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateUserState">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Userid" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrOrder" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OpState" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateUserStateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateUserStateResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsUserLoginOtherDevice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginTime" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsUserLoginOtherDeviceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsUserLoginOtherDeviceResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePwd">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UserId" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="NewPwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePwdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdatePwdResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="Mess" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SelectNullLoc">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="locCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SelectNullLocResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SelectNullLocResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SelectOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SelectOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SelectOrderResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SelectOrderBoxList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="orderlist" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="boxNolist" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SelectOrderBoxListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SelectOrderBoxListResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SelectOrderBoxInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="boxNum" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SelectOrderBoxInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SelectOrderBoxInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SelectOrderBy">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="orderCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="loginName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SelectOrderByResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SelectOrderByResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateQty">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="qty" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateQtyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateQtyResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryLocItem">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginTime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LocCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PartCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryLocItemResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryLocItemResult" type="tns:ArrayOfLocItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfLocItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="LocItem" nillable="true" type="tns:LocItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="LocItem">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseEntityOfLocItem">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="ID" nillable="true" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="LOC_CODE" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="UID_ID" nillable="true" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="ITEM_CODE" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="QTY" nillable="true" type="s:double" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BaseEntityOfLocItem" />
+      <s:element name="QueryPartQty">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LOC_CODE" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ITEM_CODE" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryPartQtyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryPartQtyResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryDetailById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryDetailByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryDetailByIdResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePickQueueActStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePickQueueActStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdatePickQueueActStatusResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePickBatchStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePickBatchStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdatePickBatchStatusResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MovLoc">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginTime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OldLoc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NewLoc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PartCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Count" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MovLocResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="MovLocResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="Mess" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ErrType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MovLocWithLot">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginTime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OldLoc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NewLoc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PartCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Count" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="lotNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MovLocWithLotResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="MovLocWithLotResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="Mess" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ErrType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MovePickLoc1">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginTime" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="vpaId" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="Count" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="NewLoc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MovePickLoc1Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="MovePickLoc1Result" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="Mess" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ErrType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="updateQty" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Checked">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="orderNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="batchId" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CheckedResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OrderNumber" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateStatusResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryByLocId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LocCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryByLocIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryByLocIdResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryPlanCheck">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="checkCredence" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="login_name" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserId" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryPlanCheckResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryPlanCheckResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateCheckDetailStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="User_id" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="qty" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="state" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateCheckDetailStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateCheckDetailStatusResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateChecStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="User_id" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="state" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateChecStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateChecStatusResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryWareHouse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryWareHouseResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryWareHouseResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetItem">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ItemCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetItemResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetItemResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertFreeCheck">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="LocId" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="ItemId" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="qty" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertFreeCheckResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="InsertFreeCheckResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckLoc">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginTime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OldLoc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="partCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Count" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckLocResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CheckLocResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="Mess" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoadShipOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PickCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoadShipOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoadShipOrderResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="Mesg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckPackge">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PackgCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckPackgeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckPackgeResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PackgeCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PickTickCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PackgCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="PackgeId" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PackgeCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PackgeCountResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PackgeCountByPickTickCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PickTickCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PackgeCountByPickTickCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PackgeCountByPickTickCodeResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OutShipment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PackgID" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserId" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="ItemId" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="OutCount" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="WhseId" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="WhseCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="isNew" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="PICK_TICKET_CODE" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OutShipmentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="OutShipmentResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="Mesg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryPackege">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="barcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ItemCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryPackegeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryPackegeResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryPackegeOn">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="barcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ItemCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryPackegeOnResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryPackegeOnResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePackege">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="PackegeId" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="qty" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="OldQty" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="ticketDetaiId" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="partCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="oldPackege" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pick_ticket_code" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePackegeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdatePackegeResult" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="BianQty" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="OldQty1" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SelectOrderPartInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="item_code" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SelectOrderPartInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SelectOrderPartInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="packageNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFileResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLotByItemLoc">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="itemCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="locCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLotByItemLocResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLotByItemLocResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInfoByPartCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Item_Code" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="User_ID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInfoByPartCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetInfoByPartCodeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInfoByPartCodeMloc">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Item_Code" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="User_ID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInfoByPartCodeMlocResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetInfoByPartCodeMlocResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveAddedDetail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Item_Code" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="InCount" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="Item_Loc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IsLoc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="User_ID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveAddedDetailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SaveAddedDetailResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="Msg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryMovePlan">
+        <s:complexType />
+      </s:element>
+      <s:element name="QueryMovePlanResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryMovePlanResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryMovePlanDetail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="detailId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryMovePlanDetailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryMovePlanDetailResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryMovePlanDetailByPlanNo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PlanNO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryMovePlanDetailByPlanNoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryMovePlanDetailByPlanNoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConfirmPlanMove">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="planId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="detailId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="stockId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="locId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="targetId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="moveQty" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginTime" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConfirmPlanMoveResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ConfirmPlanMoveResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="Mess" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ErrType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveOrderAutoPrintInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OrderNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveOrderAutoPrintInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SaveOrderAutoPrintInfoResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMlocByPartCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Item_Code" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMlocByPartCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMlocByPartCodeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MergePackage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="srcPakcageCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="targetPackgeCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MergePackageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="MergePackageResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="Msg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_OrderList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="date" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_OrderListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Get_OrderListResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_PackingList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="date" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_PackingListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Get_PackingListResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_QRCodeList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="date" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_QRCodeListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Get_QRCodeListResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsUserWhse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LOC_CODE" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="User_ID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsUserWhseResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsUserWhseResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMainLocByPartCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="partCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMainLocByPartCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMainLocByPartCodeResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetVersionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetVersion" />
+  </wsdl:message>
+  <wsdl:message name="GetVersionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoginSoapIn">
+    <wsdl:part name="parameters" element="tns:Login" />
+  </wsdl:message>
+  <wsdl:message name="LoginSoapOut">
+    <wsdl:part name="parameters" element="tns:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAllSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserAll" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAllSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserAllResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRcvDocSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRcvDoc" />
+  </wsdl:message>
+  <wsdl:message name="GetRcvDocSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRcvDocResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPickDocSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPickDoc" />
+  </wsdl:message>
+  <wsdl:message name="GetPickDocSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPickDocResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserOrder" />
+  </wsdl:message>
+  <wsdl:message name="GetUserOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoadMainDocByStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:LoadMainDocByStatus" />
+  </wsdl:message>
+  <wsdl:message name="LoadMainDocByStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:LoadMainDocByStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePQStatusByCloseSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdatePQStatusByClose" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePQStatusByCloseSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdatePQStatusByCloseResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoadMainDocSoapIn">
+    <wsdl:part name="parameters" element="tns:LoadMainDoc" />
+  </wsdl:message>
+  <wsdl:message name="LoadMainDocSoapOut">
+    <wsdl:part name="parameters" element="tns:LoadMainDocResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveOrderDetailSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveOrderDetail" />
+  </wsdl:message>
+  <wsdl:message name="SaveOrderDetailSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveOrderDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoadMainDocRVSoapIn">
+    <wsdl:part name="parameters" element="tns:LoadMainDocRV" />
+  </wsdl:message>
+  <wsdl:message name="LoadMainDocRVSoapOut">
+    <wsdl:part name="parameters" element="tns:LoadMainDocRVResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveAllReceivingRVSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveAllReceivingRV" />
+  </wsdl:message>
+  <wsdl:message name="SaveAllReceivingRVSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveAllReceivingRVResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveAllReceivingPQSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveAllReceivingPQ" />
+  </wsdl:message>
+  <wsdl:message name="SaveAllReceivingPQSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveAllReceivingPQResponse" />
+  </wsdl:message>
+  <wsdl:message name="SelectReceivingStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:SelectReceivingStatus" />
+  </wsdl:message>
+  <wsdl:message name="SelectReceivingStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:SelectReceivingStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveOrderMainSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveOrderMain" />
+  </wsdl:message>
+  <wsdl:message name="SaveOrderMainSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveOrderMainResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserStateSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateUserState" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserStateSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateUserStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsUserLoginOtherDeviceSoapIn">
+    <wsdl:part name="parameters" element="tns:IsUserLoginOtherDevice" />
+  </wsdl:message>
+  <wsdl:message name="IsUserLoginOtherDeviceSoapOut">
+    <wsdl:part name="parameters" element="tns:IsUserLoginOtherDeviceResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePwdSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdatePwd" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePwdSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdatePwdResponse" />
+  </wsdl:message>
+  <wsdl:message name="SelectNullLocSoapIn">
+    <wsdl:part name="parameters" element="tns:SelectNullLoc" />
+  </wsdl:message>
+  <wsdl:message name="SelectNullLocSoapOut">
+    <wsdl:part name="parameters" element="tns:SelectNullLocResponse" />
+  </wsdl:message>
+  <wsdl:message name="SelectOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:SelectOrder" />
+  </wsdl:message>
+  <wsdl:message name="SelectOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:SelectOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="SelectOrderBoxListSoapIn">
+    <wsdl:part name="parameters" element="tns:SelectOrderBoxList" />
+  </wsdl:message>
+  <wsdl:message name="SelectOrderBoxListSoapOut">
+    <wsdl:part name="parameters" element="tns:SelectOrderBoxListResponse" />
+  </wsdl:message>
+  <wsdl:message name="SelectOrderBoxInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:SelectOrderBoxInfo" />
+  </wsdl:message>
+  <wsdl:message name="SelectOrderBoxInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:SelectOrderBoxInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="SelectOrderBySoapIn">
+    <wsdl:part name="parameters" element="tns:SelectOrderBy" />
+  </wsdl:message>
+  <wsdl:message name="SelectOrderBySoapOut">
+    <wsdl:part name="parameters" element="tns:SelectOrderByResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateQtySoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateQty" />
+  </wsdl:message>
+  <wsdl:message name="UpdateQtySoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateQtyResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryLocItemSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryLocItem" />
+  </wsdl:message>
+  <wsdl:message name="QueryLocItemSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryLocItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryPartQtySoapIn">
+    <wsdl:part name="parameters" element="tns:QueryPartQty" />
+  </wsdl:message>
+  <wsdl:message name="QueryPartQtySoapOut">
+    <wsdl:part name="parameters" element="tns:QueryPartQtyResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryDetailByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryDetailById" />
+  </wsdl:message>
+  <wsdl:message name="QueryDetailByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryDetailByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePickQueueActStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdatePickQueueActStatus" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePickQueueActStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdatePickQueueActStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePickBatchStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdatePickBatchStatus" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePickBatchStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdatePickBatchStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="MovLocSoapIn">
+    <wsdl:part name="parameters" element="tns:MovLoc" />
+  </wsdl:message>
+  <wsdl:message name="MovLocSoapOut">
+    <wsdl:part name="parameters" element="tns:MovLocResponse" />
+  </wsdl:message>
+  <wsdl:message name="MovLocWithLotSoapIn">
+    <wsdl:part name="parameters" element="tns:MovLocWithLot" />
+  </wsdl:message>
+  <wsdl:message name="MovLocWithLotSoapOut">
+    <wsdl:part name="parameters" element="tns:MovLocWithLotResponse" />
+  </wsdl:message>
+  <wsdl:message name="MovePickLoc1SoapIn">
+    <wsdl:part name="parameters" element="tns:MovePickLoc1" />
+  </wsdl:message>
+  <wsdl:message name="MovePickLoc1SoapOut">
+    <wsdl:part name="parameters" element="tns:MovePickLoc1Response" />
+  </wsdl:message>
+  <wsdl:message name="CheckedSoapIn">
+    <wsdl:part name="parameters" element="tns:Checked" />
+  </wsdl:message>
+  <wsdl:message name="CheckedSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckedResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateStatus" />
+  </wsdl:message>
+  <wsdl:message name="UpdateStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryByLocIdSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryByLocId" />
+  </wsdl:message>
+  <wsdl:message name="QueryByLocIdSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryByLocIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryPlanCheckSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryPlanCheck" />
+  </wsdl:message>
+  <wsdl:message name="QueryPlanCheckSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryPlanCheckResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCheckDetailStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateCheckDetailStatus" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCheckDetailStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateCheckDetailStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateChecStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateChecStatus" />
+  </wsdl:message>
+  <wsdl:message name="UpdateChecStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateChecStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryWareHouseSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryWareHouse" />
+  </wsdl:message>
+  <wsdl:message name="QueryWareHouseSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryWareHouseResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetItemSoapIn">
+    <wsdl:part name="parameters" element="tns:GetItem" />
+  </wsdl:message>
+  <wsdl:message name="GetItemSoapOut">
+    <wsdl:part name="parameters" element="tns:GetItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertFreeCheckSoapIn">
+    <wsdl:part name="parameters" element="tns:InsertFreeCheck" />
+  </wsdl:message>
+  <wsdl:message name="InsertFreeCheckSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertFreeCheckResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckLocSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckLoc" />
+  </wsdl:message>
+  <wsdl:message name="CheckLocSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckLocResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoadShipOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:LoadShipOrder" />
+  </wsdl:message>
+  <wsdl:message name="LoadShipOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:LoadShipOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckPackgeSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckPackge" />
+  </wsdl:message>
+  <wsdl:message name="CheckPackgeSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckPackgeResponse" />
+  </wsdl:message>
+  <wsdl:message name="PackgeCountSoapIn">
+    <wsdl:part name="parameters" element="tns:PackgeCount" />
+  </wsdl:message>
+  <wsdl:message name="PackgeCountSoapOut">
+    <wsdl:part name="parameters" element="tns:PackgeCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="PackgeCountByPickTickCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:PackgeCountByPickTickCode" />
+  </wsdl:message>
+  <wsdl:message name="PackgeCountByPickTickCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:PackgeCountByPickTickCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="OutShipmentSoapIn">
+    <wsdl:part name="parameters" element="tns:OutShipment" />
+  </wsdl:message>
+  <wsdl:message name="OutShipmentSoapOut">
+    <wsdl:part name="parameters" element="tns:OutShipmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryPackegeSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryPackege" />
+  </wsdl:message>
+  <wsdl:message name="QueryPackegeSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryPackegeResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryPackegeOnSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryPackegeOn" />
+  </wsdl:message>
+  <wsdl:message name="QueryPackegeOnSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryPackegeOnResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePackegeSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdatePackege" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePackegeSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdatePackegeResponse" />
+  </wsdl:message>
+  <wsdl:message name="SelectOrderPartInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:SelectOrderPartInfo" />
+  </wsdl:message>
+  <wsdl:message name="SelectOrderPartInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:SelectOrderPartInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFileSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFile" />
+  </wsdl:message>
+  <wsdl:message name="GetFileSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLotByItemLocSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLotByItemLoc" />
+  </wsdl:message>
+  <wsdl:message name="GetLotByItemLocSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLotByItemLocResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetInfoByPartCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetInfoByPartCode" />
+  </wsdl:message>
+  <wsdl:message name="GetInfoByPartCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetInfoByPartCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetInfoByPartCodeMlocSoapIn">
+    <wsdl:part name="parameters" element="tns:GetInfoByPartCodeMloc" />
+  </wsdl:message>
+  <wsdl:message name="GetInfoByPartCodeMlocSoapOut">
+    <wsdl:part name="parameters" element="tns:GetInfoByPartCodeMlocResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveAddedDetailSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveAddedDetail" />
+  </wsdl:message>
+  <wsdl:message name="SaveAddedDetailSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveAddedDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryMovePlanSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryMovePlan" />
+  </wsdl:message>
+  <wsdl:message name="QueryMovePlanSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryMovePlanResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryMovePlanDetailSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryMovePlanDetail" />
+  </wsdl:message>
+  <wsdl:message name="QueryMovePlanDetailSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryMovePlanDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryMovePlanDetailByPlanNoSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryMovePlanDetailByPlanNo" />
+  </wsdl:message>
+  <wsdl:message name="QueryMovePlanDetailByPlanNoSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryMovePlanDetailByPlanNoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConfirmPlanMoveSoapIn">
+    <wsdl:part name="parameters" element="tns:ConfirmPlanMove" />
+  </wsdl:message>
+  <wsdl:message name="ConfirmPlanMoveSoapOut">
+    <wsdl:part name="parameters" element="tns:ConfirmPlanMoveResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveOrderAutoPrintInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveOrderAutoPrintInfo" />
+  </wsdl:message>
+  <wsdl:message name="SaveOrderAutoPrintInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveOrderAutoPrintInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMlocByPartCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMlocByPartCode" />
+  </wsdl:message>
+  <wsdl:message name="GetMlocByPartCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMlocByPartCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="MergePackageSoapIn">
+    <wsdl:part name="parameters" element="tns:MergePackage" />
+  </wsdl:message>
+  <wsdl:message name="MergePackageSoapOut">
+    <wsdl:part name="parameters" element="tns:MergePackageResponse" />
+  </wsdl:message>
+  <wsdl:message name="Get_OrderListSoapIn">
+    <wsdl:part name="parameters" element="tns:Get_OrderList" />
+  </wsdl:message>
+  <wsdl:message name="Get_OrderListSoapOut">
+    <wsdl:part name="parameters" element="tns:Get_OrderListResponse" />
+  </wsdl:message>
+  <wsdl:message name="Get_PackingListSoapIn">
+    <wsdl:part name="parameters" element="tns:Get_PackingList" />
+  </wsdl:message>
+  <wsdl:message name="Get_PackingListSoapOut">
+    <wsdl:part name="parameters" element="tns:Get_PackingListResponse" />
+  </wsdl:message>
+  <wsdl:message name="Get_QRCodeListSoapIn">
+    <wsdl:part name="parameters" element="tns:Get_QRCodeList" />
+  </wsdl:message>
+  <wsdl:message name="Get_QRCodeListSoapOut">
+    <wsdl:part name="parameters" element="tns:Get_QRCodeListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsUserWhseSoapIn">
+    <wsdl:part name="parameters" element="tns:IsUserWhse" />
+  </wsdl:message>
+  <wsdl:message name="IsUserWhseSoapOut">
+    <wsdl:part name="parameters" element="tns:IsUserWhseResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMainLocByPartCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMainLocByPartCode" />
+  </wsdl:message>
+  <wsdl:message name="GetMainLocByPartCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMainLocByPartCodeResponse" />
+  </wsdl:message>
+  <wsdl:portType name="LdvRfWebServiceSoap">
+    <wsdl:operation name="GetVersion">
+      <wsdl:input message="tns:GetVersionSoapIn" />
+      <wsdl:output message="tns:GetVersionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <wsdl:input message="tns:LoginSoapIn" />
+      <wsdl:output message="tns:LoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAll">
+      <wsdl:input message="tns:GetUserAllSoapIn" />
+      <wsdl:output message="tns:GetUserAllSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRcvDoc">
+      <wsdl:input message="tns:GetRcvDocSoapIn" />
+      <wsdl:output message="tns:GetRcvDocSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPickDoc">
+      <wsdl:input message="tns:GetPickDocSoapIn" />
+      <wsdl:output message="tns:GetPickDocSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserOrder">
+      <wsdl:input message="tns:GetUserOrderSoapIn" />
+      <wsdl:output message="tns:GetUserOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoadMainDocByStatus">
+      <wsdl:input message="tns:LoadMainDocByStatusSoapIn" />
+      <wsdl:output message="tns:LoadMainDocByStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePQStatusByClose">
+      <wsdl:input message="tns:UpdatePQStatusByCloseSoapIn" />
+      <wsdl:output message="tns:UpdatePQStatusByCloseSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoadMainDoc">
+      <wsdl:input message="tns:LoadMainDocSoapIn" />
+      <wsdl:output message="tns:LoadMainDocSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrderDetail">
+      <wsdl:input message="tns:SaveOrderDetailSoapIn" />
+      <wsdl:output message="tns:SaveOrderDetailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoadMainDocRV">
+      <wsdl:input message="tns:LoadMainDocRVSoapIn" />
+      <wsdl:output message="tns:LoadMainDocRVSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveAllReceivingRV">
+      <wsdl:input message="tns:SaveAllReceivingRVSoapIn" />
+      <wsdl:output message="tns:SaveAllReceivingRVSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveAllReceivingPQ">
+      <wsdl:input message="tns:SaveAllReceivingPQSoapIn" />
+      <wsdl:output message="tns:SaveAllReceivingPQSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectReceivingStatus">
+      <wsdl:input message="tns:SelectReceivingStatusSoapIn" />
+      <wsdl:output message="tns:SelectReceivingStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrderMain">
+      <wsdl:input message="tns:SaveOrderMainSoapIn" />
+      <wsdl:output message="tns:SaveOrderMainSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserState">
+      <wsdl:input message="tns:UpdateUserStateSoapIn" />
+      <wsdl:output message="tns:UpdateUserStateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsUserLoginOtherDevice">
+      <wsdl:input message="tns:IsUserLoginOtherDeviceSoapIn" />
+      <wsdl:output message="tns:IsUserLoginOtherDeviceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePwd">
+      <wsdl:input message="tns:UpdatePwdSoapIn" />
+      <wsdl:output message="tns:UpdatePwdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectNullLoc">
+      <wsdl:input message="tns:SelectNullLocSoapIn" />
+      <wsdl:output message="tns:SelectNullLocSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectOrder">
+      <wsdl:input message="tns:SelectOrderSoapIn" />
+      <wsdl:output message="tns:SelectOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectOrderBoxList">
+      <wsdl:input message="tns:SelectOrderBoxListSoapIn" />
+      <wsdl:output message="tns:SelectOrderBoxListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectOrderBoxInfo">
+      <wsdl:input message="tns:SelectOrderBoxInfoSoapIn" />
+      <wsdl:output message="tns:SelectOrderBoxInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectOrderBy">
+      <wsdl:input message="tns:SelectOrderBySoapIn" />
+      <wsdl:output message="tns:SelectOrderBySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateQty">
+      <wsdl:input message="tns:UpdateQtySoapIn" />
+      <wsdl:output message="tns:UpdateQtySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryLocItem">
+      <wsdl:input message="tns:QueryLocItemSoapIn" />
+      <wsdl:output message="tns:QueryLocItemSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryPartQty">
+      <wsdl:input message="tns:QueryPartQtySoapIn" />
+      <wsdl:output message="tns:QueryPartQtySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryDetailById">
+      <wsdl:input message="tns:QueryDetailByIdSoapIn" />
+      <wsdl:output message="tns:QueryDetailByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePickQueueActStatus">
+      <wsdl:input message="tns:UpdatePickQueueActStatusSoapIn" />
+      <wsdl:output message="tns:UpdatePickQueueActStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePickBatchStatus">
+      <wsdl:input message="tns:UpdatePickBatchStatusSoapIn" />
+      <wsdl:output message="tns:UpdatePickBatchStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MovLoc">
+      <wsdl:input message="tns:MovLocSoapIn" />
+      <wsdl:output message="tns:MovLocSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MovLocWithLot">
+      <wsdl:input message="tns:MovLocWithLotSoapIn" />
+      <wsdl:output message="tns:MovLocWithLotSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MovePickLoc1">
+      <wsdl:input message="tns:MovePickLoc1SoapIn" />
+      <wsdl:output message="tns:MovePickLoc1SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Checked">
+      <wsdl:input message="tns:CheckedSoapIn" />
+      <wsdl:output message="tns:CheckedSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateStatus">
+      <wsdl:input message="tns:UpdateStatusSoapIn" />
+      <wsdl:output message="tns:UpdateStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryByLocId">
+      <wsdl:input message="tns:QueryByLocIdSoapIn" />
+      <wsdl:output message="tns:QueryByLocIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryPlanCheck">
+      <wsdl:input message="tns:QueryPlanCheckSoapIn" />
+      <wsdl:output message="tns:QueryPlanCheckSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCheckDetailStatus">
+      <wsdl:input message="tns:UpdateCheckDetailStatusSoapIn" />
+      <wsdl:output message="tns:UpdateCheckDetailStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateChecStatus">
+      <wsdl:input message="tns:UpdateChecStatusSoapIn" />
+      <wsdl:output message="tns:UpdateChecStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryWareHouse">
+      <wsdl:input message="tns:QueryWareHouseSoapIn" />
+      <wsdl:output message="tns:QueryWareHouseSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetItem">
+      <wsdl:input message="tns:GetItemSoapIn" />
+      <wsdl:output message="tns:GetItemSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertFreeCheck">
+      <wsdl:input message="tns:InsertFreeCheckSoapIn" />
+      <wsdl:output message="tns:InsertFreeCheckSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckLoc">
+      <wsdl:input message="tns:CheckLocSoapIn" />
+      <wsdl:output message="tns:CheckLocSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoadShipOrder">
+      <wsdl:input message="tns:LoadShipOrderSoapIn" />
+      <wsdl:output message="tns:LoadShipOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckPackge">
+      <wsdl:input message="tns:CheckPackgeSoapIn" />
+      <wsdl:output message="tns:CheckPackgeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PackgeCount">
+      <wsdl:input message="tns:PackgeCountSoapIn" />
+      <wsdl:output message="tns:PackgeCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PackgeCountByPickTickCode">
+      <wsdl:input message="tns:PackgeCountByPickTickCodeSoapIn" />
+      <wsdl:output message="tns:PackgeCountByPickTickCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OutShipment">
+      <wsdl:input message="tns:OutShipmentSoapIn" />
+      <wsdl:output message="tns:OutShipmentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryPackege">
+      <wsdl:input message="tns:QueryPackegeSoapIn" />
+      <wsdl:output message="tns:QueryPackegeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryPackegeOn">
+      <wsdl:input message="tns:QueryPackegeOnSoapIn" />
+      <wsdl:output message="tns:QueryPackegeOnSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePackege">
+      <wsdl:input message="tns:UpdatePackegeSoapIn" />
+      <wsdl:output message="tns:UpdatePackegeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectOrderPartInfo">
+      <wsdl:input message="tns:SelectOrderPartInfoSoapIn" />
+      <wsdl:output message="tns:SelectOrderPartInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFile">
+      <wsdl:input message="tns:GetFileSoapIn" />
+      <wsdl:output message="tns:GetFileSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLotByItemLoc">
+      <wsdl:input message="tns:GetLotByItemLocSoapIn" />
+      <wsdl:output message="tns:GetLotByItemLocSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoByPartCode">
+      <wsdl:input message="tns:GetInfoByPartCodeSoapIn" />
+      <wsdl:output message="tns:GetInfoByPartCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoByPartCodeMloc">
+      <wsdl:input message="tns:GetInfoByPartCodeMlocSoapIn" />
+      <wsdl:output message="tns:GetInfoByPartCodeMlocSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveAddedDetail">
+      <wsdl:input message="tns:SaveAddedDetailSoapIn" />
+      <wsdl:output message="tns:SaveAddedDetailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryMovePlan">
+      <wsdl:input message="tns:QueryMovePlanSoapIn" />
+      <wsdl:output message="tns:QueryMovePlanSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryMovePlanDetail">
+      <wsdl:input message="tns:QueryMovePlanDetailSoapIn" />
+      <wsdl:output message="tns:QueryMovePlanDetailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryMovePlanDetailByPlanNo">
+      <wsdl:input message="tns:QueryMovePlanDetailByPlanNoSoapIn" />
+      <wsdl:output message="tns:QueryMovePlanDetailByPlanNoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmPlanMove">
+      <wsdl:input message="tns:ConfirmPlanMoveSoapIn" />
+      <wsdl:output message="tns:ConfirmPlanMoveSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrderAutoPrintInfo">
+      <wsdl:input message="tns:SaveOrderAutoPrintInfoSoapIn" />
+      <wsdl:output message="tns:SaveOrderAutoPrintInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMlocByPartCode">
+      <wsdl:input message="tns:GetMlocByPartCodeSoapIn" />
+      <wsdl:output message="tns:GetMlocByPartCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MergePackage">
+      <wsdl:input message="tns:MergePackageSoapIn" />
+      <wsdl:output message="tns:MergePackageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_OrderList">
+      <wsdl:input message="tns:Get_OrderListSoapIn" />
+      <wsdl:output message="tns:Get_OrderListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_PackingList">
+      <wsdl:input message="tns:Get_PackingListSoapIn" />
+      <wsdl:output message="tns:Get_PackingListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_QRCodeList">
+      <wsdl:input message="tns:Get_QRCodeListSoapIn" />
+      <wsdl:output message="tns:Get_QRCodeListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsUserWhse">
+      <wsdl:input message="tns:IsUserWhseSoapIn" />
+      <wsdl:output message="tns:IsUserWhseSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMainLocByPartCode">
+      <wsdl:input message="tns:GetMainLocByPartCodeSoapIn" />
+      <wsdl:output message="tns:GetMainLocByPartCodeSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="LdvRfWebServiceSoap" type="tns:LdvRfWebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetVersion">
+      <soap:operation soapAction="http://tempuri.org/GetVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <soap:operation soapAction="http://tempuri.org/Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAll">
+      <soap:operation soapAction="http://tempuri.org/GetUserAll" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRcvDoc">
+      <soap:operation soapAction="http://tempuri.org/GetRcvDoc" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPickDoc">
+      <soap:operation soapAction="http://tempuri.org/GetPickDoc" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserOrder">
+      <soap:operation soapAction="http://tempuri.org/GetUserOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadMainDocByStatus">
+      <soap:operation soapAction="http://tempuri.org/LoadMainDocByStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePQStatusByClose">
+      <soap:operation soapAction="http://tempuri.org/UpdatePQStatusByClose" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadMainDoc">
+      <soap:operation soapAction="http://tempuri.org/LoadMainDoc" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrderDetail">
+      <soap:operation soapAction="http://tempuri.org/SaveOrderDetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadMainDocRV">
+      <soap:operation soapAction="http://tempuri.org/LoadMainDocRV" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveAllReceivingRV">
+      <soap:operation soapAction="http://tempuri.org/SaveAllReceivingRV" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveAllReceivingPQ">
+      <soap:operation soapAction="http://tempuri.org/SaveAllReceivingPQ" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectReceivingStatus">
+      <soap:operation soapAction="http://tempuri.org/SelectReceivingStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrderMain">
+      <soap:operation soapAction="http://tempuri.org/SaveOrderMain" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserState">
+      <soap:operation soapAction="http://tempuri.org/UpdateUserState" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsUserLoginOtherDevice">
+      <soap:operation soapAction="http://tempuri.org/IsUserLoginOtherDevice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePwd">
+      <soap:operation soapAction="http://tempuri.org/UpdatePwd" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectNullLoc">
+      <soap:operation soapAction="http://tempuri.org/SelectNullLoc" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectOrder">
+      <soap:operation soapAction="http://tempuri.org/SelectOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectOrderBoxList">
+      <soap:operation soapAction="http://tempuri.org/SelectOrderBoxList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectOrderBoxInfo">
+      <soap:operation soapAction="http://tempuri.org/SelectOrderBoxInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectOrderBy">
+      <soap:operation soapAction="http://tempuri.org/SelectOrderBy" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateQty">
+      <soap:operation soapAction="http://tempuri.org/UpdateQty" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryLocItem">
+      <soap:operation soapAction="http://tempuri.org/QueryLocItem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryPartQty">
+      <soap:operation soapAction="http://tempuri.org/QueryPartQty" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryDetailById">
+      <soap:operation soapAction="http://tempuri.org/QueryDetailById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePickQueueActStatus">
+      <soap:operation soapAction="http://tempuri.org/UpdatePickQueueActStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePickBatchStatus">
+      <soap:operation soapAction="http://tempuri.org/UpdatePickBatchStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MovLoc">
+      <soap:operation soapAction="http://tempuri.org/MovLoc" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MovLocWithLot">
+      <soap:operation soapAction="http://tempuri.org/MovLocWithLot" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MovePickLoc1">
+      <soap:operation soapAction="http://tempuri.org/MovePickLoc1" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Checked">
+      <soap:operation soapAction="http://tempuri.org/Checked" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateStatus">
+      <soap:operation soapAction="http://tempuri.org/UpdateStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryByLocId">
+      <soap:operation soapAction="http://tempuri.org/QueryByLocId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryPlanCheck">
+      <soap:operation soapAction="http://tempuri.org/QueryPlanCheck" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCheckDetailStatus">
+      <soap:operation soapAction="http://tempuri.org/UpdateCheckDetailStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateChecStatus">
+      <soap:operation soapAction="http://tempuri.org/UpdateChecStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryWareHouse">
+      <soap:operation soapAction="http://tempuri.org/QueryWareHouse" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetItem">
+      <soap:operation soapAction="http://tempuri.org/GetItem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertFreeCheck">
+      <soap:operation soapAction="http://tempuri.org/InsertFreeCheck" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckLoc">
+      <soap:operation soapAction="http://tempuri.org/CheckLoc" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadShipOrder">
+      <soap:operation soapAction="http://tempuri.org/LoadShipOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckPackge">
+      <soap:operation soapAction="http://tempuri.org/CheckPackge" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PackgeCount">
+      <soap:operation soapAction="http://tempuri.org/PackgeCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PackgeCountByPickTickCode">
+      <soap:operation soapAction="http://tempuri.org/PackgeCountByPickTickCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OutShipment">
+      <soap:operation soapAction="http://tempuri.org/OutShipment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryPackege">
+      <soap:operation soapAction="http://tempuri.org/QueryPackege" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryPackegeOn">
+      <soap:operation soapAction="http://tempuri.org/QueryPackegeOn" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePackege">
+      <soap:operation soapAction="http://tempuri.org/UpdatePackege" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectOrderPartInfo">
+      <soap:operation soapAction="http://tempuri.org/SelectOrderPartInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFile">
+      <soap:operation soapAction="http://tempuri.org/GetFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLotByItemLoc">
+      <soap:operation soapAction="http://tempuri.org/GetLotByItemLoc" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoByPartCode">
+      <soap:operation soapAction="http://tempuri.org/GetInfoByPartCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoByPartCodeMloc">
+      <soap:operation soapAction="http://tempuri.org/GetInfoByPartCodeMloc" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveAddedDetail">
+      <soap:operation soapAction="http://tempuri.org/SaveAddedDetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryMovePlan">
+      <soap:operation soapAction="http://tempuri.org/QueryMovePlan" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryMovePlanDetail">
+      <soap:operation soapAction="http://tempuri.org/QueryMovePlanDetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryMovePlanDetailByPlanNo">
+      <soap:operation soapAction="http://tempuri.org/QueryMovePlanDetailByPlanNo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmPlanMove">
+      <soap:operation soapAction="http://tempuri.org/ConfirmPlanMove" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrderAutoPrintInfo">
+      <soap:operation soapAction="http://tempuri.org/SaveOrderAutoPrintInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMlocByPartCode">
+      <soap:operation soapAction="http://tempuri.org/GetMlocByPartCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MergePackage">
+      <soap:operation soapAction="http://tempuri.org/MergePackage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_OrderList">
+      <soap:operation soapAction="http://tempuri.org/Get_OrderList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_PackingList">
+      <soap:operation soapAction="http://tempuri.org/Get_PackingList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_QRCodeList">
+      <soap:operation soapAction="http://tempuri.org/Get_QRCodeList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsUserWhse">
+      <soap:operation soapAction="http://tempuri.org/IsUserWhse" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMainLocByPartCode">
+      <soap:operation soapAction="http://tempuri.org/GetMainLocByPartCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="LdvRfWebServiceSoap12" type="tns:LdvRfWebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetVersion">
+      <soap12:operation soapAction="http://tempuri.org/GetVersion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <soap12:operation soapAction="http://tempuri.org/Login" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAll">
+      <soap12:operation soapAction="http://tempuri.org/GetUserAll" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRcvDoc">
+      <soap12:operation soapAction="http://tempuri.org/GetRcvDoc" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPickDoc">
+      <soap12:operation soapAction="http://tempuri.org/GetPickDoc" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserOrder">
+      <soap12:operation soapAction="http://tempuri.org/GetUserOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadMainDocByStatus">
+      <soap12:operation soapAction="http://tempuri.org/LoadMainDocByStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePQStatusByClose">
+      <soap12:operation soapAction="http://tempuri.org/UpdatePQStatusByClose" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadMainDoc">
+      <soap12:operation soapAction="http://tempuri.org/LoadMainDoc" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrderDetail">
+      <soap12:operation soapAction="http://tempuri.org/SaveOrderDetail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadMainDocRV">
+      <soap12:operation soapAction="http://tempuri.org/LoadMainDocRV" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveAllReceivingRV">
+      <soap12:operation soapAction="http://tempuri.org/SaveAllReceivingRV" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveAllReceivingPQ">
+      <soap12:operation soapAction="http://tempuri.org/SaveAllReceivingPQ" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectReceivingStatus">
+      <soap12:operation soapAction="http://tempuri.org/SelectReceivingStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrderMain">
+      <soap12:operation soapAction="http://tempuri.org/SaveOrderMain" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserState">
+      <soap12:operation soapAction="http://tempuri.org/UpdateUserState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsUserLoginOtherDevice">
+      <soap12:operation soapAction="http://tempuri.org/IsUserLoginOtherDevice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePwd">
+      <soap12:operation soapAction="http://tempuri.org/UpdatePwd" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectNullLoc">
+      <soap12:operation soapAction="http://tempuri.org/SelectNullLoc" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectOrder">
+      <soap12:operation soapAction="http://tempuri.org/SelectOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectOrderBoxList">
+      <soap12:operation soapAction="http://tempuri.org/SelectOrderBoxList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectOrderBoxInfo">
+      <soap12:operation soapAction="http://tempuri.org/SelectOrderBoxInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectOrderBy">
+      <soap12:operation soapAction="http://tempuri.org/SelectOrderBy" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateQty">
+      <soap12:operation soapAction="http://tempuri.org/UpdateQty" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryLocItem">
+      <soap12:operation soapAction="http://tempuri.org/QueryLocItem" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryPartQty">
+      <soap12:operation soapAction="http://tempuri.org/QueryPartQty" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryDetailById">
+      <soap12:operation soapAction="http://tempuri.org/QueryDetailById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePickQueueActStatus">
+      <soap12:operation soapAction="http://tempuri.org/UpdatePickQueueActStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePickBatchStatus">
+      <soap12:operation soapAction="http://tempuri.org/UpdatePickBatchStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MovLoc">
+      <soap12:operation soapAction="http://tempuri.org/MovLoc" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MovLocWithLot">
+      <soap12:operation soapAction="http://tempuri.org/MovLocWithLot" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MovePickLoc1">
+      <soap12:operation soapAction="http://tempuri.org/MovePickLoc1" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Checked">
+      <soap12:operation soapAction="http://tempuri.org/Checked" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateStatus">
+      <soap12:operation soapAction="http://tempuri.org/UpdateStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryByLocId">
+      <soap12:operation soapAction="http://tempuri.org/QueryByLocId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryPlanCheck">
+      <soap12:operation soapAction="http://tempuri.org/QueryPlanCheck" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCheckDetailStatus">
+      <soap12:operation soapAction="http://tempuri.org/UpdateCheckDetailStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateChecStatus">
+      <soap12:operation soapAction="http://tempuri.org/UpdateChecStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryWareHouse">
+      <soap12:operation soapAction="http://tempuri.org/QueryWareHouse" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetItem">
+      <soap12:operation soapAction="http://tempuri.org/GetItem" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertFreeCheck">
+      <soap12:operation soapAction="http://tempuri.org/InsertFreeCheck" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckLoc">
+      <soap12:operation soapAction="http://tempuri.org/CheckLoc" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadShipOrder">
+      <soap12:operation soapAction="http://tempuri.org/LoadShipOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckPackge">
+      <soap12:operation soapAction="http://tempuri.org/CheckPackge" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PackgeCount">
+      <soap12:operation soapAction="http://tempuri.org/PackgeCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PackgeCountByPickTickCode">
+      <soap12:operation soapAction="http://tempuri.org/PackgeCountByPickTickCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OutShipment">
+      <soap12:operation soapAction="http://tempuri.org/OutShipment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryPackege">
+      <soap12:operation soapAction="http://tempuri.org/QueryPackege" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryPackegeOn">
+      <soap12:operation soapAction="http://tempuri.org/QueryPackegeOn" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePackege">
+      <soap12:operation soapAction="http://tempuri.org/UpdatePackege" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectOrderPartInfo">
+      <soap12:operation soapAction="http://tempuri.org/SelectOrderPartInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFile">
+      <soap12:operation soapAction="http://tempuri.org/GetFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLotByItemLoc">
+      <soap12:operation soapAction="http://tempuri.org/GetLotByItemLoc" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoByPartCode">
+      <soap12:operation soapAction="http://tempuri.org/GetInfoByPartCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoByPartCodeMloc">
+      <soap12:operation soapAction="http://tempuri.org/GetInfoByPartCodeMloc" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveAddedDetail">
+      <soap12:operation soapAction="http://tempuri.org/SaveAddedDetail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryMovePlan">
+      <soap12:operation soapAction="http://tempuri.org/QueryMovePlan" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryMovePlanDetail">
+      <soap12:operation soapAction="http://tempuri.org/QueryMovePlanDetail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryMovePlanDetailByPlanNo">
+      <soap12:operation soapAction="http://tempuri.org/QueryMovePlanDetailByPlanNo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmPlanMove">
+      <soap12:operation soapAction="http://tempuri.org/ConfirmPlanMove" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrderAutoPrintInfo">
+      <soap12:operation soapAction="http://tempuri.org/SaveOrderAutoPrintInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMlocByPartCode">
+      <soap12:operation soapAction="http://tempuri.org/GetMlocByPartCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MergePackage">
+      <soap12:operation soapAction="http://tempuri.org/MergePackage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_OrderList">
+      <soap12:operation soapAction="http://tempuri.org/Get_OrderList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_PackingList">
+      <soap12:operation soapAction="http://tempuri.org/Get_PackingList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_QRCodeList">
+      <soap12:operation soapAction="http://tempuri.org/Get_QRCodeList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsUserWhse">
+      <soap12:operation soapAction="http://tempuri.org/IsUserWhse" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMainLocByPartCode">
+      <soap12:operation soapAction="http://tempuri.org/GetMainLocByPartCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="LdvRfWebService">
+    <wsdl:port name="LdvRfWebServiceSoap" binding="tns:LdvRfWebServiceSoap">
+      <soap:address location="http://192.168.0.107/LDV-RF-Services/LdvRfWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="LdvRfWebServiceSoap12" binding="tns:LdvRfWebServiceSoap12">
+      <soap12:address location="http://192.168.0.107/LDV-RF-Services/LdvRfWebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

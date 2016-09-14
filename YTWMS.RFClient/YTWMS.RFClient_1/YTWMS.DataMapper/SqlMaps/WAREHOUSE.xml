@@ -1,0 +1,411 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="WareHouse" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="WareHouse" type="DataMapper.WareHouse, DataMapper" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="WareHouse">
+      <result property="ID" column="ID" />
+      <result property="WAREHOUSE_CODE" column="WAREHOUSE_CODE" />
+      <result property="WAREHOUSE_NAME" column="WAREHOUSE_NAME" />
+      <result property="CONTACT" column="CONTACT" />
+      <result property="PHONE" column="PHONE" />
+      <result property="ADDRESS" column="ADDRESS" />
+      <result property="E_MAIL" column="E_MAIL" />
+      <result property="TYPE" column="TYPE" />
+      <result property="IS_DISABLE" column="IS_DISABLE" />
+      <result property="REMARK" column="REMARK" />
+      <result property="CREATE_TIME" column="CREATE_TIME" />
+      <result property="CREATE_USER_ID" column="CREATE_USER_ID" />
+      <result property="LAST_UPDATE" column="LAST_UPDATE" />
+      <result property="UPDATE_USER_ID" column="UPDATE_USER_ID" />
+      <result property="WAREHOUSE_ID" column="WAREHOUSE_ID" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectAll" resultMap="SelectResult" >
+      <![CDATA[
+			SELECT 
+            ID
+            ,WAREHOUSE_CODE
+            ,WAREHOUSE_NAME
+            ,CONTACT
+            ,PHONE
+            ,ADDRESS
+            ,E_MAIL
+            ,TYPE
+            ,IS_DISABLE
+            ,REMARK
+            ,CREATE_TIME
+            ,CREATE_USER_ID
+            ,LAST_UPDATE
+            ,UPDATE_USER_ID
+            ,WAREHOUSE_ID
+        FROM WAREHOUSE
+			]]>
+    </select>
+
+
+    <!--通过仓库名称获取仓库id-->
+    <select id="SelectWID" extends="SelectAll" resultMap="SelectResult" parameterClass="WareHouse">
+      <dynamic prepend="WHERE">
+        <isNotNull property="ID">
+          <isNotEqual prepend="AND" property="ID" compareValue="0">
+            <![CDATA[ ID = #ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="WAREHOUSE_NAME">
+          <![CDATA[ WAREHOUSE_NAME = #WAREHOUSE_NAME#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="WAREHOUSE_CODE">
+          <![CDATA[ WAREHOUSE_CODE = #WAREHOUSE_CODE#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="TYPE">
+          <![CDATA[ TYPE = #TYPE#]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="IS_DISABLE">
+          <![CDATA[ IS_DISABLE = #IS_DISABLE#]]>
+        </isNotEmpty>
+        <isNotNull property="WAREHOUSE_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+            <![CDATA[ WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <!--零件对应的供应商-->
+    <select id="SelectPartSupplier" resultMap="SelectResult" parameterClass="System.Collections.IDictionary" >
+      <![CDATA[select w.ID
+            ,WAREHOUSE_CODE
+            ,WAREHOUSE_NAME
+            , w.CONTACT
+            ,w.PHONE
+            ,w.ADDRESS
+            ,w.E_MAIL
+            ,w.TYPE
+            ,w.IS_DISABLE
+            ,w.REMARK
+            ,w.CREATE_TIME
+            ,w.CREATE_USER_ID
+            ,w.LAST_UPDATE
+            ,w.UPDATE_USER_ID
+         FROM PART p
+      INNER JOIN WAREHOUSE w ON w.ID=p.SUPPLIER_ID]]>
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="PART_CODE">
+          <![CDATA[ PART_CODE = #PART_CODE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="PART_NAME">
+          <![CDATA[ PART_NAME = #PART_NAME# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="WAREHOUSE_NAME">
+          <![CDATA[ WAREHOUSE_NAME = #WAREHOUSE_NAME# ]]>
+        </isNotEmpty>
+        <isNotNull property="WAREHOUSE_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+            <![CDATA[ W.WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectByParam" extends="SelectAll" resultMap="SelectResult"  parameterClass="WareHouse">
+      <dynamic prepend="WHERE">
+        <isNotNull property="ID">
+          <isNotEqual prepend="AND" property="ID" compareValue="0">
+            <![CDATA[ ID = #ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="WAREHOUSE_NAME">
+          <![CDATA[ WAREHOUSE_NAME LIKE '%'+ #WAREHOUSE_NAME# +'%' ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="WAREHOUSE_CODE">
+          <![CDATA[ WAREHOUSE_CODE LIKE '%'+ #WAREHOUSE_CODE# +'%' ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="CONTACT">
+          <![CDATA[ CONTACT = #CONTACT# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="IS_DISABLE">
+          <![CDATA[ IS_DISABLE = #IS_DISABLE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="TYPE">
+          <![CDATA[ TYPE = #TYPE# ]]>
+        </isNotEmpty>
+        <isNotNull property="WAREHOUSE_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+            <![CDATA[ WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+      </dynamic>
+      <![CDATA[ order by WAREHOUSE_CODE desc  ]]>
+    </select>
+    <!--查询接口仓库代码-->
+    <select id="SelectInterface" extends="SelectAll" resultMap="SelectResult"  parameterClass="WareHouse">
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="WAREHOUSE_CODE">
+          <![CDATA[ WAREHOUSE_CODE = #WAREHOUSE_CODE#  ]]>
+        </isNotEmpty>
+        <isNotNull property="WAREHOUSE_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+            <![CDATA[ WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+      </dynamic>
+      <![CDATA[ order by WAREHOUSE_CODE desc  ]]>
+    </select>
+
+    <!--查询有效收货客户名称-->
+    <select id="SelectByParamWithDictionary" extends="SelectAll" resultMap="SelectResult"  parameterClass="System.Collections.IDictionary">
+      <dynamic prepend="WHERE">
+        <isNotNull property="ID">
+          <isNotEqual prepend="AND" property="ID" compareValue="0">
+            <![CDATA[ ID = #ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="WAREHOUSE_NAME">
+          <![CDATA[ WAREHOUSE_NAME LIKE '%'+ #WAREHOUSE_NAME# +'%' ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="WAREHOUSE_CODE">
+          <![CDATA[ WAREHOUSE_CODE LIKE '%'+ #WAREHOUSE_CODE# +'%' ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="CONTACT">
+          <![CDATA[ CONTACT = #CONTACT# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="IS_DISABLE">
+          <![CDATA[ IS_DISABLE = #IS_DISABLE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="TYPE">
+          <![CDATA[ TYPE = #TYPE# ]]>
+        </isNotEmpty>
+        <isNotNull property="WAREHOUSE_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+            <![CDATA[ WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <!--查询有效供应商名称-->
+    <select id="SelectSupplierName" extends="SelectAll" resultMap="SelectResult"  parameterClass="System.Collections.IDictionary">
+      <dynamic prepend="WHERE">
+        <isNotNull property="ID">
+          <isNotEqual prepend="AND" property="ID" compareValue="0">
+            <![CDATA[ ID = #ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="WAREHOUSE_NAME">
+          <![CDATA[ WAREHOUSE_NAME LIKE '%'+ #WAREHOUSE_NAME# +'%' ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="WAREHOUSE_CODE">
+          <![CDATA[ WAREHOUSE_CODE LIKE '%'+ #WAREHOUSE_CODE# +'%' ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="CONTACT">
+          <![CDATA[ CONTACT = #CONTACT# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="IS_DISABLE">
+          <![CDATA[ IS_DISABLE = #IS_DISABLE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="TYPE">
+          <![CDATA[ TYPE = #TYPE# ]]>
+        </isNotEmpty>
+        <isNotNull property="WAREHOUSE_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+            <![CDATA[ WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <select id="SelectWarehouseName"  parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+      select ID,WAREHOUSE_NAME from dbo.WAREHOUSE where TYPE='customer' and IS_DISABLE = 0
+      ]]>
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="WAREHOUSE_NAME">
+
+        </isNotEmpty>
+      </dynamic>
+    </select>
+
+    <select id="SelectWName"  parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+      select ID,WAREHOUSE_NAME from dbo.WAREHOUSE where TYPE='supplier' and IS_DISABLE = 0
+      ]]>
+      <dynamic>
+        <isNotNull property="WAREHOUSE_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+            <![CDATA[ WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+
+        <isNotEmpty prepend="AND" property="WAREHOUSE_NAME">
+
+        </isNotEmpty>
+      </dynamic>
+    </select>
+
+    <select id="SelectHouseArea"  parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+         SELECT  W.WAREHOUSE_CODE,W.WAREHOUSE_NAME,A.AREA_NAME,MA.MANAGE_AREA_NAME,
+              case W.IS_DISABLE when '1' then '无效' else '有效' end  IS_DISABLE ,WA.AREA_ID,WMA.MANAGE_AREA_ID
+              FROM WAREHOUSE W 
+              LEFT JOIN WAREHOUSE_AREA WA ON (WA.WAREHOUSE_ID=W.ID)
+              LEFT JOIN AREA A ON(WA.AREA_ID=A.ID)
+              LEFT JOIN WAREAHOUSE_MANAGE_AREA WMA ON (WMA.WAREHOUSE_ID=W.ID)
+              LEFT JOIN MANAGE_AREA MA ON(WMA.MANAGE_AREA_ID=MA.ID)
+      ]]>
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="WAREHOUSE_NAME">
+          <![CDATA[ W.WAREHOUSE_NAME LIKE '%'+ #WAREHOUSE_NAME# +'%' ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="WAREHOUSE_CODE">
+          <![CDATA[ W.WAREHOUSE_CODE LIKE '%'+ #WAREHOUSE_CODE# +'%' ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="TYPE">
+          <![CDATA[ W.TYPE = #TYPE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="IS_DISABLE">
+          <![CDATA[ W.IS_DISABLE = #IS_DISABLE# ]]>
+        </isNotEmpty>
+        <isNotNull property="WAREHOUSE_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+            <![CDATA[ W.WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+      </dynamic>
+      <![CDATA[ order by W.WAREHOUSE_CODE desc  ]]>
+    </select>
+
+    <select id="SelectHouseArea1"  parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+        * FROM ( 	SELECT DISTINCT 
+	      W.WAREHOUSE_CODE,W.WAREHOUSE_NAME,A.AREA_NAME,MA.MANAGE_AREA_NAME,  
+	        case W.IS_DISABLE when '1' then '无效' else '有效' end  IS_DISABLE,WA.AREA_ID,WMA.MANAGE_AREA_ID
+	           FROM WAREHOUSE_AREA WA        
+	          INNER JOIN WAREHOUSE W ON(WA.WAREHOUSE_ID=W.ID)   
+	          INNER JOIN AREA A ON(WA.AREA_ID=A.ID)	                                  
+			      INNER JOIN WAREAHOUSE_MANAGE_AREA WMA ON (WMA.WAREHOUSE_ID=W.ID)    
+			      INNER JOIN MANAGE_AREA MA ON(WMA.MANAGE_AREA_ID=MA.ID)  
+      ]]>
+      <dynamic prepend="WHERE">
+        <isNotEmpty prepend="AND" property="WAREHOUSE_NAME">
+          <![CDATA[ W.WAREHOUSE_NAME LIKE '%'+ #WAREHOUSE_NAME# +'%' ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="WAREHOUSE_CODE">
+          <![CDATA[ W.WAREHOUSE_CODE LIKE '%'+ #WAREHOUSE_CODE# +'%' ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="TYPE">
+          <![CDATA[ W.TYPE = #TYPE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="IS_DISABLE">
+          <![CDATA[ W.IS_DISABLE = #IS_DISABLE# ]]>
+        </isNotEmpty>
+        <isNotNull property="WAREHOUSE_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+            <![CDATA[ W.WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+      </dynamic>
+      <![CDATA[ ) AS b]]>
+    </select>
+
+    <select id="SelectWareHouseLoc"  parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+           SELECT W.ID,W.WAREHOUSE_CODE,W.WAREHOUSE_NAME,A.AREA_NAME,MA.MANAGE_AREA_NAME,WL.LOC_CODE,
+           case W.IS_DISABLE when '1' then '无效' else '有效' end  IS_DISABLE
+           FROM WAREHOUSE_AREA WA        
+           INNER JOIN WAREHOUSE W ON(WA.WAREHOUSE_ID=W.ID)   
+           INNER JOIN AREA A ON(WA.AREA_ID=A.ID)                                   
+           INNER JOIN WAREAHOUSE_MANAGE_AREA WMA ON (WMA.WAREHOUSE_ID=W.ID)    
+           INNER JOIN MANAGE_AREA MA ON(WMA.MANAGE_AREA_ID=MA.ID)  
+           INNER JOIN WAREHOUSE_LOCATION WL on (A.id=WL.AREA_ID)
+           WHERE   W.TYPE =  'warehouse' 
+      ]]>
+      <dynamic >
+        <isNotEmpty prepend="AND" property="ID">
+          <![CDATA[ W.ID =#ID# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="LOC_CODE">
+          <![CDATA[ WL.LOC_CODE = #LOC_CODE# ]]>
+        </isNotEmpty>
+        <isNotNull property="WAREHOUSE_ID">
+          <isNotEqual prepend="AND" property="WAREHOUSE_ID" compareValue="0">
+            <![CDATA[ W.WAREHOUSE_ID = #WAREHOUSE_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+      </dynamic>
+    </select>
+
+    <insert id="Insert" parameterClass="WareHouse">
+      <![CDATA[
+		        INSERT INTO WAREHOUSE
+                 (WAREHOUSE_CODE
+                  ,WAREHOUSE_NAME
+                  ,CONTACT
+                  ,PHONE
+                  ,ADDRESS
+                  ,E_MAIL
+                  ,TYPE
+                  ,IS_DISABLE
+                  ,REMARK
+                  ,CREATE_TIME
+                  ,CREATE_USER_ID
+                  ,WAREHOUSE_ID)
+           VALUES
+               (#WAREHOUSE_CODE#
+               ,#WAREHOUSE_NAME#
+               ,#CONTACT#
+               ,#PHONE#
+               ,#ADDRESS#
+               ,#E_MAIL#
+               ,#TYPE#
+               ,#IS_DISABLE#
+               ,#REMARK#
+               ,#CREATE_TIME#
+               ,#CREATE_USER_ID#
+               ,#WAREHOUSE_ID#)
+			]]>
+      <selectKey resultClass="int" type="post" property="ID" >
+        <![CDATA[ select @@IDENTITY ; ]]>
+      </selectKey>
+    </insert>
+
+    <!--逻辑删除-->
+    <update id="DeleteInfo" parameterClass="WareHouse">
+      <![CDATA[
+     UPDATE WAREHOUSE
+       SET 
+          IS_DISABLE = #IS_DISABLE#
+          ,LAST_UPDATE = #LAST_UPDATE#
+          ,UPDATE_USER_ID = #UPDATE_USER_ID#
+      WHERE ID=#ID#
+      ]]>
+    </update>
+
+    <update id="UpdateInfo" parameterClass="WareHouse">
+      <![CDATA[
+       UPDATE WAREHOUSE
+           SET WAREHOUSE_CODE = #WAREHOUSE_CODE#
+              ,WAREHOUSE_NAME = #WAREHOUSE_NAME#
+              ,CONTACT = #CONTACT#
+              ,PHONE = #PHONE#
+              ,ADDRESS = #ADDRESS#
+              ,E_MAIL = #E_MAIL#
+              ,TYPE = #TYPE#
+              ,IS_DISABLE = #IS_DISABLE#
+              ,REMARK = #REMARK#
+              ,LAST_UPDATE = #LAST_UPDATE#
+              ,UPDATE_USER_ID = #UPDATE_USER_ID#
+      WHERE ID=#ID#
+      ]]>
+    </update>
+
+
+  </statements>
+</sqlMap>

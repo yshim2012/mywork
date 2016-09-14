@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="PartLoc" xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <alias>
+    <typeAlias alias="PartLoc" type="DataMapper.PartLoc, DataMapper" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="PartLoc">
+      <result property="ID" column="ID" />
+      <result property="PART_ID" column="PART_ID" />
+      <result property="LOC_ID" column="LOC_ID" />
+      <result property="LOC_TYPE" column="LOC_TYPE" />
+      <result property="LOC_MIN" column="LOC_MIN" />
+      <result property="LOC_MAX" column="LOC_MAX" />
+      <result property="WAREHOUSE_ID" column="WAREHOUSE_ID" />
+      <result property="IS_DISABLE" column="IS_DISABLE" />
+      <result property="CREATE_TIME" column="CREATE_TIME" />
+      <result property="CREATE_USER_ID" column="CREATE_USER_ID" />
+      <result property="LAST_UPDATE" column="LAST_UPDATE" />
+      <result property="UPDATE_USER_ID" column="UPDATE_USER_ID" />
+      <result property="SUPPLIER_ID" column="SUPPLIER_ID" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <select id="SelectAll" resultMap="SelectResult" >
+      <![CDATA[
+			SELECT ID
+            ,PART_ID
+            ,LOC_ID
+            ,LOC_TYPE
+            ,LOC_MIN
+            ,LOC_MAX
+            ,WAREHOUSE_ID
+            ,IS_DISABLE
+            ,CREATE_TIME
+            ,CREATE_USER_ID
+            ,LAST_UPDATE
+            ,UPDATE_USER_ID
+            ,SUPPLIER_ID
+        FROM PART_LOC
+			]]>
+    </select>
+    <select id="SelectGetLoc" resultMap="SelectResult" parameterClass="PartLoc">
+      <![CDATA[
+        select p.id PART_ID,pl.LOC_ID,pl.LOC_TYPE,pl. LOC_MIN,pl.LOC_MAX,ps.STOCK_QTY ,
+        wl.LOC_CODE,wl.LOC_NAME,p.PART_CODE from BATCH_PART  b           
+        INNER join PART_STOCK ps on b.id= ps.BATCH_PART_ID
+        left join part_loc pl on pl.PART_ID= b.PART_ID
+        left join part p on p.id =b.PART_ID
+        left join WAREHOUSE_LOCATION wl on wl.id =pl.LOC_ID
+			]]>
+      <dynamic prepend="WHERE">
+        <isNotEqual prepend="AND" property="loc_type" compareValue="0">
+          <![CDATA[ pl.loc_type = #loc_type# ]]>
+        </isNotEqual>
+        <isNotEqual prepend="AND" property="warehouse_id" compareValue="0">
+          <![CDATA[ pl.warehouse_id = #warehouse_id# ]]>
+        </isNotEqual>
+      </dynamic>
+    </select>
+
+    <select id="SelectByParam" extends="SelectAll" resultMap="SelectResult"  parameterClass="PartLoc">
+      <dynamic prepend="WHERE">
+        <isNotNull property="ID">
+          <isNotEqual prepend="AND" property="ID" compareValue="0">
+            <![CDATA[ ID = #ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull property="PART_ID">
+          <isNotEqual prepend="AND" property="PART_ID" compareValue="0">
+            <![CDATA[ PART_ID = #PART_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotNull property="LOC_ID">
+          <isNotEqual prepend="AND" property="LOC_ID" compareValue="0">
+            <![CDATA[ LOC_ID = #LOC_ID# ]]>
+          </isNotEqual>
+        </isNotNull>
+        <isNotEmpty prepend="AND" property="LOC_TYPE">
+          <![CDATA[ LOC_TYPE = #LOC_TYPE# ]]>
+        </isNotEmpty>
+        <isNotEmpty prepend="AND" property="IS_DISABLE">
+          <![CDATA[ IS_DISABLE = #IS_DISABLE# ]]>
+        </isNotEmpty>
+      </dynamic>
+    </select>
+
+    <!--物料信息明细- 零件对应库位查询-->
+    <select id="SelectLoc" resultMap="SelectResult"  parameterClass="System.Collections.IDictionary">
+      <![CDATA[
+           SELECT  WL.ID WAREHOUSE_LOCATION_ID, WL.LOC_CODE,PL.LOC_TYPE,
+            CASE PL.LOC_TYPE WHEN'Nomal 'THEN'正常库位' 
+            WHEN'UnNomal'THEN'不良品库位' 
+            WHEN'Hold 'THEN'HOLD区库位' 
+            WHEN'UnInspection'THEN'待报验' 
+            WHEN'Package 'THEN'包装' 
+            WHEN'Aftermarket'THEN'售后件' 
+            WHEN'Shipped'THEN'待发区' 
+            ELSE'' END AS LOC_TYPE_NAME,
+            PL.LOC_MIN,
+            PL.LOC_MAX,PL.ID
+            FROM PART_LOC PL
+            LEFT JOIN WAREHOUSE_LOCATION WL ON (WL.ID=PL.LOC_ID AND WL.IS_DISABLE=0)
+            LEFT JOIN PART P ON (P.ID=PL.PART_ID AND P.IS_DISABLE=0)    
+            WHERE PL.IS_DISABLE=0
+			]]>
+      <isNotNull property="PART_ID">
+        <isNotEqual prepend="AND" property="PART_ID" compareValue="0">
+          <![CDATA[ P.ID = #PART_ID# ]]>
+        </isNotEqual>
+      </isNotNull>
+    </select>
+
+
+    <insert id="Insert" parameterClass="PartLoc">
+      <![CDATA[
+		        INSERT INTO PART_LOC
+                 (PART_ID
+                  ,LOC_ID
+                  ,LOC_TYPE
+                  ,LOC_MIN
+                  ,LOC_MAX
+                  ,WAREHOUSE_ID
+                  ,IS_DISABLE
+                  ,CREATE_TIME
+                  ,CREATE_USER_ID
+                  ,LAST_UPDATE
+                  ,UPDATE_USER_ID)
+           VALUES
+               (#PART_ID#
+               ,#LOC_ID#
+               ,#LOC_TYPE#
+               ,#LOC_MIN#
+               ,#LOC_MAX#
+               ,#WAREHOUSE_ID#
+               ,#IS_DISABLE#
+               ,#CREATE_TIME#
+               ,#CREATE_USER_ID#
+               ,#LAST_UPDATE#
+               ,#UPDATE_USER_ID#)
+			]]>
+      <selectKey resultClass="int" type="post" property="ID" >
+        <![CDATA[ select @@IDENTITY ; ]]>
+      </selectKey>
+    </insert>
+
+    <!--更改推荐库位最大最小库位-->
+    <update id="UpdateLocMaxMin" parameterClass="PartLoc">
+      <![CDATA[
+          UPDATE PART_LOC 
+              SET LOC_MIN =#LOC_MIN#,
+	                LOC_MAX=#LOC_MAX#
+	           WHERE ID=#ID#
+      ]]>
+    </update>
+
+    <!--更改翻包装零件MAX值-->
+    <update id="UpdateLocPackageMax" parameterClass="PartLoc">
+      <![CDATA[
+          UPDATE PART_LOC 
+               SET LOC_MAX=#LOC_MAX#,
+               LAST_UPDATE=getdate(),
+	             UPDATE_USER_ID=#UPDATE_USER_ID#
+	        WHERE PART_ID= #PART_ID#
+	              AND LOC_TYPE= #LOC_TYPE#
+      ]]>
+    </update>
+
+    <!--逻辑删除-->
+    <delete id="Delete" parameterClass="PartLoc" >
+      <![CDATA[
+		      	DELETE PART_LOC WHERE ID=#ID#
+			]]>
+    </delete>
+
+  </statements>
+</sqlMap>

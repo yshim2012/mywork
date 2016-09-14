@@ -1,0 +1,109 @@
+﻿namespace LDV.WMS.RF.ClientForm
+{
+    partial class DataQueryMain
+    {
+        /// <summary>
+        /// 必需的设计器变量。
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// 清理所有正在使用的资源。
+        /// </summary>
+        /// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows 窗体设计器生成的代码
+
+        /// <summary>
+        /// 设计器支持所需的方法 - 不要
+        /// 使用代码编辑器修改此方法的内容。
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.button2 = new System.Windows.Forms.Button();
+            this.btn = new System.Windows.Forms.Button();
+            this.btnBack = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.Green;
+            this.button2.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.button2.ForeColor = System.Drawing.Color.White;
+            this.button2.Location = new System.Drawing.Point(7, 110);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(226, 36);
+            this.button2.TabIndex = 7;
+            this.button2.Text = "空库位查询";
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // btn
+            // 
+            this.btn.BackColor = System.Drawing.Color.Green;
+            this.btn.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.btn.ForeColor = System.Drawing.Color.White;
+            this.btn.Location = new System.Drawing.Point(7, 46);
+            this.btn.Name = "btn";
+            this.btn.Size = new System.Drawing.Size(226, 36);
+            this.btn.TabIndex = 6;
+            this.btn.Text = "零件库存查询";
+            this.btn.Click += new System.EventHandler(this.btn_Click);
+            // 
+            // btnBack
+            // 
+            this.btnBack.BackColor = System.Drawing.Color.Green;
+            this.btnBack.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.btnBack.ForeColor = System.Drawing.Color.White;
+            this.btnBack.Location = new System.Drawing.Point(7, 235);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(226, 36);
+            this.btnBack.TabIndex = 7;
+            this.btnBack.Text = "返       回";
+            this.btnBack.Click += new System.EventHandler(this.menuBack_Click);
+            // 
+            // button3
+            // 
+            this.button3.BackColor = System.Drawing.Color.Green;
+            this.button3.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular);
+            this.button3.ForeColor = System.Drawing.Color.White;
+            this.button3.Location = new System.Drawing.Point(7, 172);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(226, 36);
+            this.button3.TabIndex = 8;
+            this.button3.Text = "主库位查询";
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // DataQueryMain
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(243, 352);
+            this.ControlBox = false;
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.btnBack);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btn);
+            this.Name = "DataQueryMain";
+            this.Text = "数据查询";
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btn;
+        private System.Windows.Forms.Button btnBack;
+        private System.Windows.Forms.Button button3;
+    }
+}
