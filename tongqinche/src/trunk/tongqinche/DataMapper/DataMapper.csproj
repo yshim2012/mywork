@@ -46,10 +46,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\BaseEntity.cs" />
+    <Compile Include="Entities\BaseInfo\Carrier.cs" />
     <Compile Include="Entities\BaseInfo\Dict.cs" />
     <Compile Include="Entities\BaseInfo\Employee.cs" />
     <Compile Include="Entities\BaseInfo\Loc.cs" />
     <Compile Include="Entities\BaseInfo\POSCarrier.cs" />
+    <Compile Include="Entities\BaseInfo\RideData.cs" />
     <Compile Include="Entities\BaseInfo\Route.cs" />
     <Compile Include="Entities\BaseInfo\RouteLoc.cs" />
     <Compile Include="Entities\BaseInfo\RouteShift.cs" />
@@ -92,7 +94,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SqlMaps\BaseInfo\POSCarrier.xml" />
+    <EmbeddedResource Include="SqlMaps\BaseInfo\POSCarrier.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SqlMaps\BaseInfo\Carrier.xml" />
+    <EmbeddedResource Include="SqlMaps\BaseInfo\RideData.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

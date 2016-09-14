@@ -331,25 +331,19 @@
                            @Html.ActionLink("承运商管理", "CarrierIndex", "Carrier", routeValues: null, htmlAttributes: new { id = "CarrierIndex" })
                         </li>
                         <li>
-                            <a href="">
-                                车载机信息
-                            </a>
+                           @Html.ActionLink("车载机管理", "POSIndex", "POS", routeValues: null, htmlAttributes: new { id = "POSIndex" })
 
                         </li>
 
                         <li>
 
-                            <a href="">
-
-                                车载机与承运商信息
-                            </a>
+                            @Html.ActionLink("车载机与承运商信息", "POSCarrierIndex", "POSCarrier", routeValues: null, htmlAttributes: new { id = "POSCarrierIndex" })
 
                         </li>
 
                         <li>
                             @Html.ActionLink("系统参数设置", "DictIndex", "Dict", routeValues: null, htmlAttributes: new { id = "DictLink" })
                         </li>
-
                     </ul>
 
                 </li>

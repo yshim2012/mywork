@@ -13,7 +13,7 @@ namespace tongqinche.Controllers
 {
     public class POSCarrierApiController : ApiController
     {
-        public string GetLoc()
+        public string GetPOSCarrier()
         {
             POSCarrier _POSCarrier = new POSCarrier();
             var POSCarrierList = _POSCarrier.QueryList("SelectAll");
@@ -23,7 +23,7 @@ namespace tongqinche.Controllers
         }
 
         [HttpPost]
-        public int CreateLoc(dynamic _POSCarrier)
+        public int CreatePOSCarrier(dynamic _POSCarrier)
         {
             if (_POSCarrier != null)
             {
@@ -43,7 +43,7 @@ namespace tongqinche.Controllers
         }
 
         [HttpPost]
-        public string PostLoc(dynamic parm)
+        public string PostPOSCarrier(dynamic parm)
         {
             IDictionary paramHashtable1 = new Hashtable();
             if (parm != null)
@@ -52,10 +52,10 @@ namespace tongqinche.Controllers
                 {
                     paramHashtable1.Add("CarrierId", parm["CarrierId"].ToString().Trim());
                 }
-                if (parm["CreateUserId"] != null)
-                {
-                    paramHashtable1.Add("CreateUserId", parm["CreateUserId"].ToString().Trim());
-                }
+                //if (parm["CreateUserId"] != null)
+                //{
+                //    paramHashtable1.Add("CreateUserId", parm["CreateUserId"].ToString().Trim());
+                //}
                 //if (parm["LocAddress"] != null)
                 //{
                 //    paramHashtable1.Add("LocCode", parm["LocAddress"].ToString().Trim());
@@ -77,7 +77,7 @@ namespace tongqinche.Controllers
         }
 
         [HttpPost]
-        public void ExportLoc(dynamic parm)
+        public void ExportPOSCarrier(dynamic parm)
         {
             try
             {

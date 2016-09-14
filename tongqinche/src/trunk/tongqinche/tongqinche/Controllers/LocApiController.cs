@@ -22,7 +22,7 @@ namespace tongqinche.Controllers
             var jsonStr = JsonSerializationHandler.Serialize<IList<Loc>>(locList);
             return jsonStr;
 
-        }
+        } 
         [HttpPost]
         public int CreateLoc(dynamic loc)
         {

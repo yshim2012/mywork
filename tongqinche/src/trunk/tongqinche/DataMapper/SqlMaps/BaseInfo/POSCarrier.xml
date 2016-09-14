@@ -46,14 +46,15 @@
     left join TB_POS p on (l.POSId = p.ID and l.Status =0)
       ]]>
       <dynamic prepend="WHERE">
-        <isNotEmpty prepend="AND" property="CarrierName">
+        <isNotEmpty prepend="AND" property="CarrierId">
           <![CDATA[ c.CarrierName Like '%' +#CarrierName#+ '%']]>
         </isNotEmpty>
-        <isNotEmpty prepend="AND" property="POSCarrierName">
+        <isNotEmpty prepend="AND" property="POSId">
           <![CDATA[ l.POSId  = #POSId# ]]>
         </isNotEmpty>
         <isNotEmpty prepend="AND" property="Status">
-          <![CDATA[ l.Status = #Status# ]]>
+          <![CDATA[ l.Status = 0 ]]>
+          <!--<![CDATA[ l.Status = #Status# ]]>-->
         </isNotEmpty>
       </dynamic>
     </select>
@@ -61,7 +62,7 @@
     <!--POS机与承运商关系查询-导出-->
     <select id="SelectExportPOSCarrier" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
       <![CDATA[
-       select c.CarrierName,l.POSId,c.Contact,c.Mobile,l.Status from TB_Rel_POS_Carrier l
+       select l.ID,c.CarrierName,l.POSId,c.Contact,c.Mobile,l.Status from TB_Rel_POS_Carrier l
         left join TB_Carrier c on (l.CarrierId = c.ID and l.Status =0)
         left join TB_POS p on (l.POSId = p.ID and l.Status =0)
      ]]>
@@ -95,7 +96,7 @@
        CarrierId =  = #CarrierId#
       ,POSId =  #POSId#
       ,UpdateTime =getdate()
-      ,UpdateUserid = #UpdateUserid#
+      ,UpdateUserId = #UpdateUserId#
      where
 					ID = #Id#
   			]]>
@@ -119,7 +120,7 @@
             #CarrierId#
             ,#Status#
             ,getdate()
-            ,#CreateUserid#
+            ,#CreateUserId#
             ,getdate()
            ,#UpdateUserId#
            ,#POSId#
